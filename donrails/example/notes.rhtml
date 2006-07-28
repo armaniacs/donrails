@@ -1,0 +1,70 @@
+<html lang="ja">
+<head>
+
+<%= auto_discovery_link_tag(:rss, :action => 'rdf_category', :category => @rdf_category) if @rdf_category %>
+<%= auto_discovery_link_tag(:rss, :action => 'rdf_article', :id => @rdf_article) if @rdf_article %>
+<%= auto_discovery_link_tag(:atom, :controller => 'atom', :action => 'feed', :id => @rdf_article) if @rdf_article %>
+<%= auto_discovery_link_tag(:rss, :action => 'rdf_recent') %>
+<%= auto_discovery_link_tag(:atom, :controller => 'atom', :action => 'feed') %>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rev="made" href="mailto:yasu@debian.or.jp">
+<meta name="author" content="ARAKI Yasuhiro">
+
+<%= stylesheet_link_tag "araki" %>
+<%= javascript_include_tag "code-toggle-popup.js" %>
+<%= javascript_include_tag "prototype.js" %>
+<% if @noindex %>
+<meta name="robots" content="noindex">
+<% end %>
+
+<title>ARAKI notes - <%=h strip_links(@heading) if @heading %></title>
+
+</head>
+
+<body>
+<div class="head">
+<%= link_to "トップ", {:action => "index"} %>
+/
+<%= link_to "日記", {:action => "noteslist"} %>
+/ This is ARAKI's daily notes.
+</div> <!-- end of head -->
+
+<div class="mainarticle">
+<%= @content_for_layout %>
+</div>
+
+<div class="sidebar">
+<div class="lefttitle">
+
+<%= render("shared/search") %>
+[最近のdonrails関連]
+<%= render("shared/category_title_list", "category" => "donrails") %>
+[最近のruby関連]
+<%= render("shared/category_title_list", "category" => "ruby") %>
+
+<%= render("shared/show_direct") %>
+
+カテゴリ
+<% ["road","ruby","mail","mono"].each do |cat| %>
+/<%= link_to cat, {:action => "show_category", :category => cat} %>
+<% end %>
+
+<%= render("shared/category_select") %>
+
+<address>yasu@debian.or.jp</address>
+実ノ商人ハ先モ立チ我モ立ツコトヲ思フナリ
+<p>
+<%= link_to "管理", {:controller => 'login', :action => 'login_index' }, :confirm => "Really login for management?" %>
+</p>
+<p>
+このpageは<a href="http://www.araki.net/wiki/donrails-wiliki.cgi">donrails</a>で生成されています。
+</p>
+</div> <!-- end of left -->
+
+<div class="footer">
+</div> <!-- end of footer -->
+
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+<%= secure_form_tag :action => "add_author" %>
+name:<%= text_field "author", "name" %><br>
+nickname:<%= text_field "author", "nickname" %><br>
+password:<%= password_field "author", "pass" %><br>
+summary:(著者の簡単な紹介。例: 猫と唐揚げをこよなく愛す奈良人。音楽はUKロックを中心になんでも。その他趣味嗜好はエントリを見てね。)<br><%= text_area "author", "summary", "rows" => 4 %><br>
+<%= submit_tag "save" %>
+<%= end_form_tag %>

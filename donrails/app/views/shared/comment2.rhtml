@@ -1,0 +1,30 @@
+<% if article.comments %>
+<% article.comments.each do |x| %>
+<% unless x.hidden == 1 %>
+<div class="tsukkomi" >
+  <dl class="comments">
+    <dt><span class="poster">この記事へのコメント: by <%=h x.author %> / <%= x.date %></span></dt>
+    <dd><%= auto_link x.body %></dd>
+  </dl>
+</div>
+<% end %>
+<% end %>
+<% end %>
+
+<% if article.trackbacks %>
+<% article.trackbacks.each do |x| %>
+<% unless x.hidden == 1 %>
+<div class="trackback" >
+  <dl class="comments">
+    <dt><span class="poster">この記事へのトラックバック: by <%=h x.blog_name %><%= auto_link x.url %></span></dt>
+    <dd>Title: <%=h x.title %><%=h x.excerpt %></dd>
+  </dl>
+</div>
+<% end %>
+<% end %>
+<% end %>
+
+<div class="boardlink">
+  <%= link_to('[コメントする]', :action => "comment_form", :id => article.id) %>
+  [TrackBack URL:<%= auto_link @request.protocol + @request.host_with_port + url_for(:action => 'trackback', :id => article.id) %>]
+</div> <!-- end of boadlink -->

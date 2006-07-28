@@ -1,0 +1,43 @@
+
+<html>
+<head>
+
+<title><%=h @heading %></title>
+</head>
+
+<body>
+<h1><%=h @heading %></h1>
+<% if @flash["notice"] %>
+<span class="notice" %>
+  <%= @flash["notice"] %>
+</span>
+<% end %>
+
+<%= link_to "list", :action => "list" %>
+<%= link_to "kakulist", :action => "kakulist" %>
+<%= link_to "recent", :action => "recent" %>
+
+<%= form_tag :action => 'show_date' %>
+<%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
+<%= submit_tag "select one day" %>
+<%= end_form_tag %>
+
+<%= form_tag :action => 'afterday' %>
+<%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
+<%= submit_tag "select day (show after .. )" %>
+<%= end_form_tag %>
+
+<%= form_tag :action => 'betweenday' %>
+from:
+<%= date_select(:ymd1, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
+to:
+<%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
+<%= submit_tag "select from.. to" %>
+<%= end_form_tag %>
+
+<br>
+<%= @content_for_layout %>
+
+<hr>
+<address>yasu@debian.or.jp</address>
+</body> </html>

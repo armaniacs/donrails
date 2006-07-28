@@ -1,0 +1,24 @@
+xml.instruct! :xml, :version=>"1.0", :encoding => "utf-8"
+
+xml.entry("xmlns" => "http://purl.org/atom/ns\#") do
+  xml.link("rel" => "alternate", "type" => 'text/html', "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_title", :id => @image.article_id))
+
+  xml.link("rel" => "alternate", "type" => @image.content_type, "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_image", :id => @image.id))
+
+  xml.link("rel" => "service.edit", "type" => "application/atom+xml", "href" => @request.protocol + @request.host_with_port + url_for(:action => "image_post", :id => @image.id))
+
+#  xml.modified pub_date(@image.article_mtime)
+  xml.id 'tag:' + @request.host + ':notes:image:' + @image.id.to_s + ':' + @image.id.to_s
+
+
+#   if @image and @image.author.nickname
+#     xml.author do
+#       xml.name @image.author.nickname
+#     end
+#   elsif @image and @image.author.name
+#     xml.author do
+#       @image.author.name
+#     end
+#   end
+  
+end		  

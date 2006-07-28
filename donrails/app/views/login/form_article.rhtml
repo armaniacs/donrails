@@ -1,0 +1,47 @@
+<% @heading = "form_article" %>
+
+<% kiji = @article %>
+<%= secure_form_tag :action => "fix_article" %>
+<%= hidden_field "article", "id", "value" => kiji.id %>
+<%= hidden_field("article", "author_id", "value" => kiji.author_id) if kiji.author_id %>
+<p>
+<%= check_box "newid", kiji.id %>新規記事として作成する
+<br>
+Author:
+<% if kiji.author %>
+<%= text_field("article", "author_name", "size" => 12, "value" => kiji.author.name) %>
+<% else %>
+<%= text_field("article", "author_name", "size" => 12, "value" => '') %>
+<% end %>
+<br>
+Date:
+<%= text_field "article", "article_date", "size" => 12, "value" => kiji.article_date.to_date %>
+<br>
+フォーマット形式:
+<select name="format">
+  <option value="<%= kiji.format %>"><%= kiji.format %></option>
+  <option value="plain">plain</option>
+  <option value="html">html</option>
+  <option value="hnf">hnf</option>
+  <option value="rd">rd</option>
+  <option value="wiliki">wiliki</option>
+</select>
+<br>
+タイトル:
+<br>
+<%= text_field "article", "title", "size" => 80, "value" => kiji.title %>
+<br>
+本文:
+<br>
+<%= text_area "article", "body", "rows" => 10, "cols" => 80, "value" => kiji.body %>
+<br>
+<% kiji.categories.each do |cat| %>
+<%= check_box "catname", cat.id, "checked" => "checked" %>
+<%=h cat.name %>
+<br>
+<% end %>
+
+さらにカテゴリを追加する⇒カテゴリ:<%= text_field_with_auto_complete :category, :name %>
+<br>	  
+<%= submit_tag "save" %>
+<%= end_form_tag %>

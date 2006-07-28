@@ -1,0 +1,144 @@
+/* CSS Document */
+
+body {
+font-family: Arial, Tahoma, Sans-serif, Helvetica, Verdana;
+//font-size: 77%;
+text-align: center;
+background-color: #eeeeee;
+color: #000000;
+//margin-top: 10px;
+padding: 0;
+}
+
+form{margin: 0;}
+
+p {padding: 2px; margin: 0;}
+
+h1,h2,h3,h4,h5 {padding: 2px; margin: 0;}
+
+a {text-decoration: none; color: #000099; background-color: inherit;}
+a:hover {text-decoration: underline;}
+
+img {margin: 3px;}
+
+.left {float:left;}
+.right {float:right;}
+.addbox {border: 3px solid #888888;}
+
+/*page settings*/
+
+#page {
+border: 1px solid #888888;
+background-color: #FFFFFF;
+color: inherit;
+text-align: left;
+margin: auto;
+}
+
+/* Header */
+
+#header {
+background-repeat: no-repeat;
+border-top: 1px solid #888888;
+border-bottom: 1px solid #888888;
+height: 78px;
+padding: 0;
+margin: 0;
+overflow: hidden;
+}
+
+/* Top Settings */
+
+#top {
+padding: 5px;
+overflow: hidden;
+}
+
+#top h1{
+font-size: 1.6em;
+color: #3366FF;
+background-color: inherit;
+font-weight: bold;
+margin: 0;
+padding: 2px;
+}
+
+#top h3{
+font-size: 1em;
+color: #777777;
+background-color: inherit;
+margin: 0;
+padding: 2px;
+font-weight: bold;
+}
+
+#navigation {
+font-size: 77%;
+width: 10em;
+padding: 0px;
+float: left;
+overflow: hidden;
+}
+#navigation ul {padding: 5px; margin: 0; border-left: 1px dotted #888888;}
+#navigation li {list-style-type: none; margin: 0}
+
+/* content */
+
+#content {
+#width: 579px;
+padding: 5px;
+background-color: #FFFFFF;
+color: inherit;
+border-left: 1px solid #777777;
+overflow: auto;
+}
+#content table {font-size: 77%;}
+
+/*cbody*/
+
+/* Footer */
+
+#footer {
+background-color: #CCCCCC;
+color: inherit;
+#width: 740px;
+text-align: center;
+border-top: 1px solid #888888;
+padding: 5px;
+clear: both;
+}
+
+div.notice {color: red; font-weight: bold; }
+div.bantest {margin:3px; padding:5px; }
+
+div.banlist {margin:3px; padding:5px; }
+div.banlist div.notice {color: black; font-weight: bold; }
+
+blockquote {
+    border-left: solid thick #ddbbaa;
+}
+blockquote > blockquote {
+    border-left: solid thick #bb9988;
+}
+blockquote > blockquote > blockquote {
+    border-left: solid thick #997766;
+}
+dt { font-weight: bold }
+
+table, th, td {
+                border-collapse: collapse; 
+                border: 1px solid black;
+}
+div.kakomi table { 
+        background: #dddddd; 
+        margin-top: 1em; 
+        margin-bottom: 1em; 
+        margin-left: 3em; 
+        margin-right: 3em; }
+
+ pre { 
+  white-space:  pre;
+  padding:      0.5em;
+  background: #eeeeee;
+  margin: 1em;
+ }

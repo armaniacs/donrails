@@ -1,0 +1,11 @@
+
+<%
+require 'plugins/calendar'
+
+cal = DonRails::Calendar.thismonth
+%>
+
+<div class="calendar">
+  <div class="calendar-title"><%= cal.header %></div>
+  <div class="calendar-main"><%= cal.to_html %></div>
+</div><!-- the end of calendar -->

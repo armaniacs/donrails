@@ -1,0 +1,18 @@
+* 1.2での変更点(1.1からの変更そのままで動かないものについては、UPGRADE_1.2参照)
+
+- hiddenカラムの追加。article,comment,trackback,pictureを表示させない
+- google sitemapへの対応。notes/sitemap.xmlを指定します。
+
+* 1.1での変更点(1.0からの変更そのままで動かないものについては、UPGRADE_1.1参照)
+
+- login/manage_articleにおいて、articleに関連づけているcategoryを変更できるようにした。
+- CSRF対策
+- AtomAPI、RSSを含む出力の追加
+- 複数著者による記事の追加をサポート
+- キャッシュ機能。一度表示したページをhtmlまたはxml出力し、rubyプロセスを削減
+- gzip転送
+- コメントおよびトラックバックspam機能強化
+- Cache-Control: および Last-Modified: ヘッダによるブラウザキャッシュ制御
+- Blog ping送信先のon/off切替
+- AtomAPIによるimage postの追加
+- コメントとトラックバック時にメールする機能

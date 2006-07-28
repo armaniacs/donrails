@@ -1,0 +1,52 @@
+<% if @notice %><div class="notice"> <%= @notice %></div><% end %>
+<% if @ymd3 && @ymd4 %><div class="ymd34">From <%= @ymd3 %> to <%= @ymd4 %></div><% end %>
+
+<p>
+<% if @articles_pages and @articles_pages.length > 1 %>
+<div class="pagelink">
+ページ選択: <%= render("shared/pagelink", "pages" => @articles_pages) %>
+</div>
+<% end %>
+</p>
+
+<%
+day0 = Time.new; day1 = day0
+@articles.each do |a|
+  article = don_get_object(a, 'html')
+  day0 = article.article_date.to_date
+%>
+<div class="nnenhead">
+<p>
+   <%= link_to "\#", {:action => "show_title", :id => article.id} %>
+   <%= display_article_categories article %>
+   <%= article.title_to_html %>
+</p>
+</div> <!-- end nnenhead -->
+
+<div class="section">
+<%= display_article_images(article) %>
+<%= auto_link article.body_to_html %>
+<%= render("shared/authorhead", "article" => article) %>
+<%= render("shared/comment2", "article" => article) %>
+<br clear='all'>
+</div> <!-- end section -->
+
+<div class="linktitle">
+<% if (@lastarticle and @nextarticle) %>
+<%= render("shared/linktitle", "lastarticle" => don_get_object(@lastarticle, 'html'), "nextarticle" => don_get_object(@nextarticle, 'html')) %>
+<% else %>
+(sorry, I can not link previous and next articles)
+<% end %>
+</div>
+
+<div class="pagelink">
+<%= render("shared/nextlink3", "article" => article) %>
+</div> <!-- end pagelink -->
+<% end %>
+
+<% if @articles_pages %>
+<div class="pagelink">
+  <%= render("shared/pagelink-j", "pages" => @articles_pages) %>
+</div> <!-- end pagelink -->
+<% end %>
+

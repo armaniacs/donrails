@@ -1,0 +1,6 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first_ping:
+  id: 1
+  article_id: 1
+  url: http://feeds.feedburner.com/ArakiNotes
+  created_at: 2005-12-10 20:11:17

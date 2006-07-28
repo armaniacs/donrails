@@ -1,0 +1,9 @@
+<div id="catea_<%= trigger %>">
+reading..
+</div>
+<!-- BUG?? need to add  script type... and CDATA lines by hand -->
+<script type="text/javascript">
+//<![CDATA[
+<%= remote_function(:update => "catea_#{trigger}", :url => {:controller => "notes", :action => "recent_trigger_title_a", :trigger => trigger }, :method => 'get') %>
+//]]>
+</script>

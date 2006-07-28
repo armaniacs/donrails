@@ -1,0 +1,40 @@
+<h3>カテゴリ: <%= @category.name %>(<%= @category.articles.size.to_s %>) のリスト
+[<%= link_to "記事", {:action => "show_category_noteslist", :category => @category.name} %>]
+</h3>
+<%=h @category.description %>
+<div id='roots_ul'>
+<%= display_categories_roots_ul_description(@category.direct_children, 1) %>
+</div>
+
+<% if @articles_pages and @articles_pages.length > 1 %>
+<div class="pagelink">
+ページ選択: <%= render("shared/pagelink", "pages" => @articles_pages) %>
+</div>
+<% end %>
+
+<% an = 0 %>
+
+<dl>
+<%
+@articles.each do |a|
+  art = don_get_object(a, 'html')
+%>
+  <% an += 1 %>
+  <% btmp = strip_links art.body_to_html %>
+  <% btmp = don_chomp_tags(btmp) %>
+  <dt><%= link_to "\##{an}", {:action => "show_title", :id => art.id} %> <%= art.title_to_html %>
+     (<%= link_to "#{art.article_date.to_date}",
+         {:action => "show_date",
+          :year => art.article_date.year,
+          :month => art.article_date.month,
+          :day => art.article_date.day
+         } %>)
+  </dt>
+  <dd>
+    <div id="sc_ai_<%= art.id %>">
+    <%= don_mb_truncate(btmp, 150) %>
+    <%= link_to_remote("続き", :update => "sc_ai_#{art.id}", :url => {:action => "pick_article_a2", :pickid => art.id}) %>
+    </div>
+  </dd>
+<% end %>
+</dl>

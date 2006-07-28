@@ -1,0 +1,11 @@
+* Major changes in 1.1 (For upgrade user from 1.0, please see UPGRADE_1.1)
+
+- Anti-CSRFattack.
+- Improve output: include AtomAPI and RSS.
+- Plural authours can write articles.
+- Page cache. It reduce ruby process and DB load.
+- Gzip encode transfer.
+- Improve anti-spam for comment and trackback.
+- Browser side cache control by Cache-Control: and Last-Modified: headers.
+- You can activate/deactivate blog ping destinations.
+- Send notify mail when comment or trackback is added.

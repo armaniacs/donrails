@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  name: misc
+  description: misc category
+another:
+  id: 2
+  name: misc2
+  parent_id: 1
+  description: child of misc
+

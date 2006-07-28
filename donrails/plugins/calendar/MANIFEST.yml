@@ -1,0 +1,8 @@
+Name: calendar
+Description: Calendar plugin
+Modules:
+ - calendar.rb
+Templates:
+ - calendar.rhtml
+Stylesheets:
+ - calendar.css

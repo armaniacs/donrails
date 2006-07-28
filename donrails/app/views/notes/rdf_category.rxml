@@ -1,0 +1,70 @@
+xml.instruct! :xml, :version=>"1.0", :encoding => "utf-8"
+xml.instruct! :rss, :version=>"1.0"
+
+xml.tag!("rdf:RDF",
+         "xmlns" => "http://purl.org/rss/1.0/",
+         "xmlns:rdf" => "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+         "xmlns:dc" => "http://purl.org/dc/elements/1.1/",
+         "xmlns:content" => "http://purl.org/rss/1.0/modules/content/",
+         "xmlns:image" => "http://purl.org/rss/1.0/modules/image/",
+         "xml:lang" => "ja") do
+  xml.channel("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => 'show_category_noteslist', :category => @rdf_category)) do
+
+    xml.title RDF_TITLE
+    xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_category_noteslist", :category => @rdf_category))
+    xml.description RDF_DESCRIPTION
+    xml.copyright RDF_COPYRIGHT
+
+    xml.items do    
+      xml.tag!("rdf:Seq") do
+        for item in @recent_articles
+          xml.rdf(:li, "rdf:resource"=> "#{@request.protocol}#{@request.host_with_port}#{url_for(:action => "show_title", :id => item.id)}")
+
+        end
+      end
+    end
+  end
+
+  for i in @recent_articles
+    item = don_get_object(i, 'xml')
+    xml.item("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => item.id)) do
+      xml.title(item.title_to_xml)
+      xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => item.id))
+      item.categories.each do |cat|
+        xml.category cat.name
+      end
+      xml.trackback @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => 'trackback', :id => item.id)
+
+      begin
+        ce = item.body_to_xml
+        if ce =~ (/^<html xmlns='http:\/\/www.w3.org\/1999\/xhtml'><body>(.*)<\/body><\/html>$/m)
+          ce = $1
+        end    
+        if ce =~ (/<content>(.*)<\/content>/m)
+          ce = $1
+        end    
+        xml.tag!("description") do
+          xml << ce.gsub(/<\/?\w+(?:\s+[^>]*)*>/m, '')
+        end    
+        xml.tag!("content:encoded") do
+          xml.cdata! ce
+        end    
+      rescue
+        print "Error: #{$!} in #{item.id}\n"
+      end
+      if item.article_mtime
+        xml.tag!("dc:date") do
+          xml.text! "#{pub_date(item.article_mtime)}"
+        end
+      end
+
+      item.pictures.each do |pic|
+        tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
+        xml.image(:item, "rdf:about"=> tmpurl1) do
+        end
+      end
+
+    end
+  end
+end
+

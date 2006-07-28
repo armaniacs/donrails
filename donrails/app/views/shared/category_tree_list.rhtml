@@ -1,0 +1,9 @@
+<div id="catea_tree" class="ctl">
+reading categories...
+</div>
+<!-- BUG?? need to add  script type... and CDATA lines by hand -->
+<script type="text/javascript">
+//<![CDATA[
+<%= remote_function(:update => "catea_tree", :url => {:controller => "notes", :action => :category_tree_list_a }, :method => 'get') %>
+//]]>
+</script>

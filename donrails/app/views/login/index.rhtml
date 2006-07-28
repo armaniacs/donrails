@@ -1,0 +1,11 @@
+<h1>login</h1>
+<%= secure_form_tag :action => 'authenticate' %>
+name:
+<%= text_field "nz", "n" %>
+<br>
+password:
+<%= password_field "nz", "p" %>
+<br>
+<input type="submit">
+<%= end_form_tag %>
+

@@ -1,0 +1,5 @@
+
+* Required packages:
+- rails 0.13 and later.
+- sqlite or SQL server
+

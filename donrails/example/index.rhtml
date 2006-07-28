@@ -1,0 +1,31 @@
+
+<% if @notice %>
+<div class="notice">
+ <%= @notice %>
+</div> <!-- end notice -->
+<% end %>
+
+
+<div class="headline">
+(なにか適当なことを書きます)
+</div> <!-- end of headline -->
+
+<div class="arakiintro">
+(なにか適当なことを書きます)
+<p>
+最近の<%= link_to "日記", {:action => "noteslist"} %>は、
+<%= link_to "ruby", {:action => "show_category", :category => "ruby"} %>
+の話が多いです。
+</p>
+</div>
+
+<div class="recenttitle">
+<a name="recent">[最近のtopics]</a>
+<%= render ("shared/title-articles2no", "pages" => @recent_articles) %>
+</div>
+
+<div class="rubytitle">
+<a name="ruby">[最近のruby関連]</a>
+</div>
+<%= render ("shared/title-articles2no", "pages" => @recent_ruby_articles) %>
+

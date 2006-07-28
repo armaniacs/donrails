@@ -1,0 +1,8 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  name: calendar
+  description: Calendar plugin
+  manifest: calendar manifest
+#another:
+#  id: 2

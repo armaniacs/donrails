@@ -1,0 +1,62 @@
+インストール手順。
+
+注意:
+http://www.araki.net/wiki/donrails-wiliki.cgi?donrails%3ainstall
+に最新の情報があります。
+
+使用する外部ライブラリ:
+railsを動作させる以外に必要な外部ライブラリは以下の通りです。
+
+- RD(librd-ruby1.8)
+- 'base64'
+- 'cgi'
+- 'date'
+- 'dbi'
+- 'digest/sha1'
+- 'getoptlong'
+- 'htree'
+- 'jcode'
+- 'kconv'
+- 'logger'
+- 'net/http'
+- 'optparse'
+- 'pathname'
+- 'rd/rd2html-lib'
+- 'rd/rdfmt'
+- 'readline'
+- 'rexml/document'
+- 'time'
+- 'uri'
+
+(sqliteを使える形の例)
+1. railsをインストールする。
+2. gemsをインストールする。
+3. $ sudo gem install sqlite-ruby 
+	sqliteのライブラリがないときlibsqlite0-devをいれる
+4. $ make 
+	すると、railsのファイルと必要なツリーが構築される
+5. donrails/tool/donrails-setup.rb を実行する。
+	設定ファイルが作成される。
+	問題なければ、これで終了。
+6. 設定ファイルの編集
+	rails/config/database.yml
+	rails/config/donrails_env.rb
+7. ユーザが自分のやりたいようにいじるファイル(必須)
+	rails/app/views/notes/index.rhtml
+		("donrails/example/index.rhtml"にサンプルがあります)
+	rails/app/views/layouts/notes.rhtml
+		("donrails/example/notes.rhtml"にサンプルがあります)
+	rails/public/
+	以下はスタティックなファイルを置くために自由においてかまいません。
+	directoryだけでアクセスすると、rails/public/index.html が参照されるので、必要ない場合は消してください。railsの動作確認用のfileです。
+
+	画像のuploadを行うには、
+	rails/public/images/dump
+	のディレクトリを動作ユーザから書きこめるようにしておく必要があります。
+
+	アップロードされたファイルは、GET /nosts/show_image/1 などとす
+	ると、/images/dump/image-files.png などにリダイレクトされます。
+
+	リダイレクト先は $IMAGE_BASE_PATH で指定できます。これが
+	/test/ のときは、/test/images/dump/image-files.png などにリダイレクトされます。
+	

@@ -1,0 +1,27 @@
+xml.instruct! :xml, :version=>"1.0", :encoding => "utf-8"
+
+xml.methodResponse do
+  xml.params do
+    xml.param do
+      xml.value do
+        xml.struct do
+          xml.member do
+            xml.name 'flerror'
+            xml.value do
+              if @catched == true
+                xml.boolean '0' 
+              else
+                xml.boolean '1' 
+              end
+            end
+          end
+          xml.member do
+            xml.name 'message'
+            xml.value "Thanks for ping."
+          end
+        end
+      end
+    end
+  end
+end
+

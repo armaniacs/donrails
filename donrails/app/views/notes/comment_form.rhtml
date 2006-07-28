@@ -1,0 +1,19 @@
+<h2>元記事</h2>
+<% if @article %>
+<% article = don_get_object(@article, 'html') %>
+
+<div class="nnenhead">
+<%= display_article_categories(article) %>
+<%= article.title_to_html %>
+</div> <!-- end nnenhead -->
+
+<div class="section">
+<%= display_article_images(article) %>
+<%= auto_link article.body_to_html %>
+<br clear='all'>
+</div> <!-- end section -->
+
+<hr>
+<h2>コメントをどうぞ</h2>
+<%= render("shared/comment-form", "article" => @article) %>
+<% end %>

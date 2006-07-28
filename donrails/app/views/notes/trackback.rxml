@@ -1,0 +1,11 @@
+xml.instruct! :xml, :version=>"1.0", :encoding => "utf-8"
+
+xml.response do
+  if @catched
+    xml.error "0"
+    xml.message @message
+  else
+    xml.error "1"
+    xml.message @message
+  end
+end

@@ -1,0 +1,39 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first_article:
+  id: 1
+  title: first title in misc
+  body: first body
+  size: 10
+  article_date: 1999-01-01 00:00:00
+  article_mtime: 1999-01-01 00:00:01
+  format: plain
+  author_id : 1
+another_article:
+  id: 2
+  title: 2 in misc
+  body: 2
+  size: 1
+  article_date: 1999-01-02 00:00:00
+  article_mtime: 1999-01-02 00:00:01
+  format: plain
+  author_id : 1
+sendmail_article:
+  id: 3
+  title: 3 sendmail
+  body: sendmail is too old to use
+  size: 26
+  article_date: 1999-01-03 00:00:00
+  article_mtime: 1999-01-03 00:00:01
+  format: plain
+  author_id : 1
+foreth_article:
+  id: 4
+  title: 4 sendmail
+  body: sendmail is too old to use
+  size: 26
+  article_date: 1999-01-03 00:00:00
+  article_mtime: 1999-01-03 00:00:01
+  format: plain
+  author_id : 1
+  hidden: 1
+

@@ -1,0 +1,9 @@
+<div id="catea_<%= category %>" class="ctl">
+Please wait reading.. or <%= link_to("link", :controller => "notes", :action => "show_category_noteslist", :category => category) %>
+</div>
+<!-- BUG?? need to add  script type... and CDATA lines by hand -->
+<script type="text/javascript">
+//<![CDATA[
+<%= remote_function(:update => "catea_#{category}", :url => {:controller => "notes", :action => "recent_category_title_a", :category => category }, :method => 'get') %>
+//]]>
+</script>

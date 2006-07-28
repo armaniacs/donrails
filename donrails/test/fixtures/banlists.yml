@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  format: regexp
+  pattern: sex
+second:
+  id: 2
+  format: ipaddr
+  pattern: 0.0.0.0
+  white: 1
+#another:
+#  id: 2
+#  format: string
+#  pattern: Vioxx
+from_143:
+  id: 3
+  format: ipaddr
+  pattern: 143.238.238.45

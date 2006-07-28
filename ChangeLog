@@ -1,0 +1,1734 @@
+2006-07-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* SVN repository will remove to google code hosting.
+	svn checkout http://donrails.googlecode.com/svn/trunk/ donrails
+
+2006-07-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/public/stylesheets/araki.css: Some change: table and pre setting.
+
+	* donrails/public/stylesheets/login.css: Some change: table and pre setting.
+
+	* donrails/app/views/notes/catch_trackback.rxml: Rename from catch_ping.
+
+	* donrails/app/views/notes/catch_ping.rxml: New file.
+
+	* donrails/app/controllers/notes_controller.rb 
+	(NotesController::catch_ping): New method. 
+	(NotesController::catch_trackback): Rename from catch_ping.
+
+	* donrails/app/models/article.rb 
+	(Article::send_pings2): Change to invoke NEW ping.send_ping2.
+	(Article::send_trackback): New method. It invokes ping.send_trackback.
+
+	* donrails/app/models/ping.rb 
+	(Ping::send_trackback): Rename send_ping2 to send_trackback. This method is used to send trackback.
+	(Ping::send_ping2): Change behavior: This method is used to send ping to ping hub (cf. feedburner). Now support REST version which defined in http://www.weblogs.com/api.html#7. Todo: XML-RPC version.
+
+	* donrails/test/unit/ping_test.rb (PingTest::test_send_trackback): New test.
+
+	* donrails/test/unit/article_test.rb (ArticleTest::test_send_trackback): New test.
+
+	* donrails/app/models/article.rb (Article::send_trackback): Rename method from send_ping2.
+
+2006-07-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_comment): Fix: When change hidden status, existed trackback is filtered by antispam. (Change to use save -> update_attribute)
+	(LoginController::delete_trackback): likewise.
+	(LoginController::delete_picture): likewise.
+	(LoginController::form_article): Fix to show wrong id entry.
+
+	* donrails/test/fixtures/trackbacks.yml (third_trackback): Fixture added for this change.
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_trackback): Test added for this change.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_trackback): Fix: When change hidden status, existed trackback is filtered by antispam. (Change to use save -> update_attribute)
+
+	* donrails/app/models/article.rb (Article::sendping): likewise.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::manage_blogping): Fix if BASEURL is not defined.
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_blogping): Add some test.
+
+	* donrails/app/views/notes/sitemap.rxml: Cleanup.
+
+2006-07-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_add_blogping): Add assert_equal test.
+
+	* donrails/test/unit/article_test.rb (ArticleTest::test_sendping): Test for article.sendping.
+
+	* donrails/app/models/article.rb (Article::sendping): New(re-enable) method for sending ping.
+
+	* donrails/app/views/login/manage_blogping.rhtml: add to show @flash[:note2] text.
+	* donrails/app/views/login/manage_ping.rhtml: add to show @flash[:note2] text.
+
+2006-07-22  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/config/routes.rb: add entry for :sitemap.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Add cleaning entry for :sitemap .
+
+	* donrails/app/controllers/notes_controller.rb (NotesController): Add entry 'caches_page :sitemap'.
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_sitemap): add test.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::sitemap): New method for Google sitemap (http://www.google.com/webmasters/sitemaps/docs/en/protocol.html).
+
+2006-07-20  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_dateparse): add test.
+
+2006-07-18  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_{picute,trackback,comment,article}): Change to show checkbox checked or not checked.
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_{picute,trackback,comment,article}): Change to test for this change.
+
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_add_category): Added test: When add to a category under other category.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::add_category): Fixed: When add to a category under other category.
+
+2006-07-18  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::body_to_html):
+	fixed to not generate the unexpected html with the blockquote and
+	one-liner pre syntax.
+
+	* donrails/app/controllers/notes_controller.rb (articles_long):
+	check hidden flag to find articles.
+	(articles_author): likewise.
+	(noteslist): likewise.
+	(show_category): likewise.
+
+2006-07-18  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/noteslist.rhtml: cleanup.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_month): Fix to hyde when articles.hidden is 1.
+	(NotesController::show_nnen): likewise.
+	(NotesController::show_nnen): likewise.
+	(NotesController::show_title): likewise.
+	(NotesController::afterday): likewise.
+	(NotesController::tendays): likewise.
+	(NotesController::add_comment2): likewise.
+
+	* donrails/test/unit/article_test.rb (ArticleTest::test_send_pings2): New test method.
+
+2006-07-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/unit/ping_test.rb (PingTest::test_send_ping2): New test method.
+
+	* donrails/test/unit/article_test.rb (ArticleTest::test_renew_mtime): New test method.
+	(ArticleTest::test_search): New test method.
+
+2006-07-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/shared/comment-form.rhtml: Change to use don_get_object(article, 'xml') for remove HTML tag at title.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::add_comment2): Add '\n' at end of error output.
+
+	* donrails/app/controllers/login_controller.rb (LoginController): Add mothods which are checked by cache_sweeper. Chage for apply Article.hidden.
+
+	* donrails/app/controllers/atom_controller.rb: Chage for apply Article.hidden.
+
+2006-07-13  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_add_comment2): Add test.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::add_comment2): likewise.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::add_article): Change: When invalid input which is judged by article.valid? is coming, return 403.
+
+	* donrails/app/models/comment.rb (Comment): likewise.
+
+	* donrails/app/models/trackback.rb (Trackback): Change to invoke 'notify_by_mail' timing from after_save for after_create.
+	
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_rdf_article): add test for missing :id.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::rdf_article): Chage for apply Article.hidden.
+	(NotesController::rdf_recent): likewise.
+	(NotesController::rdf_category): likewise.
+	(NotesController::recent): likewise.
+	(NotesController::recent_trigger_title_a): likewise.
+
+2006-07-12  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::body_to_html):
+	fixed to parse [link name] syntax properly.
+
+2006-07-12  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/article.rb (Article::self.search): Chage for apply Article.hidden.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::rdf_recent): Chage for apply Article.hidden.
+
+	* donrails/app/views/shared/comment2.rhtml: Fix for apply Comment.hidden and Tracback.hidden.
+
+	* donrails/app/views/shared/comment-noadd.rhtml: Fix for apply Comment.hidden and Tracback.hidden.
+
+	* donrails/public/stylesheets/login.css: Change table font-size.
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_comment): test for comment.hidden.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_comment): Change to support Comment.hidden.
+
+	* donrails/app/views/shared/table_trackback.rhtml: New file.
+
+	* donrails/app/views/shared/add_banlist.rhtml: Change to use table_comment.rhtml.
+
+	* donrails/app/views/shared/table_comment.rhtml: New file.
+
+2006-07-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_picture_2): test for picture.hidden.
+
+2006-07-10  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_show_image): test for Picture.hidden.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_image): likewise.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_picture): likewise
+
+	* donrails/test/fixtures/pictures.yml (second): likewise.
+
+	* donrails/app/views/login/manage_picture.rhtml: Change to support Picture.hidden.
+
+	* donrails/tool/tables-{postgresql,sqlite,mysql}: add hidden column in picutures,comments,articles,trackbacks.
+
+
+2006-07-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/public/stylesheets/login.css: Change for display add_banlist.rhtml
+	* donrails/app/views/shared/add_banlist.rhtml: fix for changing test_banlist.
+	* donrails/app/controllers/login_controller.rb 
+	add test file for all methods.
+	(LoginController::delete_comment): Fix for no @params['deleteid']
+	(LoginController::form_article): Fix for no @params['pickid']
+	(LoginController::fix_article): Fix for not enough input.
+	(LoginController::banlist_test_by_ar): Fix for not enough input.
+	(LoginController::test_banlist): Fix for not enough input.
+	(LoginController::add_blogping): Fix for not enough input.
+	(LoginController::add_author):  Fix for not enough input.
+
+2006-07-08  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb 
+	(LoginController::test_banlist): Change redirect_to 'manage_banlist' to :back.
+	(LoginController::add_banlist): likewise.
+	(LoginController::authenticate): Fix for wrong POST.
+	(LoginController::add_category): Fix for no @paramas["category"].
+	(LoginController::manage_picture_detail): Fix for no @params['id']
+	(LoginController::delete_picture): Remove picture_get method.
+
+2006-07-07  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/antispam.rb (AntiSpam::scan_uri): Cleanup.
+
+	* donrails/lib/antispam_test.rb: New file for test.
+
+2006-07-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/pick_trackback_a.rhtml: New file.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::pick_trackback_a): New method.
+
+2006-07-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::add_banlist): Add to check pattern match before add Banlist.
+
+	* donrails/lib/antispam.rb (AntiSpam::scan_text): Fix: Banlist condition consists regexp and string is swapped.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::banlist_test_core): New private method.
+
+2006-07-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* VERSION: up to 1.1.1.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::test_banlist): New method. It is used for checking Banlist entry.
+	* donrails/lib/antispam.rb (AntiSpam::scan_ipaddr): Fix to calling scan_ipaddr_white.
+	* donrails/app/views/login/manage_trackback.rhtml: Fix to display invlid format of trackback entry.
+	* donrails/app/views/shared/add_banlist.rhtml (format): Add test_banlist form.
+
+2006-06-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* README_1.1.html: New file.
+	* VERSION: up to 1.1.0
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_image): Change: If $IMAGE_BASE_PATH is setted in donrails_env.rb, redirect_to image under $IMAGE_BASE_PATH. (Request from tagoh.)
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_images): likewise.
+	* INSTALL.ja: Add related document.
+
+
+2006-06-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/atom/feed.rxml: Fix: spelling.
+
+	* donrails/tool/tables-{postgresql,sqlite}.txt: Add Banlist.white.
+
+	* donrails/app/views/atom/feed.rxml: Add image link.
+
+	* donrails/app/views/notes/rdf_{article,search,category,recent}.rxml: Add 'image:item'.
+
+2006-06-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_date): Change to check existence of article_date.
+	(ApplicationHelper::display_article_categories): Fix for category name is not inputted.
+
+2006-06-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/manage_comment.rhtml: Change to use 'add_banlist.rhtml'.
+
+	* donrails/app/views/shared/add_banlist.rhtml: New file.
+	* donrails/app/views/login/manage_banlist.rhtml: Change to use 'add_banlist.rhtml'.
+	* donrails/app/views/login/manage_trackback.rhtml: likewise.
+	
+	* donrails/app/views/login/manage_trackback.rhtml: Fix: If article which is trackbacked somebody is not exist, now donrails shows 'deleted article'.
+
+	* donrails/tool/tables-mysql.sql: **PLEASE*** Add 'white' column in 'banlists' table. (See UPGRADE1.1)
+	* donrails/lib/antispam.rb (AntiSpam::scan_ipaddr_white): New method for ipaddr whitelist.
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_trackback__3): Net test method for it.
+	* donrails/app/views/login/manage_banlist.rhtml: Change for apply ipaddr whitelist.
+	* donrails/app/controllers/login_controller.rb (LoginController::add_banlist): likewise.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::trackback): Fix: When donrails receives unconditionl trackback like SPAM, send error response. (In last code, just ignore. Just send success response like good trackback.)
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_trackback__2): New test method for it.
+	
+2006-06-15  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/antispam.rb (AntiSpam::initialize):
+	don't rely on Exceptions to set default values for IP_RBL, HOST_RBL
+	and URL_LIMIT.
+
+2006-06-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_image): Fix to show picture.
+
+2006-06-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_date): New method.
+	(ApplicationHelper::display_article_categories): New method.
+	(ApplicationHelper::display_article_images): New method.
+
+	* donrails/app/views/notes/noteslist.rhtml: Change to use display_article_date, display_article_categories and display_article_images.
+	* donrails/app/views/notes/pick_article_a.rhtml: likewise.
+	* donrails/app/views/notes/pick_article_a2.rhtml: likewise.
+
+	* donrails/app/views/shared/recent_category.rhtml: Remove file. This file is not used. And this file is empty.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_categories_roots_ul_description): Remove GC.
+	(ApplicationHelper::display_categories_roots_ul): likewise.
+
+2006-06-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/comment_form.rhtml: Fix Kanji-code.
+
+2006-05-31  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/show_title.rhtml: Change to use shared/comment to shared/comment2.
+
+	* donrails/app/views/notes/comment_form.rhtml: Add new file. Becase anti CSRF does conflict comment adding under cache is on. This file is alternative for comment_form_a.rhtml.
+	* donrails/app/controllers/notes_controller.rb (NotesController::comment_form): likewise. New method.
+	* donrails/app/views/shared/comment2.rhtml: likewise. Chenge link_to_remote from 'comment_form_a' to 'comment_form'. 
+	- passed through CGI.escapeHTML to show trackback entry.
+
+2006-05-31  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/login/manage_category.rhtml: removed a duplicate
+	column of name.
+
+	* donrails/app/views/login/manage_banlist.rhtml: passed through
+	CGI.escapeHTML.
+
+2006-05-30  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Fix: I have lacked to add expire method which is kicked by comment or trackback update.
+	(ArticleSweeper): likewise: Add observe for 'Comment' and 'Trackback'.
+
+	* donrails/lib/antispam.rb (AntiSpam::initialize): Change: If IP_RBL, HOST_RBL and URL_LIMIT are not defined in donrails_env.rb, use default parameters.
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_add_comment2_not): New test.
+	(NotesControllerTest::test_add_comment2_1): New test.
+	(NotesControllerTest::test_add_comment2): New test.
+
+2006-05-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* UPGRADE_1.1.ja: Add notice for anti-spam related parameters.
+	
+	* UPGRADE_1.1.ja: Add request for changing table name from blacklists to banlists.(Thanks tagoh)
+
+	* donrails/app/views/shared/comment-form.rhtml: Fix: Comment's response is 403. (Thanks tagoh)
+
+2006-05-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::add_article): Change to use author_name and category_name auto completion.
+	* donrails/app/views/login/new_article.rhtml: likewise. 
+	* donrails/app/views/layouts/login.rhtml: likewise. Add {effects,controls}.js.
+
+2006-05-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/article.rb (Article::renew_mtime): New method. It updates 'article_mtime' before_save.
+	* donrails/app/controllers/login_controller.rb (LoginController::add_article): Remove "article_mtime" update.
+
+
+	* donrails/app/views/login/manage_article.rhtml: Add to show article_mtime.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::rdf_recent): Change to show from recent 'id' to recent 'article_mtime'.
+
+	* donrails/app/views/login/manage_category.rhtml: Some change.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::manage_category): Fix to find parent category.
+
+2006-05-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/application.rb (ApplicationController::clean_memory): New method. It invoke GC.start.
+	* donrails/app/controllers/notes_controller.rb (NotesController): call clean_memory for GC.
+	* donrails/app/controllers/atom_controller.rb (AtomController): likewise.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_categories_roots_ul): Add GC.start. Is it memory leak?
+	(ApplicationHelper::display_categories_roots_ul_description): likewise.
+
+2006-05-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* ((NOTICE)): I will change to apply for Category model use from acts_as_tree to acts_as_nested_set. ActiveRecord::Acts::NestedSet::ClassMethods is better module.
+  	* donrails/app/models/{category,comment}.rb: Change to apply for Category model use acts_as_tree.
+	* donrails/app/controllers/login_controller.rb: likewise.
+	* donrails/app/controllers/notes_controller.rb: likewise.
+	* donrails/app/views/layouts/login.rhtml: likewise.
+
+	* donrails/tool/tables-mysql.sql: New files for MySQL.
+	
+2006-05-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/comment.rb (Comment): Fix at validates_length_of. Remove :too_short message.
+
+2006-05-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* ((IMPORTANT CHANGE)): Change table name 'blacklist' to 'banlists'. Because 'blacklists' is reserved by Rails1.1.
+	* donrails/tool/tables-sqlite.txt: likewise.
+	* donrails/app/controllers/login_controller.rb: likewise.
+	* donrails/app/models/banlist.rb: likewise
+	* donrails/tool/tables-postgresql.txt: likewise
+	* donrails/app/views/login/manage_blacklist.rhtml: Remove. likewise.
+	* donrails/app/views/login/manage_banlist.rhtml: Add. likewise.
+	* donrails/lib/antispam.rb: likewise.
+
+	* donrails/test/fixtures/*.yml: New files.
+	* donrails/test/*: Refine test related files. Many files are added or changed.
+
+	* ((Let's start modify codes for running on rails 1.1))
+
+2006-05-18  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/controllers/login_controller.rb (new_article):
+	follow the previous article to determine the default format style.
+
+2006-05-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/manage_article.rhtml: Some fix..
+
+	* donrails/app/controllers/notes_controller.rb (NotesController): refine cache_sweeper and verify_form_posts_security_token entry.
+
+	* donrails/app/controllers/login_controller.rb (LoginController): refine cache_sweeper entry.
+
+2006-05-16  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController): Fix: I lacked to add cache for :recent_category_title_a.
+
+	* UPGRADE_1.1.ja: Add information for adding parent_id column in Categories TABLE.
+
+2006-05-16  Akira TAGOH  <at@gclab.org>
+
+	* donrails/tool/hnf2db.rb: load environment.rb and removed an
+	abosolute path to activerecord. now it depends on RoR where you setup
+	from.
+
+2006-05-13  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::category_tree_list_a): New method.
+	(NotesController::show_category): Add to find by Category.id. And add to find by without category.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::manage_category): New method.
+	(LoginController::add_category): New method.
+	(LoginController::delete_category): New method.
+	(LoginController::manage_author): Add to find by Author.id.
+	(LoginController::edit_author): Remove method.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Add entry for category_tree_list_a.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_categories_roots_ul): New method.
+	(ApplicationHelper::display_categories_roots_ul_description): New method.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_category): Add. Now you can link category entry by show_category/:id.
+	Some change for category_tree_list_a.
+
+2006-05-12  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/layouts/login.rhtml: Add link to manage_category.
+
+2006-05-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/category.rb (Category): Add acts_as_tree.
+	* donrails/tool/tables-postgresql.txt: likewise
+	* donrails/tool/tables-sqlite.txt: likewise
+
+2006-05-08  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/rdf_recent.rxml: Fix for formated body.
+	* donrails/app/views/notes/rdf_search.rxml: likewise.
+	* donrails/app/views/notes/rdf_category.rxml: likewise.
+	* donrails/app/views/notes/rdf_article.rxml: likewise.
+	* donrails/lib/modules/html.rb (DonRails::HTML::body_to_xml): likewise. Fix for using HTree.
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::body_to_xml): likewise.
+	* donrails/lib/modules/hnf.rb (DonRails::HNF::body_to_xml): likewise.
+	* donrails/lib/modules/rd.rb (DonRails::RD::body_to_xml): likewise.
+
+2006-04-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/antispam.rb (AntiSpam::is_spam): Fix. I lacked to describe Trackback.ip.
+
+2006-04-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/antispam.rb (AntiSpam::initialize): 
+	- Add niku.2ch.net for @IP_RBL.
+	- Change to costomize for antispam. You can configure IP_RBL, HOST_RBL and URL_LIMIT.
+
+	* donrails/app/views/atom/feed.rxml: Fix link.
+
+	* donrails/config/routes.rb: Fix for Atom feed.
+
+	* donrails/app/controllers/atom_controller.rb (AtomController): Cleanup.
+
+	* donrails/app/views/notes/rdf_category.rxml: likewise.
+
+	* donrails/app/views/notes/rdf_recent.rxml: likewise.
+
+	* donrails/app/views/notes/rdf_article.rxml: likewise.
+
+	* donrails/app/views/atom/feed.rxml: Fixed. If @article had not aritcle_mtime, some error caused.
+
+2006-04-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/trackback.rb (Trackback): Fixed. Before this fix, validates_antispam is run only for :url.
+	* donrails/app/models/comment.rb (Comment): likewise.
+	* donrails/lib/antispam.rb (AntiSpam::is_spam): likewise.
+
+	* donrails/lib/antispam.rb (AntiSpam::initialize): Change to costomize for antispam. You can configure @IP_RBL, @HOST_RBL and @URL_LIMIT.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::add_comment2): Fix: If no parameters are inputted, redirect to 'noteslist'.
+
+2006-04-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/trackback.rb (Trackback::notify_by_mail): If new comment or trackback coming, send notify by mail to ADMIN_MAILADD.
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): likewise.
+	* donrails/app/views/comment_mailer/notify.rhtml: likewise.
+	* donrails/app/models/comment.rb (Comment::notify_by_mail): likewise.
+	* NEWS, NEWS.ja: likewise.
+	
+	* donrails/app/models/{trackback,comment}.rb: Japanese text code convert to utf8.
+	* donrails/app/views/shared/comment-form.rhtml: Change to show 'password is required.' for posting comment.
+
+2006-04-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/shared/comment.rhtml: Change to show Comment.date.
+
+	* donrails/app/views/shared/comment2.rhtml: Change to show Comment.date.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::noteslist): Fix if article does not have ariticle_mtime.
+	(NotesController::recent): likewise.
+	(NotesController::show_category): likewise.
+	... and many part ...
+
+2006-04-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Change to change Ariticle.author.
+
+2006-04-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Change to change Article.article_date.
+
+2006-03-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* rails/app/controllers/login_controller.rb (LoginController::edit_picture): New method. In order to edit picture related information.
+	(LoginController::manage_picture_detail): likewise.
+
+2006-03-22  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/layouts/login.rhtml: add link to manage_article.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::picture_save): If success, redirect to manage_picture.
+
+	* donrails/app/views/login/manage_picture.rhtml: Change to show small image by '<img width=100 ..>'. Add file delete checkbox.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_article): At delete article, remove picture.article_id.
+	(LoginController::delete_picture): New method.
+	(LoginController::manage_picture): New method.
+
+2006-02-18  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/manage_article.rhtml: Change to add image link.
+
+	* donrails/app/views/login/form_article.rhtml: Change to re-edit relation of articles and categories.
+
+	* donrails/tool/atomclient/atomcheck.rb: Some change for add relation of article and image.
+
+	* donrails/tool/atomclient/atommail.rb: Change to apply for MIME multipart message.
+
+2006-02-16  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_image): New method.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): NEW feature: Article.categories can be changed.
+
+	* donrails/app/controllers/atom_controller.rb (AtomController::image_post): New method.
+
+	* donrails/app/models/picture.rb (Picture): Add belongs_to article.
+
+	* donrails/app/models/article.rb (Article): Add relation to 'pictures'. 
+	* donrails/app/models/image.rb: New models. It use 'pictures' table.
+
+	* NEWS.ja: add new feature information.
+
+	* UPGRADE_1.1.ja: Add new table information on pictures table. 
+	** NOTICE ** You shuld add 'article_id' column in picures table.
+	- donrails/tool/tables-{sqlite,postgresql}.txt: likewise.
+
+2006-02-12  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/atom/image_post.rxml: New file. It include alternate link to show_title, show_image and image_post.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::atom_parse_image): New method.
+
+2006-02-10  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_image): New method.
+	* NEW feature: Image post by AtomAPI. 
+
+2006-02-08  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/atomclient/atommail.rb (reportmail): If some error raise in AtomPost::atompost, send error report mail.
+
+	* donrails/tool/atomclient/atomcheck.rb (AtomPost::atompost): If refused by AtomAPI server, raise Errono::ECONNREFUSED. (path through from Net::HTTP.)
+
+	* donrails/tool/atomclient/README.ja: New file.
+
+2006-02-07  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/atomclient/atommail.rb 
+	New config parameter: 
+	'report_mailaddress': (reportmail): New method. If this parameter setted, it sends report to 'report_mailaddress' which configured in ~/.donrails/atompost.yaml.
+	'certify_mailaddress': If this parameter setted, it restricts article update from this mailaddress only.
+	'category': If this paramter setted, it adds <category/> in AtomAPI POST message.
+
+2006-02-06  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Makefile: Add dist rule.
+
+2006-02-04  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::authorize): This method was Changed to protected.
+
+2006-02-02  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/atomclient/tables.sql: New file.
+
+	* README.3rdparty: Add a security_extensions plugin install method.
+
+	* donrails/app/views/notes/rdf_*.rxml: Add <trackback/>, <category/> and <copyright/>
+	* donrails/app/views/atom/feed.rxml: Add <generator/>, <copyright>, <tagline/> and <modified/>.
+
+	* donrails/app/controllers/login_controller.rb 
+	(LoginController): Change to use
+	verify_form_posts_have_security_token. Tamper for CSRF. Please see
+	README.3rdparty.
+	(LoginController::picture_save): Change to return 406 when picture upload was failed.
+	(LoginController::picture_save): Fixed typo.
+
+	* donrails/app/views/login/new_article.rhtml: Change tampering for CSRF. Change to use verify_form_posts_have_security_token. 'form_tag' -> 'secure_form_tag'. 
+	* donrails/app/views/shared/edit_author.rhtml: likewise.
+	* donrails/app/views/login/manage_trackback.rhtml: likewise.
+	* donrails/app/views/login/manage_comment.rhtml: likewise.
+	* donrails/app/views/login/manage_author.rhtml: likewise.
+	* donrails/app/views/login/manage_blacklist.rhtml: likewise.
+	* donrails/app/views/login/manage_blogping.rhtml: likewise.
+	* donrails/app/views/login/manage_article.rhtml: likewise.
+	* donrails/app/views/login/form_article.rhtml: likewise.
+	* donrails/app/views/login/index.rhtml: likewise. 
+
+2006-02-01  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::authorize): Change to reset session. Tamper for CSRF.
+	(LoginController::authenticate): likewise.
+	(LoginController::logout): likewise.
+
+	* Check tags (revision 167) 'pre-CSRF'. 
+
+	* donrails/tool/tables-postgresql.txt: *** NOTICE: NEW COLUMN in authors TABLE ***. Add new column as Author.summary. This column stores short information of each author.
+	* donrails/tool/tables-sqlite.txt: likewise.
+	* UPGRADE_1.1: likewise.
+	* donrails/app/views/login/manage_author.rhtml: likewise. And change to use shared/edit_author.
+	* donrails/app/views/login/edit_author.rhtml: likewise. New file.
+	* donrails/app/views/shared/edit_author.rhtml: likewise. New file.
+
+2006-01-31  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::articles_author): New method.
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): likewise.
+	* donrails/app/views/shared/authorhead.rhtml: likewise. Add link_to NOtesController::artilces_author.
+
+2006-01-30  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/atom/feed.rxml: Fixed typo.
+
+	* donrails/app/controllers/atom_controller.rb (AtomController): New feature: page cache of /atom/feed.xml.
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): likewise.
+	* UPGRADE_1.1: likewise.	
+	* donrails/config/routes.rb: likewise.	
+
+	* donrails/example/notes.rhtml: Update to use link of AtomAPI feed.
+
+2006-01-27  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): add expire method for recent_trigger_title.
+
+	* donrails/app/views/notes/category_select_a.rhtml: remove static <form />.
+	* donrails/app/views/shared/comment-form.rhtml: likewise
+	* donrails/app/views/login/index.rhtml: likewise 
+
+	* UPGRADE_1.1: Add information to articles and authors table's column.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): delete for recent_category_title_a.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController): Change to suse caches_page for NotesController::category_select_a and NotesController::recent_category_title_a.
+
+	* donrails/app/views/shared/category_select.rhtml: Change to call remote_function by HTTP GET. (Change from HTTP POST).
+	* donrails/app/views/shared/trigger_title_list.rhtml: likewise.
+	* donrails/app/views/shared/category_title_list.rhtml: likewise.
+	
+	* donrails/tool/atomclient/atomcheck.rb 
+	(AtomPost::atompost): Fix typo.
+	(AtomPost::atompost): If connection to server is refused, show refuse message.
+
+	* donrails/app/controllers/atom_controller.rb 
+	(AtomController::feed): Change response for non-POST request.
+	(AtomController::wsse_auth): Change response code: If wsse fail, return 401.
+	(AtomController::feed): Change response code: If does not exist requested uri, return 403.
+	(AtomController::post): Change response code: If some trouble (cf. input parse error), return 400.
+	(AtomController::edit): likewise.
+	(AtomController::edit): Change response for non DELETE or PUT request. Then return 502.
+
+2006-01-26  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/atom/post.rxml: Change to add <author><name></name></author> and <content/>.
+	* donrails/app/views/atom/index.rxml: 
+	- Remove: entry to 'not NEW' article.
+	- Remove (comment out): link to service.categories
+
+	* donrails/app/controllers/atom_controller.rb (AtomController::feed): Apply for paginate.
+
+	* donrails/app/views/atom/feed.rxml: 
+	- Apply for AtomAPI(feed) response. (Refrence: so-net blog API response)
+	- Apply for paginate.
+	
+
+2006-01-25  araki yasuhiro  <yasu@debian.or.jp>
+
+	* rails/app/views/shared/comment-form.rhtml: remove input form for url. Because nobody use this.
+
+	* donrails/lib/antispam.rb (AntiSpam::scan_uri_format): New method. If uri is ended without path (cf, http://araki.net/), reject this posts as comment and trackback.
+
+2006-01-24  araki yasuhiro  <yasu@debian.or.jp>
+
+	* rails/app/controllers/notes_controller.rb (NotesController::tendays): Change to return 404, if no article to show.
+
+	* rails/test/functional/notes_controller_test.rb (NotesControllerTest::test_tendays): likewise
+
+2006-01-23  araki yasuhiro  <yasu@debian.or.jp>
+
+	* rails/app/controllers/notes_controller.rb 
+	(NotesController::show_title): Change to return 404, if no article to show.
+	(NotesController::show_category): likewise.
+	(NotesController::show_category_noteslist): Clean up.
+
+	* rails/test/functional/notes_controller_test.rb
+	(NotesControllerTest::test_show_title__[2-6]) and (NotesControllerTest::test_show_title): New test methods.
+	(NotesControllerTest::test_show_category__2) and (NotesControllerTest::test_show_category): 
+
+2006-01-21  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/atom_controller.rb (AtomController): Fix un-sweep cached content.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_unwrite_author): Fixed to change Author.writable = 0 or 1.
+
+	* donrails/app/models/trackback.rb (Trackback): Cleanup.
+
+	**** PLEASE CHECK YOUR authors TABLE on your Database. ****
+	* ADD NEW column in authors and articles table.(authors.nickname, articles.author_id). ADD restriction to authors.name is unique. 
+	* donrails/app/models/article.rb (Article): add relation to author.
+	* donrails/tool/tables-sqlite.txt: add author_id column in articles table.(alter table articles add column author_id INTEGER;)
+	* donrails/tool/tables-postgresql.txt: likewise.
+	* donrails/app/controllers/login_controller.rb (LoginController::add_article): likewise.
+	* donrails/app/views/login/new_article.rhtml: likewise.
+	* donrails/app/views/login/manage_article.rhtml: likewise.
+	* donrails/app/controllers/atom_controller.rb (AtomController::post): likewise.
+	* donrails/app/controllers/atom_controller.rb (AtomController::edit): likewise	
+	* donrails/app/controllers/login_controller.rb (LoginController::add_author): likewise
+	* donrails/app/views/login/manage_author.rhtml: likewise.
+	* donrails/public/stylesheets/araki.css: likewise. Add div.mainarticle div.section.
+	* donrails/app/views/shared/authorhead.rhtml: New file. likewise.
+	* donrails/app/views/notes/noteslist.rhtm: likewise.
+	* donrails/app/views/notes/show_title.rhtml : likewise.
+
+	* UPGRADE_1.1: Add upgrade method for 'blogpings' table
+
+2006-01-20  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/index.rhtml: Fixed typo. Fix: Routing probleem which is reported by Tagoh.
+	* donrails/app/views/layouts/login.rhtml: Add link to new_article.
+	* donrails/app/controllers/login_controller.rb (LoginController::new_article): New method. Spin off from LoginController::authenticate.
+	* donrails/app/views/login/new_article.rhtml: New file.
+
+	* rails/app/views/shared/comment2.rhtml: Fixed typo.
+
+	* rails/test/functional/notes_controller_test.rb
+	(NotesControllerTest::test_show_date): New method.
+	(NotesControllerTest::test_show_date__2): New method for NotesController::show_date.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_nnen): If invalid time parameter, return 404.
+
+	* rails/test/functional/notes_controller_test.rb (NotesControllerTest::test_show_nnen): New method.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_month): If no article, return 404. If invalid time parameter, return 404.
+
+	* rails/test/functional/notes_controller_test.rb 
+	(NotesControllerTest::test_noteslist): New method.
+	(NotesControllerTest::test_show_month): New method.
+	(NotesControllerTest::test_show_month__{2,3}): New method. (For NotesController::show_month.)
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Fixed: If cache store directories do not exist, cause Errono::ENOENT exception.
+
+	* donrails/app/controllers/notes_controller.rb: 
+	- (NotesController::pick_article_a): Change @articles to @article.
+	- (NotesController::pick_article_a2): Change @articles to @article.
+	- (NotesController::indexabc): More restrict input.
+	- (NotesController::dateparse): More restrict input.	
+	- (NotesController::parse_nums): More restrict input.		
+	* donrails/app/views/notes/catch_ping.rxml: Fix typo.
+	* donrails/app/views/notes/pick_article_a2.rhtml: Change @articles to @article.
+	* donrails/app/views/notes/pick_article_a.rhtml: Change @articles to @article.	
+	* donrails/app/views/notes/comment_form_a.rhtml: Improve case of @article.
+
+2006-01-19  araki yasuhiro  <yasu@debian.or.jp>
+
+	* UNUSE cache for NotesController::{afterday,tendays}
+	- donrails/app/models/article_sweeper.rb: likewise.
+	- donrails/app/controllers/notes_controller.rb: likewise.
+	* donrails/app/controllers/notes_controller.rb: Fixed deal with @articles.empty?
+	* donrails/app/controllers/notes_controller.rb: (NotesController::show_title) redirect myself under title or pickid query.
+	* donrails/app/views/atom/post.rxml: Fix: no use to link to pick_article.
+	* donrails/app/views/notes/rdf_*.rxml: Fix: no use to link to show_title with pickid.
+	* donrails/config/routes.rb: Cleanup.
+
+	* ADD test files under donrails/test/.
+	* donrails/app/models/article_sweeper.rb: Improve expire_page methods which use @paramas['page'].
+	* donrails/config/routes.rb: likewise.
+	* donrails/app/controllers/application.rb: Change (ApplicationController::set_charset) does not use under existing Content-Type header priviously.
+	* donrails/app/controllers/notes_controller.rb: 
+	** Cleaup and merge unuse methods. 
+	- (NotesController::show_title2) delete.
+	- (NotesController::pick_article) delete.
+	-- donrails/app/views/notes/pick_article.rhtml: delte.
+	- (NotesController::show_date) remove (NotesController::oneday) alias.
+	-- donrails/app/views/layouts/application.rhtml
+	-- donrails/app/views/shared/dayselect.rhtml
+	** no use paginate
+	- (NotesController::show_month)
+	- (NotesController::show_date)
+	- (NotesController::show_title)
+	** add Content-Type: application/xml; charset=utf-8 header
+	- (NotesController::rdf_*)
+	* donrails/app/views/shared/comment2.rhtml: Cleanup.
+	* donrails/app/views/notes/search.rhtml: Cleanup.
+
+2006-01-18  araki yasuhiro  <yasu@debian.or.jp>
+	
+	* donrails/app/controllers/notes_controller.rb:
+	NotesController::show_title can use @prams["pickid"] for backword
+	compatibility. (We plan to remove NotesController::pick_article)
+
+	* donrails/app/views/notes/rdf_*.rxml: Change link action from 'pick_article' to 'show_title'.
+
+	* donrails/app/controllers/notes_controller.rb: Fixed Last-Modified: header time format from rfc2822 to rfc2161.
+	* donrails/app/controllers/notes_controller.rb: Fixed handling for empty articles. It is important for start-up user.
+
+	* donrails/app/models/article_sweeper.rb: (ArticleSweeper::expire_for) Change in expire_action.
+
+	* routes.rd: Add di.cgi to rdf_recent/feed.xml. Because lighttpd can not parse di.cgi as XML file.
+
+	* donrails/app/controllers/notes_controller.rb: (NotesController::noteslist) disable 304 return. Because 304 feature cause side effect for cache page feature under running webrick. (Under lighttpd, no side effect.) TODO: I hope to integrate these two feature in near future.
+
+	* donrails/app/controllers/application.rb: (ApplicationController) remove after_filter :compress.
+	* donrails/app/controllers/atom_controller.rb: (AtomController) add after_filter :compress.
+	* donrails/app/controllers/login_controller.rb: (LoginController) add after_filter :compress. 
+	* donrails/app/controllers/notes_controller.rb: (NotesController) add after_filter :compress.
+
+	* New Feature: Add page and action cache in NotesController.
+	- donrails/app/controllers/notes_controller.rb: Add caches_page and caches_action entries.
+	- donrails/config/routes.rb: likewise.
+	- donrails/app/models/article_sweeper.rb: (ArticleSweeper) likewise. It is for cleanup cached contents.
+
+	* donrails/app/controllers/notes_controller.rb: 
+	- Remove (NotesController::rdf_recent2) for cleanup.
+	- Add (NotesController::show_title2).
+
+2006-01-17  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/shared/title-articles.rhtml: fixed a typo.
+
+2006-01-13  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb: Change (ApplicationHelper::parsecontent) extract databody from <content>databody</conten>.
+	* donrails/app/controllers/notes_controller.rb: check nil or empty
+	Array for the instance from Article.find say.
+	* donrails/app/controllers/notes_controller.rb: Change (NotesController::add_cache_control). Add @maxage parameter. Cache-Control behavior is controlled by @maxage and @lm. 
+	
+2006-01-13  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/controllers/notes_controller.rb: check nil or empty
+	Array for the instance from Article.find say.
+
+2006-01-12  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb: New method: ApplicationHelper::parsecontent and ApplicationHelper::bind_article_category, ApplicationHelper::atom_update_article2. These are moved from atom_controller.rb.
+	* donrails/app/controllers/atom_controller.rb: likewise.
+
+	* donrails/app/controllers/atom_controller.rb: (AtomController::post) Change 502 return if some troubles.
+
+	* donrails/tool/atomclient/atomcheck.rb: 
+	- Add article_date by Time.now.iso8601 unless have article_date. 
+	- Use HTree to make up valid HTML.
+	* donrails/tool/atomclient/atommail.rb: Code clean.
+	* donrails/tool/atomclient/test_atompost.rb: Add stress test in test_atompost__plain.
+
+2006-01-10  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/atom_controller.rb: 
+	- Change: (Rechange:) Use compress for atom controller.
+	- (AtomController::atom_update_article2): Can accept no <category> and <articledate> in input. 
+	- (AtomController::atom_update_article2): Can accept many article format. (Before change, html only).
+	* New: to use 'Blogping.active'. If blogping server is 'active'(= 1), send ping. 
+	- (AtomController::atom_update_article2): 
+
+	* donrails/tool/atomclient/test_atomcheck.rb: New file.
+	* donrails/tool/atomclient/test_atompost.rb: New file.
+	* donrails/tool/atomclient/atomcheck.rb: Fix for receive reaction: except status = 201.
+	* donrails/tool/atomclient/atomcheck.rb: New class: AtomPost.
+	- donrails/tool/atomclient/atompost.rb: likewise.
+	* donrails/tool/atomclient/atommail.rb: New file. Early BETA: It is used for e-mail gateway to AtomAPI (post). It is invoked in '~/.forward', and send AtomPOST to some AtomPOST uri.
+
+2006-01-10  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/login/manage_comment.rhtml: fixed a typo.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::pick_article):
+	parse the title and strip the html tags down then.
+	(NotesController::noteslist): likewise.
+	(NotesController::show_date): likewise.
+	(NotesController::show_title): likewise.
+	(NotesController::afterday): likewise.
+	(NotesController::tendays): likewise.
+
+2006-01-06  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/application.rb: Fix for client which does not send Accept-Encoding header.
+
+	* blogpings TABLE added new column 'active'.
+	- UPGRADE_1.1: New file. This file is upgrade guide from 1.0 to 1.1.
+	- donrails/app/controllers/login_controller.rb: add active/deactive method.(delete_blogping)
+	- donrails/app/views/login/manage_blogping.rhtml: Same above.
+
+	* donrails/tool/atomclient/atompost.rb: Add some notice in --help.
+	* donrails/app/controllers/atom_controller.rb: Change: Do not use compress for atom controller action exclude 'feed'.
+	
+2006-01-05  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/application.rb: New Feature: Output gzip compression. It derived from http://blog.craz8.com/articles/2005/12/07/rails-output-compression.
+
+	* donrails/app/controllers/notes_controller.rb: Fix: @lm was located before Article.find in 'recent'.
+
+	* New Feature: Add cache control headers.(rfc2616 14.9) 
+	- 'Last-Modified: ' time was generated from Article.article_mtime.
+	- Add 'Cache-Control: public'. 
+	- donrails/app/controllers/notes_controller.rb: New method 'add_cache_control' as after_filter.
+	* Experimental Feature: Return '304 Not Modified' if @request.env["HTTP_IF_MODIFIED_SINCE"] is later than Last-Modified date. (notes/noteslist only.)
+	
+2006-01-04  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb: Fix @recent_comments in 'recent' method.
+
+2005-12-29  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb: Method 'index' was changed to call 'recent' method.
+	* donrails/app/views/shared/category_title_list.rhtml: Add to show 'Please wait reading.. or link' for non JavaScript enabled browser.
+
+	* donrails/app/controllers/notes_controller.rb: New method 'comment_form_a'.
+	* donrails/app/views/shared/comment2.rhtml: Change to call /notes/comment_form_a/id.
+	* donrails/app/views/notes/noteslist.rhtml: Change to use from shared/comment to shared/comment2.
+	* donrails/public/stylesheets/araki.css: Some change.
+
+2005-12-28  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/shared/comment-form.rhtml: New file.
+	* donrails/app/views/shared/comment.rhtml: Move lines to comment-form.rhtml.
+	* donrails/app/views/shared/comment2.rhtml: New file (now writting.)
+	* donrails/app/views/notes/pick_article_a2.rhtml: Change to call from comment-noadd to comment2.
+	* donrails/app/views/notes/pick_article_a.rhtml: Remove unused lines.
+	* donrails/public/stylesheets/araki.css: add some entry.
+
+2005-12-27  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb: 
+	- New method 'pick_article_a2'.
+	- New method 'show_search_noteslist'.	
+	- New method 'recent_trigger_title_a'.		
+	- Remove useless 'recent' in many methods.
+	* donrails/app/views/shared/category_title_list.rhtml: Add div.ctl.
+	* donrails/app/views/shared/show_direct.rhtml: New file.
+	* donrails/app/views/shared/category_select.rhtml: New div.category_select.
+	* donrails/app/views/notes/show_category2.rhtml: Remove file.
+	* donrails/app/views/notes/recent_trigger_title_a.rhtml: Some fix.
+	* donrails/app/views/notes/search.rhtml: Change to escape for displaying @params['h']
+	* donrails/app/views/notes/pick_article_a2.rhtml: New file.
+	* donrails/app/views/notes/show_category.rhtml: Some change.
+	* donrails/public/stylesheets/araki.css: Add div.sidebar div.{ctl,show_direct,category_select}
+
+2005-12-26  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/recent_category_a.rhtml: New file.
+	* donrails/app/views/notes/recent_category_title_a.rhtml: New file.
+	* donrails/tool/atomclient/atompost.rb: atompost.rb add to send escaped <content>blah,blah,blah</content>.
+
+2005-12-25  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/manage_{comment,article,trackback}.rhtml: Chage to remove useless space.
+
+	* Patch apply from branche/1.0 (109)
+	- donrails/app/controllers/atom_controller.rb: New private method: parsecontent.
+	- donrails/tool/atomclient/{atompost,hnfhelper}.rb:
+	-- New '--preescape' option. atompost.rb does not HTML escape in <pre></pre> text.
+	-- Some change to apply http://www.ietf.org/internet-drafts/draft-ietf-atompub-protocol-06.txt.
+	- README_1.0: New file.
+	- Makefile: Change for dist release 1.0.
+
+2005-12-21  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Road to 1.1 start.
+
+	* donrails/app/controllers/notes_controller.rb: 
+	- New methods. recent_category_title_a and category_select_a. 
+	- Change in recent method. Remove @recent_*_articles (* is category name) and @categories. (Use shared/{category_title_list,category_select}.rhtml for alternative)
+	- Add @recent_trackbacks. 
+	- Change recent_category method to private method.
+	* donrails/app/views/shared/search.rhtml: New file.
+	* donrails/app/views/shared/category_title_list.rhtml: New file.
+	* donrails/app/views/shared/category_select.rhtml: New file.
+	* donrails/app/views/notes/category_select_a.rhtml: New file.
+	* donrails/example/notes.rhtml: Change to call these new Ajax method.
+	
+2005-12-21  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::body_to_html): 
+	added $$img support.
+
+2005-12-20  araki yasuhiro  <yasu@debian.or.jp>
+
+	* 0.99.2
+	* donrails/app/helpers/login_helper.rb: New file.
+	* donrails/app/controllers/login_controller.rb: Fix delete_trackback. Not worked!
+
+	* donrails/app/controllers/atom_controller.rb: 
+	- New method atom_update_article2. 
+	- Rmove atom_update_article and atom_input_parse.
+	- Apply for RFC4287.
+	* donrails/tool/atomclient/atompost.rb: Apply for RFC4287(atomCategory).
+
+2005-12-14  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/atom_controller.rb: FIX format of Atom POSTed article.(Change plain to html).
+	* donrails/app/views/notes/noteslist.rhtml: FIX to hide non categorized article's category name.
+	* donrails/app/views/login/manage_article.rhtml: Change to show format name of article.
+	* donrails/app/views/login/form_article.rhtml: Change to be enable to change format name of article.
+
+2005-12-12  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Fix: HNF format '~' behavior. 
+	- donrails/lib/modules/hnf.rb
+	- donrails/tool/atomclient/hnfhelper.rb
+	* donrails/tool/atomclient/atomcheck.rb: Fix no check mode. Under more than 2 articles in one HNF file, after 2nd articles are checked.
+	* donrails/tool/atomclient/atompost.rb: 
+	- New method 'usage'. It displays help message.
+	- Fix no check mode. Under more than 2 articles in one HNF file, after 2nd articles are checked. Run 'atompost.rb --help' to access.
+
+
+2005-12-11  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Fix: Warning message "don't put space before argument parentheses".
+	- notes/{show_category,show_title,noteslist,pick_article,pick_article_a}.rhtml
+
+2005-12-10  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/ping.rb: Clean no need include line.
+	* donrails/app/models/article.rb: Clean relation to pings and trackbacks.
+	* donrails/app/controllers/atom_controller.rb: Add article.save. (Almost case work well without this change.)
+	* donrails/app/views/login/manage_comment.rhtml: Fix under comment.artiocles.first is not exist.
+	* donrails/app/views/login/manage_article.rhtml: Fix under artiocle is not exist.
+	* donrails/app/views/login/manage_trackback.rhtml: Fix typo.
+	* donrails/app/views/login/manage_ping.rhtml: Fix for display article id.
+	* donrails/tool/atomclient/atompost.rb: Fix for lack argument.
+	
+2005-12-09  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/atom_controller.rb:
+	* donrails/app/helpers/application_helper.rb
+	- Fix atompost. After SVN revision 91, atompost was broken. Som atom post related methods are moved from application_helper.rb to atom_controller.rb.
+	* donrails/app/models/ping.rb: Change in send_pings2 method. Set timeout 10 seconds.
+	* donrails/app/models/article.rb: Fix in send_pings2 method.
+	* donrails/app/controllers/notes_controller.rb: New method 'catch_ping'. Mainly use for Ping.send_pings2 test.
+	* donrails/app/views/notes/catch_ping.rxml: New file.
+	* donrails/tool/atomclient/atompost.rb: Add new '--nocheck' argument. It used to skip duplicate Atom POST. (mainly for testing.)
+	* donrails/public/stylesheets/araki.css: Add 'cite' related configuration.
+
+2005-12-08  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/tables-sqlite.txt: Fix table schema for blogpings.
+	* donrails/app/controllers/login_controller.rb: New method 'add_blogping'.
+	* donrails/app/views/shared/timelink.rhtml: (I lacked to add these file in SVN)
+	* donrails/app/models/{blogping,trackback}.rb: (I lacked to add these file in SVN)
+	* INSTALL.ja: Add library information.
+	* donrails/app/controllers/notes_controller.rb: Change trackback behavior. Trackback accepts HTTP POST only.
+	* donrails/app/views/layouts/login.rhtml: Add link to /login/index.
+	* donrails/app/views/shared/comment.rhtml: Add to show trackback entities.
+	* donrails/app/views/notes/noteslist.rhtml: Add link to show_category.
+	* donrails/public/stylesheets/araki.css: Add trackback related configuration.
+
+2005-12-08  Akira TAGOH  <at@gclab.org>
+
+	* donrails/tool/tables-postgresql.txt: use timestamp instead of
+	datetime. it was obsolete since 7.3.
+
+2005-12-05  araki yasuhiro  <yasu@debian.or.jp>
+
+	* **** INPORTANT **** NEW tables ****
+	* donrails/tool/tables-sqlite.txt: New tables: blogpings, pings and trackbacks.
+
+	* donrails/app/views/notes/pick_article_a.rhtml: No write article.body_to_html if article.body does not exist.
+
+	* donrails/app/views/notes/trackback.rxml: New file
+
+	* donrails/app/views/login/manage_{trackback, ping, blogping}.rhtml: New file. 
+
+	* donrails/app/views/shared/comment-noadd.rhtml: add to show article.trackbacks.
+
+	* donrails/app/views/layouts/login.rhtml: Add link to manage_{trackback, blogping, ping}.
+
+	* donrails/app/controllers/notes_controller.rb: New method: tackback
+
+	* donrails/app/controllers/login_controller.rb: New methods: manage_trackback, delete_trackback, manage_ping, manage_blogping, delete_blogping, manage_author.
+
+	* donrails/app/models/article.rb: Describe relationship with 'pings' table. New method 'send_ping2'.
+
+	* donrails/app/models/ping.rb: New file. Pings table records ping from donrails to othre ping receivable service.
+
+	* donrails/app/helpers/application_helper.rb: New methods 'atom_input_parse', 'atom_update_article', 'bind_article_category', 'article_url' and 'sendping'.
+
+	* donrails/app/helpers/atom_helper.rb: New file.
+
+	* donrails/app/controllers/atom_controller.rb: Many methods removed to atom_helper.rb.
+
+2005-11-26  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/atom_controller.rb: Change to extract title from <title><blah></blah></title>. Former version can not extract title which is not plain text.
+
+2005-11-25  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/config/routes.rb: 'notes/search/:q' is new method to access search.
+
+	* New action 'rdf_search'.
+	- donrails/app/controllers/notes_controller.rb: add rdf_search. Redirect rdf_search if no category is inputted in rdf_category.
+
+	* donrails/lib/modules/hnf.rb: Change output for 'body_to_xml'. If HTree.parse(self.body_to_html).to_rexml is failed, return self.body_to_html.
+
+	* donrails/app/views/notes/rdf_category.rxml: Change link from rdf_category to show_category_noteslist.
+
+	* donrails/app/views/notes/rdf_article.rxml: Change link from rdf_article to show_title.
+
+	* donrails/app/controllers/notes_controller.rb: Change rdf_category. If inputted category does not exist, redirect to rdf_recent.
+
+	* Remove link ':title' parameter from to :action=>'show_title'. 
+	Because it cause confuse of link uri. (notes/t/:title and notes/show_title/:id:title). 
+	Now all donrails files make link by 'notes/id/:id'.
+	But you also use both 'notes/t/:title' and 'notes/id/:id'.
+	- donrails/app/views/shared/linktitle.rhtml
+	- donrails/app/views/shared/title-articles2no.rhtml
+	- donrails/app/views/shared/title-articles2.rhtml
+	- donrails/app/views/notes/show_category.rhtml
+	- donrails/app/views/notes/show_category2.rhtml
+	- donrails/app/views/notes/show_title.rhtml
+	- donrails/app/views/notes/noteslist.rhtml
+	- donrails/app/views/notes/pick_article.rhtml
+	- donrails/config/routes.rb
+
+2005-11-24  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/rdf_{article,category,recent}.rxml: add article body in <content:encoded><![CDATA[blah blah blah]]></content:encoded>.
+
+2005-11-23  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/atomclient/hnfhelper.rb: Some fix for HNF to html. 
+
+	* donrails/lib/modules/hnf.rb:
+	- Now use HTree in body_to_xml.
+	- Some fix for HNF to html.
+
+	* donrails/lib/modules/html.rb: Now use HTree in body_to_xml.
+
+	* donrails/app/views/notes/rdf_category.rxml: Change to no excape <>&. in <description> </description>.
+
+	* donrails/app/views/notes/rdf_recent.rxml: Change to no excape <>&. in <description> </description>.
+
+	* NEW action 'notes/rdf_article':
+	- donrails/app/controllers/notes_controller.rb: New method rdf_article.
+	- donrails/app/views/notes/rdf_article.rxml: New file.
+
+	* donrails/app/controllers/application.rb: Change set_charset to off.
+
+2005-11-19  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/public/stylesheets/araki.css: Change in div.section.
+
+	* donrails/app/controllers/application.rb: New method: set_charset. It used for set the charset and Content-type.
+
+2005-11-18  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/modules/html.rb: Change in body_to_xml. It use htree for convert html to xml.
+
+	* donrails/app/views/notes/rdf_category.rxml: If xml.description is failed, print error log.
+
+2005-11-17  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/atomclient/atomcheck.rb: Fix in check().
+
+ 	* donrails/app/views/notes/rdf_category.rxml: New file. It is used for making categorized rdf.
+
+	* donrails/app/views/notes/rdf_recent.rxml: Some change.
+
+	* donrails/app/views/notes/noteslist.rhtml: Add link to show_category
+
+	* donrails/app/views/notes/show_category.rhtml: Add link to show_category_noteslist
+
+	* donrails/app/controllers/notes_controller.rb: Change: rdf_category shows only 20 articles. 
+
+2005-11-16  araki yasuhiro  <yasu@debian.or.jp>
+
+	* atompost:
+	- New file donrails/tool/atomclient/hnfhelper.rb.
+	- New file donrails/tool/atomclient/atomcheck.rb.
+	- donrails/tool/atomclient/atompost.rb: 
+	-- Split HNF related codes.
+	-- New feature: It can post HTML file.
+	-- New feature: Posted information is memorized in DB. (config file is ENV['HOME']}/.donrails/atompost.yaml)
+	-- It needs 'rexml/document', 'htree' and 'time' module.
+
+	* donrails/app/controllers/notes_controller.rb: New method. 'rdf_category' and 'show_category_noteslist'.
+
+	* donrails/config/routes.rb: 
+	- "notes/d/:category" is routed to 'show_category_noteslist'.
+	- "notes/rdf_category/:category" is routed to 'rdf_category'.
+	
+
+	* donrails/app/controllers/atom_controller.rb: Change: At AtomAPI post, invalid input will reject. 
+
+	* donrails/app/helpers/application_helper.rb: 'don_mb_truncate': Change to remove html tag. It is used for article administration.
+
+2005-11-08  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/hnf2db.rb: Some fix.
+
+	* donrails/tool/atomclient/atompost.rb: Support HNF type original file format.
+
+	* donrails/lib/modules/html.rb: New method. Support HTML body.
+
+	* donrails/app/controllers/atom_controller.rb: 
+	- AtomAPI support <title/>, <article_date/> and <category/>.
+	- If AtomAPI post failed, return 404.
+	
+
+2005-11-01  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::title_to_xml):
+	added a missing method for XML.
+	(DonRails::Wiliki::body_to_xml): likewise.
+
+2005-10-16  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/atom_controller.rb: Change for logging AtomAPI post.
+
+	* donrails/tool/atomclient/wsse.rb: New file.
+
+	* donrails/tool/atomclient/atompost.rb: New file. 
+
+	* donrails/tool/tables-sqlite.txt: Fix: SQL syntax.
+
+2005-10-14  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::title_to_html):
+	don't include a space into the front strings matched.
+
+2005-10-10  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/atom/index.rxml: Change for adding recent articles in /atom/.
+
+	* donrails/app/views/atom/feed.rxml: Change for adding recent articles in /atom/feed.
+
+	* donrails/app/controllers/atom_controller.rb: Change for no auth at /atom/feed. Change for adding recent articles in /atom/ and /atom/feed.
+
+	* donrails/app/controllers/application.rb: Fix for WSSE auth.
+
+2005-10-07  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/shared/title-articles.rhtml: use don_mb_truncate
+	instead of truncate.
+	* donrails/app/views/login/manage_comment.rhtml: likewise.
+	* donrails/app/views/login/manage_article.rhtml: likewise.
+	* donrails/app/views/notes/show_category.rhtml: likewise.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_mb_truncate):
+	similar method to truncate, but multibytes support.
+
+2005-10-04  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::body_to_html):
+	fixed the behavior to work similar to wiliki.
+
+2005-10-01  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/antispam.rb: Modify to apply 'ipaddr' and 'hostname' in Blacklist.format.
+
+	* donrails/app/views/login/manage_blacklist.rhtml: New file.
+
+	* donrails/app/views/layouts/login.rhtml: Add link to manage_blacklist.
+
+	* donrails/app/views/shared/comment.rhtml: Remove unused comment line.
+
+2005-10-01  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/donplugin.rb (DonRails::Plugin): New class.
+
+	* donrails/tool/plugin-setup.rb (Installer::uninstall):
+	removed the unnecessary debug code.
+	(TableInstaller::initialize): prefer the absolute path.
+
+	* donrails/plugins/calendar/calendar.rhtml: removed style tag to be
+	XHTML compliant.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_get_stylesheets):
+	New method to get the list of stylesheets required.
+
+2005-09-30  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/shared/comment.rhtml: Use maxlength instead of
+	maxsize.
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::body_to_html):
+	Modified to be XHTML compliant.
+	(DonRails::Wiliki::output_list): likewise.
+
+2005-09-28  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/hnf.rb (DonRails::HNF::body_to_html):
+	Modified to be XHTML compliant.
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::body_to_html):
+	Use <br/> instead of <br> to be XHTML compliant.
+
+2005-09-27  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/manage_comment.rhtml: Change id='ca' to 'comment_ajax'.
+
+	* donrails/app/views/shared/comment.rhtml: Change 'id' for unique. 
+
+2005-09-26  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb: Fix orphaned comments problem. 
+
+	* donrails/donrails/app/controllers/atom_controller.rb: Fix AtomAPI delete success return code 200 to 204. (According to draft-ietf-atompub-protocol-04.txt.)
+
+2005-09-25  Akira TAGOH  <at@gclab.org>
+
+	* donrails/tool/plugin-setup.rb: Added new program to assist the plugin
+	installation/removal.
+
+	* donrails/tool/tables-sqlite.txt: Added plugins table.
+	* donrails/tool/tables-postgresql.txt: likewise.
+
+	* donrails/plugins/calendar: New plugin for calendar.
+	* donrails/lib/calendar.rb: likewise.
+	* donrails/public/stylesheets/calendar.css: likewise.
+
+	* donrails/app/views/shared/calendar.rhtml: moved onto plugins directory.
+	* donrails/app/views/shared/comment.rhtml: removed the unnecessary </p> tag.
+
+	* donrails/app/models/plugin.rb: New model class.
+
+2005-09-09  Akira TAGOH  <at@gclab.org>
+
+	* donrails/public/stylesheets/calendar.css: New file.
+
+	* donrails/app/views/shared/calendar.rhtml: New file.
+
+	* donrails/lib/calendar.rb: New file to generate the calendar.
+
+2005-09-09  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/author.rb: Validates presence.
+
+	* donrails/app/models/blacklist.rb: Validates presence.
+
+2005-09-08  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/tables-postgresql.txt: Add new 'blacklists' table.
+
+	* donrails/tool/tables-sqlite.txt: Add new 'blacklists' table.
+
+	* donrails/lib/antispam.rb: Change for using 'blacklists' table.
+
+	* donrails/app/controllers/login_controller.rb: New method: {manage|delete|add}_blacklist.
+
+	* donrails/app/models/blacklist.rb: New file.
+
+	* donrails/app/models/blacklist_pattern.rb: Delete file.
+
+2005-09-08  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/login/authenticate.rhtml: choose the preferred
+	format by default.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::authenticate):
+	determine which format is mostly used.
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::title_to_html):
+	New method.
+
+	* donrails/lib/modules/hnf.rb (DonRails::HNF::body_to_html): split
+	the strings up against CRLF or CR or LF.
+
+	* donrails/lib/modules/wiliki.rb: New input format parser module to
+	support WiLiKi format.
+	(DonRails::Wiliki::body_to_html): split the strings up against CRLF or CR or LF.
+	(DonRails::Wiliki::output_block): escape the strings when it's in pre tag.
+
+2005-09-07  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/modules/hnf.rb: Fix for luck of LF in PRE /PRE commands.
+
+	* donrails/lib/antispam.rb: Fix for call subroutine.
+	
+2005-09-06  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/rd.rb: trivial fix.
+
+2005-09-05  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/modules/hnf.rb: Fix for does not process line which is started with "~".
+
+2005-09-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/atom/index.rxml: Add link to service.feed and service.categories.
+
+	* donrails/app/views/atom/categories.rxml: New file.
+
+	* donrails/app/views/atom/feed.rxml: New file.
+
+	* donrails/app/controllers/atom_controller.rb:
+	- Change wsse_auth debug ip address. Localhost client pass without wsse.
+	- New method feed().
+	- New method categories().
+
+2005-09-04  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::noteslist):
+	Added an exception.
+
+2005-09-03  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/manage_author.rhtml: Change description in english to japanese.
+
+	* donrails/app/views/layouts/login.rhtml: Add link for ':action => "logout"'.
+
+2005-09-02  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/author.rb: Fix filename.(wrong file name: authors.rb)
+
+	* donrails/app/views/notes/show_title.rhtml: (Partially) Fix for don_get_object.
+
+	* INSTALL.ja: Donrails now depends on RD library.
+
+        * donrails/tools/table-{sqlite,postgresql}.txt: Add Author.writable
+
+        * donrails/app/controller/login_controller.rb: Change for manage_author.rhtml
+
+        * donrails/app/views/login/manage_author.rhtml: New view for management
+AtomAPI authors.
+
+2005-09-01  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/delegator.rb (DonRails::DataFormatDelegator): undef id
+	to pass it to the original object.
+	(DonRails::DataFormatDelegator::formatmap): store the modules list
+	into $formatmap and ensure to do Dir.glob just one time.
+
+2005-08-31  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_get_object):
+	New method to get DataFormatDelegator object for the article.
+	(ApplicationHelper::don_to_title): removed.
+	(ApplicationHelper::don_to_html): removed.
+
+	* donrails/lib/modules/rd.rb (DonRails::RD::title_to_html): renamed from title.
+	(DonRails::RD::body_to_html): renamed from to_html.
+	(DonRails::RD::title_to_xml): New method.
+	(DonRails::RD::body_to_xml): New method.
+
+	* donrails/lib/modules/hnf.rb (DonRails::HNF::title_to_html): renamed from title.
+	(DonRails::HNF::body_to_html): renamed from to_html.
+	(DonRails::HNF::title_to_xml): New method.
+	(DonRails::HNF::body_to_xml): New method.
+
+	* donrails/lib/delegator.rb (DonRails::DataFormatDelegator::initialize): API changes.
+	(DonRails::DataFormatDelegator::method_missing): extend String and call
+	the method here when the method name '<fieldname>_to_<type>' is given.
+	(DonRails::PlainText::title_to_html): renamed from title
+	(DonRails::PlainText::body_to_html): renamed from to_html
+	(DonRails::PlainText::chomp_tags): moved to ApplicationHelper#don_chomp_tags
+	(DonRails::PlainText::title_to_xml): New method.
+	(DonRails::PlainText::body_to_xml): New method.
+
+	* donrails/app/views/shared/linktitle.rhtml: applied the above changes.
+	* donrails/app/views/shared/title-articles2no.rhtml: likewise.
+	* donrails/app/views/shared/title-articles2.rhtml: likewise.
+	* donrails/app/views/shared/title-articles.rhtml: likewise.
+	* donrails/app/views/shared/random-article.rhtml: likewise.
+	* donrails/app/views/notes/show_category.rhtml: likewise.
+	* donrails/app/views/notes/show_category2.rhtml: likewise.
+	* donrails/app/views/notes/show_title.rhtml: likewise.
+	* donrails/app/views/notes/noteslist.rhtml: likewise.
+	* donrails/app/views/notes/search.rhtml: likewise.
+	* donrails/app/views/notes/pick_article.rhtml: likewise.
+	* donrails/app/views/notes/pick_article_a.rhtml: likewise.
+	* donrails/app/views/notes/rdf_recent.rxml: likewise.
+
+2005-08-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/modules/hnf.rb: Fix for not processing HNF command line which begin with "/".
+
+	* donrails/app/views/login/authenticate.rhtml: Little change <hr><hr> to <hr>.
+
+	* donrails/app/views/layouts/login.rhtml: Add link to manage_author(), delete_author()
+
+	* donrails/app/controllers/login_controller.rb: New manage_author(), delete_author() for atom author management.
+
+2005-08-27  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/modules/hnf.rb: Fix for not displaying body.
+
+	* donrails/app/views/login/authenticate.rhtml: Remove links to manage_article/manage_comment/hnf_save_all. Because these links now in layouts/login.rhtml
+
+	* donrails/app/views/layouts/login.rhtml: Change for easy navigation.
+
+	* donrails/app/controllers/login_controller.rb: NEW logout().
+
+	* donrails/app/controllers/application.rb: WSSE authentification function change. Now use user/pass pair is sotred in Authors.
+
+2005-08-26  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/hnf.rb (DonRails::HNF::to_html): fixed a typo.
+
+	* donrails/app/views/shared/linktitle.rhtml: modified to fit to the latest application helper.
+	* donrails/app/views/shared/title-articles2no.rhtml: likewise.
+	* donrails/app/views/shared/title-articles2.rhtml: likewise.
+	* donrails/app/views/shared/title-articles.rhtml: likewise.
+	* donrails/app/views/shared/rundom-article.rhtml: likewise.
+
+	* donrails/app/views/notes/show_category.rhtml: modified to fit to the latest application helper.
+	* donrails/app/views/notes/show_category2.rhtml: likewise.
+	* donrails/app/views/notes/show_title.rhtml: likewise.
+	* donrails/app/views/notes/search.rhtml: likewise.
+	* donrails/app/views/notes/pick_article.rhtml: likewise.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_chomp_tags):
+	  New method.
+
+	* donrails/app/helpers/hnf_helper.rb: REMOVED.
+
+	* donrails/lib/delegator.rb (DonRails::PlainText::title): New method.
+	(DonRails::DataFormatDelegator::formatmap): hack to find the input format modules all.
+
+	* donrails/lib/modules/hnf.rb (DonRails::HNF::title): New method.
+
+	* donrails/lib/modules/rd.rb (DonRails::RD::title): New method.
+	(DonRails::RD::to_html): ensure "\n" at the end of the given string.
+
+	* donrails/app/views/notes/noteslist.rhtml: modified against the application_helper.rb's change.
+
+	* donrails/app/views/notes/pick_article_a.rhtml: likewise.
+
+	* donrails/app/views/login/authenticate.rhtml: show the supported input format from
+	  don_supported_formats instead of hardcoded stuff.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_supported_formats):
+	  New method to get which input format DonRails supported.
+	(ApplicationHelper::don_to_title): New method to convert String to the article title.
+	(ApplicationHelper::don_to_html): New method to convert String to HTML.
+	(ApplicationHelper::remove_html_gl, don_lnew, don_link, plain_remove_html_gl):
+	(ApplicationHelper::plain_don_link, plain_don_line_link, plain_don_line_2kaigyo):
+	(ApplicationHelper::plain_don_lnew): REMOVED.
+
+2005-08-26  araki yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/authors.rb: New models. It store user/pass entry for AtomAPI post/edit/delete.
+
+	* donrails/app/controllers/application.rb: Change wsse_match(user,pass,wsse) to wsse_match(wsse). wsse_match(wsse) search user and pass from Authors.
+	* donrails/tool/tables-sqlite.txt: Add authors table.
+	* donrails/tool/tables-postgresql.txt: Add authors table.
+	* donrails/tool/tables.txt: REMOVE.
+
+	* donrails/app/helpers/application_helper.rb: Fix pub_date time format. Now use Time.iso8601.
+
+	* donrails/app/controllers/application.rb: Fix regexp error.
+
+	* donrails/app/helpers/application_helper.rb: Add don_lnew() and plain_don_lnew(). These are removed from hnf_helper.rb.
+
+	* INSTALL.ja: Add information for setup.
+
+	* donrails/app/views/atom/{index|post}.rxml: New AtomAPI template.
+
+	* donrails/app/controllers/atom_controller.rb: New controler. AtomAPI controller.
+
+2005-08-26  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/rd.rb: New module. RD parser.
+
+	* donrails/lib/modules/hnf.rb: New module. hnf parser.
+
+	* donrails/lib/delegator.rb: New class to delegate the object to each output format module.
+
+2005-08-25  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/login/authenticate.rhtml: fixed a typo. plainf should be plain.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::plain_don_line_2kaigyo): fixed a typo.
+
+	* donrails/tool/tables-postgresql.txt: New file for PostgreSQL.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_article): prevent NoMethodError for nil.
+
+2005-08-25  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Add: """map.connect '', :controller => "notes", :action => "index" """ in routes.rb. 
+
+2005-08-25  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::recent_category): returns the empty Array when there is no categories.
+
+2005-08-24  araki yasuhiro  <yasu@debian.or.jp>
+
+	* New: apply for "plain" article format.
+
+	* Change: at no articles, return 404.
+
+	* Split application_helper.rb's HNF related lines to "hnf_helper.rb".
+
+	* Add: Makefile: "make init" make link to donrails/lib to use antispam.rb.
+
+	* Fix: INSTALL.ja: config files are located under rails/config. (wrong: donrails/config) (thanks tagoh)
+
+2005-08-23  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Change: donrails-setup.rb: Now some values set dafault.(thanks tagoh)
+
+2005-08-22  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Add: In map.connect "notes/every_year/:month/:day" to display the same day of the year.
+
+2005-08-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* New: wsse_generate and wsse_match. These will be used for AtomAPI.
+
+2005-08-20  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Change: Paginate for notes/afterday is broken. Now notes/afterday is not paginated. Simply show 30 articles.
+
+	* New: "@noindex" class parameter to control add '''<meta name="robots" content="noindex">''' tag in header. (Please show notes.rhtml)
+
+	* Change: notes_controller.rb: 'dateparse' method is now protected.
+
+2005-08-19  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Change: Makefile and donrails-setup.rb: "rails -d rails" is maybe debian extension. I change "rails rails" to setup by 'make' command. (thanks: tagoh)
+	* Fix: At artilce format is HNF, "<img src=... >" is not rendered.
+
+	* Add: can show cross year same day articles. For example, "notes/?0101" show Jun.1 day's articles. Now it limits 10 years.
+
+2005-08-18  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Fix: add_comment2: Can not post comment under /note/titile/hogehoge...
+	* Change rdf_recent.rxml title format. If title includes URL scheme, not it is stripped.
+	
+2005-08-17  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Fix: some user defined tags (TENKI, TAION..) are displayed. 
+
+2005-08-16  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Add: show_title search trigger by 'id'. If 'id' is lacked, use 'title'.
+	* Change rdf_recent.rxml date format from Article.ariticle_date to Article.article_mdate.
+	
+2005-08-15  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Fix: hnf2db.rb could not use rail/lib/antispam.rb. Fixed.
+	* If "yyyymm(a|b|c)", show the (first|2nd|3rd) ten days of a month.
+
+2005-08-14  araki yasuhiro  <yasu@debian.or.jp>
+
+	* add function for comment spam. Many functions derived from "typo".
+
+2005-08-12  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Add @recent_comment parameters to display recent articles with comments.
+
+2005-08-10  araki yasuhiro  <yasu@debian.or.jp>
+
+	* At displaying search results, seach keyword is highlighted.
+	* At displaying search results, seach text is excerpted.
+
+	* Comment validation methods are changed. Now it works in model/comment.rb
+	* In Comment.body, If you want to write HTML format, you can use restricted tags. (Current: allow = ['p','br','i','b','u','ul','li'])
+
+2005-08-08  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Fix: Backup all articles in "hnf" file format is not working.
+
+2005-08-07  araki yasuhiro  <yasu@debian.or.jp>
+
+	* Fix: the function (show_date in notes_controler.rb) does not run well.
+	* Add: "view/layout/login.rhtml". All under "login" use login.rhtml as layout.
+	* Add: "login/form_article". For fixing article title and body.
+	
+2005-08-06  araki yasuhiro  <yasu@debian.or.jp>
+
+	* convert all euc-jp files to utf-8.
+	* prepare import to "svn://svn.berlios.de/donrails/trunk" or "svn+ssh://developername@svn.berlios.de/svnroot/repos/donrails/trunk"
+	* hnf2db.rb: Fix dialogue.
+

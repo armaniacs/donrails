@@ -1,0 +1,26 @@
+<% @heading = "comment management" %>
+
+<% if @comments %>
+
+<% if @comments_pages %>
+<%= pagination_links @comments_pages %>
+<% end %>
+
+<h1><%= @heading %></h1>
+<%= render('shared/add_banlist') %>
+<hr>
+<%= secure_form_tag :action => "delete_comment" %>
+<div class="kakomi">
+<div id="comment_ajax">
+[記事]を押すと削除対象コメントと親記事が表示されます
+</div>
+</div>
+<%= submit_tag %>
+<%= render('shared/table_comment') %>
+<%= submit_tag %>
+<%= end_form_tag %>
+<% end %>
+
+<% if @comments_pages %>
+<%= pagination_links @comments_pages %>
+<% end %>

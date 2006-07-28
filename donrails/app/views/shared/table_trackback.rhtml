@@ -1,0 +1,41 @@
+<table  border="1" cellspacing="0">
+  <tr>
+    <td>Hide?</td>
+    <td>Delete?</td>
+    <td>status</td>
+    <td>article id</td>
+    <td>blog_name</td>
+    <td>title</td>
+    <td>excerpt</td>
+    <td>ip <br> url</td>
+  </tr>
+  <% @trackbacks.each do |co| %>
+  <tr>
+    <td>
+      <% if co.hidden == 1 %>
+      <%= check_box "hideid", co.id, :checked => 'checked' %>
+      <% else %>
+      <%= check_box "hideid", co.id %>
+      <% end %>
+    </td>
+    <td><%= check_box "deleteid", co.id %></td>
+    <td><% if co.hidden == 1 %>(hidden)<% else %>normal<% end %></td>
+    <td>
+      <% if co.article %>
+      <%= link_to_remote(co.article.id, :update => "trackback_ajax", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.article.id }) %>
+      <% else %>
+      ---
+      <% end %>
+    </td>
+    <td><%=h co.blog_name if co.blog_name %></td>
+    <td><%=h don_mb_truncate(co.title) if co.title %></td>
+    <td><%=h don_mb_truncate(co.excerpt) if co.excerpt %></td>
+    <td>
+      <%=h co.ip if co.ip %>
+      <br>
+      <%=h co.url if co.url %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+  

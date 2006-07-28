@@ -1,0 +1,30 @@
+<% @heading = "#{@picture.name} picture management" %>
+
+<h1><%=h @picture.name %></h1>
+<%= secure_form_tag :action => "edit_picture" %>
+<%= hidden_field "picture", "id", "value" => @picture.id %>
+
+id:<%= @picture.id %> |
+ファイルサイズ:<%= @picture.size if @picture.size %> バイト |
+ファイル形式:<%= @picture.content_type if @picture.content_type %> |
+article_id:<%= text_field "picture", "article_id", "size" => 5, "value" => @picture.article_id %> |
+comment:<%= text_field "picture", "comment", "size" => 80, "value" => @picture.comment %>
+<p>
+<%= submit_tag %>
+<%= end_form_tag %>
+
+<div class="kakomi">
+<div id="ca">
+<% if @picture.article_id %>
+<script type="text/javascript">
+//<![CDATA[
+<%= remote_function(:update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => @picture.article_id }, :method => 'get') %>
+//]]>
+</script>
+<% end %>
+</div>
+</div>
+オリジナルサイズの表示
+<br>
+<% rpath = '/' + @picture.path.split('/public/').last %>
+<%= image_tag(rpath) %>

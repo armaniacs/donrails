@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  password: test
+  date: 1999-01-01 10:00:00
+  title: first comment
+  author: toorisugari
+  ipaddr: 127.0.0.1
+  body: test body in comment.
+another:
+  id: 2
+  password: test2
+  date: 1999-01-01 10:00:00
+  title: 2nd comment
+  author: toorisugari
+  ipaddr: 127.0.0.1
+  body: test body in comment 2
+third:
+  id: 3
+  password: test3
+  date: 1999-01-01 10:00:00
+  title: 3rd comment
+  author: toorisugari
+  ipaddr: 127.0.0.1
+  body: test body in comment 3 hidden
+  hidden: 1
+

@@ -1,0 +1,78 @@
+1.0から1.1にUPGRADEする方へ。互換性がない機能と変更についての案内です。
+
+----
+* spam関連の変数をdonrails_env.rbに追加してください。
+
+IP_RBL = [ 'niku.2ch.net', 'opm.blitzed.us', 'bsb.empty.us' ]
+HOST_RBL = [ 'rbl.bulkfeeds.jp', 'sc.surbl.org', 'bsb.empty.us' ]
+URL_LIMIT = 5
+
+のようにします。記述しない場合はデフォルト値が使われます。
+antispam.rbのデフォルト値はなるべくそのとき知られたRBLが
+はいっていますが、保証いたしかねます。
+
+----
+* CSRF対策のため、security_extensions pluginを使うようになりました。
+
+追加方法は、script/pluginコマンドを使用します。
+rails directory以下に移動し、
+
+ ./script/plugin source http://svn.aviditybytes.com/rails/plugins/
+ ./script/plugin install security_extensions 
+
+を行います。
+
+----
+* テーブルが一部変更されました。
+
+テーブルの追加にはALTERコマンドを使用します。
+
+** banlistsテーブルにwhiteカラムが必要です。
+
+ alter table banlists add column white INTEGER;
+
+** blacklistsテーブルがbanlistsに変更されました。
+
+** categoriesテーブルにparent_idカラムが必要です。
+
+ alter table categories add column parent_id INTEGER;
+ alter table categories add constraint fk_category foreign key (parent_id) references categories(id);
+
+ (sqlite/sqlite3の場合はconstraintをALTERで追加できません。
+  いったんdumpして変更する必要があります。
+  http://donrails.araki.net/notes/id/5220 を参考にしてください)
+
+** categoriesテーブルにdescriptionカラムが必要です。
+
+ alter table categories add column description VARCHAR;
+
+** picturesテーブルにarticle_idカラムが必要です。
+
+ alter table pictures add column article_id INTEGER;
+
+** blogpingsテーブルにactiveカラムが必要です。
+
+追加方法
+
+ alter table blogpings add column active INTEGER;
+
+** articlesテーブルにauthor_idカラムが必要です。
+
+ alter table articles add column author_id INTEGER;
+
+** authorsテーブルにnicknameカラムが必要です。
+
+ alter table authors add column nickname VARCHAR;
+
+** authorsテーブルにsummaryカラムが必要です。
+
+ alter table authors add column summary VARCHAR;
+
+* Cache のためのdirectoryが必要になります。
+
+httpdを動作させているユーザ(例えばwww-data等)
+ rails/public/index.html
+ rails/public/notes/ 以下
+ rails/public/atom/  以下
+の書き込み権限が必要になります。
+

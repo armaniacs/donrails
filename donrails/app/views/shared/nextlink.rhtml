@@ -1,0 +1,5 @@
+<% if lag == "tomorrow" %>
+<%= link_to term,{:action => "show_date",:year => srcdate.tomorrow.year,:month => srcdate.tomorrow.month,:day => srcdate.tomorrow.day} %>
+<% elsif lag == "yesterday" %>
+<%= link_to term,{:action => "show_date",:year => srcdate.yesterday.year,:month => srcdate.yesterday.month,:day => srcdate.yesterday.day} %>
+<% end %>

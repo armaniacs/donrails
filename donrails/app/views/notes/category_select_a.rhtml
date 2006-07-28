@@ -1,0 +1,11 @@
+<% if @categories %>
+<%= start_form_tag :action => 'show_category' %>
+<select name="category">
+  <% @categories.each do |cat| %>
+  <option value="<%= cat.name %>"><%= cat.name %></option>
+    <% end %>
+  <option value="">NULL</option>
+</select>
+<%= submit_tag "カテゴリ選択" %>
+<%= end_form_tag %>
+<% end %>

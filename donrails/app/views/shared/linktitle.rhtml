@@ -1,0 +1,9 @@
+<%
+la = strip_links lastarticle.title_to_html if lastarticle
+na = strip_links nextarticle.title_to_html if nextarticle
+%>
+&lt;
+<%= link_to la, {:action => "show_title", :id => lastarticle.id} if lastarticle %>
+|
+<%= link_to na, {:action => "show_title", :id => nextarticle.id} if nextarticle %>
+&gt;

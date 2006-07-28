@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first_authors:
+  id: 1
+  name: araki
+  nickname: ar
+  pass: pass
+  writable: 1
+  summary: araki yasuhiro
+another_authors:
+  id: 2
+  name: araki2
+  nickname: ar2
+  pass: pass2
+  writable: 0
+  summary: araki yasuhiro 2

@@ -1,0 +1,12 @@
+
+<% rn = rand(@articles.length) %>
+<% article = don_get_object(@articles[rn], 'html') %>
+<div class="nnenhead">
+<%= article.title_to_html %>
+(<%= link_to article.article_date.to_date,
+{:action => "show_date",
+:year => article.article_date.year,
+:month => article.article_date.month,
+:day => article.article_date.day
+} %>)
+</div> <!-- end nnenhead -->

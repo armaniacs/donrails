@@ -1,0 +1,53 @@
+From yasu  Wed Jul 20 15:42:20 2005
+Return-Path: <yasu@vaio.araki.net>
+Received: by vaio.araki.net (Postfix, from userid 1000)
+	id 22E897C81B; Wed, 20 Jul 2005 15:40:32 +0900 (JST)
+Delivered-To: yasu@vaio.araki.net
+Received: from jp-mm-outgoing-0102.amazon.com (207-171-180-101.amazon.com [207.171.180.101])
+	by vaio.araki.net (Postfix) with ESMTP id 6AD497C81B
+	for <iron@araki.net>; Wed, 20 Jul 2005 15:40:13 +0900 (JST)
+Received: from jp-bdb-102.amazon.com by jp-mm-outgoing-0102.amazon.com with ESMTP 
+	(crosscheck: jp-bdb-102-dbnet.amazon.com [192.168.130.40])
+	id j6K6dBqe016952; Tue, 19 Jul 2005 23:39:11 -0700
+Received: by jp-bdb-102.amazon.com
+	id AAA-default-27740,120; 19 Jul 2005 23:38:59 -0700
+Date: 19 Jul 2005 23:38:59 -0700
+Message-ID: <.AAA-default-27740,120.1121841539@jp-bdb-102.amazon.com>
+X-AMAZON-TRACK: default 
+To: iron@araki.net
+From: "auto-confirm@amazon.co.jp" <auto-confirm@amazon.co.jp>
+Subject: =?ISO-2022-JP?B?QW1hem9uLmNvLmpwIBskQiQ0Q21KOCROM05HJxsoQg==?=
+Content-Type: Multipart/Alternative;boundary=MuLtIpArT_BoUnDaRy
+MIME-Version: 1.0
+X-Spam-Checker-Version: SpamAssassin 3.0.3 (2005-04-27) on vaio
+X-Spam-Level: 
+X-Spam-Status: No, score=-17.5 required=10.0 tests=AWL,BAYES_00,HTML_80_90,
+	HTML_MESSAGE,USER_IN_DEF_WHITELIST autolearn=ham version=3.0.3
+
+<ems-render-hash><hash
+name="EMS.mime-boundary">MuLtIpArT_BoUnDaRy</hash><hash name="EMS.info">log
+info </hash><hash name="EMS.status">OK</hash></ems-render-hash>
+
+--MuLtIpArT_BoUnDaRy
+Content-Type: text/plain; charset=iso-2022-jp
+
+Subject:Amazon.co.jp ご注文の確認
+
+契約は成立いたしません。
+
+--MuLtIpArT_BoUnDaRy
+Content-Type: text/html; charset=iso-2022-jp
+
+<html>
+<head>
+    <title>Amazon.co.jp ご注文の確認</title>
+</head>
+<body bgcolor="#FFFFFF" link="#0066CC">
+
+moge
+
+</body>
+</html>
+
+--MuLtIpArT_BoUnDaRy--
+

@@ -1,0 +1,92 @@
+<% @heading = 'picture management' %>
+<h1>picture management</h1>
+ファイルのアップロード
+
+<%= secure_form_tag({:action => "picture_save"},:multipart => 'true')  %>
+<input id="picture_picture" name="picture[picture]" size="30" type="file" />
+<input name="commit" type="submit" value="Upload file" />
+<%= end_form_tag %>
+
+<% if @pictures %>
+
+<% if @pictures_pages %>
+<%= pagination_links @pictures_pages %>
+<% end %>
+
+<%= secure_form_tag :action => "delete_picture" %>
+<div class="kakomi">
+<div id="ca">
+記事が表示されます
+</div>
+</div>
+
+<ul>
+  <li>Hide?ボックスをチェックすると、hiddenステータスの1/0を切りかえます。</li>
+  <li>Delete?ボックスをチェックすると、pictureをdbから削除します。(fileは残ります)</li>
+  <li>File Delete?ボックスをチェックすると、pictureをdbから削除し、ファイルも削除します。</li>
+  <li>Edit? をクリックするとpictureと記事を関連づけたり、より詳細な情報を見ることができます。</li>
+</ul>
+
+<div class="notice">
+  <%= @flash[:note] %>
+  <%= @flash[:note2] %>
+</div>
+
+<%= submit_tag %>
+<table  border="1" cellspacing="0">
+   <tr>
+     <td>id</td>
+     <td>article_id</td>
+     <td>image</td>
+     <td>Hide?/Edit?</td>
+<!--
+     <td>size</td>
+     <td>content_type</td>
+-->
+     <td>name</td>
+     
+     <td>Delete/File Delete?</td>
+   </tr>
+
+   <% @pictures.each do |pic| %>
+   <% rpath = '/' + pic.path.split('/public/').last %>
+   <tr>
+     <td><%= link_to pic.id, {:controller => 'notes', :action => 'show_image', :id => pic.id} %></td>
+     <td>
+       <% if pic.article_id %>
+       <%= link_to_remote(pic.article_id, :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => pic.article_id }) %>
+       <% end %>
+     </td>
+     <td><%= image_tag(rpath, :size => '100') %></td>
+     <td>
+       <% if pic.hidden == 1 %>
+       <%= check_box "hideid", pic.id, :checked => 'checked' %>
+       <% else %>
+       <%= check_box "hideid", pic.id %>
+       <% end %>
+       /
+       <%= link_to("edit", :action => "manage_picture_detail", :id => pic.id) %>
+     </td>
+<!--
+     <td><%= pic.size if pic.size %></td>
+     <td><%= pic.content_type if pic.content_type %></td>
+
+     <td>
+       <%= pic.comment if pic.comment %>
+     </td>
+-->     
+     <td><%= pic.name if pic.name %></td>
+     <td>
+       <%= check_box "deleteid", pic.id %>/
+       <%= check_box "filedeleteid", pic.id %>
+     </td>
+   </tr>
+   <% end %>
+ </table>
+ <%= submit_tag %>
+ <%= end_form_tag %>
+ <% end %>
+
+ <% if @pictures_pages %>
+ <%= pagination_links @pictures_pages %>
+ <% end %>

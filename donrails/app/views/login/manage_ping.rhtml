@@ -1,0 +1,34 @@
+<h1>ping management</h1>
+
+<hr>
+<div class="notice">
+  <%= @flash[:note2] %>
+</div>
+ping record  
+<% if @pings %>
+<% if @pings_pages %>
+<%= pagination_links @pings_pages %>
+<% end %>
+
+<table  border="1" cellspacing="0">
+  <tr>
+    <td>id</td>
+    <td>article_id</td>
+    <td>url</td>
+  </tr>
+
+  <% @pings.each do |co| %>
+  <tr>
+    <td><%= co.id %></td>
+    <td><%= co.article_id %></td>
+    <td><%= co.url %></td>
+  </tr>
+  <% end %>
+</table>
+<% end %>
+
+<% if @pings_pages %>
+<%= pagination_links @pings_pages %>
+<% end %>
+
+ 

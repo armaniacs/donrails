@@ -1,0 +1,18 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  name: abba-cooltext.gif
+  path: /home/yaar/donrails-trunk/rails/public/image/dump/2006-3-23/abba-cooltext.gif
+  size: 5830
+  content_type: image/gif
+  comment: abba logo
+  article_id: 1
+second:
+  id: 2
+  name: abba-cooltext.gif
+  path: /home/yaar/donrails-trunk/rails/public/image/dump/2006-3-23/abba-cooltext.gif
+  size: 5830
+  content_type: image/gif
+  comment: abba logo
+  article_id: 1
+  hidden: 1

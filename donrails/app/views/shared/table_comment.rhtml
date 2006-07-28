@@ -1,0 +1,35 @@
+<table  border="1" cellspacing="0">
+  <tr>
+    <td>Hide?</td>
+    <td>Delete?</td>
+    <td>status</td>
+    <td>article id</td>
+    <td>Password</td>
+    <td>title</td>
+    <td>author</td>
+    <td>ipaddr</td>
+    <td>body</td>
+  </tr>
+
+  <% @comments.each do |co| %>
+  <tr>
+    <td>
+      <% if co.hidden == 1 %>
+      <%= check_box "hideid", co.id, :checked => 'checked' %>
+      <% else %>
+      <%= check_box "hideid", co.id %>
+      <% end %>
+    </td>
+    <td><%= check_box "deleteid", co.id %></td>
+    <td><% if co.hidden == 1 %>(hidden)<% else %>normal<% end %></td>
+    <td>
+      <%= link_to_remote(co.articles.first.id, :update => "comment_ajax", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.articles.first.id }) if co.articles.first %>
+     </td>
+     <td><%= co.password %></td>
+     <td><%= don_mb_truncate(co.title) %></td>
+     <td><%= co.author %></td>
+     <td><%= co.ipaddr %></td>
+     <td><%= don_mb_truncate(co.body) %></td>
+   </tr>
+   <% end %>
+ </table>

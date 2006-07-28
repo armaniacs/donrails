@@ -1,0 +1,37 @@
+<% @heading = "記事追加" %>
+
+<hr>
+ファイルのアップロード
+<%= secure_form_tag({:action => "picture_save"},:multipart => 'true')  %>
+<input id="picture_picture" name="picture[picture]" size="30" type="file" />
+<input name="commit" type="submit" value="Upload file" />
+<%= end_form_tag %>
+
+<hr>
+
+<%= secure_form_tag :action => "add_article" %>
+<%= submit_tag "save" %>
+<br>
+<%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
+<br>
+カテゴリ:<%= text_field_with_auto_complete :category, :name %>
+<br>
+フォーマット形式:
+<select name="format">
+<% don_supported_formats.each do |fmt| %>
+  <option value="<%= fmt %><%= '" selected="selected' if fmt == @defaultformat %>"><%= fmt %></option>
+<% end %>
+</select>
+<br>
+著者名:<br><%= text_field_with_auto_complete :author, :name %><br>
+タイトル:<br><%= text_field "article", "title", "size" => 80 %><br>
+本文:<br><%= text_area "article", "body", "rows" => 40, "cols" => 80 %><br>
+<%= submit_tag "save" %>
+<%= end_form_tag %>
+
+<hr>
+<a href="http://www.h14m.org/docs/hnf-j.html">hnf の記述方法</a>
+/
+<a href="http://www.shiro.dreamhost.com/scheme/wiliki/wiliki.cgi?WiLiKi%3a%e3%83%aa%e3%83%95%e3%82%a1%e3%83%ac%e3%83%b3%e3%82%b9%e3%83%9e%e3%83%8b%e3%83%a5%e3%82%a2%e3%83%ab%3a%e6%9b%b8%e5%bc%8f">WiLiKi:リファレンスマニュアル:書式</a>
+
+<hr>

@@ -1,0 +1,58 @@
+<h1>blogping management</h1>
+<hr>
+<div class="notice">
+  <%= @flash[:note2] %>
+</div>
+<div class="notice">
+  <%= @flash[:note] %>
+</div>
+新規pingする先の追加
+<p>
+<%= secure_form_tag :action => "add_blogping" %>
+server_url:
+<%= text_field "blogping", "server_url" %>
+<%= submit_tag "pingする先を追加する" %>
+<%= end_form_tag %>
+<p>
+(cf: http://feeds.feedburner.com/yourblogname)
+
+<hr>
+pingする先の管理(active=1の先は有効)
+<% if @blogpings %>
+<% if @blogpings_pages %>
+<%= pagination_links @blogpings_pages %>
+<% end %>
+
+<%= secure_form_tag :action => "delete_blogping" %>
+<table  border="1" cellspacing="0">
+  <tr>
+    <td>pingする先を消去</td>
+    <td>id</td>
+    <td>server_url</td>
+    <td>active</td>
+  </tr>
+
+  <% @blogpings.each do |co| %>
+  <tr>
+    <td><%= check_box "deleteid", co.id %></td>
+    <td><%= co.id %></td>
+    <td><%= co.server_url %></td>
+    <td>
+      <% if co.active == 1%>
+      <%= check_box "acid", co.id, :checked => 'checked' %>
+      <% else %>
+      <%= check_box "acid", co.id %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<%= submit_tag "send" %>
+<%= end_form_tag %>
+<% end %>
+
+<% if @blogpings_pages %>
+<%= pagination_links @blogpings_pages %>
+<% end %>
+
+ 

@@ -1,0 +1,30 @@
+<% @heading = "trackback management" %>
+
+<% if @trackbacks %>
+
+<% if @trackbacks_pages %>
+<%= pagination_links @trackbacks_pages %>
+<% end %>
+
+<h1><%= @heading %></h1>
+
+<%= render('shared/add_banlist') %>
+<hr>
+<%= secure_form_tag :action => "delete_trackback" %>
+<div class="kakomi">
+<div id="trackback_ajax">
+[記事]を押すと削除対象コメントと親記事が表示されます
+</div>
+</div>
+
+<hr>
+<%= submit_tag %>
+<%= render('shared/table_trackback') %>
+<%= submit_tag %>
+<%= end_form_tag %>
+<% end %>
+
+<% if @trackbacks_pages %>
+<%= pagination_links @trackbacks_pages %>
+<% end %>
+ 

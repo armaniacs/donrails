@@ -1,0 +1,13 @@
+<%= secure_form_tag :action => "add_category" %>
+name:<%= text_field "category", "name" %><br>
+
+<% if @parent %>
+parent:<%= text_field "category", "parent_name", "value" => @parent.name %>
+<% else %>
+parent:<%= text_field "category", "parent_name", "value" => '' %>
+<% end %>
+
+<br>
+description:(カテゴリの簡単な紹介。例: railsのハック)<br><%= text_area "category", "description", "rows" => 4 %><br>
+<%= submit_tag "save" %>
+<%= end_form_tag %>

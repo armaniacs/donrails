@@ -1,0 +1,30 @@
+<!-- no date version. For date, use title-articles.rhtml -->
+<!-- default limit "no" is 10. -->
+<%
+if pages
+i = 0
+doneid = Array.new
+no = 10 unless no
+pages.each do |a|
+article = don_get_object(a, 'html')
+next if doneid.include? article.id
+doneid.push article.id
+btmp = strip_links article.title_to_html
+i += 1
+break if i > no.to_i
+%>
+
+<% if ((i % 2) == 0) %>
+<div class="even">
+<% else %>
+<div class="odd">
+<% end %>
+
+<%= link_to truncate(btmp, 76), {:action => "show_title", :id => article.id} %>
+
+</div>
+<%
+end
+end
+%>
+

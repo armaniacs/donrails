@@ -1,0 +1,39 @@
+<h1>banlist management</h1>
+
+<%= render('shared/add_banlist') %>
+<hr>
+ブラックリストの管理
+<% if @banlists %>
+<% if @banlists_pages %>
+<%= pagination_links @banlists_pages %>
+<% end %>
+
+<%= secure_form_tag :action => "delete_banlist" %>
+<table  border="1" cellspacing="0">
+  <tr>
+    <td>消去</td>
+    <td>id</td>
+    <td>format</td>
+    <td>white?</td>
+    <td>pattern</td>
+  </tr>
+
+  <% @banlists.each do |co| %>
+  <tr>
+    <td><%= check_box "deleteid", co.id %></td>
+    <td><%= co.id %></td>
+    <td><%= co.format %></td>
+    <td><%= co.white %></td>    
+    <td><%= CGI.escapeHTML(co.pattern) %></td>
+  </tr>
+  <% end %>
+</table>
+<%= submit_tag "send" %>
+<%= end_form_tag %>
+<% end %>
+
+<% if @banlists_pages %>
+<%= pagination_links @banlists_pages %>
+<% end %>
+
+ 

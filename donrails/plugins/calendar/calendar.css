@@ -1,0 +1,181 @@
+.calendar-sunday {
+	color: #FF0000;
+	background-color: #FFA0A0;
+	text-align: right;
+}
+THEAD TD.calendar-sunday {
+	color: #FF0000;
+	background-color: #FFA0A0;
+	font-weight: bold;
+	text-align: center;
+}
+A.calendar-sunday:link {
+	color: #FF0000;
+	background-color: #FFA0A0;
+	font-weight: bold;
+	text-align: right;
+}
+A.calendar-sunday:visited {
+	color: #FF7F7F;
+	background-color: #FFA0A0;
+	text-align: right;
+}
+A.calendar-sunday:active {
+	color: #FF0000;
+	background-color: #FFA0A0;
+	text-align: right;
+}
+A.calendar-sunday:hover {
+	color: #FF0000;
+	background-color: #FFE0E0;
+	font-weight: bold;
+	text-align: right;
+}
+.calendar-weekday {
+	color: #000000;
+	background-color: #A0A0A0;
+	text-align: right;
+}
+THEAD TD.calendar-weekday {
+	color: #000000;
+	background-color: #A0A0A0;
+	font-weight: bold;
+	text-align: center;
+}
+A.calendar-weekday:link {
+	color: #000000;
+	background-color: #A0A0A0;
+	font-weight: bold;
+	text-align: right;
+}
+A.calendar-weekday:visited {
+	color: #7F7F7F;
+	background-color: #A0A0A0;
+	text-align: right;
+}
+A.calendar-weekday:active {
+	color: #000000;
+	background-color: #A0A0A0;
+	text-align: right;
+}
+A.calendar-weekday:hover {
+	color: #000000;
+	background-color: #E0E0E0;
+	font-weight: bold;
+	text-align: right;
+}
+.calendar-saturday {
+	color: #0000FF;
+	background-color: #A0A0FF;
+	text-align: right;
+}
+THEAD TD.calendar-saturday {
+	color: #0000FF;
+	background-color: #A0A0FF;
+	font-weight: bold;
+	text-align: center;
+}
+A.calendar-saturday:link {
+	color: #0000FF;
+	background-color: #A0A0FF;
+	font-weight: bold;
+	text-align: right;
+}
+A.calendar-saturday:visited {
+	color: #7F7FFF;
+	background-color: #A0A0FF;
+	text-align: right;
+}
+A.calendar-saturday:active {
+	color: #0000FF;
+	background-color: #A0A0FF;
+	text-align: right;
+}
+A.calendar-saturday:hover {
+	color: #0000FF;
+	background-color: #E0E0FF;
+	font-weight: bold;
+	text-align: right;
+}
+/* today */
+.calendar-sunday-today {
+	color: #FF0000;
+	background-color: #FFE0E0;
+	text-align: right;
+}
+A.calendar-sunday-today:link {
+	color: #FF0000;
+	background-color: #FFE0E0;
+	font-weight: bold;
+	text-align: right;
+}
+A.calendar-sunday-today:visited {
+	color: #FF7F7F;
+	background-color: #FFE0E0;
+	text-align: right;
+}
+A.calendar-sunday-today:active {
+	color: #FF0000;
+	background-color: #FFE0E0;
+	text-align: right;
+}
+A.calendar-sunday-today:hover {
+	color: #FF0000;
+	background-color: #FFF0F0;
+	font-weight: bold;
+	text-align: right;
+}
+.calendar-weekday-today {
+	color: #000000;
+	background-color: #E0E0E0;
+	text-align: right;
+}
+A.calendar-weekday-today:link {
+	color: #000000;
+	background-color: #E0E0E0;
+	font-weight: bold;
+	text-align: right;
+}
+A.calendar-weekday-today:visited {
+	color: #7F7F7F;
+	background-color: #E0E0E0;
+	text-align: right;
+}
+A.calendar-weekday-today:active {
+	color: #000000;
+	background-color: #E0E0E0;
+	text-align: right;
+}
+A.calendar-weekday-today:hover {
+	color: #000000;
+	background-color: #F0F0F0;
+	font-weight: bold;
+	text-align: right;
+}
+.calendar-saturday-today {
+	color: #0000FF;
+	background-color: #E0E0FF;
+	text-align: right;
+}
+A.calendar-saturday-today:link {
+	color: #0000FF;
+	background-color: #E0E0FF;
+	font-weight: bold;
+	text-align: right;
+}
+A.calendar-saturday-today:visited {
+	color: #7F7FFF;
+	background-color: #E0E0FF;
+	text-align: right;
+}
+A.calendar-saturday-today:active {
+	color: #0000FF;
+	background-color: #E0E0FF;
+	text-align: right;
+}
+A.calendar-saturday-today:hover {
+	color: #0000FF;
+	background-color: #F0F0FF;
+	font-weight: bold;
+	text-align: right;
+}

@@ -1,0 +1,9 @@
+development: 
+  adapter: sqlite
+  dbfile: db/data.db
+test: 
+  adapter: sqlite
+  dbfile: db/data.db
+production: 
+  adapter: sqlite
+  dbfile: db/data.db
