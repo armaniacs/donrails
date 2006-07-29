@@ -1,3 +1,7 @@
+2006-07-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Makefile (plugin): Add to set secutity_extensions plugin.
+
 2006-07-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* SVN repository will remove to google code hosting.

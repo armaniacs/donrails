@@ -1,12 +1,17 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.2.0pre1
+VERSION = 1.2.0
 
 all: link
 
-link: linkrails linkinit links linkj 
-copy: copyrails copyinit
+link: linkrails linkinit links linkj plugin
+copy: copyrails copyinit plugin
+
+plugin:
+	cd rails; ./script/plugin source http://svn.aviditybytes.com/rails/plugins/
+	cd rails; ./script/plugin install security_extensions
+
 
 linkrails:
 	rails rails
