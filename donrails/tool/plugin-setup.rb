@@ -53,6 +53,14 @@ class Conf < Hash
     return ActiveRecord::Base.retrieve_connection
   end # def dbi
 
+  def force?
+    return self.has_key?('force') ? self['force'] : false
+  end # def force?
+
+  def force=(flag)
+    self['force'] = (flag == true ? true : false)
+  end # def force=
+
 end # class Conf
 
 class Installer
@@ -174,6 +182,7 @@ if $0 == __FILE__ then
         opt.on('--[no-]quiet', 'no output during installation') {|v| conf.quiet = v}
         opt.on('--no-symlink', 'Copy files instead of using symlinks') {|v| conf.use_symlink = v}
         opt.on('--dry-run', 'Do not do anything actually') {|v| conf.dryrun = v}
+	opt.on('--force', 'Install a plugin forcibly') {|v| conf.force = v}
         opt.parse!
       end
       if ARGV.empty? then
@@ -211,7 +220,7 @@ if $0 == __FILE__ then
       list.delete('Description')
 
       pl = Plugin.find(:first, :conditions => ['name = ?', name])
-      unless pl.nil? then
+      if !pl.nil? && !conf.force? then
         printf("Plugin `%s' has already been installed.\n", name)
         exit 1
       end

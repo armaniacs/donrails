@@ -1,3 +1,7 @@
+2006-08-02  Akira TAGOH  <at@gclab.org>
+
+	* donrails/tool/plugin-setup.rb: add --force option for installer.
+
 2006-08-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* Makefile (linkinit): Add copy from example/{notes,index}.rhtml.
