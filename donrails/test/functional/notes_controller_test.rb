@@ -86,6 +86,8 @@ class NotesControllerTest < Test::Unit::TestCase
   def test_indexabc
     get :indexabc, :nums => '200401a'
     assert_redirected_to :controller => 'notes', :action => 'tendays', :year => '2004', :month => '01', :day => '01'
+    get :indexabc, :nums => '200401a.html'
+    assert_redirected_to :controller => 'notes', :action => 'tendays', :year => '2004', :month => '01', :day => '01'
 
     get :indexabc, :nums => '200401b'
     assert_redirected_to :controller => 'notes', :action => 'tendays', :year => '2004', :month => '01', :day => '11'

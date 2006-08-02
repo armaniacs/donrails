@@ -129,11 +129,11 @@ class NotesController < ApplicationController
 
   def indexabc
     k = @params['nums']
-    if k =~ /^(\d\d\d\d)(\d\d)a$/
+    if k =~ /^(\d\d\d\d)(\d\d)a(\.html)?$/
       redirect_to :action => "tendays", :year => $1, :month => $2, :day => "01"
-    elsif k =~ /^(\d\d\d\d)(\d\d)b$/
+    elsif k =~ /^(\d\d\d\d)(\d\d)b(\.html)?$/
       redirect_to :action => "tendays", :year => $1, :month => $2, :day => "11"
-    elsif k =~ /^(\d\d\d\d)(\d\d)c$/
+    elsif k =~ /^(\d\d\d\d)(\d\d)c(\.html)?$/
       redirect_to :action => "tendays", :year => $1, :month => $2, :day => "21"
     else
       render :text => 'no entry', :status => 404
