@@ -5,27 +5,38 @@
 </div> <!-- end notice -->
 <% end %>
 
+<div class="notice">
+  <h1>注意</h1>
+  この部分に対応したファイルはdonrailsのデフォルトのhtmlファイルです。
+  app/views/notes/index.rhtml が対応します。
+  使用前に変更してから使って下さい。
+</div> <!-- end notice -->
 
-<div class="headline">
-(なにか適当なことを書きます)
-</div> <!-- end of headline -->
+<hr>
+<h2>見出しの表示</h2>
+記事の見出しを表示させるには、
+<pre>
+&lt;%= render ("shared/title-articles2no", "pages" => @recent_articles) %&gt;
+</pre>
+のように書きます。
 
-<div class="arakiintro">
-(なにか適当なことを書きます)
-<p>
-最近の<%= link_to "日記", {:action => "noteslist"} %>は、
-<%= link_to "ruby", {:action => "show_category", :category => "ruby"} %>
-の話が多いです。
-</p>
-</div>
+利用できる変数は、
+<dl>
+  <dt>@recent_articles</dt>
+  <dd>最近の20記事</dd>
+  <dt>@recent_trackbacks</dt>
+  <dd>最近の30トラックバックあり記事</dd>
+  <dt>@recent_comments</dt>
+  <dd>最近の30コメントあり記事</dd>
+  <dt>@long_articles</dt>
+  <dd>記事の長さが長い10の記事</dd>
+</dl>
+です。
 
+<h3>表示例</h3>
 <div class="recenttitle">
 <a name="recent">[最近のtopics]</a>
 <%= render ("shared/title-articles2no", "pages" => @recent_articles) %>
 </div>
 
-<div class="rubytitle">
-<a name="ruby">[最近のruby関連]</a>
-</div>
-<%= render ("shared/title-articles2no", "pages" => @recent_ruby_articles) %>
 

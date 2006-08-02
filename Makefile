@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.2.0
+VERSION = 1.2.1
 
 all: link
 
@@ -23,6 +23,8 @@ linkinit:
 	cd rails; rm -rf app; ln -s ../donrails/app .
 	cd rails; rm -rf lib; ln -s ../donrails/lib .
 	cd rails/config; rm routes.rb; ln -s ../../donrails/config/routes.rb .
+	cd rails/app/views/layouts; cp -i ../../donrails/example/notes.rhtml .
+	cd rails/app/views/notes; cp -i ../../donrails/example/index.rhtml .
 
 links:
 	cd rails/public/stylesheets ; ln -s ../../../donrails/public/stylesheets/*.css .
@@ -39,13 +41,9 @@ imagedumpdir:
 dbdir:
 	chmod a+w rails/db
 
-
-dist10: clean
-	cd .. ; tar --exclude .svn --exclude rails --exclude donrails-1.0/app/views/notes/index.rhtml --exclude donrails-1.0/app/views/layouts/notes.rhtml -zcvf donrails-`cat donrails-1.0/VERSION`_`date +%Y%m%d`.tar.gz donrails-1.0/
-
 clean:
 	rm -f *~ */*~ */*/*~ */*/*/*~ */*/*/*/*~ *.orig */*.orig */*/*.orig
-	-rm -f $(NAME)-$(VERSION).tar.gz
+	-rm -f $(NAME)-*.tar.gz
 
 dist:	clean
 	cd .. ; tar czvf $(NAME)-$(VERSION).tar.gz \

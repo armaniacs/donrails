@@ -40,7 +40,9 @@ railsを動作させる以外に必要な外部ライブラリは以下の通り
 	問題なければ、これで終了。
 6. 設定ファイルの編集
 	rails/config/database.yml
+		("donrails/example/database.yml"にサンプルがあります)
 	rails/config/donrails_env.rb
+		("donrails/example/donrails_env.rb"にサンプルがあります)
 7. ユーザが自分のやりたいようにいじるファイル(必須)
 	rails/app/views/notes/index.rhtml
 		("donrails/example/index.rhtml"にサンプルがあります)

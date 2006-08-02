@@ -1,3 +1,11 @@
+2006-08-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Makefile (linkinit): Add copy from example/{notes,index}.rhtml.
+
+	* donrails/example/donrails_env.rb: Update for applying 1.2.
+
+	* INSTALL.ja: Add example.
+
 2006-07-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* Makefile (plugin): Add to set secutity_extensions plugin.

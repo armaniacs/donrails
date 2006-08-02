@@ -18,7 +18,7 @@
 <meta name="robots" content="noindex">
 <% end %>
 
-<title>ARAKI notes - <%=h strip_links(@heading) if @heading %></title>
+<title>Myblog by donrails - <%=h strip_links(@heading) if @heading %></title>
 
 </head>
 
@@ -27,7 +27,9 @@
 <%= link_to "トップ", {:action => "index"} %>
 /
 <%= link_to "日記", {:action => "noteslist"} %>
-/ This is ARAKI's daily notes.
+<div class="notice">
+このファイルは donrails のデフォルトレイアウトファイル(app/views/layouts/notes.rhtml)です。使用前に変更してください。
+</div>
 </div> <!-- end of head -->
 
 <div class="mainarticle">
@@ -46,14 +48,13 @@
 <%= render("shared/show_direct") %>
 
 カテゴリ
-<% ["road","ruby","mail","mono"].each do |cat| %>
+<% ["ruby","donrails"].each do |cat| %>
 /<%= link_to cat, {:action => "show_category", :category => cat} %>
 <% end %>
 
 <%= render("shared/category_select") %>
 
-<address>yasu@debian.or.jp</address>
-実ノ商人ハ先モ立チ我モ立ツコトヲ思フナリ
+<address>my mail address</address>
 <p>
 <%= link_to "管理", {:controller => 'login', :action => 'login_index' }, :confirm => "Really login for management?" %>
 </p>
