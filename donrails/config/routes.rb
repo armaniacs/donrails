@@ -87,7 +87,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "notes/:nums", :controller => "notes", 
   :action => "indexabc",
   :requirements => { 
-    :nums => /\d+(a|b|c).html/
+    :nums => /\d{6}(a|b|c).html/
   }
 
   map.connect "notes/:nums", :controller => "notes", 

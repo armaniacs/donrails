@@ -40,9 +40,8 @@ class NotesController < ApplicationController
   ]
 
   def index
-    dateparse
-    recent
     @heading = "index"
+    recent
   end
 
   def search
@@ -141,22 +140,7 @@ class NotesController < ApplicationController
     end
   end
 
-  def dateparse
-    @params.keys.each do |k|
-      if k =~ /(\d\d\d\d)(\d\d)a/
-        redirect_to :action => "tendays", :year => $1, :month => $2, :day => "01"
-      elsif k =~ /(\d\d\d\d)(\d\d)b/
-        redirect_to :action => "tendays", :year => $1, :month => $2, :day => "11"
-      elsif k =~ /(\d\d\d\d)(\d\d)c/
-        redirect_to :action => "tendays", :year => $1, :month => $2, :day => "21"
-      elsif k =~ /([01]\d)([0-3]\d)/
-        redirect_to :action => "show_nnen", :month => $1, :day => $2
-      end
-    end
-  end
-
   def noteslist
-#    minTime = Time.rfc2822(@request.env["HTTP_IF_MODIFIED_SINCE"]) rescue nil
     minTime = nil
     @articles_pages, 
     @articles = paginate(:article, :per_page => 30,

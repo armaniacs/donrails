@@ -97,6 +97,7 @@ class NotesControllerTest < Test::Unit::TestCase
     assert_response 404
   end
 
+=begin
   def test_dateparse
     get :dateparse, {'200607a' => ''}
     assert_redirected_to :action => "tendays", :year => '2006', :month => '07', :day => "01"
@@ -109,8 +110,8 @@ class NotesControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => "show_nnen", :month => '06', :day => "01"
     get :dateparse, {'1213' => ''}
     assert_redirected_to :action => "show_nnen", :month => '12', :day => "13"
-
   end
+=end
 
   def test_noteslist
     get :noteslist

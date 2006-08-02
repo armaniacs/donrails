@@ -4,6 +4,16 @@
 
 2006-08-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* README.cache: Add new file.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::noteslist): Cleanup.
+
+	* donrails/config/routes.rb: More restrict for routing to 'indexabc'.
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_dateparse): Remove test for NotesController::dateparse.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::dateparse): Remove this method. Change to process wrong input by httpd (mod_rewrite).
+
 	* Makefile (linkinit): Add copy from example/{notes,index}.rhtml.
 
 	* donrails/example/donrails_env.rb: Update for applying 1.2.
