@@ -1,3 +1,7 @@
+2006-08-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::banlist_test_by_ar_string): Fix. I mistake column name in trackback table (wrong: blogname, correct: blog_name).
+
 2006-08-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_indexabc): Add to test this fix.

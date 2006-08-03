@@ -571,7 +571,7 @@ class LoginController < ApplicationController
   end
 
   def banlist_test_by_ar_string(pattern, teststring)
-    @hit_tbs = Trackback.find(:all, :conditions => ["blogname = ? OR title = ? OR excerpt = ?", pattern, pattern, pattern], :limit => 10, :order => 'id DESC')
+    @hit_tbs = Trackback.find(:all, :conditions => ["blog_name = ? OR title = ? OR excerpt = ?", pattern, pattern, pattern], :limit => 10, :order => 'id DESC')
     @hit_comments = Comment.find(:all, :conditions => ["title = ? OR body = ?", pattern, pattern], :limit => 10, :order => 'id DESC')
 
     if teststring.size > 0
