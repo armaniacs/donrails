@@ -366,6 +366,9 @@ class NotesControllerTest < Test::Unit::TestCase
 
     get :show_image, :id => 2
     assert_response 403
+
+    get :show_image, :id => '1&qoot'
+    assert_response :redirect
   end
 
   def test_sitemap

@@ -542,14 +542,15 @@ class NotesController < ApplicationController
   end
 
   def show_image 
-    @image = Picture.find(@params['id'])
-    if @image.hidden == 1
-      render :text => 'image hidden', :status => 403
-    else
-      if $IMAGE_BASE_PATH
-        redirect_to $IMAGE_BASE_PATH + @image.path.split('/public/')[1]
+    if @image = Picture.find(@params['id'].to_i)
+      if @image.hidden == 1
+        render :text => 'image hidden', :status => 403
       else
-        redirect_to '/' + @image.path.split('/public/')[1]
+        if $IMAGE_BASE_PATH
+          redirect_to $IMAGE_BASE_PATH + @image.path.split('/public/')[1]
+        else
+          redirect_to '/' + @image.path.split('/public/')[1]
+        end
       end
     end
   end

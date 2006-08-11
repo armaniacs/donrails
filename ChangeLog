@@ -1,3 +1,11 @@
+2006-08-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/rdf_recent.rxml: Encode change to UTF-8.
+
+	* donrails/app/views/shared/authorhead.rhtml: Encode change to UTF-8.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_image): Fix. In case for wrong (non exist) id number is imputted.
+
 2006-08-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::banlist_test_by_ar_string): Fix. I mistake column name in trackback table (wrong: blogname, correct: blog_name).
