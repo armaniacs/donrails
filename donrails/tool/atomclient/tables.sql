@@ -1,8 +1,0 @@
-CREATE TABLE articles (
-id     INTEGER PRIMARY KEY,
-title  VARCHAR,
-body   VARCHAR,
-target_url VARCHAR,
-check_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-status INTEGER DEFAULT 0
-);
