@@ -9,6 +9,7 @@ require 'rexml/document'
 require 'cgi'
 
 require 'base64'
+require 'fileutils'
 
 module ApplicationHelper
 
@@ -237,7 +238,6 @@ module ApplicationHelper
 
 
   def atom_parse_image(image, raw_post)
-
     xml = REXML::Document.new(raw_post)
     databody = String.new
     filetype = ''
@@ -271,7 +271,7 @@ module ApplicationHelper
 
     dumpdir = File.expand_path(RAILS_ROOT) + IMAGE_DUMP_PATH + t1.year.to_s + '-' + t1.month.to_s + '-' + t1.day.to_s + '/'
     unless File.directory? dumpdir
-      Dir.mkdir dumpdir
+      FileUtils.makedirs dumpdir
     end
     image.path = dumpdir + image.name
     f = File.new(image.path, "w")

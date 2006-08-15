@@ -1,3 +1,7 @@
+2006-08-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb: Fix: When image_dump path is not existed.
+
 2006-08-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/notes/rdf_recent.rxml: Encode change to UTF-8.
