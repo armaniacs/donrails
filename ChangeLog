@@ -1,3 +1,11 @@
+2006-08-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): Fix when ADMIN_MAILADD is not defined. (Thanks \ay.)
+
+	* donrails/config/routes.rb: Add routing for show_category pagination.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Fix cache sweep for show_category.
+
 2006-08-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/helpers/application_helper.rb: Fix: When image_dump path is not existed.

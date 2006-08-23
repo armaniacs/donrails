@@ -2,7 +2,7 @@ class CommentMailer < ActionMailer::Base
 
   def notify(comment, commenter, recipient=nil)
     unless recipient
-      if ADMIN_MAILADD
+      if defined?(ADMIN_MAILADD) && ADMIN_MAILADD
         recipient = ADMIN_MAILADD
         from ADMIN_MAILADD
       else

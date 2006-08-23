@@ -78,6 +78,12 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "notes/category/:category/page/:page", :controller => "notes", 
   :action => "show_category", :page => /\d+/
 
+  map.connect "notes/show_category/:id/page/:page", :controller => "notes", 
+  :action => "show_category", 
+  :requirements => { 
+    :id => /\d+/, :page => /\d+/
+  }
+
   map.connect "notes/:nums", :controller => "notes", 
   :action => "parse_nums",
   :requirements => { 

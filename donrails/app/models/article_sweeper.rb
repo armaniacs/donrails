@@ -132,6 +132,19 @@ class ArticleSweeper < ActionController::Caching::Sweeper
         rescue 
           p $!
         end
+
+        begin
+          ppdir = RAILS_ROOT + "/public/notes/show_category/#{rc.id}/page"
+          ppdir2 = Dir.entries(ppdir)
+          ppdir2.each do |x|
+            if x =~ /(\d+)/
+              expire_page(:controller => 'notes', :action => 'show_category', :page => $1, :id => rc.id)
+            end
+          end
+        rescue Errno::ENOENT
+        rescue 
+          p $!
+        end
       end
 
       expire_page(:controller => 'notes', :action => 'show_month', :year => record.article_date.year, :month => record.article_date.month)
