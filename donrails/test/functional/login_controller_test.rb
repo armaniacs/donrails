@@ -292,6 +292,10 @@ class LoginControllerTest < Test::Unit::TestCase
     assert_equal "<br>Delete:1", flash[:note2]
     assert_redirected_to :action => 'manage_article'
 
+    post :delete_article, :deleteid => {'40000' => '1'}
+    assert_equal "<br>Not exists:40000", flash[:note2]
+    assert_redirected_to :action => 'manage_article'
+
     post :delete_article,
     :hideid => {'4' => '0'}
     assert_equal "<br>Hyde status:4 is 0", flash[:note2]
@@ -302,6 +306,10 @@ class LoginControllerTest < Test::Unit::TestCase
     assert_equal "<br>Hyde status:4 is 1", flash[:note2]
     assert_redirected_to :action => 'manage_article'
 
+    post :delete_article, 
+    :hideid => {'40000' => '1'}
+    assert_equal "<br>Not exists:40000", flash[:note2]
+    assert_redirected_to :action => 'manage_article'
   end
 
   def test_manage_banlist

@@ -423,35 +423,43 @@ class LoginController < ApplicationController
     c = @params["deleteid"].nil? ? [] : @params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
-        b = Article.find(k.to_i)
-        b_cat = b.categories
-        b.categories.delete(b_cat)
-
-        b_comment = b.comments
-        b_comment.each do |bc|
-          Comment.destroy(bc.id)
+        if Article.exists?(k.to_i)
+          b = Article.find(k.to_i)
+          b_cat = b.categories
+          b.categories.delete(b_cat)
+          
+          b_comment = b.comments
+          b_comment.each do |bc|
+            Comment.destroy(bc.id)
+          end
+          b.comments.delete(b_comment)
+          
+          b.pictures.each do |bp|
+            bp.article_id = nil
+            bp.save
+          end
+          @flash[:note2] += '<br>Delete:' + k
+          b.destroy
+        else
+          @flash[:note2] += '<br>Not exists:' + k
         end
-        b.comments.delete(b_comment)
-
-        b.pictures.each do |bp|
-          bp.article_id = nil
-          bp.save
-        end
-        @flash[:note2] += '<br>Delete:' + k
-        b.destroy
       end
     end
     if c = @params["hideid"]
       c.each do |k, v|
-        pf = Article.find(k.to_i)
-        stmp = pf.hidden
-        if v.to_i == 1
-          pf.update_attribute('hidden', 1)
-        elsif v.to_i == 0
-          pf.update_attribute('hidden', 0)
-        end
-        unless stmp == pf.hidden
-          @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+        if Article.exists?(k.to_i)
+          pf = Article.find(k.to_i)
+          stmp = pf.hidden
+          if v.to_i == 1
+            pf.update_attribute('hidden', 1)
+          elsif v.to_i == 0
+            pf.update_attribute('hidden', 0)
+          end
+          unless stmp == pf.hidden
+            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+          end
+        else
+          @flash[:note2] += '<br>Not exists:' + k
         end
       end
     end

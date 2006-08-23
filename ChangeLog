@@ -1,5 +1,8 @@
 2006-08-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_article): Fix: When user input to delete/hide non exits id articles. Added check article exists or not before delete/hide.
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_article): Add test for it.
+
 	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Fix cache sweep for show_category_noteslist.
 
 	* donrails/config/routes.rb: Add routing for show_category_noteslist pagination.
