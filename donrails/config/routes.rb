@@ -18,13 +18,16 @@ ActionController::Routing::Routes.draw do |map|
     :page => /\d+/
   }
 
-
+  map.connect "notes/d/:category/page/:page", 
+  :controller => "notes", :action => "show_category_noteslist", 
+  :requirements => { 
+    :category => /.+/, :page => /\d+/
+  }
   map.connect "notes/d/:category", :controller => "notes", 
   :action => "show_category_noteslist",
   :requirements => { 
     :category => /.+/
   }
-  
 
   map.connect "notes/:year/:month/:day", :controller => "notes", 
   :action => "show_date",
