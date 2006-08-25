@@ -1,5 +1,9 @@
 2006-08-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/views/notes/show_title.rhtml: Add div.nndate entry.
+	* donrails/app/views/notes/noteslist.rhtml: likewise.
+	* donrails/public/stylesheets/araki.css: likewise.
+
 	* donrails/app/controllers/login_controller.rb (LoginController::delete_article): Fix: When user input to delete/hide non exits id articles. Added check article exists or not before delete/hide.
 	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_article): Add test for it.
 

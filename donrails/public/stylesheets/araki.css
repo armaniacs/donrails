@@ -1,6 +1,5 @@
  div.antenna { background: #aaaaaa; font-size: 0.8em }
-// div.boardlink { margin-right:3px; padding:1px;color: red; font-weight: bold }
- div.boardlink { margin-right:1em; padding:1px;}
+
  div.debug { background: gray }
  div.footer { background: #ffffee; font-size: 0.8em }
  div.head { background: white;  width: 75%; float : left}
@@ -129,5 +128,15 @@ blockquote > blockquote > blockquote {
 }
 dt { font-weight: bold }
 
-
-
+div.nndate { 
+           text-align: right;
+           vertical-align: text-bottom;
+           font-size: smaller;
+           font-family: helvetica, sans-serif;
+           border-bottom:solid 1px #990000;
+}
+div.boardlink { 
+                font-size: smaller;
+                font-family: helvetica, sans-serif;
+                padding:1px;
+}

@@ -24,11 +24,13 @@ day0 = Time.new; day1 = day0
 </div> <!-- end nnenhead -->
 
 <div class="section">
-<%= display_article_images(article) %>
-<%= auto_link article.body_to_html %>
-<%= render("shared/authorhead", "article" => article) %>
-<%= render("shared/comment2", "article" => article) %>
-<br clear='all'>
+  <%= display_article_images(article) %>
+  <%= auto_link article.body_to_html %>
+  <%= render("shared/comment2", "article" => article) %>
+  <div class="nndate">
+    <%= render("shared/authorhead", "article" => article) %>
+    <br clear='all'>
+  </div>
 </div> <!-- end section -->
 
 <div class="linktitle">
