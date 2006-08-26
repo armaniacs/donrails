@@ -18,7 +18,7 @@ class Comment < ActiveRecord::Base
   after_create :notify_by_mail
 
   def notify_by_mail
-    CommentMailer.deliver_notify(body, author)
+    CommentMailer.deliver_notify(self)
   end
 
   def kcode_convert

@@ -12,7 +12,7 @@ class Trackback < ActiveRecord::Base
   after_create :notify_by_mail
 
   def notify_by_mail
-    CommentMailer.deliver_notify(excerpt, blog_name)
+    CommentMailer.deliver_notify(self)
   end
 
   def kcode_convert

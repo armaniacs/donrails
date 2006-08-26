@@ -1,3 +1,11 @@
+2006-08-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Fixed: http://code.google.com/p/donrails/issues/detail?id=7
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): Change to show url in which commentor/trackbacker comment.
+	* donrails/app/views/comment_mailer/notify.rhtml: likewise.
+	* donrails/test/unit/trackback_test.rb (TrackbackTest): Test for it.
+	* donrails/test/unit/comment_test.rb (CommentTest): Test for it.
+
 2006-08-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/notes/show_title.rhtml: Add div.nndate entry.
