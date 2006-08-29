@@ -1,3 +1,7 @@
+2006-08-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/search.rhtml: Add: 'link_to' to show_title.
+
 2006-08-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* Fixed: http://code.google.com/p/donrails/issues/detail?id=7
