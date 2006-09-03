@@ -5,7 +5,30 @@
 <%= hidden_field "article", "id", "value" => kiji.id %>
 <%= hidden_field("article", "author_id", "value" => kiji.author_id) if kiji.author_id %>
 <p>
-<%= check_box "newid", kiji.id %>新規記事として作成する
+<% if kiji.enrollment %>
+Enrollmented history:
+<ul>
+  <% kiji.enrollment.articles.each do |ea| %>
+  <li>
+  (<%= link_to ea.id, {:action => 'show_title', :id => ea.id} %>)
+  at <%= time_ago_in_words ea.article_mtime %> ago /
+  <%= ea.article_mtime %>
+  </li>
+  <% end %>
+</ul>  
+<br>
+<%= check_box "newid", kiji.id, :checked => 'checked' %>(enrollmented)
+<% else %>
+<%= check_box "newid", kiji.id %>
+<% end %>
+新規記事として作成する
+<br>
+<% if kiji.hidden == 1 %>
+<%= check_box "hideid", kiji.id, :checked => 'checked' %>
+<% else %>
+<%= check_box "hideid", kiji.id %>
+<% end %>
+記事を隱す
 <br>
 Author:
 <% if kiji.author %>

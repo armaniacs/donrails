@@ -1,0 +1,23 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  title: first title in misc
+  hidden: 0
+  created_at: 1999-01-01 00:00:00 
+  updated_at: 1999-01-01 00:00:01
+second:
+  id: 2
+  title: 2 in misc
+  hidden: 0
+  created_at: 1999-01-02 00:00:00 
+  updated_at: 1999-01-02 00:00:01
+third:
+  id: 3
+  title: nobody entried
+  hidden: 1
+sendmail_article:
+  id: 4
+  title: 3 sendmail
+  hidden: 0
+  created_at: 1999-01-03 00:00:00
+  updated_at: 1999-01-05 00:00:01

@@ -41,7 +41,6 @@
    <tr>
      <td><%= link_to category.name, {:action => :manage_category, :id => category.id} %></td>
      <td><%= check_box "deleteid", category.id %></td>
-
      <td>
        <% if category.parent_id %>
        <%=h Category.find(category.parent_id).name %>

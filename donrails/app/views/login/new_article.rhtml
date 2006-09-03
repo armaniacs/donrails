@@ -23,6 +23,7 @@
 <% end %>
 </select>
 <br>
+<%= check_box "hideid", 'hidden' %>記事を隱す<br>
 著者名:<br><%= text_field_with_auto_complete :author, :name %><br>
 タイトル:<br><%= text_field "article", "title", "size" => 80 %><br>
 本文:<br><%= text_area "article", "body", "rows" => 40, "cols" => 80 %><br>

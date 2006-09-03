@@ -136,9 +136,12 @@ div.kakomi table {
         margin-left: 3em; 
         margin-right: 3em; }
 
- pre { 
-  white-space:  pre;
-  padding:      0.5em;
-  background: #eeeeee;
-  margin: 1em;
- }
+pre { 
+      white-space:  pre;
+      padding:      0.5em;
+      background: #eeeeee;
+      margin: 1em;
+}
+
+div.even {  background: #ffffbb ; margin-right: 2pt }
+div.odd {  background: #bbffff ; margin-right: 2pt }

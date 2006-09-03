@@ -324,10 +324,25 @@ class LoginController < ApplicationController
       end
 
       if aris
+        if @params["hideid"]["#{id}"] == "0"
+          aris.hidden = 0
+        elsif @params["hideid"]["#{id}"] == "1"
+          aris.hidden = 1
+        end
         aris.title = title
         aris.body = body
         aris.format = format
         aris.article_date = c["article_date"]
+
+        oa = Article.find(id) # oa is original Article.
+        if oa.enrollment_id
+          aris.enrollment_id = oa.enrollment_id
+          oa.hidden = 1
+          oa.save
+        else
+          aris.build_enrollment
+          aris.enrollment.title = title
+        end
         
         if c["author_name"] and c["author_name"].length > 0
           au = Author.find(:first, :conditions => ["name = ?", c["author_name"]])
@@ -383,6 +398,13 @@ class LoginController < ApplicationController
                           "format" => format,
                           "article_date" => @ymd
                           )
+      aris1.build_enrollment
+      aris1.enrollment.title = title
+      aris1.enrollment.save
+
+      if @params["hideid"] and @params["hideid"]['hidden'].to_i == 1
+        aris1.hidden = 1
+      end
       aris1.author_id = author.id if author
 
       ca.each do |ca0|
@@ -412,9 +434,16 @@ class LoginController < ApplicationController
   end
 
   def manage_article
-    @articles_pages, @articles = paginate(:article, :per_page => 30,
-                                          :order_by => 'id DESC'
-                                          )
+    if @params[:nohidden] == '1'
+      @articles_pages, @articles = paginate(:article, :per_page => 30,
+                                            :order_by => 'id DESC',
+                                            :conditions => ["hidden IS NULL OR hidden = 0"]
+                                            )
+    else
+      @articles_pages, @articles = paginate(:article, :per_page => 30,
+                                            :order_by => 'id DESC'
+                                            )
+    end
   end
 
   def delete_article

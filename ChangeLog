@@ -1,3 +1,40 @@
+2006-09-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* NEW FEATURE: version control with Enrollment table.
+	* donrails/tool/tables-mysql.sql: Add entry for this. 
+	(TODO): table for postgresql and sqlite.	
+	* donrails/app/models/enrollment.rb: New model for it. (has_many :article)
+	* donrails/app/models/article.rb: Add belongs_to :enrollment.
+	* donrails/app/controllers/login_controller.rb 
+	(LoginController::add_article): Change for this feature.
+	(LoginController::fix_article): likewise.
+	(LoginController::manage_article): likewise.
+	* donrails/app/views/login/manage_article.rhtml: likewise.
+	* donrails/app/views/login/new_article.rhtml: likewise.
+	* donrails/app/views/login/form_article.rhtml: likewise.
+	* donrails/test/unit/article_test.rb (ArticleTest): new test for it.
+	* donrails/test/fixtures/enrollments.yml:  likewise.
+	* donrails/test/fixtures/articles.yml: Add entry for it.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::manage_article): Add to hyde 'article.hidden = 1' articles.
+	* donrails/app/views/login/manage_article.rhtml: likewise.
+
+2006-09-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/form_article.rhtml: Add checkbox to hyde article.
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Change for this.
+	(LoginController::add_article): likewise.
+	* donrails/app/views/login/new_article.rhtml: likewise.
+
+2006-08-31  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/category.rb (Category): Cleanup.
+
+2006-08-30  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_category): Fix: When donrails is inputted non existent category id or name.
+	(NotesController::afterday): Clean up.
+
 2006-08-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/notes/search.rhtml: Add: 'link_to' to show_title.

@@ -35,6 +35,7 @@ constraint   fk_category foreign key (parent_id) references categories(id),
 primary key (id)
 );
 
+-- enrollemnt_id added 2006-9-1(Fri)
 CREATE TABLE articles (
 id       SERIAL UNIQUE,
 title    VARCHAR(100),
@@ -46,6 +47,7 @@ hnfid    INTEGER,
 author_id  INTEGER,
 format   VARCHAR(100),
 hidden	       INTEGER,
+enrollment_id  INTEGER,
 primary key (id)
 );
 
@@ -122,4 +124,13 @@ hidden	       INTEGER,
 primary key (id)
 );
 
+-- added at 2006-9-1(Fri) 
+CREATE TABLE enrollments (
+id     SERIAL UNIQUE,
+title   VARCHAR(100),
+hidden	       INTEGER,
+created_at  DATETIME DEFAULT NULL,
+updated_at  DATETIME DEFAULT NULL,
+primary key (id)
+);
 

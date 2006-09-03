@@ -3,7 +3,17 @@
 <% if @articles %>
 
 <% if @articles_pages %>
+<% if @params['nohidden'] == '1' %>
+<%= pagination_links @articles_pages, :params => { :nohidden => 1 } %>
+<% else %>
 <%= pagination_links @articles_pages %>
+<% end %>
+<% end %>
+/
+<% if @params['nohidden'] == '1' %>
+<%= link_to '隱されている記事も表示する', {:action => 'manage_article'} %>
+<% else %>
+<%= link_to '隱されていない記事のみを表示する', {:action => 'manage_article', :nohidden => 1 } %>
 <% end %>
 
 <%= secure_form_tag :action => "delete_article" %>
@@ -24,6 +34,7 @@
      <td>Delete?</td>
      <td>status</td>
      <td>id</td>
+     <td>enroll</td>
      <td>author</td>
      <td>title</td>
      <td>date (last change)</td>
@@ -44,11 +55,15 @@
      </td>
      <td><%= check_box "deleteid", co.id %></td>
      <td>
-       <% if co.hidden == 1 %>(hidden)<% else %>normal<% end %>
+       <% if co.hidden == 1 %>
+       (hidden)
+       <% else %>normal
+       <% end %>
        <%= link_to_remote("[記事]", :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.id }) %>
        <%= link_to "[修正]", :action => "form_article", :pickid => co.id %>
      </td>
      <td><%= co.id %></td>
+     <td><%= co.enrollment_id %></td>
      <td><%= co.author.name if co.author %></td>
      <td><%= don_mb_truncate(co.title) if co.title %></td>
      <td>

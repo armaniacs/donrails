@@ -8,6 +8,7 @@ first_article:
   article_mtime: 1999-01-01 00:00:01
   format: plain
   author_id : 1
+  enrollment_id : 1
 another_article:
   id: 2
   title: 2 in misc
@@ -17,6 +18,7 @@ another_article:
   article_mtime: 1999-01-02 00:00:01
   format: plain
   author_id : 1
+  enrollment_id : 2
 sendmail_article:
   id: 3
   title: 3 sendmail
@@ -26,6 +28,7 @@ sendmail_article:
   article_mtime: 1999-01-03 00:00:01
   format: plain
   author_id : 1
+  enrollment_id : 4
 foreth_article:
   id: 4
   title: 4 sendmail
@@ -36,4 +39,13 @@ foreth_article:
   format: plain
   author_id : 1
   hidden: 1
-
+sendmail_article_2:
+  id: 5
+  title: 3 sendmail
+  body: sendmail is too old to use 2nd
+  size: 30
+  article_date: 1999-01-05 00:00:00
+  article_mtime: 1999-01-05 00:00:01
+  format: plain
+  author_id : 1
+  enrollment_id : 4

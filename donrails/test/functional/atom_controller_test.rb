@@ -31,7 +31,7 @@ class AtomControllerTest < Test::Unit::TestCase
     assert_response :success
     get :feed, :id => 3
     assert_response :success
-    get :feed, :id => 5
+    get :feed, :id => 50000
     assert_response 403
   end
 

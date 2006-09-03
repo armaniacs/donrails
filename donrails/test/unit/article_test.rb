@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ArticleTest < Test::Unit::TestCase
-  fixtures :articles, :categories, :comments, :comments_articles, :categories_articles
+  fixtures :articles, :categories, :comments, :comments_articles, :categories_articles, :enrollments
 
   def setup
     @a1 = Article.find(1)
@@ -11,6 +11,13 @@ class ArticleTest < Test::Unit::TestCase
   # Replace this with your real tests.
   def test_truth
     assert_kind_of Article,  @article
+    @article.create_enrollment
+    assert_kind_of Enrollment, @article.enrollment
+    assert_equal 5, @article.enrollment.id
+
+    @a2 = Article.new
+    @a2.build_enrollment
+    assert_kind_of Enrollment, @a2.enrollment
   end
 
   def test_renew_mtime

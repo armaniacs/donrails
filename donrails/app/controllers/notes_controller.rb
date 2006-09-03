@@ -420,29 +420,33 @@ class NotesController < ApplicationController
   end
 
   def show_category
-    if @params[:id]
-      @category = Category.find(@params[:id])
-    elsif @params['category']
-      @category = Category.find(:first, :conditions => ["name = ?", @params['category']])
-    elsif @params['nocategory']
-      @category = Category.find(:first, :conditions => ["NOT name = ?", @params['nocategory']])
-    end
-
-    if @category and @category.id
-      @articles_pages, @articles = 
-        paginate(:article, 
-                 :order_by => 'articles.article_date DESC',
-                 :per_page => 30, 
-                 :join => "JOIN categories_articles on (categories_articles.article_id=articles.id and categories_articles.category_id=#{@category.id})",
-		 :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
-                 )
-      @heading = "カテゴリ:#{@params['category']}"
-      @heading += '(' + @category.articles.size.to_s + ')'
-
-      unless @articles.empty? then
-        @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
+    begin
+      if @params[:id]
+        @category = Category.find(@params[:id])
+      elsif @params['category']
+        @category = Category.find(:first, :conditions => ["name = ?", @params['category']])
+      elsif @params['nocategory']
+        @category = Category.find(:first, :conditions => ["NOT name = ?", @params['nocategory']])
       end
-    else
+
+      if @category and @category.id
+        @articles_pages, @articles = 
+          paginate(:article, 
+                   :order_by => 'articles.article_date DESC',
+                   :per_page => 30, 
+                   :join => "JOIN categories_articles on (categories_articles.article_id=articles.id and categories_articles.category_id=#{@category.id})",
+                   :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
+                   )
+        @heading = "カテゴリ:#{@params['category']}"
+        @heading += '(' + @category.articles.size.to_s + ')'
+
+        unless @articles.empty? then
+          @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
+        end
+      else
+        render_text "no article", 404
+      end
+    rescue
       render_text "no article", 404
     end
   end
@@ -459,7 +463,6 @@ class NotesController < ApplicationController
 
   def afterday
     @noindex = true
-    @debug_oneday = @request.request_uri
     get_ymd
     if @ymd
       @articles =  Article.find(:all, :limit => 30,
@@ -481,7 +484,6 @@ class NotesController < ApplicationController
   end
 
   def tendays
-    @debug_oneday = @request.request_uri
     get_ymd
     @noindex = true
     @articles = Article.find(:all, :conditions => ["article_date >= ? AND article_date < ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @ymd, @ymd10a])

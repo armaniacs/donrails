@@ -39,10 +39,15 @@ class BrowseStoryTest < ActionController::IntegrationTest
     p path
 
     # http://donrails.araki.net/notes/show_category/47?page=3
-#    get '/notes/show_category/47?page=3'
-#    p path
-#    get '/notes/show_category/47/page/3'
-#    p path
-    
+    get '/notes/show_category/47?page=3'
+    assert_equal 404, status
+#    p @response.headers
+    get '/notes/show_category/1?page=1'
+    assert_equal 200, status
+    get '/notes/show_category/1/page/1'
+    assert_equal 200, status
+    p path
+
+    # GET /notes/category/misc/page/108?article_date=.html    
   end
 end
