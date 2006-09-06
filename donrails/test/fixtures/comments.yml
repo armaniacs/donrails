@@ -26,4 +26,16 @@ third:
   ipaddr: 127.0.0.1
   body: test body in comment 3 hidden
   hidden: 1
+<% for i in 10..20 %>
+ireko<%= i %>:
+  id: <%= i %>
+  password: irekoya<%= i %>
+  date: 1999-01-01 10:00:<%= i %>
+  title: ireko comment
+  author: irekoya<%= i %>
+  ipaddr: 127.0.0.1
+  body: ireko<%= i %>
+  article_id: <%= i %>
+<% end %>
+
 

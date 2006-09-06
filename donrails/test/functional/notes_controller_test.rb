@@ -379,6 +379,7 @@ class NotesControllerTest < Test::Unit::TestCase
   def test_pick_enrollment_a
     get :pick_enrollment_a, :pickid => 10
     assert_response :success
+    assert_match(/ireko\d+/, @response.body)
   end
 
 

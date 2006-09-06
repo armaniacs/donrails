@@ -2,7 +2,7 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 
 class BrowseStoryTest < ActionController::IntegrationTest
   # fixtures :your, :models
-  fixtures :articles, :blogpings, :comments, :pings, :authors, :categories, :comments_articles, :plugins, :banlists, :categories_articles, :pictures, :trackbacks
+  fixtures :articles, :blogpings, :comments, :pings, :authors, :categories, :plugins, :banlists, :categories_articles, :pictures, :trackbacks
 
   # Replace this with your real tests.
   def test_truth

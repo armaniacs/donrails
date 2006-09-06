@@ -1,6 +1,12 @@
 2006-09-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/test/fixtures/comments_articles.yml: Remove file.
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_pick_enrollment_a): Add new test.
 
+	* donrails/test/unit/article_test.rb (ArticleTest): Remove fixtures :comments_articles.
+	* donrails/test/integration/browse_story_test.rb (BrowseStoryTest): Remove fixtures :comments_articles.
+
+	* donrails/test/fixtures/comments.yml: Add test seeds.
 
 	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Change to use manage_enrollment.
 	* donrails/app/views/login/form_article.rhtml: likewise
