@@ -7,6 +7,7 @@ first:
   author: toorisugari
   ipaddr: 127.0.0.1
   body: test body in comment.
+  article_id: 1
 another:
   id: 2
   password: test2
@@ -15,6 +16,7 @@ another:
   author: toorisugari
   ipaddr: 127.0.0.1
   body: test body in comment 2
+  article_id: 2
 third:
   id: 3
   password: test3

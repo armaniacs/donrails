@@ -267,8 +267,6 @@ class LoginController < ApplicationController
       c.each do |k, v|
         if v.to_i == 1
           b = Comment.find(k.to_i)
-          b_art = b.articles
-          b.articles.delete(b_art)
           Comment.delete(k.to_i)
           @flash[:note2] += '<br>Delete:' + k
         end
@@ -311,6 +309,7 @@ class LoginController < ApplicationController
       title = c["title"]
       body = c["body"]
       id = c["id"].to_i
+      referer = c["referer"] if c["referer"] 
 
       if @params[:category]
         newcategory = @params['category']['name'].nil? ? nil : @params["category"]['name']
@@ -372,7 +371,11 @@ class LoginController < ApplicationController
         aris.save
       end
     end
-    redirect_to :action => "manage_article"
+    if referer
+      redirect_to :action => referer
+    else
+      redirect_to :action => "manage_article"
+    end
   end
 
   def add_article
@@ -804,6 +807,66 @@ class LoginController < ApplicationController
     end
     redirect_to :action => "manage_author"
   end
+
+
+  def manage_enrollment
+    if @params[:nohidden] == '1'
+      @enrollments_pages, @enrollments = paginate(:enrollment, :per_page => 30,
+                                                  :order_by => 'id DESC',
+                                                  :conditions => ["hidden IS NULL OR hidden = 0"]
+                                                  )
+    else
+      @enrollments_pages, @enrollments = paginate(:enrollment, :per_page => 30,
+                                                  :order_by => 'id DESC'
+                                                  )
+    end
+  end
+
+
+  def delete_enrollment
+    @flash[:note] = ''
+    @flash[:note2] = ''
+    now_delete = Array.new
+    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    c.each do |k, v|
+      if v.to_i == 1
+        if Enrollment.exists?(k.to_i)
+          b = Enrollment.find(k.to_i)
+          b.articles.each do |ba|
+            ba.enrollment_id = nil
+            ba.save
+          end
+          @flash[:note2] += '<br>Delete:' + k
+          now_delete.push(k)
+          b.destroy
+        else
+          @flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+    if c = @params["hideid"]
+      c.each do |k, v|
+        if Enrollment.exists?(k.to_i)
+          pf = Enrollment.find(k.to_i)
+          stmp = pf.hidden
+          if v.to_i == 1
+            pf.update_attribute('hidden', 1)
+          elsif v.to_i == 0
+            pf.update_attribute('hidden', 0)
+          end
+          unless stmp == pf.hidden
+            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+          end
+        else
+          unless now_delete.include?(k)
+            @flash[:note2] += '<br>Not exists:' + k
+          end
+        end
+      end
+    end
+    redirect_to :action => "manage_enrollment"
+  end
+
 
   # HNF
   def hnf_save_all

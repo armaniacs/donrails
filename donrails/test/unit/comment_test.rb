@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class CommentTest < Test::Unit::TestCase
-  fixtures :comments, :articles, :comments_articles
+  fixtures :comments, :articles
 
   # Replace this with your real tests.
   def setup
@@ -24,7 +24,9 @@ class CommentTest < Test::Unit::TestCase
   end
 
   def test_1
-    @c3.articles.push_with_attributes(@a1)
-    @c3.save
+#    @c3.articles.push_with_attributes(@a1)
+#    @c3.save
+    @c3.article = @a1
+    assert_equal(@c3.article.title, "first title in misc")
   end
 end

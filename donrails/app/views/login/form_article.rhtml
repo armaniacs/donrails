@@ -15,7 +15,8 @@ Enrollmented history:
   <%= ea.article_mtime %>
   </li>
   <% end %>
-</ul>  
+</ul>
+<%= submit_tag "save" %>
 <br>
 <%= check_box "newid", kiji.id, :checked => 'checked' %>(enrollmented)
 <% else %>
@@ -65,6 +66,9 @@ Date:
 <% end %>
 
 さらにカテゴリを追加する⇒カテゴリ:<%= text_field_with_auto_complete :category, :name %>
-<br>	  
+<br>
+<% if @request.env['HTTP_REFERER'] =~ /manage_enrollment$/ %>
+<%= hidden_field "article", "referer", "value" => 'manage_enrollment' %>
+<% end %>
 <%= submit_tag "save" %>
 <%= end_form_tag %>

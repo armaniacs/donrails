@@ -21,3 +21,7 @@ sendmail_article:
   hidden: 0
   created_at: 1999-01-03 00:00:00
   updated_at: 1999-01-05 00:00:01
+ireko:
+  id: 10
+  title: ireko
+  hidden: 0

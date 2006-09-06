@@ -1,8 +1,8 @@
 require 'kconv'
 
 class Comment < ActiveRecord::Base
-  has_and_belongs_to_many :articles, :join_table => "comments_articles"
-
+#  has_and_belongs_to_many :articles, :join_table => "comments_articles"
+  belongs_to :article
   validates_presence_of :author
   validates_length_of :password, :minimum => 4
   validates_length_of :body, :minimum => 5

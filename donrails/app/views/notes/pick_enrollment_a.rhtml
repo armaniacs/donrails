@@ -1,0 +1,14 @@
+<% article = don_get_object(@enrollment.articles.first, 'html') %>
+<div class="nnenhead">
+<%= article.article_date %> /
+<%= display_article_categories article %>
+<%= article.title_to_html if article.title %> /
+</div> <!-- end nnenhead -->
+<div class="section">
+<!--  display_article_images article % -->
+<%= display_enrollment_images @enrollment %>
+<%= auto_link article.body_to_html if article.body %>
+<%= render("shared/comment-noadd-enrollment", "enrollment" => @enrollment) %>
+<br clear='all'>
+</div> <!-- end section -->
+

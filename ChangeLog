@@ -1,3 +1,22 @@
+2006-09-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Change to use manage_enrollment.
+	* donrails/app/views/login/form_article.rhtml: likewise
+	
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_enrollment_images): New method.
+
+	* donrails/app/controllers/login_controller.rb 
+	(LoginController::manage_enrollment): New method.
+	(LoginController::delete_enrollment): New method.
+
+
+	* Change Comments and Articles relation.
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): Fix for this.
+	* donrails/app/controllers/notes_controller.rb (NotesController::add_comment2): likewise.
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_comment): likewise.
+
 2006-09-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* NEW FEATURE: version control with Enrollment table.

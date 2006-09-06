@@ -1,5 +1,6 @@
 class Trackback < ActiveRecord::Base
   belongs_to :article
+#  belongs_to :enrollment
 
   validates_antispam :url
   validates_antispam :ip

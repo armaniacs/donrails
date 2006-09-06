@@ -5,10 +5,11 @@ include ApplicationHelper
 class Article < ActiveRecord::Base
 #  acts_as_nested_set
   has_and_belongs_to_many :categories, :join_table => "categories_articles"
-  has_and_belongs_to_many :comments, :join_table => "comments_articles"
+#  has_and_belongs_to_many :comments, :join_table => "comments_articles"
   has_many :pings, :order => "id ASC"
   has_many :trackbacks, :order => "id ASC"
   has_many :pictures, :order => "id ASC"
+  has_many :comments, :order => "id ASC"
   belongs_to :author
   belongs_to :enrollment
   after_save :sendping

@@ -376,4 +376,10 @@ class NotesControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  def test_pick_enrollment_a
+    get :pick_enrollment_a, :pickid => 10
+    assert_response :success
+  end
+
+
 end

@@ -1,0 +1,8 @@
+1.3での互換性がない機能と変更について。
+
+----
+テーブルに変更があります。
+upgrade_1_3.sql
+を、
+ mysql --password='pass' donrails_development < upgrade_1_3.sql
+のようにして適用してください。

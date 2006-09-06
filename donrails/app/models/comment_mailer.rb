@@ -6,7 +6,7 @@ class CommentMailer < ActionMailer::Base
     when 'Comment'
       comment = ct.body
       commenter = ct.author
-      article = ct.articles.first
+      article = ct.article
       cort = 'Comment'
     when 'Trackback'
       comment = ct.excerpt

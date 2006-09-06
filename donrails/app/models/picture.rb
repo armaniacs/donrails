@@ -1,5 +1,7 @@
 class Picture < ActiveRecord::Base
   belongs_to :article
+#  belongs_to :enrollment
+
   validates_format_of :content_type, 
   :with => /^image/,
   :message => "--- you can only upload pictures"

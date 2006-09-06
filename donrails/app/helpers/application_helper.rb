@@ -357,4 +357,12 @@ module ApplicationHelper
     return content
   end
 
+  def display_enrollment_images(enrollment)
+    content = ''
+    enrollment.articles.each do |article|
+      content += display_article_images(article)
+    end
+    return content
+  end
+
 end

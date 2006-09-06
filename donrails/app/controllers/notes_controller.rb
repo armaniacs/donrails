@@ -36,7 +36,8 @@ class NotesController < ApplicationController
     :comment_form,
     :pick_comment_a,
     :category_tree_list_a,
-    :sitemap                             
+    :sitemap,
+    :pick_enrollment_a                             
   ]
 
   def index
@@ -66,6 +67,12 @@ class NotesController < ApplicationController
   def pick_comment_a
     @headers["Content-Type"] = "text/html; charset=utf-8"
     @comment = Comment.find(@params['pickid'].to_i)
+  end
+
+  def pick_enrollment_a
+    @headers["Content-Type"] = "text/html; charset=utf-8"
+    @enrollment = Enrollment.find(@params['pickid'].to_i)
+    @lm = @enrollment.updated_at.gmtime if @enrollment and @enrollment.updated_at
   end
 
   def pick_article_a
@@ -512,17 +519,16 @@ class NotesController < ApplicationController
       body = c["body"]
       article_id = c["article_id"].to_i
 
+      a = Article.find(article_id, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
       aris1 = Comment.new("password" => password,
                           "date" => Time.now,
                           "title" => title,
                           "author" => author,
                           "url" => url,
                           "ipaddr" => @request.remote_ip,
-                          "body" => body
+                          "body" => body,
+                          "article_id" => a.id
                           )
-      a = Article.find(article_id, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
-      aris1.articles.push_with_attributes(a)
-
       aris1.valid?
       if aris1.errors.empty?
         aris1.save

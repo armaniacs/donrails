@@ -3,6 +3,7 @@ require 'net/http'
 
 class Ping < ActiveRecord::Base
   belongs_to :article
+#  belongs_to :enrollment
 
   # send_ping2: send for trackback ping.
   #

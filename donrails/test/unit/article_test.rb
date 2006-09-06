@@ -13,7 +13,6 @@ class ArticleTest < Test::Unit::TestCase
     assert_kind_of Article,  @article
     @article.create_enrollment
     assert_kind_of Enrollment, @article.enrollment
-    assert_equal 5, @article.enrollment.id
 
     @a2 = Article.new
     @a2.build_enrollment
