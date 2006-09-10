@@ -1,3 +1,11 @@
+2006-09-10  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_pick_enrollment_a): Add check for enrollment.comment and enrollment.trackback.
+
+2006-09-07  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/fixtures/trackbacks.yml: Add new test seeds.
+
 2006-09-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/fixtures/comments_articles.yml: Remove file.
