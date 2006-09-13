@@ -1,3 +1,9 @@
+2006-09-13  Akira TAGOH  <at@gclab.org>
+
+	* upgrade_1_3.postgres.sql: an upgrade sql file for PostgreSQL.
+
+	* donrails/tool/tables-postgresql.txt: updated.
+
 2006-09-13  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/shared/linktitle.rhtml: Fix to skip non existance title.

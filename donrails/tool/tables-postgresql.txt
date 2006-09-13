@@ -53,14 +53,6 @@ constraint fk_cp_article foreign key (article_id) references articles(id),
 primary key (category_id, article_id)
 );
 
-CREATE TABLE comments_articles (
-comment_id       INTEGER NOT NULL,
-article_id       INTEGER NOT NULL,
-constraint fk_cp_comment foreign key (comment_id) references comments(id),
-constraint fk_cp_article foreign key (article_id) references articles(id),
-primary key (comment_id, article_id)
-);
-
 CREATE TABLE authors (
 id       SERIAL PRIMARY KEY,
 name   VARCHAR NOT NULL UNIQUE,
@@ -110,4 +102,13 @@ url         VARCHAR DEFAULT NULL,
 ip          VARCHAR DEFAULT NULL,
 hidden	       INTEGER,
 created_at  TIMESTAMP DEFAULT NULL
+);
+
+CREATE TABLE enrollments (
+id         SERIAL UNIQUE,
+title      VARCHAR,
+hidden     INTEGER,
+created_at TIMESTAMP DEFAULT NULL,
+updated_at TIMESTAMP DEFAULT NULL,
+primary key (id)
 );
