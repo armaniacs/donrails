@@ -1,3 +1,7 @@
+2006-09-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Change: When no entity has changed, does not generate new article.
+
 2006-09-13  Akira TAGOH  <at@gclab.org>
 
 	* upgrade_1_3.postgres.sql: an upgrade sql file for PostgreSQL.

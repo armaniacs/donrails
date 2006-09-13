@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
   }
 
   map.connect "notes/id/:id", :controller => "notes", 
-  :action => "show_title",
+  :action => "show_enrollment",
   :requirements => { 
     :id => /\d+/
   }

@@ -309,31 +309,63 @@ class LoginController < ApplicationController
       title = c["title"]
       body = c["body"]
       id = c["id"].to_i
+      article_date = c["article_date"]
+      reentry = @params["newid"]["#{id}"]
+      hideid = @params["hideid"]["#{id}"]
+      
       referer = c["referer"] if c["referer"] 
 
       if @params[:category]
         newcategory = @params['category']['name'].nil? ? nil : @params["category"]['name']
       end
+
+      # original check
+      oa = Article.find(id) # oa is original Article.
+      if format == oa.format and title == oa.title and body == oa.body and c["author_name"] and c["author_name"].length and c["author_name"] == oa.author.name and newcategory.size == 0 and article_date == oa.article_date.to_date.to_s and hideid == oa.hidden.to_s
+        @flash[:note2] = '<br>You have not change:' + id.to_s
+        
+        cat_ka_in = Array.new
+        catname.each do |k,v|
+          if v.to_i == 1
+            cat_ka_in.push(k.to_i)
+          end
+        end
+        cat_ka_in.sort!.uniq!
+
+        cat_ka_oa = Array.new       
+        oa.categories.each do |cat|
+          cat_ka_oa.push(cat.id)
+        end
+        cat_ka_oa.sort!.uniq!
+
+        if cat_ka_in == cat_ka_oa
+          if referer
+            redirect_to :action => referer
+          else
+            redirect_to :action => "manage_article"
+          end   
+          return false
+        end
+      end
       
-      if @params["newid"]["#{id}"] == "0"
+      if reentry == "0"
         aris = Article.find(id)
         aris.categories.clear
-      elsif @params["newid"]["#{id}"] == "1"
+      elsif reentry == "1"
         aris = Article.new
       end
 
       if aris
-        if @params["hideid"]["#{id}"] == "0"
+        if hideid == "0"
           aris.hidden = 0
-        elsif @params["hideid"]["#{id}"] == "1"
+        elsif hideid == "1"
           aris.hidden = 1
         end
         aris.title = title
         aris.body = body
         aris.format = format
-        aris.article_date = c["article_date"]
+        aris.article_date = article_date
 
-        oa = Article.find(id) # oa is original Article.
         if oa.enrollment_id
           aris.enrollment_id = oa.enrollment_id
           oa.hidden = 1
