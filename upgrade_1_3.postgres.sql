@@ -14,6 +14,10 @@ primary key (id)
 INSERT INTO enrollments (id, title, hidden, created_at) 
   SELECT id,title,hidden,article_date from articles;
 
+-- forcibly update enrollments_id_seq. this may be a PostgreSQL bug,
+-- but it won't work after all without this anyway.
+ SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('enrollments', 'id'), (SELECT max(id) FROM enrollments));
+
 -- articlesテーブルにenrollment_idを設定する。
  ALTER table articles add column enrollment_id INTEGER; 
  UPDATE articles SET enrollment_id = q.id FROM (SELECT id FROM articles) AS q WHERE articles.id = q.id;
