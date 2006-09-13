@@ -38,7 +38,11 @@ article = don_get_object(a, 'html'); day0 = article.article_date.to_date %>
 <% end %>
 <% an += 1 %>
 <div class="nnenhead">
+  <% if article.enrollment_id %>
+  <%= link_to "\##{an}", {:action => "show_enrollment", :id => article.enrollment_id} %>
+  <% else %>
   <%= link_to "\##{an}", {:action => "show_title", :id => article.id} %>
+  <% end %>
   <%= display_article_categories article %>
   <%= article.title_to_html %>
 </div> <!-- end nnenhead -->

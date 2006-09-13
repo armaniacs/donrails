@@ -101,7 +101,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
         p $!
       end
 
-      expire_page(:controller => 'notes', :action => %w(rdf_article show_title), :id => record.id)
+      expire_page(:controller => 'notes', :action => %w(rdf_article show_title show_enrollment), :id => record.id)
       expire_page(:controller => 'notes', :action => %w(rdf_article show_title2), :title => record.title)
 
       clall = Category.find_all

@@ -1,9 +1,17 @@
 <%
-la = strip_links lastarticle.title_to_html if lastarticle
-na = strip_links nextarticle.title_to_html if nextarticle
+la = strip_links lastarticle.title_to_html if defined?(lastarticle) and lastarticle and lastarticle.title
+na = strip_links nextarticle.title_to_html if defined?(nextarticle) and nextarticle and nextarticle.title
 %>
 &lt;
-<%= link_to la, {:action => "show_title", :id => lastarticle.id} if lastarticle %>
+<% if la and lastarticle.enrollment_id %>
+<%= link_to la, {:action => "show_enrollment", :id => lastarticle.enrollment_id} %>
+<% elsif la %>
+<%= link_to la, {:action => "show_title", :id => lastarticle.id} %>
+<% end %>
 |
-<%= link_to na, {:action => "show_title", :id => nextarticle.id} if nextarticle %>
+<% if na and nextarticle.enrollment_id %>
+<%= link_to na, {:action => "show_enrollment", :id => nextarticle.enrollment_id} %>
+<% elsif na %>
+<%= link_to la, {:action => "show_title", :id => nextarticle.id} %>
+<% end %>
 &gt;

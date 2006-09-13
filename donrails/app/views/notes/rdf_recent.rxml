@@ -18,8 +18,7 @@ xml.tag!("rdf:RDF",
     xml.items do    
       xml.tag!("rdf:Seq") do
         for item in @recent_articles
-          xml.rdf(:li, "rdf:resource"=> "#{@request.protocol}#{@request.host_with_port}#{url_for(:action => "show_title", :id => item.id)}")
-
+          xml.rdf(:li, "rdf:resource"=> "#{@request.protocol}#{@request.host_with_port}#{url_for(:action => "show_enrollment", :id => item.enrollment_id)}") if item.enrollment_id
         end
       end
     end
@@ -27,45 +26,45 @@ xml.tag!("rdf:RDF",
 
   for i in @recent_articles
     item = don_get_object(i, 'xml')
-    xml.item("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => item.id)) do
+    if item.enrollment_id
+      xml.item("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => "show_enrollment", :id => item.enrollment_id)) do
 
-      xml.title(item.title_to_xml)
-      xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => item.id))
-      item.categories.each do |cat|
-        xml.category cat.name
-      end
-      xml.trackback @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => 'trackback', :id => item.id)
+        xml.title(item.title_to_xml)
+        xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_enrollment", :id => item.enrollment_id))
+        item.categories.each do |cat|
+          xml.category cat.name
+        end
+        xml.trackback @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => 'trackback', :id => item.id)
 
-      begin
-        ce = item.body_to_xml
-        if ce =~ (/^<html xmlns='http:\/\/www.w3.org\/1999\/xhtml'><body>(.*)<\/body><\/html>$/m)
-          ce = $1
-        end    
-        if ce =~ (/<content>(.*)<\/content>/m)
-          ce = $1
-        end    
-        xml.tag!("description") do
-          xml << ce.gsub(/<\/?\w+(?:\s+[^>]*)*>/m, '')
+        begin
+          ce = item.body_to_xml
+          if ce =~ (/^<html xmlns='http:\/\/www.w3.org\/1999\/xhtml'><body>(.*)<\/body><\/html>$/m)
+            ce = $1
+          end    
+          if ce =~ (/<content>(.*)<\/content>/m)
+            ce = $1
+          end    
+          xml.tag!("description") do
+            xml << ce.gsub(/<\/?\w+(?:\s+[^>]*)*>/m, '')
+          end
+          xml.tag!("content:encoded") do
+            xml.cdata! ce
+          end    
+        rescue
+          print "Error: #{$!} in #{item.id}\n"
+          print "Error: #{$!} in #{item.body.toeuc}\n"
         end
-        xml.tag!("content:encoded") do
-          xml.cdata! ce
-        end    
-      rescue
-        print "Error: #{$!} in #{item.id}\n"
-        print "Error: #{$!} in #{item.body.toeuc}\n"
-      end
-      if item.article_mtime
-        xml.tag!("dc:date") do
-          xml.text! "#{pub_date(item.article_mtime)}"
+        if item.article_mtime
+          xml.tag!("dc:date") do
+            xml.text! "#{pub_date(item.article_mtime)}"
+          end
         end
-      end
-      item.pictures.each do |pic|
-        tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
-        xml.image(:item, "rdf:about"=> tmpurl1) do
+        item.pictures.each do |pic|
+          tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
+          xml.image(:item, "rdf:about"=> tmpurl1)
         end
-      end
 
+      end
     end
   end
-
 end

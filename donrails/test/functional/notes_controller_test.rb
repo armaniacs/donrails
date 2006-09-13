@@ -161,6 +161,23 @@ class NotesControllerTest < Test::Unit::TestCase
 
     get :rdf_article
     assert_response :missing
+
+    get :rdf_article, :id => 4
+    assert_response :missing
+
+    get :rdf_article, :id => 444444
+    assert_response :missing
+  end
+
+  def test_rdf_enrollment
+    get :rdf_enrollment, :id => 1
+    assert_response :success
+
+    get :rdf_enrollment
+    assert_response :missing
+
+    get :rdf_enrollment, :id => 444444
+    assert_response :missing
   end
 
   def test_rdf_search
@@ -320,7 +337,7 @@ class NotesControllerTest < Test::Unit::TestCase
       "title" => "testtitle", 
       "body" => "testbody", "article_id" => 1}
     post :add_comment2, :comment => c
-    assert_match(/^http:\/\/test.host\/notes\/id\/1\?post_at=\d+/, @response.headers['location'])
+    assert_match(/^http:\/\/test.host\/notes\/\w+\/1/, @response.headers['location'])
     assert_response 302
 
     c = {"author" => "testauthor", "password" => "hoge5", 

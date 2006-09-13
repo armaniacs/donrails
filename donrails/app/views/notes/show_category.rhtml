@@ -22,7 +22,7 @@
   <% an += 1 %>
   <% btmp = strip_links art.body_to_html %>
   <% btmp = don_chomp_tags(btmp) %>
-  <dt><%= link_to "\##{an}", {:action => "show_title", :id => art.id} %> <%= art.title_to_html %>
+  <dt><%= link_to "\##{an}", {:action => "show_enrollment", :id => art.enrollment_id} %> <%= art.title_to_html %>
      (<%= link_to "#{art.article_date.to_date}",
          {:action => "show_date",
           :year => art.article_date.year,

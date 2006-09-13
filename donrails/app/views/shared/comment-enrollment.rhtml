@@ -1,0 +1,34 @@
+<% enrollment.articles.each do |article| %>
+
+<% article.comments.each do |x| %>
+<% unless x.hidden == 1 %>
+<div class="tsukkomi" >
+  <dl class="comments">
+    <dt><span class="poster">この記事へのコメント: by <%= x.author %></span></dt>
+    <dd><%= x.body %></dd>
+  </dl>
+</div>
+<% end %>
+<% end %>
+<% end %>
+
+<% enrollment.articles.each do |article| %>
+
+<% article.trackbacks.each do |x| %>
+<% unless x.hidden == 1 %>
+<div class="tsukkomi" >
+  <dl class="trackbacks">
+    <dt><span class="poster">この記事へのトラックバック: from <a href="<%= x.url %>"><%= x.title %></a></span></dt>
+    <dd><%= x.excerpt %></dd>
+  </dl>
+</div>
+<% end %>
+<% end %>
+<% end %>
+
+<div class="boardlink">
+  [<%= link_to('コメントする', :action => "comment_form", :id => @enrollment.articles.first.id) %>]
+  [TrackBack URL:<%= auto_link @request.protocol + @request.host_with_port + url_for(:action => 'trackback', :id => @enrollment.articles.first.id) %>]
+  [<%= link_to('パーマリンク', :action => "show_enrollment", :id => @enrollment.id) %>]
+</div>
+  

@@ -60,8 +60,7 @@ xml.tag!("rdf:RDF",
       end
       item.pictures.each do |pic|
         tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
-        xml.image(:item, "rdf:about"=> tmpurl1) do
-        end
+        xml.image(:item, "rdf:about"=> tmpurl1)
       end
 
     end

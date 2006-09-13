@@ -1,4 +1,39 @@
+2006-09-13  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/shared/linktitle.rhtml: Fix to skip non existance title.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::recent): Refine SQL statements.
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_rdf_enrollment): New test.
+
+	* donrails/app/controllers/notes_controller.rb 
+	(NotesController::rdf_article): Fix: when inputted wrong id.
+	(NotesController::rdf_enrollment): likewise.
+
+	* donrails/app/views/notes/rdf_article.rxml: Fix for display image:item entry.
+	* donrails/app/views/notes/rdf_recent.rxml: likewise.
+	* donrails/app/views/notes/rdf_search.rxml: likewise.
+	* donrails/app/views/notes/rdf_category.rxml: likewise.
+	* donrails/app/views/notes/rdf_recent.rxml: likewise.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Add to apply for Enrollment.
+	* donrails/app/views/notes/noteslist.rhtml: likewise.
+	* donrails/app/views/shared/linktitle.rhtml: likewise.
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): likewise.
+	* donrails/app/views/notes/recent_trigger_title_a.rhtml: likewise.
+	* donrails/app/views/shared/comment2.rhtml: likewise. Add link_to permanent url.
+
 2006-09-10  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::add_comment2): Change: redirect_to show_enrollment.
+	(NotesController::recent): Fix: apply for remove comments_articles.
+
+	* donrails/app/views/notes/show_enrollment.rhtml: New file.
+
+	* donrails/app/views/shared/comment-enrollment.rhtml: New file.
+
+	* donrails/app/models/enrollment.rb (Enrollment::self.search): New method.
+	* donrails/test/unit/enrollment_test.rb (EnrollmentTest::test_search): Test for it.
 
 	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_pick_enrollment_a): Add check for enrollment.comment and enrollment.trackback.
 

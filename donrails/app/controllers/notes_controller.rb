@@ -10,10 +10,8 @@ class NotesController < ApplicationController
   cache_sweeper :article_sweeper, :only => [:add_comment2, :trackback]
   verify_form_posts_have_security_token :only => [:add_comment2]
 
-  caches_page :index, :rdf_recent, :rdf_article, :rdf_category, :show_month, :show_nnen, :show_date, :show_title, :show_category, :show_category_noteslist, :articles_long, :noteslist
+  caches_page :index, :rdf_recent, :rdf_article, :rdf_category, :show_month, :show_nnen, :show_date, :show_title, :show_category, :show_category_noteslist, :articles_long, :noteslist, :category_select_a, :recent_trigger_title_a, :recent_category_title_a, :category_tree_list_a, :articles_author, :sitemap, :show_enrollment
 
-  caches_page :category_select_a, :recent_trigger_title_a, :recent_category_title_a, :category_tree_list_a
-  caches_page :articles_author, :sitemap
   after_filter :add_cache_control
   after_filter :compress
   after_filter :clean_memory
@@ -25,6 +23,7 @@ class NotesController < ApplicationController
     :recent_trigger_title_a,
     :rdf_recent,
     :rdf_article,
+    :rdf_enrollment,
     :rdf_search,
     :rdf_category,
     :trackback,
@@ -94,6 +93,7 @@ class NotesController < ApplicationController
   end
 
   def comment_form
+    @noindex = true
     @article = Article.find(@params['id'].to_i)
     @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
   end
@@ -198,11 +198,29 @@ class NotesController < ApplicationController
   end
 
   def rdf_article
-    if @params['id'] and @article = Article.find(@params['id'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
-      @rdf_article = @article.id
-      @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
-      @headers["Content-Type"] = "application/xml; charset=utf-8"
-    else
+    begin
+      if @params['id'] and @article = Article.find(@params['id'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+        @rdf_article = @article.id
+        @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
+        @headers["Content-Type"] = "application/xml; charset=utf-8"
+      else
+        render :text => "no entry", :status => 404
+      end
+    rescue
+      render :text => "no entry", :status => 404
+    end
+  end
+
+  def rdf_enrollment
+    begin
+      if @params['id'] and @enrollment = Enrollment.find(@params['id'], :conditions => ["enrollments.hidden IS NULL OR enrollments.hidden = 0"])
+        @rdf_enrollment = @enrollment.id
+        @lm = @enrollment.updated_at.gmtime if @enrollment and @enrollment.updated_at
+        @headers["Content-Type"] = "application/xml; charset=utf-8"
+      else
+        render :text => "no entry", :status => 404
+      end
+    rescue
       render :text => "no entry", :status => 404
     end
   end
@@ -238,28 +256,17 @@ class NotesController < ApplicationController
   end
 
   def recent
-    @recent_articles = Article.find(:all, :order => "id DESC", 
+    @recent_articles = Article.find(:all, :order => "article_mtime DESC", 
                                     :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"],
                                     :limit => 10)
     unless @recent_articles.empty? then
       @lm = @recent_articles.first.article_mtime.gmtime if @recent_articles.first.article_mtime
     end
-    @recent_comments = Article.find(:all, :order => "articles.article_date DESC", :limit => 30,
-                                    :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"],
-                                    :joins => "JOIN comments_articles on (comments_articles.article_id=articles.id)"
-                                   )
 
-    @rt = Article.find(:all, 
-                       :order => "articles.article_date DESC", 
-                       :limit => 30,
-                       :joins => "JOIN trackbacks on (trackbacks.article_id=articles.id)",
-                       :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
-                       )
-    aid = Array.new
-    @rt.each do |rt|
-      aid.push rt.article_id
-    end
-    @recent_trackbacks = Article.find(aid, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+    @recent_comments = Article.find_by_sql(["SELECT articles.* FROM articles,comments WHERE (articles.hidden IS NULL OR articles.hidden = 0) AND (comments.article_id=articles.id) ORDER BY comments.date DESC limit 10"])
+
+    @recent_trackbacks = Article.find_by_sql(["SELECT articles.* FROM articles,trackbacks WHERE (articles.hidden IS NULL OR articles.hidden = 0) AND (trackbacks.article_id=articles.id) ORDER BY trackbacks.created_at DESC limit 10"])
+
     @long_articles = Article.find(:all, :order => "size DESC", :limit => 10,
                                   :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
   end
@@ -391,6 +398,7 @@ class NotesController < ApplicationController
   end
 
   def show_title
+    @noindex = true
     if @params['id']
       @articles =  Article.find(:all, :conditions => ["id = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @params['id']]) 
     elsif @params['pickid']
@@ -402,6 +410,7 @@ class NotesController < ApplicationController
     else
       render_text "no article", 404
     end
+
     if @articles
       unless @articles.empty?
         @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
@@ -422,7 +431,30 @@ class NotesController < ApplicationController
       rescue
       end
     else
-      render_text "no article", 404
+      begin
+        a1 = Article.find(@params['id'])
+        redirect_to :action => 'show_enrollment', :id => a1.enrollment_id
+      rescue
+        render_text "no article", 404
+      end
+    end
+  end
+
+  def show_enrollment
+    if pid = @params['id'].to_i
+      @enrollment = Enrollment.find(pid, :conditions => ["hidden IS NULL OR hidden = 0"])
+      @heading = "#{don_chomp_tags(don_get_object(@enrollment.articles.first, 'html').title_to_html)}"
+      @rdf_enrollment = @enrollment.id
+      begin
+        @enrollment_l = Enrollment.find_by_sql(["SELECT id FROM enrollments WHERE (hidden IS NULL OR hidden = 0) AND ID < ? ORDER BY ID DESC LIMIT 1", pid]).first
+      rescue
+        @enrollment_l = nil
+      end
+      begin
+        @enrollment_r = Enrollment.find_by_sql(["SELECT id FROM enrollments WHERE (hidden IS NULL OR hidden = 0) AND ID > ? ORDER BY ID LIMIT 1", pid]).first
+      rescue
+        @enrollment_r = nil
+      end
     end
   end
 
@@ -532,7 +564,7 @@ class NotesController < ApplicationController
       aris1.valid?
       if aris1.errors.empty?
         aris1.save
-        redirect_to :action => "show_title", :id => article_id, :post_at => Time.now.to_i
+        redirect_to :action => "show_enrollment", :id => a.enrollment_id
       else
         emg = ''
         aris1.errors.each_full do |msg|

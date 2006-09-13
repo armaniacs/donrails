@@ -14,7 +14,7 @@
   <% btmp = don_chomp_tags(btmp) %>
   <% btmp = excerpt(btmp, @params["q"], 150) %>
   <% btmp = highlight(btmp, @params["q"]) %>
-  <dt><%= link_to "\##{an}", {:action => "show_title", :id => art.id} %>  <%= art.title_to_html %></dt>
+  <dt><%= link_to "\##{an}", {:action => "show_enrollment", :id => art.enrollment_id} %>  <%= art.title_to_html %></dt>
   <dd>
     <%= btmp %>
     <%= link_to_remote("[全文]", :update => "search_ai_#{art.id}", :url => {:action => "pick_article_a2", :pickid => art.id}) %>

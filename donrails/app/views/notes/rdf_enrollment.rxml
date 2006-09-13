@@ -9,25 +9,25 @@ xml.tag!("rdf:RDF",
          "xmlns:image" => "http://purl.org/rss/1.0/modules/image/",
          "xml:lang" => "ja") do
 
-  xml.channel("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => 'show_title', :id => @article.id)) do
+  xml.channel("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => 'show_enrollment', :id => @enrollment.id)) do
     
     xml.title RDF_TITLE
-    xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => @article.id))
+    xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_enrollment", :id => @enrollment.id))
     xml.description RDF_DESCRIPTION
     xml.copyright RDF_COPYRIGHT
 
     xml.items do    
       xml.tag!("rdf:Seq") do
-        xml.rdf(:li, "rdf:resource"=> "#{@request.protocol}#{@request.host_with_port}#{url_for(:action => "show_title", :id => @article.id)}")
+        xml.rdf(:li, "rdf:resource"=> "#{@request.protocol}#{@request.host_with_port}#{url_for(:action => "show_enrollment", :id => @enrollment.id)}")
       end
     end
   end
 
-  item = don_get_object(@article, 'xml')
-  xml.item("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => item.id)) do
+  item = don_get_object(@enrollment.articles.first, 'xml')
+  xml.item("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => "show_enrollment", :id => @enrollment.id)) do
 
     xml.title(item.title_to_xml)
-    xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => item.id))
+    xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_enrollment", :id => @enrollment.id))
     item.categories.each do |cat|
       xml.category cat.name
     end
@@ -57,11 +57,12 @@ xml.tag!("rdf:RDF",
       end
     end
 
-    item.pictures.each do |pic|
-      tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
-      xml.image(:item, "rdf:about"=> tmpurl1)
+    @enrollment.articles.each do |arc|
+      arc.pictures.each do |pic|
+        tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
+        xml.image(:item, "rdf:about"=> tmpurl1)
+      end
     end
-
   end
 
 end
