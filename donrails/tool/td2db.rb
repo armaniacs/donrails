@@ -154,7 +154,7 @@ if $0 == __FILE__ then
   tdconf = TDiary::Config.new
 
   ARGV.each do |dir|
-    d = File.join(dir, '') if dir !~ /\/\Z/
+    d = (dir !~ /\/\Z/ ? File.join(dir, '') : dir)
     files = Dir.glob(File.join(d, '*/*.td2'))
     io = TDiary::TD2DB_DefaultIO.new(d, tdconf)
     files.each do |f|
