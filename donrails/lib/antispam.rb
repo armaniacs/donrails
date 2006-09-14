@@ -123,7 +123,7 @@ class AntiSpam
 
     # Check for URL count limit    
     if @URL_LIMIT > 0
-      throw :hit, "Hard URL Limit hit: #{uri_list.size} > #{URL_LIMIT}" if uri_list.size > @URL_LIMIT
+      throw :hit, "Hard URL Limit hit: #{uri_list.size} > #{@URL_LIMIT}" if uri_list.size > @URL_LIMIT
     end
     
     uri_list.collect { |uri| URI.parse(uri).host rescue nil }.uniq.compact.each do |host|
