@@ -18,7 +18,9 @@ class Comment < ActiveRecord::Base
   after_create :notify_by_mail
 
   def notify_by_mail
-    CommentMailer.deliver_notify(self)
+    if defined?(ADMIN_MAILADD) && !ADMIN_MAILADD.nil? && ADMIN_MAILADD.empty? then
+      CommentMailer.deliver_notify(self)
+    end
   end
 
   def kcode_convert

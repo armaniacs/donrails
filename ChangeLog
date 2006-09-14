@@ -1,5 +1,8 @@
 2006-09-15  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/models/comment.rb (Comment::notify_by_mail): don't send
+	a notice mail if ADMIN_MAILADD isn't set properly.
+
 	* donrails/tool/td2db.rb: new file to import tDiary format files into
 	donrails.
 
