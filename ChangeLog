@@ -1,5 +1,7 @@
 2006-09-14  Akira TAGOH  <at@gclab.org>
 
+	* donrails/tool/table-postgresql.txt: updated.
+
 	* Makefile (linkinit): fix a copy fails.
 
 2006-09-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
