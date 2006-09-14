@@ -25,7 +25,7 @@ require 'kconv'
 require 'erb'
 
 
-class Config < Hash
+class TD2DBConfig < Hash
 
   def tdiarydir=(val)
     self['tdiarydir'] = val
@@ -59,11 +59,11 @@ class Config < Hash
     return self.has_key?('tdiaryconfdir') ? self['tdiaryconfdir'] : './'
   end # def tdiaryconfdir
 
-end # class Config
+end # class TD2DBConfig
 
 
 if $0 == __FILE__ then
-  conf = Config.new
+  conf = TD2DBConfig.new
   ARGV.options do |opt|
     opt.banner = sprintf("Usage: %s [options] <directory>", __FILE__)
     opt.on('--tdiarydir=DIR', 'DIR where tDiary modules are installed') {|v| conf.tdiarydir = v}
