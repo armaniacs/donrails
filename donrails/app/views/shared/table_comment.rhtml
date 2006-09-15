@@ -9,6 +9,7 @@
     <td>author</td>
     <td>ipaddr</td>
     <td>body</td>
+    <td>id</td>
   </tr>
 
   <% @comments.each do |co| %>
@@ -23,7 +24,6 @@
     <td><%= check_box "deleteid", co.id %></td>
     <td><% if co.hidden == 1 %>(hidden)<% else %>normal<% end %></td>
     <td>
-      <!-- link_to_remote(co.articles.first.id, :update => "comment_ajax", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.articles.first.id }) if co.articles.first  -->
       <%= link_to_remote(co.article.id, :update => "comment_ajax", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.article.id }) if co.article %>
      </td>
      <td><%= co.password %></td>
@@ -31,6 +31,7 @@
      <td><%= co.author %></td>
      <td><%= co.ipaddr %></td>
      <td><%= don_mb_truncate(co.body) %></td>
+     <td><%= co.id %></td>
    </tr>
    <% end %>
  </table>

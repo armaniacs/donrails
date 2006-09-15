@@ -169,7 +169,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       expire_page(:controller => 'notes', :action => 'category_select_a')
       expire_page(:controller => 'notes', :action => 'category_tree_list_a')
     when Comment
-      expire_for(record.articles.first)
+      expire_for(record.article)
     when Trackback
       expire_for(record.article)
     end

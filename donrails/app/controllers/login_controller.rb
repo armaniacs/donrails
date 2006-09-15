@@ -266,23 +266,29 @@ class LoginController < ApplicationController
     if c = @params["deleteid"]
       c.each do |k, v|
         if v.to_i == 1
-          b = Comment.find(k.to_i)
-          Comment.delete(k.to_i)
-          @flash[:note2] += '<br>Delete:' + k
+          begin
+            b = Comment.find(k.to_i)
+            Comment.delete(k.to_i)
+            @flash[:note2] += '<br>Delete:' + k
+          rescue
+          end
         end
       end
     end
     if c = @params["hideid"]
       c.each do |k, v|
-        pf = Comment.find(k.to_i)
-        stmp = pf.hidden
-        if v.to_i == 1
-          pf.update_attribute('hidden', 1)
-        elsif v.to_i == 0
-          pf.update_attribute('hidden', 0)
-        end
-        unless stmp == pf.hidden
-          @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+        begin
+          pf = Comment.find(k.to_i)
+          stmp = pf.hidden
+          if v.to_i == 1
+            pf.update_attribute('hidden', 1)
+          elsif v.to_i == 0
+            pf.update_attribute('hidden', 0)
+          end
+          unless stmp == pf.hidden
+            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+          end
+        rescue
         end
       end
     end
@@ -311,7 +317,7 @@ class LoginController < ApplicationController
       id = c["id"].to_i
       article_date = c["article_date"]
       reentry = @params["newid"]["#{id}"]
-      hideid = @params["hideid"]["#{id}"]
+      hideid = @params["hideid"]["#{id}"] if @params["hideid"]
       
       referer = c["referer"] if c["referer"] 
 

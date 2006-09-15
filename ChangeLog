@@ -1,3 +1,10 @@
+2006-09-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Fix from expire_for(record.articles.first) to expire_for(record.article).
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Fix for wrong input.
+	(LoginController::delete_comment): Fix for non-existing comment.
+
 2006-09-15  Akira TAGOH  <at@gclab.org>
 
 	* donrails/lib/antispam.rb (AntiSpam::scan_text): fixed a typo.
