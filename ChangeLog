@@ -1,5 +1,7 @@
 2006-09-16  Akira TAGOH  <at@gclab.org>
 
+	* donrails/tool/donrails-setup.rb: fixed a typo.
+
 	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_images):
 	makes an anchor to allow people to show the full-sized image.
 

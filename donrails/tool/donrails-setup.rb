@@ -132,7 +132,7 @@ else
   buf = Readline.readline("Are you use image file upload? [Y/n]", true)
   if buf == "n"
   else
-    penv += "IMAGE_DUMP_PATH = \"/public/image/dump/\"\n"
+    penv += "IMAGE_DUMP_PATH = \"/public/images/dump/\"\n"
   end
 
   buf = Readline.readline("Input username for administration. YOU MUST input. >", true)
