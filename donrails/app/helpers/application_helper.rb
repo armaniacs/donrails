@@ -351,7 +351,7 @@ module ApplicationHelper
         else
           rpath = "/" + hoi
         end
-        content += image_tag(rpath, :size => '100', :align => 'right') 
+        content += link_to(image_tag(rpath, :size => '100', :align => 'right'), rpath)
       end
     end
     return content

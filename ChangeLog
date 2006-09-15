@@ -1,3 +1,8 @@
+2006-09-16  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_images):
+	makes an anchor to allow people to show the full-sized image.
+
 2006-09-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Fix from expire_for(record.articles.first) to expire_for(record.article).
