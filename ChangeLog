@@ -1,5 +1,8 @@
 2006-09-22  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/views/shared/default/pagelink.rhtml: moved into
+	the default folder.
+
 	* donrails/public/stylesheets/styles-site.css: added.
 
 	* donrails/public/stylesheets/base-weblog.css: added.
