@@ -1,5 +1,7 @@
 2006-09-22  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/views/layouts/MT/notes.rhtml: use RDF_TITLE.
+
 	* donrails/app/controllers/notes_controller.rb (NotesController):
 	include ApplicationHelper into self for a workaround on webrick.
 
