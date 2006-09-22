@@ -1,5 +1,9 @@
 2006-09-22  Akira TAGOH  <at@gclab.org>
 
+	* donrails/public/stylesheets/styles-site.css: added.
+
+	* donrails/public/stylesheets/base-weblog.css: added.
+
 	* donrails/app/views/notes/default/show_enrollment.rhtml: 
 	* donrails/app/views/notes/default/noteslist.rhtml: moved into
 	the default folder.
