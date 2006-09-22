@@ -1,0 +1,39 @@
+<%
+if @articles then
+  day0 = Time.new
+  day1 = day0
+
+  @articles.each do |a|
+    article = don_get_object(a, 'html')
+    day0 = article.article_date.to_date
+    if day1 != day0 then
+%>
+<h2 class="date-header"><%= display_article_date(article) %></h2>
+<%
+      day1 = article.article_date.to_date
+    end
+%>
+<div class="entry" id="entry-<%= article.id %>">
+  <h3 class="entry-header">
+    <%= display_article_categories(article) %>
+    <%= article.title_to_html %>
+  </h3><!-- the end of 'entry-header' -->
+  <div class="entry-content">
+    <div class="entry-body">
+      <%= display_article_images(article) %>
+      <%= auto_link(article.body_to_html) %>
+    </div><!-- the end of 'entry-body' -->
+  </div><!-- the end of 'entry-content' -->
+  <p class="entry-footer">
+    <%= render(don_get_theme("shared/post-footer"), "article" => article) %>
+    <span class="separator">|</span> 
+    <%= render(don_get_theme("shared/permlink"), "article" => article) %> | 
+    <%= render(don_get_theme("shared/simple-comment"), "article" => article) %> |
+    <%= render(don_get_theme("shared/simple-trackback"), "article" => article) %>
+  </p><!-- the end of 'entry-footer' -->
+</div><!-- the end of 'entry' -->
+
+<%
+  end
+end
+%>

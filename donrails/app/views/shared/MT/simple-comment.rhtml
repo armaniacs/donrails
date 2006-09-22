@@ -1,0 +1,16 @@
+<%
+ncomment = 0
+if article.comments then
+  article.comments.each do |c|
+    unless c.hidden == 1 then
+      ncomment += 1
+    end
+  end
+end
+if article.enrollment_id then
+%>
+<%= link_to(sprintf("Comments(%d)", ncomment), :action => "show_enrollment", :id => article.enrollment_id) %>
+<% else %>
+<%= link_to(sprintf("Comments(%d)", ncomment), :action => "show_title", :id => article.id) %>
+<% end %>
+[<%= link_to("コメントする", {:action => "comment_form", :id => article.id}) %>] 

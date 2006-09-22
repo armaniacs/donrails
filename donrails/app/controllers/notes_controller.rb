@@ -16,7 +16,7 @@ class NotesController < ApplicationController
   after_filter :compress
   after_filter :clean_memory
 
-  layout "notes", :except => [
+  layout don_get_theme("notes"), :except => [
     :pick_article_a,
     :pick_article_a2,
     :recent_category_title_a,
@@ -55,7 +55,7 @@ class NotesController < ApplicationController
     search
     @rdf_category = @params['q']
     @heading = "検索結果:#{@params['q']}"
-    render_action 'noteslist'
+    render_action(don_get_theme('noteslist'))
   end
 
   def pick_trackback_a
@@ -108,7 +108,7 @@ class NotesController < ApplicationController
     unless @articles.empty? then
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
     end
-    render_action 'noteslist'
+    render_action(don_get_theme('noteslist'))
   end
 
   def articles_author
@@ -127,7 +127,7 @@ class NotesController < ApplicationController
         unless @articles.empty? then
           @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
         end
-        render_action 'noteslist'
+        render_action(don_get_theme('noteslist'))
       end
     rescue
       render :text => 'no entry', :status => 404
@@ -170,6 +170,7 @@ class NotesController < ApplicationController
       end
       @notice = @params['notice'] unless @notice
     end
+    render_action(don_get_theme('noteslist'))
   end
 
 
@@ -339,7 +340,7 @@ class NotesController < ApplicationController
         unless @articles.empty?
           @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
         end
-        render_action 'noteslist'
+        render_action(don_get_theme('noteslist'))
       end
     rescue
       render_text "no article", 404
@@ -371,7 +372,7 @@ class NotesController < ApplicationController
       render_text "no article", 404
     else
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
-      render_action 'noteslist'
+      render_action(don_get_theme('noteslist'))
     end
   end
 
@@ -390,7 +391,7 @@ class NotesController < ApplicationController
       unless @articles.empty?
         @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
       end
-      render_action 'noteslist'
+      render_action(don_get_theme('noteslist'))
     rescue
       @notice = "正しく日付を指定してください" unless @notice
       redirect_to :action => 'noteslist', :notice => @notice
@@ -456,6 +457,7 @@ class NotesController < ApplicationController
         @enrollment_r = nil
       end
     end
+    render_action(don_get_theme("show_enrollment"))
   end
 
   def show_category
@@ -494,7 +496,7 @@ class NotesController < ApplicationController
     begin
       show_category
       @rdf_category = @params['category']
-      render_action 'noteslist'
+      render_action(don_get_theme('noteslist'))
     rescue
       render_text "no article", 404
     end
@@ -513,7 +515,7 @@ class NotesController < ApplicationController
         unless @articles.empty?
           @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
         end
-        render_action 'noteslist'
+        render_action(don_get_theme('noteslist'))
       else
         render_text "#{@ymd}以降に該当する記事はありません", 404
       end
@@ -534,7 +536,7 @@ class NotesController < ApplicationController
       @heading = don_chomp_tags(a.title_to_html)
     
       @notice = "#{@articles.first.article_date.to_date} 以降の10日間の記事を表示します。"
-      render_action 'noteslist'
+      render_action(don_get_theme('noteslist'))
     else
       @notice = "正しく日付を指定してください" unless @notice
       render_text "#{@ymd}以降に該当する記事はありません", 404

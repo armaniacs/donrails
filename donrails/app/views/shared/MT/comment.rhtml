@@ -1,0 +1,38 @@
+<%
+ncomment = 0
+enrollment.articles.each do |a|
+  a.comments.each do |c|
+    unless c.hidden == 1 then
+      ncomment += 1
+    end
+  end
+end
+%>
+<div id="comments" class="comments">
+  <div class="comments-content">
+    <h3 class="comments-header">Comments (<%= ncomment %>)</h3>
+    <%
+enrollment.articles.each do |article|
+  article.comments.each do |comment|
+    unless comment.hidden == 1 then
+    %>
+    <div class="comment" id="comment-<%= comment.id %>">
+      <div class="comment-inner">
+        <div class="comment-header">
+	  <%= comment.author %>:
+	</div><!-- the end of 'comment-header' -->
+	<div class="comment-content">
+	  <%= comment.body %>
+	</div><!-- the end of 'comment-content' -->
+	<p class="comment-footer">
+	  <a href="#comment-<%= comment.id %>"><%= comment.date %></a>
+	</p><!-- the end of 'comment-footer' -->
+      </div><!-- the end of 'comment-inner' -->
+    </div><!-- the end of 'comment' -->
+    <%
+    end
+  end
+end
+    %>
+  </div><!-- the end of 'comments-content' -->
+</div><!-- the end of 'comments' -->

@@ -1,0 +1,16 @@
+<%
+enrollment.articles.each do |article|
+  article.trackbacks.each do |x|
+    unless x.hidden == 1 then
+%>
+<div class="trackback" >
+  <dl class="comments">
+    <dt><span class="poster">この記事へのトラックバック: by <%=h x.blog_name %><%= auto_link x.url %></span></dt>
+    <dd>Title: <%=h x.title %><%=h x.excerpt %></dd>
+  </dl>
+</div>
+<%
+    end
+  end
+end
+%>

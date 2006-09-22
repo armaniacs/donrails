@@ -80,6 +80,20 @@ module ApplicationHelper
     return retval
   end # def don_mb_truncate
 
+=begin
+
+=== ApplicationHelper#don_get_theme(name)
+
+=end
+
+  def don_get_theme(name)
+    # XXX: where does it complete from?
+    theme = (defined?(DEFAULT_THEME) && !DEFAULT_THEME.empty? ? DEFAULT_THEME : "default")
+    path = File.dirname(name)
+    filename = File.basename(name)
+    return File.join(path, theme, filename)
+  end # def don_get_theme
+
   def article_url(article, only_path = true)
     url_for :only_path => only_path, 
     :controller=>"notes", 

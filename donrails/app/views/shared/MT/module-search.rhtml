@@ -1,0 +1,8 @@
+<div class="module-search module">
+  <h2 class="module-header">Search</h2>
+  <div class="module-content">
+    <%= form_tag :controller => 'notes', :action => 'search' %>
+    検索:<input type="text" name="q" value="<%= @params["q"] %>" size="15" />
+    <%= end_form_tag %>
+  </div><!-- the end of 'module-content' -->
+</div><!-- the end of 'module' -->

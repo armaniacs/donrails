@@ -1,0 +1,13 @@
+<div class="module-donrails-links module">
+  <h2 class="module-header">donrails links</h2>
+  <div class="module-content">
+    <ul class="module-list">
+      <li class="module-list-item">
+        <%= link_to("Admin", {:controller => 'login', :action => 'login_index' }, :confirm => "Do you want to log into the management page?") %>
+      </li>
+      <li class="module-list-item">
+        <%= link_to("Blog", {:action => "index"}) %>
+      </li>
+    </ul><!-- the end of 'module-list' -->
+  </div><!-- the end of 'module-content' -->
+</div><!-- the end of 'module' -->

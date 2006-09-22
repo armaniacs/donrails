@@ -1,0 +1,15 @@
+<%
+ntb = 0
+if article.trackbacks then
+  article.trackbacks.each do |tb|
+    unless tb.hidden == 1 then
+      ntb += 1
+    end
+  end
+end
+if article.enrollment_id then
+%>
+<%= link_to(sprintf("Trackback(%d)", ntb), :action => "show_enrollment", :id => article.enrollment_id) %>
+<% else %>
+<%= link_to(sprintf("Trackback(%d)", ntb), :action => "show_title", :id => article.article_id) %>
+<% end %>

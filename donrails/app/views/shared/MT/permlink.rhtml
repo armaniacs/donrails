@@ -1,0 +1,3 @@
+<% if article.enrollment_id then %>
+<%= link_to('パーマリンク', {:action => "show_enrollment", :id => article.enrollment_id}, {:class => "permalink"}) %>
+<% end %>

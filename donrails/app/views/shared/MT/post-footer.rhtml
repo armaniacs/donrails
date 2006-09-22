@@ -1,0 +1,8 @@
+<span class="post-footers">
+<% if article.author && article.author.nickname then %>
+  Posted by <%= link_to(article.author.nickname, {:action => :articles_author, :id => article.author_id}) %>
+<% elsif article.author && article.author.name then %>
+  Posted by <%= link_to(article.author.name, {:action => articles_author, :id => article.author_id}) %>
+<% end %>
+ at <%= article.article_mtime %>
+</span><!-- the end of 'post-footers' -->

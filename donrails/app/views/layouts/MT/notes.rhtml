@@ -1,0 +1,58 @@
+<html lang="ja">
+<head>
+
+<%= auto_discovery_link_tag(:rss, :action => 'rdf_category', :category => @rdf_category) if @rdf_category %>
+<%= auto_discovery_link_tag(:rss, :action => 'rdf_article', :id => @rdf_article) if @rdf_article %>
+<%= auto_discovery_link_tag(:atom, :controller => 'atom', :action => 'feed', :id => @rdf_article) if @rdf_article %>
+<%= auto_discovery_link_tag(:rss, :action => 'rdf_recent') %>
+<%= auto_discovery_link_tag(:atom, :controller => 'atom', :action => 'feed') %>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link rev="made" href="mailto:yasu@debian.or.jp">
+<meta name="author" content="ARAKI Yasuhiro">
+
+<%= stylesheet_link_tag "styles-site.css" %>
+<%= javascript_include_tag "code-toggle-popup.js" %>
+<%= javascript_include_tag "prototype.js" %>
+<% if @noindex %>
+<meta name="robots" content="noindex">
+<% end %>
+
+<title>Myblog by donrails - <%=h strip_links(@heading) if @heading %></title>
+
+</head>
+
+<body class="layout-two-column-right main-index">
+  <div id="container">
+    <div id="container-inner" class="pkg">
+      <%= render(don_get_theme("shared/banner")) %>
+      <div id="pagebody">
+        <div id="pagebody-inner" class="pkg">
+	  <div id="alpha">
+	    <div id="alpha-inner" class="pkg">
+              <%= @content_for_layout %>
+	    </div><!-- the end of 'alpha-inner' -->
+	  </div><!-- the end of 'alpha' -->
+	  <div id="beta">
+	    <div id="beta-inner" class="pkg">
+
+	      <!-- add modules from here -->
+              <%= render(don_get_theme("shared/module-search")) %>
+	      <%= render(don_get_theme("shared/module-titlelist")) %>
+	      <%= render(don_get_theme("shared/module-donrails-links")) %>
+              <!-- the end of modules list -->
+
+	      <div class="module-powered module">
+	        <div class="module-content">
+		  Powered by<br /><a href="http://www.araki.net/wiki/donrails-wiliki.cgi">donrails</a>
+		</div><!-- the end of 'module-content' -->
+	      </div><!-- the end of 'module' -->
+	    </div><!-- the end of 'beta-inner' -->
+	  </div><!-- the end of 'beta' -->
+	</div><!-- the end of 'pagebody-inner' -->
+      </div><!-- the end of 'pagebody' -->
+    </div><!-- the end of 'container-inner' -->
+  </div><!-- the end of 'container' -->
+</body>
+
+</html>

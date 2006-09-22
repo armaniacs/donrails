@@ -13,27 +13,27 @@
 <div class="section">
   <%= display_enrollment_images(@enrollment) %>
   <%= auto_link article.body_to_html if article.body %>
-  <%= render("shared/comment-enrollment", "enrollment" => @enrollment, "article" => article) %>
+  <%= render(don_get_theme("shared/comment-enrollment"), "enrollment" => @enrollment, "article" => article) %>
   <div class="nndate">
-    <%= render("shared/authorhead", "article" => article) %>
+    <%= render(don_get_theme("shared/authorhead"), "article" => article) %>
     <br clear='all'>
   </div>
 </div> <!-- end section -->
 
 <div class="linktitle">
 <% if (@enrollment_l and @enrollment_r) %>
-<%= render("shared/linktitle", "lastarticle" => don_get_object(@enrollment_l.articles.first, 'html'), "nextarticle" => don_get_object(@enrollment_r.articles.first, 'html')) %>
+<%= render(don_get_theme("shared/linktitle"), "lastarticle" => don_get_object(@enrollment_l.articles.first, 'html'), "nextarticle" => don_get_object(@enrollment_r.articles.first, 'html')) %>
 <% elsif (@enrollment_l and @enrollment_r == nil) %>
-<%= render("shared/linktitle", "lastarticle" => don_get_object(@enrollment_l.articles.first, 'html')) %>
+<%= render(don_get_theme("shared/linktitle"), "lastarticle" => don_get_object(@enrollment_l.articles.first, 'html')) %>
 <% elsif (@enrollment_l == nil and @enrollment_r) %>
-<%= render("shared/linktitle", "nextarticle" => don_get_object(@enrollment_r.articles.first, 'html')) %>
+<%= render(don_get_theme("shared/linktitle"), "nextarticle" => don_get_object(@enrollment_r.articles.first, 'html')) %>
 <% else %>
 (sorry, I can not link previous and next articles)
 <% end %>
 </div>
 
 <div class="pagelink">
-<%= render("shared/nextlink3", "article" => article) %>
+<%= render(don_get_theme("shared/nextlink3"), "article" => article) %>
 </div> <!-- end pagelink -->
 
 
