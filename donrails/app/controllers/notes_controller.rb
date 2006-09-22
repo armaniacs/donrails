@@ -1,6 +1,10 @@
 require 'kconv'
 class NotesController < ApplicationController
 
+  class << self
+    include ApplicationHelper
+  end
+      
   before_filter :set_charset, :except => [
     :pick_article_a, :pick_article_a2, :comment_form_a,
     :recent_category_title_a, :recent_trigger_title_a, :category_select_a,

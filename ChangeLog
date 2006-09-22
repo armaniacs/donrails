@@ -1,5 +1,8 @@
 2006-09-22  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/controllers/notes_controller.rb (NotesController):
+	include ApplicationHelper into self for a workaround on webrick.
+
 	* donrails/app/views/shared/default/pagelink.rhtml: moved into
 	the default folder.
 
