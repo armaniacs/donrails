@@ -1,3 +1,13 @@
+2006-09-22  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/trackback.rb (Trackback): If you set "TRACKBACK_ENABLE_TIME" in donrails_env.rb, old trackback ping will be rejected. Plese set TRACKBACK_ENABLE_TIME in seconds. (e.g. TRACKBACK_ENABLE_TIME = 86400 * 365 * 10). If you want to enable forever, please set 0.
+
+2006-09-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_trackback__too_short_excerpt): Test for it.
+
+	* donrails/app/models/trackback.rb (Trackback): length check for 'excerpt'. (minimum = 20)
+
 2006-09-16  Akira TAGOH  <at@gclab.org>
 
 	* donrails/tool/donrails-setup.rb: fixed a typo.

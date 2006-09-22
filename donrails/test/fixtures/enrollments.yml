@@ -25,3 +25,9 @@ ireko:
   id: 10
   title: ireko
   hidden: 0
+old:
+  id: 11
+  title: old
+  hidden: 0
+  created_at: 1989-01-03 00:00:00
+  updated_at: 1989-01-05 00:00:01

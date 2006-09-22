@@ -16,7 +16,7 @@ class NotesControllerTest < Test::Unit::TestCase
     post :trackback,
     :id => 1,
     :title => 'title test util',
-    :excerpt => 'excerpt text',
+    :excerpt => 'excerpt text excerpt text',
     :url => "http://test.example.com/blog/",
     :blog_name => 'test of donrails'
 
@@ -42,7 +42,7 @@ class NotesControllerTest < Test::Unit::TestCase
     post :trackback,
     :id => 1,
     :title => 'title test util',
-    :excerpt => 'excerpt text',
+    :excerpt => 'excerpt text excerpt text',
     :url => "http://test.example.com/blog/",
     :blog_name => 'test of donrails'
 
@@ -50,6 +50,33 @@ class NotesControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_equal require_response_body, @response.body
   end
+
+  def test_trackback__too_short_excerpt
+    post :trackback,
+    :id => 1,
+    :title => 'title test util',
+    :excerpt => 'too short',
+    :url => "http://test.example.com/blog/",
+    :blog_name => 'test of donrails'
+
+    require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>count:1</message>\n</response>\n"
+    assert_response :success
+    assert_equal require_response_body, @response.body
+  end
+
+  def test_trackback__too_old
+    post :trackback,
+    :id => 100,
+    :title => 'title test util',
+    :excerpt => 'this is trackback of too old article',
+    :url => "http://test.example.com/blog/",
+    :blog_name => 'test of donrails'
+
+    require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>count:1</message>\n</response>\n"
+    assert_response :success
+    assert_equal require_response_body, @response.body
+  end
+
 
   def test_index
     get :index
@@ -218,7 +245,7 @@ class NotesControllerTest < Test::Unit::TestCase
   end
 
   def test_show_month 
-    get :show_month ,:year => 1989, :month => 01
+    get :show_month ,:year => 1979, :month => 01
     assert_response 404
   end
 

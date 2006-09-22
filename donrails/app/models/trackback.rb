@@ -1,7 +1,7 @@
 class Trackback < ActiveRecord::Base
   belongs_to :article
-#  belongs_to :enrollment
 
+  validates_length_of :excerpt, :minimum => 20
   validates_antispam :url
   validates_antispam :ip
   validates_antispam :excerpt
@@ -11,6 +11,17 @@ class Trackback < ActiveRecord::Base
   protected
   before_save :kcode_convert
   after_create :notify_by_mail
+
+  validates_each :article do |record, attr, value|
+    if value
+      return unless defined?(TRACKBACK_ENABLE_TIME)
+      return if TRACKBACK_ENABLE_TIME == 0
+      configuration = { :message => "blocked. Because it is a too old article." }
+      if value.article_date and value.article_date + TRACKBACK_ENABLE_TIME < Time.now
+        record.errors.add(attr, configuration[:message]) 
+      end
+    end
+  end
 
   def notify_by_mail
     CommentMailer.deliver_notify(self)

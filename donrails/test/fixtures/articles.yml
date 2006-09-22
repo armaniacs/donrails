@@ -60,3 +60,13 @@ ireko<%= i %>:
   author_id: 1
   enrollment_id: 10
 <% end %>
+old:
+  id: 100
+  title: old
+  body: old body
+  size: 8
+  article_date: 1989-01-01 00:00:00
+  article_mtime: 1989-01-01 00:00:01
+  format: plain
+  author_id : 1
+  enrollment_id : 11
