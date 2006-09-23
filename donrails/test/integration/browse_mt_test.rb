@@ -6,14 +6,13 @@ class BrowseStoryTest < ActionController::IntegrationTest
   # Replace this with your real tests.
   def test_truth
     assert true
+    if defined?(DEFAULT_THEME) and DEFAULT_THEME == 'MT'
+    else
+      DEFAULT_THEME == 'MT'
+    end
   end
 
   def test_fromtop
-    if defined?(DEFAULT_THEME) and DEFAULT_THEME == 'MT'
-    else
-      get "/notes/index"
-      assert_equal 200, status
-    end
     get "/notes"
     assert_equal 200, status
 
@@ -42,6 +41,9 @@ class BrowseStoryTest < ActionController::IntegrationTest
     get '/notes/show_category/1?page=1'
     assert_equal 200, status
     get '/notes/show_category/1/page/1'
+    assert_equal 200, status
+
+    get '/notes/category/misc'
     assert_equal 200, status
 
     # GET /notes/category/misc/page/108?article_date=.html    

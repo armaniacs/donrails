@@ -1,5 +1,11 @@
 2006-09-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/models/article.rb: Cleanup.
+	* donrails/app/models/comment.rb: Cleanup.
+	* donrails/test/integration/browse_mt_test.rb: New test.
+	* donrails/test/integration/browse_story_test.rb: Cleanup.
+	* donrails/app/views/shared/MT/comment.rhtml: Fix to show comment order.
+
 	* donrails/app/views/shared/MT/pagelink.rhtml: Copy from default/pagelink.rhtml
 
 	* donrails/app/views/notes/show_category.rhtml: Fix to apply theme.
