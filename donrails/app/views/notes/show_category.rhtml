@@ -8,7 +8,7 @@
 
 <% if @articles_pages and @articles_pages.length > 1 %>
 <div class="pagelink">
-ページ選択: <%= render("shared/pagelink", "pages" => @articles_pages) %>
+ページ選択: <%= render(don_get_theme("shared/pagelink"), "pages" => @articles_pages) %>
 </div>
 <% end %>
 

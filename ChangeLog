@@ -1,5 +1,9 @@
 2006-09-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/views/shared/MT/pagelink.rhtml: Copy from default/pagelink.rhtml
+
+	* donrails/app/views/notes/show_category.rhtml: Fix to apply theme.
+
 	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_parse_nums__1): Fix for routes.rb change.
 	(NotesControllerTest::test_index): Skip when DEFAULT_THEME is MT.
 
