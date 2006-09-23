@@ -294,7 +294,8 @@ class NotesController < ApplicationController
     elsif @params['trigger'] == 'trackbacks'
       @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN trackbacks on (trackbacks.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     elsif @params['trigger'] == 'comments'
-      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN comments_articles on (comments_articles.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+#      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN comments_articles on (comments_articles.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN comments on (comments.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     elsif @params['trigger'] == 'long'
       @articles = Article.find(:all, :order => "size DESC", :limit => 10, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     end

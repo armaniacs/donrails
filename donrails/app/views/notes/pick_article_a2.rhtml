@@ -2,6 +2,6 @@
 <div class="section">
 <%= display_article_images article %>
 <%= auto_link article.body_to_html if article.body %>
-<%= render(don_get_theme("shared/comment"), "article" => article) %>
+<%= render(don_get_theme("shared/comment"), "enrollment" => article.enrollment) %>
 <br clear='all'>
 </div>

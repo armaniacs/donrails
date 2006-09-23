@@ -1,3 +1,16 @@
+2006-09-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_parse_nums__1): Fix for routes.rb change.
+	(NotesControllerTest::test_index): Skip when DEFAULT_THEME is MT.
+
+	* donrails/app/views/notes/show_title.rhtml: Add dummy file to prevent template error for functional test.
+
+  	* donrails/app/views/notes/pick_article_a2.rhtml: Fix parameter to call shared/comment
+
+	* donrails/app/views/shared/MT/title-articles2no.rhtml: Add file.
+
+	* donrails/app/views/notes/pick_article_a2.rhtml: Fix to use render file.
+
 2006-09-23  Akira TAGOH  <at@gclab.org>
 
 	* donrails/app/views/shared/default/nextlink2.rhtml: moved into the
