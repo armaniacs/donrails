@@ -15,7 +15,6 @@ if @articles then
 %>
 <div class="entry" id="entry-<%= article.id %>">
   <h3 class="entry-header">
-    <%= display_article_categories(article) %>
     <%= article.title_to_html %>
   </h3><!-- the end of 'entry-header' -->
   <div class="entry-content">
@@ -27,6 +26,7 @@ if @articles then
   <p class="entry-footer">
     <%= render(don_get_theme("shared/post-footer"), "article" => article) %>
     <span class="separator">|</span> 
+    <%= render(don_get_theme("shared/simple-category"), "article" => article) %>
     <%= render(don_get_theme("shared/permlink"), "article" => article) %> | 
     <%= render(don_get_theme("shared/simple-comment"), "article" => article) %> |
     <%= render(don_get_theme("shared/simple-trackback"), "article" => article) %>
