@@ -1,9 +1,13 @@
 <%
 ncomment = 0
-if article.comments then
-  article.comments.each do |c|
-    unless c.hidden == 1 then
-      ncomment += 1
+if article.enrollment
+  article.enrollment.articles.each do |ar1|
+    if ar1.comments then
+      ar1.comments.each do |c|
+        unless c.hidden == 1 then
+          ncomment += 1
+        end
+      end
     end
   end
 end

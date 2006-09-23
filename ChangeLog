@@ -1,5 +1,7 @@
 2006-09-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/views/shared/MT/simple-comment.rhtml: fix comment number count.
+
 	* donrails/app/models/article.rb: Cleanup.
 	* donrails/app/models/comment.rb: Cleanup.
 	* donrails/test/integration/browse_mt_test.rb: New test.

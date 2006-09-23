@@ -12,7 +12,7 @@ end
   <div class="comments-content">
     <h3 class="comments-header">Comments (<%= ncomment %>)</h3>
     <%
-enrollment.articles.reverse.each do |article|
+enrollment.articles.reverse.each do |article|    
   article.comments.each do |comment|
     unless comment.hidden == 1 then
     %>
