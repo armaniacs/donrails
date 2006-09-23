@@ -1,5 +1,15 @@
 2006-09-23  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/views/shared/default/nextlink2.rhtml: moved into the
+	dfeault folder.
+
+	* donrails/app/views/notes/default/show_title.rhtml: reflect the
+	layout name from current theme.
+
+	* donrails/app/views/notes/pick_article_a2.rhtml: likewise.
+
+	* donrails/example/index.rhtml: likewise.
+
 	* donrails/example/index.rhtml: fixed a
 	space-before-argument-parentheses issue.
 
