@@ -403,17 +403,21 @@ class NotesController < ApplicationController
   end
 
   def show_title
+    p @params['title']
     @noindex = true
     if @params['id']
       @articles =  Article.find(:all, :conditions => ["id = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @params['id']]) 
     elsif @params['pickid']
       @articles =  Article.find(:all, :conditions => ["id = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @params['pickid']]) 
       redirect_to :action => 'show_title', :id => @articles.first.id if @articles
+      return
     elsif @params['title'] and @params['title'].size > 0
       @articles =  Article.find(:all, :conditions => ["title = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @params['title']]) 
       redirect_to :action => 'show_title', :id => @articles.first.id if @articles and @articles.first
+      return
     else
-      render_text "no article", 404
+      render :text => "no article", :status => 404
+      return
     end
 
     if @articles
@@ -439,10 +443,13 @@ class NotesController < ApplicationController
       begin
         a1 = Article.find(@params['id'])
         redirect_to :action => 'show_enrollment', :id => a1.enrollment_id
+        return
       rescue
         render_text "no article", 404
+        return
       end
     end
+    render_action(don_get_theme("show_title"))
   end
 
   def show_enrollment

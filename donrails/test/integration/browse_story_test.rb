@@ -1,8 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class BrowseStoryTest < ActionController::IntegrationTest
-  # fixtures :your, :models
-  fixtures :articles, :blogpings, :comments, :pings, :authors, :categories, :plugins, :banlists, :categories_articles, :pictures, :trackbacks
+  fixtures :articles, :blogpings, :comments, :pings, :authors, :categories, :plugins, :banlists, :pictures, :trackbacks
 
   # Replace this with your real tests.
   def test_truth
@@ -10,16 +9,16 @@ class BrowseStoryTest < ActionController::IntegrationTest
   end
 
   def test_fromtop
-    get "/notes/index"
-    assert_equal 200, status
-
+    if defined?(DEFAULT_THEME) and DEFAULT_THEME == 'MT'
+    else
+      get "/notes/index"
+      assert_equal 200, status
+    end
     get "/notes"
     assert_equal 200, status
 
     get "/notes/search", :q => 'first body'
     assert_equal 200, status
-#    p path, headers, host, remote_addr, request, response
-#    p headers['cache-control']
 
     get "/notes/show_search_noteslist", :q => 'first body'
     assert_equal 200, status

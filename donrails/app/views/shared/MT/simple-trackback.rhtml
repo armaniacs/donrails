@@ -11,5 +11,5 @@ if article.enrollment_id then
 %>
 <%= link_to(sprintf("Trackback(%d)", ntb), :action => "show_enrollment", :id => article.enrollment_id) %>
 <% else %>
-<%= link_to(sprintf("Trackback(%d)", ntb), :action => "show_title", :id => article.article_id) %>
+<%= link_to(sprintf("Trackback(%d)", ntb), :action => "show_title", :id => article.id) %>
 <% end %>

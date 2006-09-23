@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ArticleTest < Test::Unit::TestCase
-  fixtures :articles, :categories, :comments, :categories_articles, :enrollments
+  fixtures :articles, :categories, :comments, :enrollments
 
   def setup
     @a1 = Article.find(1)
@@ -24,7 +24,7 @@ class ArticleTest < Test::Unit::TestCase
     @article.renew_mtime
     assert_not_nil(@article.article_mtime)
 
-    assert_equal('Fri Jan 01 00:00:01 JST 1999', @a1.article_mtime.to_s)
+    assert_match(/Fri Jan 01 00:00:01 .+ 1999/, @a1.article_mtime.to_s)
   end
 
   def test_search
