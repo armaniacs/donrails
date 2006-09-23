@@ -1,3 +1,10 @@
+2006-09-23  Akira TAGOH  <at@gclab.org>
+
+	* donrails/example/index.rhtml: fixed a
+	space-before-argument-parentheses issue.
+
+	* donrails/app/models/trackback.rb: fixed a LocalJumpError.
+
 2006-09-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/integration/browse_story_test.rb: Fix

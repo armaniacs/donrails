@@ -13,9 +13,9 @@ class Trackback < ActiveRecord::Base
   after_create :notify_by_mail
 
   validates_each :article do |record, attr, value|
-    if value
-      return unless defined?(TRACKBACK_ENABLE_TIME)
-      return if TRACKBACK_ENABLE_TIME == 0
+    if value &&
+       defined?(TRACKBACK_ENABLE_TIME) &&
+       TRACKBACK_ENABLE_TIME != 0 then
       configuration = { :message => "blocked. Because it is a too old article." }
       if value.article_date and value.article_date + TRACKBACK_ENABLE_TIME < Time.now
         record.errors.add(attr, configuration[:message]) 
