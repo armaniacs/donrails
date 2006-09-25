@@ -1,5 +1,8 @@
 2006-09-25  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/models/trackback.rb (Trackback::notify_by_mail):
+	don't send email if no ADMIN_MAILADD defined.
+
 	* donrails/app/views/notes/MT/show_enrollment.rhtml:
 	* donrails/app/views/notes/MT/show_title.rhtml: updated to follow
 	noteslist.rhtml.
