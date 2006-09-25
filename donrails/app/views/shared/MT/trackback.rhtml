@@ -1,16 +1,39 @@
 <%
-enrollment.articles.each do |article|
-  article.trackbacks.each do |x|
-    unless x.hidden == 1 then
-%>
-<div class="trackback" >
-  <dl class="comments">
-    <dt><span class="poster">この記事へのトラックバック: by <%=h x.blog_name %><%= auto_link x.url %></span></dt>
-    <dd>Title: <%=h x.title %><%=h x.excerpt %></dd>
-  </dl>
-</div>
-<%
+tblist = []
+
+enrollment.articles.reverse.each do |a|
+  a.trackbacks.each do |tb|
+    unless tb.hidden == 1 then
+      tblist.push(tb)
     end
   end
 end
 %>
+<a name="trackback"></a>
+<div class="trackbacks">
+  <h3 id="trackback" class="trackbacks-header">Trackbacks</h3>
+  <div id="trackbacks-info">
+    <p>Trackback URL: <br />
+    <%= auto_link(@request.protocol + @request.host_with_port + url_for(:action => 'trackback', :id => article.id)) %>
+  </div><!-- the end of 'trackbacks-info' -->
+
+  <% unless tblist.empty? then %>
+  <div class="trackbacks-content">
+    <p>この記事へのトラックバック:</p>
+    <% tblist.each do |tb| %>
+    <a id="p<%= tb.id %>"></a>
+    <div class="trackback" id="ping-<%= tb.id %>">
+      <div class="trackback-content">
+        <p>
+          &raquo; <%= link_to(tb.title, tb.url) %> from <%= tb.blog_name %><br />
+          <%= tb.excerpt %>
+        </p>
+      </div><!-- the end of 'trackback-content' -->
+      <p class="trackback-footer">
+        トラックバック時刻: <%= link_to(tb.created_at, {:anchor => sprintf("ping-%d", tb.id)}) %>
+      </p>
+    </div><!-- the end of 'trackback' -->
+    <% end %>
+  </div><!-- the end of 'trackbacks-content' -->
+  <% end %>
+</div><!-- the end of 'trackbacks' -->

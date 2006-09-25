@@ -13,8 +13,8 @@ if article.enrollment
 end
 if article.enrollment_id then
 %>
-<%= link_to(sprintf("Comments(%d)", ncomment), :action => "show_enrollment", :id => article.enrollment_id) %>
+<%= link_to(sprintf("Comments(%d)", ncomment), {:action => "show_enrollment", :id => article.enrollment_id, :anchor => "comment"}) %>
 <% else %>
-<%= link_to(sprintf("Comments(%d)", ncomment), :action => "show_title", :id => article.id) %>
+<%= link_to(sprintf("Comments(%d)", ncomment), {:action => "show_title", :id => article.id, :anchor => "comment"}) %>
 <% end %>
 [<%= link_to("コメントする", {:action => "comment_form", :id => article.id}) %>] 

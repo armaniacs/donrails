@@ -20,12 +20,5 @@ article = don_get_object(@enrollment.articles.first, 'html')
   </p><!-- the end of 'entry-footer' -->
 </div><!-- the end of 'entry' -->
 
-<div class="trackbacks">
-  <h3 id="trackback" class="trackbacks-header">Trackbacks</h3>
-  <div id="trackbacks-info">
-    <p>Trackback URL: <br />
-    <%= auto_link(@request.protocol + @request.host_with_port + url_for(:action => 'trackback', :id => article.id)) %>
-  </div><!-- the end of 'trackbacks-info' -->
-</div><!-- the end of 'trackbacks' -->
-<%= render(don_get_theme("shared/trackback"), "enrollment" => @enrollment) %>
+<%= render(don_get_theme("shared/trackback"), "enrollment" => @enrollment, "article" => article) %>
 <%= render(don_get_theme("shared/comment"), "enrollment" => @enrollment) %>
