@@ -4,7 +4,6 @@ article = don_get_object(@articles.first, 'html')
 <h2 class="date-header"><%= display_article_date(article) %></h2>
 <div class="entry" id="entry-<%= article.id %>">
   <h3 class="entry-header">
-    <%= display_article_categories(article) %>
     <%= article.title_to_html %>
   </h3><!-- the end of 'entry-header' -->
   <div class="entry-content">
@@ -14,6 +13,7 @@ article = don_get_object(@articles.first, 'html')
     </div><!-- the end of 'entry-body' -->
   </div><!-- the end of 'entry-content' -->
   <p class="entry-footer">
+    <%= render(don_get_theme("shared/simple-category"), "article" => article) %>
     <%= render(don_get_theme("shared/post-footer"), "article" => article) %>
     <span class="separator">|</span> 
     <%= render(don_get_theme("shared/permlink"), "article" => article) %>

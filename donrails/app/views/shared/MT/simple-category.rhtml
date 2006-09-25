@@ -1,10 +1,13 @@
 <%
-content = ""
+content = []
 article.categories.each do |cat|
   if cat.name then
-    content += '[' + link_to(cat.name, {:action => "show_category", :category => cat.name}) + ']'
+    content.push(link_to(cat.name, {:action => "show_category", :category => cat.name}))
   end
 end
-content += ' | ' unless content.empty?
 %>
-<%= content %>
+<% unless content.empty? then %>
+<span style="font-size: 80%">
+  カテゴリ: [<%= content.join(' , ') %>]
+</span><br />
+<% end %>

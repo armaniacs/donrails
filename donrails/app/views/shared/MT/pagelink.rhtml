@@ -1,1 +1,33 @@
-<%= pagination_links pages, :params => {:article_date => @params['article_date'], :ymd2 => @ymd, :ymd3 => @ymd3, :ymd4 => @ymd4} %> 
+<p class="content-nav">
+  <%
+if !lastarticle.nil? || !nextarticle.nil? then
+  la = (!lastarticle.nil? ? strip_links(lastarticle.title_to_html) : "")
+  na = (!nextarticle.nil? ? strip_links(nextarticle.title_to_html) : "")
+  unless la.empty? then
+  %>
+  &laquo;
+  <% if lastarticle.enrollment_id %>
+  <%= link_to(la, {:action => "show_enrollment", :id => lastarticle.enrollment_id}) %>
+  <% else %>
+  <%= link_to(la, {:action => "show_title", :id => lastarticle.id}) %>
+  <% end %>
+  |
+  <% end %>
+  <%= link_to("メイン", {:action => "noteslist"}) %>
+  <% unless na.empty? then %>
+  |
+  <% if nextarticle.enrollment_id %>
+  <%= link_to(na, {:action => "show_enrollment", :id => nextarticle.enrollment_id}) %>
+  <% else %>
+  <%= link_to(na, {:action => "show_title", :id => nextarticle.id}) %>
+  <% end %>
+  &raquo;
+  <% end %>
+<%
+elsif defined?(pages) && pages.length > 1 then
+%>
+  <span style="font-size: 80%">
+    ページ選択: <%= pagination_links pages, :params => {:article_date => @params['article_date'], :ymd2 => @ymd, :ymd3 => @ymd3, :ymd4 => @ymd4} %>
+  </span>
+<% end %>
+</p><!-- the end of 'content-nav' -->

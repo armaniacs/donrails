@@ -1,3 +1,17 @@
+2006-09-25  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/notes/MT/show_enrollment.rhtml:
+	* donrails/app/views/notes/MT/show_title.rhtml: updated to follow
+	noteslist.rhtml.
+
+	* donrails/app/views/shared/MT/simple-category.rhtml: updated for more
+	informative design.
+
+	* donrails/app/views/shared/MT/pagelink.rhtml: makes much better DOM
+	trees for MT support.
+
+	* donrails/app/views/layouts/MT/notes.rhtml: show the page links.
+
 2006-09-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/shared/MT/simple-comment.rhtml: fix comment number count.
