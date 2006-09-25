@@ -1,3 +1,11 @@
+2006-09-26  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/shared/MT/trackback.rhtml: implemented.
+
+	* donrails/app/views/shared/MT/comment.rhtml:
+	* donrails/app/views/shared/MT/simple-trackback.rhtml:
+	* donrails/app/views/shared/MT/simple-comment.rhtml: add an anchor.
+
 2006-09-25  Akira TAGOH  <at@gclab.org>
 
 	* donrails/app/models/trackback.rb (Trackback::notify_by_mail):
