@@ -1,9 +1,13 @@
 <%
 ntb = 0
-if article.trackbacks then
-  article.trackbacks.each do |tb|
-    unless tb.hidden == 1 then
-      ntb += 1
+if article.enrollment then
+  article.enrollment.articles.each do |a|
+    if a.trackbacks then
+      a.trackbacks.each do |tb|
+        unless tb.hidden == 1 then
+          ntb += 1
+        end
+      end
     end
   end
 end
