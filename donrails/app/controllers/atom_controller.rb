@@ -56,6 +56,9 @@ class AtomController < ApplicationController
         end
         atom_update_article2(aris1, request.raw_post)
         aris1.author_id = author.id if author        
+        aris1.build_enrollment
+        aris1.enrollment.title = aris1.title
+        aris1.enrollment.save
         aris1.save
         @article = aris1
         render :status => 201 # 201 Created @ Location
