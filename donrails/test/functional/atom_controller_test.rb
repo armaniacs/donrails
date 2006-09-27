@@ -21,6 +21,12 @@ class AtomControllerTest < Test::Unit::TestCase
     assert_response :success
   end
 
+  def test_post
+    @request.env['REMOTE_ADDR'] = '127.0.0.1'
+#    post :post
+#    assert_response :success
+  end
+
   def test_feed
     get :feed
     assert_response :success

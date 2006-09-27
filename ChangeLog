@@ -1,3 +1,19 @@
+2006-09-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* NEW Feature: XML-RPC for blog client. (Tested by MS windows live writer.)
+	* donrails/app/models/author.rb 
+	(Author::self.authenticate): Add for XML-RPC.
+	(Author::self.authenticate): likewise.
+	* donrails/app/controllers/backend_controller.rb: likewise.
+	* donrails/app/apis/don_web_service.rb: likewise.
+	* donrails/app/apis/movable_type_service.rb: likewise.
+	* donrails/app/apis/blogger_service.rb: likewise.
+	* donrails/app/apis/meta_weblog_service.rb: likewise.
+	
+2006-09-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
+	
+	* donrails/app/controllers/atom_controller.rb (AtomController::post): Fix to apply enrollment.
+
 2006-09-26  Akira TAGOH  <at@gclab.org>
 
 	* donrails/app/views/shared/MT/trackback.rhtml: implemented.
