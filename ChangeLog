@@ -1,3 +1,9 @@
+2006-09-29  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::title_to_html)
+	(DonRails::Wiliki::body_to_html): fixed to deal with the inline syntax
+	properly.
+
 2006-09-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/enrollment.rb (Enrollment): Change to depend Article.

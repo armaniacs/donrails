@@ -67,7 +67,8 @@ module DonRails
         line.gsub!(/<strong><\/strong>/, '')
       elsif line =~ (/\A[^']*'''[^']*\Z/) then
         # nothing to do help in this case
-      elsif line =~ (/''[^(?:'')]*''/) then
+      end
+      if line =~ (/''[^(?:'')]*''/) then
         line.gsub!(/''([^(?:'')]*)''/, '<em>\1</em>')
         line.gsub!(/<em><\/em>/, '')
       elsif line =~ (/\A[^']*''[^']*\Z/) then
@@ -192,7 +193,8 @@ module DonRails
               lprev = line
               next
             end
-          elsif line =~ (/''[^(?:'')]*''/) then
+	  end
+          if line =~ (/''[^(?:'')]*''/) then
             line.gsub!(/''([^(?:'')]*)''/, '<em>\1</em>')
             line.gsub!(/<em><\/em>/, '')
           elsif line =~ (/\A[^']*''[^']*\Z/) then
@@ -201,7 +203,8 @@ module DonRails
               lprev = line
               next
             end
-          elsif line =~ (/\[\[\$\$img\s+(\S+)(?:\s+(.*))?\]\]/) then
+	  end
+          if line =~ (/\[\[\$\$img\s+(\S+)(?:\s+(.*))?\]\]/) then
             line.gsub!(/\[\[\$\$img\s+(\S+)(?:\s+(.*))?\]\]/, '<img src="\1" alt="\2" />')
           end
           if line =~ (/\[\[/) then
@@ -590,6 +593,8 @@ if $0 == __FILE__ then
       assert_equal("<pre> &gt;\n</pre>", __getobj__(" >\n").body_to_html)
       assert_equal("<pre> <em>test</em>\n</pre>", __getobj__(" ''test''\n").body_to_html)
       assert_equal("<pre> test\n</pre><p>test</p>", __getobj__(" test\ntest\n").body_to_html)
+      assert_equal("<p><em>test</em>abc<em>test</em></p>", __getobj__("''test''abc''test''\n").body_to_html)
+      assert_equal("<p><em>test</em>abc<strong>test</strong></p>", __getobj__("''test''abc'''test'''\n").body_to_html)
     end # def test_body_to_html
 
   end # class TestDonRails__Wiliki
