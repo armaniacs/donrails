@@ -1,5 +1,16 @@
-2006-09-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+2006-09-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/models/enrollment.rb (Enrollment): Change to depend Article.
+
+	* donrails/app/models/trackback.rb (Trackback): Remove 'excerpt' length validater. Because it caused side effect at banlist management. (todo)
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_trackback__too_short_excerpt): likewise. Comment out.
+	
+	* donrails/app/controllers/notes_controller.rb 
+	(NotesController::show_title): Cleanup.
+	(NotesController::trackback): Cleanup.
+	
+2006-09-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+	
 	* donrails/app/models/trackback.rb (Trackback::notify_by_mail): likewise.
 	* donrails/app/models/comment.rb (Comment::notify_by_mail): Fix to send comment mail.
 

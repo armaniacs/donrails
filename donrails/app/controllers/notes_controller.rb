@@ -404,7 +404,6 @@ class NotesController < ApplicationController
   end
 
   def show_title
-    p @params['title']
     @noindex = true
     if @params['id']
       @articles =  Article.find(:all, :conditions => ["id = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @params['id']]) 
@@ -616,9 +615,10 @@ class NotesController < ApplicationController
           @catched = false
           @message = 'need url and id '
         end
-        article = Article.find(@params['id'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
 
-        unless article
+        begin
+          article = Article.find(@params['id'], :conditions => ["hidden IS NULL OR hidden = 0"])
+        rescue
           @catched = false
           @message = 'need valid id '
         end

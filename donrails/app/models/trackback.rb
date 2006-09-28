@@ -1,7 +1,7 @@
 class Trackback < ActiveRecord::Base
   belongs_to :article
 
-  validates_length_of :excerpt, :minimum => 20
+#  validates_length_of :excerpt, :minimum => 20
   validates_antispam :url
   validates_antispam :ip
   validates_antispam :excerpt

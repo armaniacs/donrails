@@ -51,18 +51,18 @@ class NotesControllerTest < Test::Unit::TestCase
     assert_equal require_response_body, @response.body
   end
 
-  def test_trackback__too_short_excerpt
-    post :trackback,
-    :id => 1,
-    :title => 'title test util',
-    :excerpt => 'too short',
-    :url => "http://test.example.com/blog/",
-    :blog_name => 'test of donrails'
+#   def test_trackback__too_short_excerpt
+#     post :trackback,
+#     :id => 1,
+#     :title => 'title test util',
+#     :excerpt => 'too short',
+#     :url => "http://test.example.com/blog/",
+#     :blog_name => 'test of donrails'
 
-    require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>count:1</message>\n</response>\n"
-    assert_response :success
-    assert_equal require_response_body, @response.body
-  end
+#     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>count:1</message>\n</response>\n"
+#     assert_response :success
+#     assert_equal require_response_body, @response.body
+#   end
 
   def test_trackback__too_old
     post :trackback,
