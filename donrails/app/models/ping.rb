@@ -34,23 +34,52 @@ class Ping < ActiveRecord::Base
   #
   # Example HTTP GET request:
   # http://rpc.weblogs.com/pingSiteForm?name=InfraBlog&url=http%3A%2F%2Finfrablog.verisignlabs.com 
-  def send_ping2(pingurl)
+  def send_ping2(pingurl) # XXX
+    rbody = send_ping_xmlrpc(pingurl)
+    if rbody == true || rbody['flerror'] == true
+      send_ping_rest(pingurl)
+    end
+  end
+
+  def send_ping_rest(pingurl) # XXX
     uri = URI.parse(pingurl)
     
-    articleurl = self.url
-    rdfurl = articleurl.gsub('/notes/id/', '/notes/rdf_article/')
-    up = URI.parse(articleurl).path
-    baseurl = articleurl.gsub(up, '/')
+    if self.article.enrollment_id 
+      changeurl = BASEURL + 'id/' + self.article.enrollment_id.to_s
+    else
+      changeurl = BASEURL + 'id/' + self.article.id.to_s
+    end
 
     post = "name=#{URI.escape(RDF_TITLE)}"
-    post << "&url=#{URI.escape(baseurl)}"
-    post << "&changesURL=#{URI.escape(rdfurl)}"
+    post << "&url=#{URI.escape(BASEURL)}"
+    post << "&changesURL=#{URI.escape(changeurl)}"
 
     Net::HTTP.start(uri.host, uri.port) do |http|
       http.read_timeout = 10
       response = http.post("#{uri.path}?#{uri.query}", post)
       return response.body
     end 
+  end
+
+  # require 'xmlrpc/client'
+  def send_ping_xmlrpc(pingurl)
+    begin
+      if self.article.enrollment_id 
+        changeurl = BASEURL + 'id/' + self.article.enrollment_id.to_s
+      else
+        changeurl = BASEURL + 'id/' + self.article.id.to_s
+      end
+
+      server = XMLRPC::Client.new2(pingurl)
+      begin
+        result = server.call('weblogUpdates.ping', RDF_TITLE, BASEURL, changeurl)
+#        return server.call('weblogUpdates.ping', RDF_TITLE, BASEURL)
+      rescue XMLRPC::FaultException => e
+        logger.error(e)
+      end
+    rescue Exception => e
+      logger.error(e)
+    end
   end
 
 end

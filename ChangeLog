@@ -1,4 +1,18 @@
+2006-09-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/ping.rb (Ping::send_ping2): Change to call send_ping_xmlrpc. If it fails, call send_ping_rest.
+	(Ping::send_ping_rest): Rename send_ping2 to send_ping_rest. And refine it.
+	(Ping::send_ping_xmlrpc): New method.
+
+	* donrails/app/apis/don_web_service.rb (DonWebServiceStructs): likewise.
+	(DonWebApi): likewise.
+	(DonWebService::ping): likewise.
+
+	* donrails/test/unit/ping_test.rb (PingTest::test_send_ping_xmlrpc): Apply for sending XML-RPC ping.
+
 2006-09-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/lib/antispam.rb: Cleanup. Remove "[SP]" info in log.
 
 	* NEW Feature: XML-RPC for blog client. (Tested by MS windows live writer.)
 	* donrails/app/models/author.rb 

@@ -8,6 +8,7 @@ class BackendController < ApplicationController
   web_service(:metaWeblog)  { MetaWeblogService.new(self) }
   web_service(:mt)          { MovableTypeService.new(self) }
   web_service(:blogger)     { BloggerService.new(self) }
+  web_service(:weblogUpdates) { DonWebService.new(self) }
 
   alias xmlrpc api
 end

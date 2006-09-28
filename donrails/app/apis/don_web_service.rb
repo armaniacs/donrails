@@ -1,5 +1,23 @@
+module DonWebServiceStructs
+  class Ping < ActionWebService::Struct
+    member :flerror,            :bool
+    member :message,            :string
+  end
+end
+
+class DonWebApi < ActionWebService::API::Base
+  inflect_names false
+
+  api_method :ping, :returns => [DonWebServiceStructs::Ping]
+end
+
 class DonWebService < ActionWebService::Base
+  web_service_api DonWebApi
   attr_accessor :controller
+  
+  def ping(*description)
+    DonWebServiceStructs::Ping.new(:flerror => false, :message => 'Ok')
+  end
 
   def initialize(controller)
     @controller = controller

@@ -53,7 +53,6 @@ class AntiSpam
 
 
   def scan_ipaddr_white(ip_address)
-    logger.info("[SP] Scanning IP whitelist #{ip_address}")
     Banlist.find(:all, :conditions => ["format = ? AND white = ?", "ipaddr", 1]).each do |bp|
       if ip_address.match(/#{bp.pattern}/)
         logger.info("[SP] Whitelist: ipaddr #{bp.pattern} matched")
@@ -65,10 +64,8 @@ class AntiSpam
 
 
   def scan_ipaddr(ip_address)
-    logger.info("[SP] Scanning IP #{ip_address}")
     return false if true == scan_ipaddr_white(ip_address)
     Banlist.find(:all, :conditions => ["format = ?", "ipaddr"]).each do |bp|
-      logger.info("[SP] Scanning banlist ipaddr #{bp.pattern}")
       throw :hit, "IPaddress #{bp.pattern} matched" if ip_address.match(/#{bp.pattern}/)
     end
     @IP_RBL.each do |rbl|
@@ -94,10 +91,7 @@ class AntiSpam
   end
 
   def scan_uri(host)
-    logger.info("[SP] Scanning domain #{host}")
-
     Banlist.find(:all, :conditions => ["format = ?", "hostname"]).each do |bp|
-      logger.info("[SP] Scanning banlist host #{bp.pattern}")
       throw :hit, "Hostname #{bp.pattern} matched" if host.match(/#{bp.pattern}/)
     end
 
@@ -116,8 +110,6 @@ class AntiSpam
   protected :scan_uri
 
   def scan_text(string)
-    logger.info("[SP] Scanning text #{string}")
-
     # Scan contained URLs
     uri_list = string.scan(/(http:\/\/[^\s"]+)/m).flatten
 
@@ -132,12 +124,10 @@ class AntiSpam
 
     # add banlist match here.
     Banlist.find(:all, :conditions => ["format = ?", "string"]).each do |bp|
-      logger.info("[SP] Scanning banlist text #{bp.pattern}")
       throw :hit, "String #{bp.pattern} matched" if string.match(/#{Regexp.quote(bp.pattern)}/)
     end
 
     Banlist.find(:all, :conditions => ["format = ?", "regexp"]).each do |bp|
-      logger.info("[SP] Scanning banlist text #{bp.pattern}")
       throw :hit, "Regex #{bp.pattern} matched" if string.match(/#{bp.pattern}/)
     end
 
