@@ -24,7 +24,7 @@ class Trackback < ActiveRecord::Base
   end
 
   def notify_by_mail
-    if defined?(ADMIN_MAILADD) && !ADMIN_MAILADD.nil? && ADMIN_MAILADD.empty? then
+    if defined?(ADMIN_MAILADD) && !ADMIN_MAILADD.nil? && !ADMIN_MAILADD.empty? then
       CommentMailer.deliver_notify(self)
     end
   end

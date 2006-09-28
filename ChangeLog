@@ -1,5 +1,9 @@
 2006-09-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/models/trackback.rb (Trackback::notify_by_mail): likewise.
+	* donrails/app/models/comment.rb (Comment::notify_by_mail): Fix to send comment mail.
+
+	
 	* donrails/app/models/ping.rb (Ping::send_ping2): Change to call send_ping_xmlrpc. If it fails, call send_ping_rest.
 	(Ping::send_ping_rest): Rename send_ping2 to send_ping_rest. And refine it.
 	(Ping::send_ping_xmlrpc): New method.
