@@ -1,3 +1,11 @@
+2006-09-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_article): Fix to stop update_attribute for unchanged article.
+
+	* donrails/test/unit/comment_test.rb (CommentTest::test_1): Cleanup.
+
+	* donrails/test/unit/article_test.rb (ArticleTest::test_renew_mtime): Add some test.
+
 2006-09-29  Akira TAGOH  <at@gclab.org>
 
 	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::title_to_html)

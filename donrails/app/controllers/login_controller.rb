@@ -520,9 +520,9 @@ class LoginController < ApplicationController
         if Article.exists?(k.to_i)
           pf = Article.find(k.to_i)
           stmp = pf.hidden
-          if v.to_i == 1
+          if v.to_i == 1 and pf.hidden != 1
             pf.update_attribute('hidden', 1)
-          elsif v.to_i == 0
+          elsif v.to_i == 0 and pf.hidden != 0
             pf.update_attribute('hidden', 0)
           end
           unless stmp == pf.hidden

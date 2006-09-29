@@ -1,5 +1,5 @@
 class Enrollment < ActiveRecord::Base
-  has_many :articles, :order => "id DESC", :dependent => :destroy
+  has_many :articles, :order => "id DESC" , :dependent => :destroy
 
   def self.search(query)
     if !query.to_s.strip.empty?

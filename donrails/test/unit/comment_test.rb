@@ -24,8 +24,6 @@ class CommentTest < Test::Unit::TestCase
   end
 
   def test_1
-#    @c3.articles.push_with_attributes(@a1)
-#    @c3.save
     @c3.article = @a1
     assert_equal(@c3.article.title, "first title in misc")
   end
