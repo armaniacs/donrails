@@ -28,6 +28,10 @@ module MetaWeblogStructs
   class Url < ActionWebService::Struct
     member :url, :string
   end
+
+  class Category < ActionWebService::Struct
+    member :description, :string
+  end
 end
 
 
@@ -36,7 +40,9 @@ class MetaWeblogApi < ActionWebService::API::Base
 
   api_method :getCategories,
     :expects => [ {:blogid => :string}, {:username => :string}, {:password => :string} ],
-    :returns => [[:string]]
+#    :returns => [[:string]]
+#    :returns => [[MetaWeblogStructs::Category]]
+    :returns => [[MetaWeblogStructs::Category]]
 
   api_method :getPost,
     :expects => [ {:postid => :string}, {:username => :string}, {:password => :string} ],
@@ -70,7 +76,12 @@ class MetaWeblogService < DonWebService
   before_invocation :authenticate
 
   def getCategories(blogid, username, password)
-    Category.find(:all).collect { |c| c.name }
+#    Category.find(:all).collect { |c| c.name } # typo
+    Category.find(:all).collect do |c| 
+      MetaWeblogStructs::Article.new(
+                                     :description => c.name
+                                     )
+    end
   end
 
   def getPost(postid, username, password)

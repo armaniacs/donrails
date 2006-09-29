@@ -1,5 +1,11 @@
 2006-09-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_enrollment):  Fix to stop update_attribute for unchanged enrollment.
+
+	* donrails/app/models/enrollment.rb (Enrollment::clean_enrollment): Add new method for cleanup enrollment which has not related articles.
+
+	* donrails/app/apis/blogger_service.rb (BloggerService::getUsersBlogs): Fix to enable retrieve RDF_TITLE.
+
 	* donrails/app/controllers/login_controller.rb (LoginController::delete_article): Fix to stop update_attribute for unchanged article.
 
 	* donrails/test/unit/comment_test.rb (CommentTest::test_1): Cleanup.

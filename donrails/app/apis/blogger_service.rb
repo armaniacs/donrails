@@ -62,9 +62,9 @@ class BloggerService < DonWebService
 
   def getUsersBlogs(appkey, username, password)
     [BloggerStructs::Blog.new(
-      :url      => controller.url_for(:controller => "notes"),
-      :blogid   => 1, 
-      :blogName => 'donrails araki XXX'
+       :url      => controller.url_for(:controller => "notes"),
+       :blogid   => 1, 
+       :blogName => RDF_TITLE
     )]
   end
 
