@@ -261,6 +261,9 @@ class LoginControllerTest < Test::Unit::TestCase
 
     post :fix_article, :article => {:title => 'test fix article title', :id => 1}, :newid => {:id => 1}
     assert_redirected_to :action => 'manage_article'
+
+    post :fix_article, :article => {:title => 'test fix article title + tb', :id => 1, :tburl => 'http://localhost:3000/notes/catch_trackback/1', :body => 'this a test trackback'}, :newid => {'1' => '1'}
+    assert_redirected_to :action => 'manage_article'
     
   end
 
@@ -271,6 +274,13 @@ class LoginControllerTest < Test::Unit::TestCase
 
     post :add_article, 
     :article => {:title => 'test add article title', :body => 'body and soul'}, 
+    :format => 'plain',
+    :category => {:name => 'test misc'},
+    :author => {:name => 'test author'}
+    assert_redirected_to :action => 'manage_article'
+
+    post :add_article, 
+    :article => {:title => 'test add article title', :body => 'body and soul', :tburl => 'http://localhost:3000/notes/catch_trackback/1'}, 
     :format => 'plain',
     :category => {:name => 'test misc'},
     :author => {:name => 'test author'}
@@ -397,12 +407,12 @@ class LoginControllerTest < Test::Unit::TestCase
     post :delete_blogping,
     :acid => {'1' => '0'}
     assert_redirected_to :action => 'manage_blogping'
-    assert_equal '[Deactivate] http://feeds.feedburner.com/yourblogname<br>', flash[:note]
+    assert_equal '[Deactivate] http://localhost:3000/backend/api<br>', flash[:note]
 
     post :delete_blogping,
     :deleteid => {'1' => '1'}
     assert_redirected_to :action => 'manage_blogping'
-    assert_equal '[Delete] http://feeds.feedburner.com/yourblogname<br>', flash[:note]
+    assert_equal '[Delete] http://localhost:3000/backend/api<br>', flash[:note]
 
     post :delete_blogping,
     :deleteid => {'1' => '0'}

@@ -1,3 +1,23 @@
+2006-09-30  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** NEW FEATURE: Add to send trackback function when Article create/update.
+	* donrails/app/views/login/form_article.rhtml: likewise.
+	* donrails/app/views/login/new_article.rhtml: likewise.
+	* donrails/app/controllers/login_controller.rb 
+	(LoginController::fix_article): likewise.
+	(LoginController::add_article): likewise.
+	* donrails/app/models/article.rb
+	(Article::sendping): Fix to send enrollmented url.
+	(Article::send_trackback): Fix when no article.body.
+
+	* donrails/test/fixtures/blogpings.yml (first_blogping): Fix entry point for test.
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_fix_article): likewise.
+	(LoginControllerTest::test_add_article): likewise.
+	(LoginControllerTest::test_delete_blogping): fix entry point.
+
+	* donrails/test/unit/enrollment_test.rb (EnrollmentTest::test_2): cleanup.
+
 2006-09-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::delete_enrollment):  Fix to stop update_attribute for unchanged enrollment.

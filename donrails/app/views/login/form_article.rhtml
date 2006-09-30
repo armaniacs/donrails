@@ -37,10 +37,8 @@ Author:
 <% else %>
 <%= text_field("article", "author_name", "size" => 12, "value" => '') %>
 <% end %>
-<br>
 Date:
 <%= text_field "article", "article_date", "size" => 12, "value" => kiji.article_date.to_date %>
-<br>
 フォーマット形式:
 <select name="format">
   <option value="<%= kiji.format %>"><%= kiji.format %></option>
@@ -51,10 +49,9 @@ Date:
   <option value="wiliki">wiliki</option>
 </select>
 <br>
-タイトル:
-<br>
-<%= text_field "article", "title", "size" => 80, "value" => kiji.title %>
-<br>
+タイトル:<%= text_field "article", "title", "size" => 80, "value" => kiji.title %><br>
+トラックバック先:<%= text_field "article", "tburl", "size" => 80, "value" => '' %><br>
+
 本文:
 <br>
 <%= text_area "article", "body", "rows" => 10, "cols" => 80, "value" => kiji.body %>

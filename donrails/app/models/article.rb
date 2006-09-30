@@ -27,7 +27,11 @@ class Article < ActiveRecord::Base
   def sendping
     if defined?(BASEURL)
       blogping = Blogping.find(:all, :conditions => ["active = 1"])
-      articleurl = BASEURL + 'id/' + self.id.to_s
+      if self.enrollment_id
+        articleurl = BASEURL + 'id/' + self.enrollment_id.to_s
+      else
+        articleurl = BASEURL + 'id/' + self.id.to_s
+      end
       
       urllist = Array.new
       blogping.each do |ba|
@@ -56,19 +60,24 @@ class Article < ActiveRecord::Base
 
   def send_trackback(articleurl, urllist) # urllist is target url.
     urllist.each do |url|
-      begin
-        ping = pings.build("url" => url)
-        ar2 = don_get_object(self, 'html')
-        title = "#{URI.escape(ar2.title_to_html)}"
-        excerpt = "#{URI.escape(ar2.body_to_html.gsub(/<\/?\w+(?:\s+[^>]*)*>/m, ''))}" 
-        
-        ping.send_trackback(url, title, excerpt)
-        ping.save
-      rescue
-        p "ping.send_ping2 error"
-        p $!
-        # in case the remote server doesn't respond or gives an error,
-        # we should throw an xmlrpc error here.
+      if url and url.size > 1 # XXX 
+        begin
+          ping = pings.build("url" => url)
+          ar2 = don_get_object(self, 'html')
+          title = "#{URI.escape(ar2.title_to_html)}"
+          begin
+            excerpt = "#{URI.escape(ar2.body_to_html.gsub(/<\/?\w+(?:\s+[^>]*)*>/m, ''))}" 
+          rescue
+            excerpt = ''
+          end
+          ping.send_trackback(url, title, excerpt)
+          ping.save
+        rescue
+          p "ping.send_ping2 error"
+          p $!
+          # in case the remote server doesn't respond or gives an error,
+          # we should throw an xmlrpc error here.
+        end
       end
     end
   end

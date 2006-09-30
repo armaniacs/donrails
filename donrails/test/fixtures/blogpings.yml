@@ -1,9 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 first_blogping:
   id: 1
-  server_url: http://feeds.feedburner.com/yourblogname
+#  server_url: http://feeds.feedburner.com/yourblogname
+  server_url: http://localhost:3000/backend/api
   active: 1
-another_blogping:
-  id: 2
-  server_url: http://feeds.feedburner.com/noblogname
-  active: 0
+#another_blogping:
+#  id: 2
+#  server_url: http://feeds.feedburner.com/noblogname
+#  active: 0

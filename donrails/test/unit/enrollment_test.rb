@@ -26,6 +26,7 @@ class EnrollmentTest < Test::Unit::TestCase
       a3 = Article.new
       a3.title = 'test_1 title'
       a3.build_enrollment
+      a3.enrollment.save
       a3.save
       
       a3id = a3.id
@@ -43,6 +44,7 @@ class EnrollmentTest < Test::Unit::TestCase
       a3 = Article.new
       a3.title = 'test_1 title'
       a3.build_enrollment
+      a3.enrollment.save
       a3.save
       
       a3id = a3.id

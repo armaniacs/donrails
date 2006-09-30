@@ -15,17 +15,16 @@
 <%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
 <br>
 カテゴリ:<%= text_field_with_auto_complete :category, :name %>
-<br>
 フォーマット形式:
 <select name="format">
 <% don_supported_formats.each do |fmt| %>
   <option value="<%= fmt %><%= '" selected="selected' if fmt == @defaultformat %>"><%= fmt %></option>
 <% end %>
 </select>
-<br>
 <%= check_box "hideid", 'hidden' %>記事を隱す<br>
-著者名:<br><%= text_field_with_auto_complete :author, :name %><br>
-タイトル:<br><%= text_field "article", "title", "size" => 80 %><br>
+著者名:<%= text_field_with_auto_complete :author, :name %><br>
+タイトル:<%= text_field "article", "title", "size" => 80 %><br>
+トラックバック先:<%= text_field "article", "tburl", "size" => 80 %><br>
 本文:<br><%= text_area "article", "body", "rows" => 40, "cols" => 80 %><br>
 <%= submit_tag "save" %>
 <%= end_form_tag %>

@@ -314,6 +314,7 @@ class LoginController < ApplicationController
 
       title = c["title"]
       body = c["body"]
+      tburllist = [c["tburl"]]
       id = c["id"].to_i
       article_date = c["article_date"]
       reentry = @params["newid"]["#{id}"]
@@ -353,14 +354,12 @@ class LoginController < ApplicationController
           return false
         end
       end
-      
       if reentry == "0"
         aris = Article.find(id)
         aris.categories.clear
       elsif reentry == "1"
         aris = Article.new
       end
-
       if aris
         if hideid == "0"
           aris.hidden = 0
@@ -379,6 +378,16 @@ class LoginController < ApplicationController
         else
           aris.build_enrollment
           aris.enrollment.title = title
+          aris.enrollment.save
+        end
+
+        if tburllist
+          if aris.enrollment_id
+            articleurl = BASEURL + 'id/' + aris.enrollment_id.to_s
+          else
+            articleurl = BASEURL + 'id/' + aris.id.to_s
+          end
+          aris.send_trackback(articleurl, tburllist)
         end
         
         if c["author_name"] and c["author_name"].length > 0
@@ -420,6 +429,7 @@ class LoginController < ApplicationController
     if c = @params["article"]
       title = c["title"]
       body = c["body"]
+      tburllist = [c["tburl"]]
       format = @params["format"]
 
       if @params["category"] and @params["category"]['name']
@@ -459,6 +469,16 @@ class LoginController < ApplicationController
       aris1.valid?
       if aris1.errors.empty?
         aris1.save
+
+        if tburllist
+          if aris1.enrollment_id
+            articleurl = BASEURL + 'id/' + aris1.enrollment_id.to_s
+          else
+            articleurl = BASEURL + 'id/' + aris1.id.to_s
+          end
+          aris1.send_trackback(articleurl, tburllist)
+        end
+
         ca.clear
         c.clear
         redirect_to :action => "manage_article"
