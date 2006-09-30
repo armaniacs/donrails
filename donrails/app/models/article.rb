@@ -12,6 +12,7 @@ class Article < ActiveRecord::Base
   belongs_to :enrollment
   after_save :sendping
   before_save :renew_mtime
+  after_destroy :enrollclean
 
   # Fulltext searches the body of published articles
   # this function original from "typo" models/article.rb
@@ -84,6 +85,12 @@ class Article < ActiveRecord::Base
 
   def renew_mtime
     self.article_mtime = Time.now
+  end
+
+  def enrollclean
+    if self.enrollment and self.enrollment.articles.size <= 1
+      self.enrollment.destroy
+    end
   end
 
 end

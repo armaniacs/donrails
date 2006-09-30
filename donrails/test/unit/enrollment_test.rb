@@ -34,8 +34,6 @@ class EnrollmentTest < Test::Unit::TestCase
 
       e3 = Enrollment.find(a3eid)
       a3.destroy
-      
-      e3a = Enrollment.find(a3eid)
     }
   end
 
@@ -52,8 +50,6 @@ class EnrollmentTest < Test::Unit::TestCase
       
       e3 = Enrollment.find(a3eid)
       e3.articles.clear
-      
-      e3a = Enrollment.find(a3eid)
     }
   end
 

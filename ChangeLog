@@ -1,5 +1,18 @@
 2006-09-30  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/test/unit/enrollment_test.rb (EnrollmentTest::test_2): Clanup.
+	* donrails/test/functional/login_controller_test.rb: Add some test.
+	* donrails/test/functional/notes_controller_test.rb: Change date to more futer.
+	* donrails/test/fixtures/articles.yml: Add to test trackback.
+
+	* donrails/app/models/enrollment.rb: remove unused enrollment cleanu function to article.rb.
+	* donrails/app/models/article.rb: likewise.
+	
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_enrollment): Cleanup.
+
+	* donrails/app/models/article.rb (Article::enrollclean): New method. Add to remove unused enrollment.
+
+	
 	** NEW FEATURE: Add to send trackback function when Article create/update.
 	* donrails/app/views/login/form_article.rhtml: likewise.
 	* donrails/app/views/login/new_article.rhtml: likewise.

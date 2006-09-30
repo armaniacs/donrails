@@ -907,9 +907,9 @@ class LoginController < ApplicationController
         if Enrollment.exists?(k.to_i)
           pf = Enrollment.find(k.to_i)
           stmp = pf.hidden
-          if v.to_i == 1 and pf.hidden != 1
+          if v.to_i == 1 and stmp != 1
             pf.update_attribute('hidden', 1)
-          elsif v.to_i == 0 and pf.hidden != 0
+          elsif v.to_i == 0 and stmp != 0
             pf.update_attribute('hidden', 0)
           end
           unless stmp == pf.hidden

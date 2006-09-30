@@ -262,7 +262,11 @@ class LoginControllerTest < Test::Unit::TestCase
     post :fix_article, :article => {:title => 'test fix article title', :id => 1}, :newid => {:id => 1}
     assert_redirected_to :action => 'manage_article'
 
-    post :fix_article, :article => {:title => 'test fix article title + tb', :id => 1, :tburl => 'http://localhost:3000/notes/catch_trackback/1', :body => 'this a test trackback'}, :newid => {'1' => '1'}
+#    post :fix_article, :article => {:title => 'test fix article title + tb', :id => 1, :tburl => 'http://localhost:3000/notes/trackback/1', :body => 'this a test trackback'}, :newid => {'1' => '1'}
+#    assert_redirected_to :action => 'manage_article'
+
+    # id 22 を元に新規記事として書く。trackbackを21にむけて出す
+    post :fix_article, :article => {:title => 'fixtest + tb', :id => 22, :tburl => 'http://localhost:3000/notes/trackback/5340', :body => 'this a test trackback'}, :newid => {'22' => '1'}
     assert_redirected_to :action => 'manage_article'
     
   end
@@ -280,7 +284,7 @@ class LoginControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'manage_article'
 
     post :add_article, 
-    :article => {:title => 'test add article title', :body => 'body and soul', :tburl => 'http://localhost:3000/notes/catch_trackback/1'}, 
+    :article => {:title => 'test add article title', :body => 'body and soul', :tburl => 'http://localhost:3000/notes/trackback/1'}, 
     :format => 'plain',
     :category => {:name => 'test misc'},
     :author => {:name => 'test author'}

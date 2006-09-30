@@ -70,3 +70,21 @@ old:
   format: plain
   author_id : 1
   enrollment_id : 11
+tbtarget:
+  id: 21
+  title: tbtarget
+  body: this is a tb target body.
+  format: plain
+  author_id: 1
+  article_date: 2026-09-26 00:00:00
+  article_mtime: 2026-09-26 00:00:01
+  enrollment_id: 10
+fixtest:
+  id: 22
+  title: fixtest
+  body: this is a test body. (fixtest)
+  format: plain
+  author_id: 1
+  article_date: 2026-09-26 00:00:00
+  article_mtime: 2026-09-26 00:00:01
+  enrollment_id: 10

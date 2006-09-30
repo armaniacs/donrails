@@ -348,7 +348,7 @@ class NotesControllerTest < Test::Unit::TestCase
   end
 
   def test_afterday__2
-    get :afterday, :ymd2 => '2016-12-05'
+    get :afterday, :ymd2 => '2036-12-05'
     assert_response 404
   end
 
