@@ -1,3 +1,13 @@
+2006-10-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/notes/index.rhtml: Fix to apply theme.
+
+	* donrails/app/views/shared/default/comment.rhtml: move this file from shared/comment.rhtml.
+
+	* donrails/app/views/notes/pick_article_a2.rhtml: Fix to use shared/comment.
+
+	* rails/app/views/layouts/default/notes.rhtml: Fix: File path.
+
 2006-09-30  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/unit/enrollment_test.rb (EnrollmentTest::test_2): Clanup.

@@ -1,12 +1,14 @@
 <%
 commentlist = []
 
+if defined?(enrollment) and enrollment
 enrollment.articles.reverse.each do |a|
   a.comments.each do |c|
     unless c.hidden == 1 then
       commentlist.push(c)
     end
   end
+end
 end
 %>
 <a name="comment"></a>

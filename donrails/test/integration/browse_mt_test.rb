@@ -6,9 +6,7 @@ class BrowseStoryTest < ActionController::IntegrationTest
   # Replace this with your real tests.
   def test_truth
     assert true
-    if defined?(DEFAULT_THEME) and DEFAULT_THEME == 'MT'
-    else
-      DEFAULT_THEME == 'MT'
+    if defined?(DEFAULT_THEME) && DEFAULT_THEME == 'MT'
     end
   end
 

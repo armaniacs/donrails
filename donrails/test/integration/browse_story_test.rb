@@ -9,7 +9,7 @@ class BrowseStoryTest < ActionController::IntegrationTest
   end
 
   def test_fromtop
-    if defined?(DEFAULT_THEME) and DEFAULT_THEME == 'MT'
+    if defined?(DEFAULT_THEME) && DEFAULT_THEME == 'MT'
     else
       get "/notes/index"
       assert_equal 200, status

@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.3.1
+VERSION = 1.3.2
 
 all: link
 
@@ -50,7 +50,7 @@ dist:	clean
 		--exclude .svn \
 		--exclude rails \
 		--exclude donrails-trunk/donrails/app/views/notes/index.rhtml \
-		--exclude donrails-trunk/donrails/app/views/layouts/notes.rhtml \
+		--exclude donrails-trunk/donrails/app/views/layouts/custom \
 		donrails-trunk ; \
 		mv $(NAME)-$(VERSION).tar.gz donrails-trunk 
 
