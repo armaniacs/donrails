@@ -62,23 +62,23 @@ module DonRails
     def title_to_html
       line = self.to_s
 
-      if line =~ (/'''[^(?:''')]*'''/) then
-        line.gsub!(/'''([^(?:''')]*)'''/, '<strong>\1</strong>')
+      if line =~ (/'''.*?'''/) then
+        line.gsub!(/'''(.*?)'''/, '<strong>\1</strong>')
         line.gsub!(/<strong><\/strong>/, '')
       elsif line =~ (/\A[^']*'''[^']*\Z/) then
         # nothing to do help in this case
       end
-      if line =~ (/''[^(?:'')]*''/) then
-        line.gsub!(/''([^(?:'')]*)''/, '<em>\1</em>')
+      if line =~ (/''.*?''/) then
+        line.gsub!(/''(.*?)''/, '<em>\1</em>')
         line.gsub!(/<em><\/em>/, '')
       elsif line =~ (/\A[^']*''[^']*\Z/) then
         # nothing to do help in this case
       end
       if line =~ (/\[\[/) then
-        if line =~ (/\[\[[^(?:\[\[)]*\]\]/) then
+        if line =~ (/\[\[.*?\]\]/) then
           # do we really need to support this? how?
           # FIXME: just drop it ATM.
-          line.gsub!(/\[\[([^(?:\[\[)]*)\]\]/, '\1')
+          line.gsub!(/\[\[(.*?)\]\]/, '\1')
         else
           # try to look at next line.
           if lines[n] =~ (/\A~/) then
@@ -184,8 +184,12 @@ module DonRails
           line.gsub!(/~%/, "<br />")
 
           # inline
-          if line =~ (/'''[^(?:''')]*'''/) then
-            line.gsub!(/'''([^(?:''')]*)'''/, '<strong>\1</strong>')
+          if line =~ (/((?:''''')).*?\1/) then
+            line.gsub!(/((?:'''''))(.*?)\1/, '<em><strong>\2</strong></em>')
+            line.gsub!(/<strong><\/strong>/, '')
+          end
+          if line =~ (/((?:''')).*?\1/) then
+            line.gsub!(/((?:'''))(.*?)\1/, '<strong>\2</strong>')
             line.gsub!(/<strong><\/strong>/, '')
           elsif line =~ (/\A[^']*'''[^']*\Z/) then
             # try to look at next line.
@@ -194,8 +198,8 @@ module DonRails
               next
             end
 	  end
-          if line =~ (/''[^(?:'')]*''/) then
-            line.gsub!(/''([^(?:'')]*)''/, '<em>\1</em>')
+          if line =~ (/''.*?''/) then
+            line.gsub!(/''(.*?)''/, '<em>\1</em>')
             line.gsub!(/<em><\/em>/, '')
           elsif line =~ (/\A[^']*''[^']*\Z/) then
             # try to look at next line.
@@ -208,10 +212,10 @@ module DonRails
             line.gsub!(/\[\[\$\$img\s+(\S+)(?:\s+(.*))?\]\]/, '<img src="\1" alt="\2" />')
           end
           if line =~ (/\[\[/) then
-            if line =~ (/\[\[[^(?:\[\[)]*\]\]/) then
+            if line =~ (/\[\[.*?\]\]/) then
               # do we really need to support this? how?
               # FIXME: just drop it ATM.
-              line.gsub!(/\[\[([^(?:\[\[)]*)\]\]/, '\1')
+              line.gsub!(/\[\[(.*?)\]\]/, '\1')
             else
               # try to look at next line.
               if lines[n] =~ (/\A~/) then
@@ -595,6 +599,15 @@ if $0 == __FILE__ then
       assert_equal("<pre> test\n</pre><p>test</p>", __getobj__(" test\ntest\n").body_to_html)
       assert_equal("<p><em>test</em>abc<em>test</em></p>", __getobj__("''test''abc''test''\n").body_to_html)
       assert_equal("<p><em>test</em>abc<strong>test</strong></p>", __getobj__("''test''abc'''test'''\n").body_to_html)
+      assert_equal("<p><em><strong>test</strong></em></p>", __getobj__("'''''test'''''\n").body_to_html)
+      assert_equal("<p><strong>test</strong> <em><strong>test</strong></em></p>", __getobj__("'''test''' '''''test'''''\n").body_to_html)
+      assert_equal("<p><strong>test</strong> <em>test</em> <em><strong>test</strong></em></p>", __getobj__("'''test''' ''test'' '''''test'''''\n").body_to_html)
+      assert_equal("<p><strong>test</strong> <em>test</em> <strong>test</strong> <em><strong>test</strong></em></p>", __getobj__("'''test''' ''test'' '''test''' '''''test'''''\n").body_to_html)
+      assert_equal("<p><strong>test</strong> <em>test</em> <em>test</em> <strong>test</strong> <em><strong>test</strong></em></p>", __getobj__("'''test''' ''test'' ''test'' '''test''' '''''test'''''\n").body_to_html)
+      assert_equal("<p><strong>test</strong> <em>test</em> <em>test</em> <strong>test</strong> <em><strong>test foo</strong></em></p>", __getobj__("'''test''' ''test'' ''test'' '''test''' '''''test foo'''''\n").body_to_html)
+      assert_equal("<p><strong>test</strong> <em>test</em> <em>test</em> <strong>test bar</strong> <em><strong>test foo</strong></em></p>", __getobj__("'''test''' ''test'' ''test'' '''test bar''' '''''test foo'''''\n").body_to_html)
+      assert_equal("<p><strong>test</strong> <em>test</em> <em>test</em> <strong>test bar</strong> <em><strong>test foo</strong></em> ...</p>", __getobj__("'''test''' ''test'' ''test'' '''test bar''' '''''test foo''''' ...\n").body_to_html)
+      assert_equal("<p><strong>test:</strong> <em>test</em> <em>test</em> <strong>test bar</strong> <em><strong>test foo</strong></em> ...</p>", __getobj__("'''test:''' ''test'' ''test'' '''test bar''' '''''test foo''''' ...\n").body_to_html)
     end # def test_body_to_html
 
   end # class TestDonRails__Wiliki
