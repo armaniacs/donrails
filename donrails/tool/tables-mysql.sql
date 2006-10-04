@@ -23,6 +23,7 @@ url      VARCHAR(100),
 ipaddr   VARCHAR(100),
 body     TEXT,
 hidden	       INTEGER,
+article_id INTEGER,
 primary key (id)
 );
 
@@ -59,14 +60,6 @@ constraint fk_cp_article foreign key (article_id) references articles(id),
 primary key (category_id, article_id)
 );
 
--- 1.3でcomment.enrollment_id を持つことにした
--- CREATE TABLE comments_enrollments (
--- comment_id       INTEGER NOT NULL,
--- enrollment_id       INTEGER NOT NULL,
--- constraint fk_cp_comment foreign key (comment_id) references comments(id),
--- constraint fk_cp_enrollment foreign key (enrollment_id) references enrollments(id),
--- primary key (comment_id, enrollment_id)
--- );
 
 CREATE TABLE authors (
 id     SERIAL UNIQUE,
@@ -105,7 +98,7 @@ primary key (id)
 
 CREATE TABLE pings (
 id          SERIAL UNIQUE,
-enrollment_id  INTEGER,
+article_id  INTEGER,
 url         VARCHAR(100) DEFAULT NULL,
 created_at  DATETIME DEFAULT NULL,
 primary key (id)
@@ -113,7 +106,7 @@ primary key (id)
 
 CREATE TABLE trackbacks (
 id          SERIAL UNIQUE,
-enrollment_id  INTEGER,
+article_id  INTEGER,
 category_id INTEGER,
 blog_name   VARCHAR(100) DEFAULT NULL,
 title       VARCHAR(100) DEFAULT NULL,

@@ -1,3 +1,8 @@
+2006-10-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/tables-mysql.sql: Fix for donrails-1.3
+	* donrails/tool/tables-sqlite.txt: Fix for donrails-1.3
+
 2006-10-04  Akira TAGOH  <at@gclab.org>
 
 	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::title_to_html):

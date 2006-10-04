@@ -21,7 +21,8 @@ url      VARCHAR,
 
 ipaddr   VARCHAR,
 hidden	       INTEGER,
-body     VARCHAR
+body     VARCHAR,
+article_id       INTEGER
 );
 
 CREATE TABLE categories (
@@ -34,6 +35,7 @@ constraint   fk_category foreign key (parent_id) references categories(id)
 
 CREATE TABLE articles (
 id       INTEGER PRIMARY KEY,
+enrollment_id    INTEGER,
 title    VARCHAR,
 body     VARCHAR,
 size     INTEGER,
@@ -51,14 +53,6 @@ article_id       INTEGER NOT NULL,
 constraint fk_cp_category foreign key (category_id) references categories(id),
 constraint fk_cp_article foreign key (article_id) references articles(id),
 primary key (category_id, article_id)
-);
-
-CREATE TABLE comments_articles (
-comment_id       INTEGER NOT NULL,
-article_id       INTEGER NOT NULL,
-constraint fk_cp_comment foreign key (comment_id) references comments(id),
-constraint fk_cp_article foreign key (article_id) references articles(id),
-primary key (comment_id, article_id)
 );
 
 CREATE TABLE authors (
@@ -112,4 +106,10 @@ hidden	       INTEGER,
 created_at  DATETIME DEFAULT NULL
 );
 
-
+CREATE TABLE enrollments (
+id         INTEGER PRIMARY KEY NOT NULL,
+title      VARCHAR,
+hidden     INTEGER,
+created_at TIMESTAMP DEFAULT NULL,
+updated_at TIMESTAMP DEFAULT NULL
+);
