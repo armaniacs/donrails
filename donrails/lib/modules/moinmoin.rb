@@ -128,6 +128,7 @@ module DonRails
         line.extend(DonRails::MoinMoinParser)
 
         if line.empty? then
+          retval << MoinMoinParser.flush_blocks
           unless retval.empty? then
             paragraphs.push(retval)
             retval = ''
@@ -374,6 +375,7 @@ module DonRails
         @@tag_stack.reverse.each do |info|
           retval << flush_block(info)
         end
+        @@tag_stack.clear
 
         return retval
       end # def flush_blocks
@@ -714,6 +716,7 @@ if $0 == __FILE__ then
       assert_equal('<p><ol type="A"><li>foo</li><li>bar</li></ol></p>', __getobj__(" A. foo\n A. bar\n").body_to_html)
       assert_equal('<p><ol start="42" type="I"><li>foo</li><li>bar</li></ol></p>', __getobj__(" I.#42 foo\n I. bar\n").body_to_html)
       assert_equal('<p><ol start="42" type="I"><li>foo</li><li>bar</li></ol></p>', __getobj__(" I.#42 foo\n I.#44 bar\n").body_to_html)
+      assert_equal('<p><ul><li>foo</li></ul></p><p>bar</p>', __getobj__(" * foo\n\nbar\n").body_to_html)
       assert_equal('<p><dl><dt>term</dt><dd>definition</dd></dl></p>', __getobj__(" term:: definition\n").body_to_html)
       assert_equal('<p><dl><dt>term</dt><dd>definition</dd><dt>another term</dt><dd>and its definition</dd></dl></p>', __getobj__(" term:: definition\n another term:: and its definition\n").body_to_html)
 #      assert_equal('<p><table><tr><td>foo</td><td>bar</td></tr></table></p>', __getobj__("||foo||bar||\n").body_to_html)
