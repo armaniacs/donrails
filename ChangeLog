@@ -1,3 +1,7 @@
+2006-10-05  Akira TAGOH  <at@gclab.org>
+
+	* donrails/lib/modules/moinmoin.rb: MoinMoin parser.
+
 2006-10-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/tool/tables-mysql.sql: Fix for donrails-1.3
