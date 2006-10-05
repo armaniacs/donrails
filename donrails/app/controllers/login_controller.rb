@@ -59,8 +59,12 @@ class LoginController < ApplicationController
   end
 
   def new_article
-    @categories = Category.find_all
-    retval = Article.find_by_sql("SELECT format FROM articles ORDER BY id DESC LIMIT 1")
+    begin
+      @categories = Category.find_all
+      retval = Article.find_by_sql("SELECT format FROM articles ORDER BY id DESC LIMIT 1")
+    rescue
+      retval = []
+    end
     if retval.nil? || retval.empty? then
       @defaultformat = 'plain'
     else
@@ -439,7 +443,12 @@ class LoginController < ApplicationController
 
       if @params["author"] and @params["author"]['name']
         author_name = @params["author"]['name']
-        author = Author.find(:first, :conditions => ["name = ?", author_name])
+        begin
+          author = Author.find(:first, :conditions => ["name = ?", author_name])
+        rescue
+          author = Author.new("name" => author_name)
+          author.save
+        end
       end
 
       get_ymd
@@ -459,8 +468,13 @@ class LoginController < ApplicationController
       aris1.author_id = author.id if author
 
       ca.each do |ca0|
-        b = Category.find(:first, :conditions => ["name = ?", ca0])
-        if b == nil
+        begin
+          b = Category.find(:first, :conditions => ["name = ?", ca0])
+          if b == nil
+            b = Category.new("name" => ca0)
+            b.save
+          end
+        rescue
           b = Category.new("name" => ca0)
           b.save
         end

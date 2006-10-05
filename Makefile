@@ -1,7 +1,8 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.3.2
+VERSION = 1.3.3
+TESTDIR = '/tmp/.donrails'
 
 all: link
 
@@ -54,3 +55,14 @@ dist:	clean
 		donrails-trunk ; \
 		mv $(NAME)-$(VERSION).tar.gz donrails-trunk 
 
+installertest: dist
+	-rm -rf $(TESTDIR) && mkdir $(TESTDIR) && cp $(NAME)-$(VERSION).tar.gz $(TESTDIR)
+	cd $(TESTDIR) && tar zxvf $(NAME)-$(VERSION).tar.gz 
+	cd $(TESTDIR)/donrails-trunk && make
+	cp $(TESTDIR)/donrails-trunk/donrails/example/database-installertest.yml $(TESTDIR)/donrails-trunk/rails/config/database.yml
+	cp $(TESTDIR)/donrails-trunk/donrails/example/donrails_env.rb $(TESTDIR)/donrails-trunk/rails/config/environments/
+	cd $(TESTDIR)/donrails-trunk/rails/db && sqlite3 installertest-development-data.db < ../../donrails/tool/tables-sqlite.sql
+	cat $(TESTDIR)/donrails-trunk/donrails/example/.environment.rb >> $(TESTDIR)/donrails-trunk/rails/config/environment.rb
+	cd $(TESTDIR)/donrails-trunk/rails && ./script/server -d -p 13001
+	curl http://localhost:13001/notes/
+	curl -u foo:bar http://localhost:13001/login

@@ -1,0 +1,9 @@
+development: 
+  adapter: sqlite3
+  dbfile: db/installertest-development-data.db
+test: 
+  adapter: sqlite
+  dbfile: db/installertest-test-data.db
+production: 
+  adapter: sqlite
+  dbfile: db/installertest-production-data.db
