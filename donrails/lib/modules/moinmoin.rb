@@ -636,8 +636,6 @@ module DonRails
               !@@tag_stack[@@content_stack_level].is_child_closed then
             retval << '</li>'
             @@tag_stack[@@content_stack_level].is_child_closed = true
-p @@tag_stack[@@content_stack_level]
-p @@content_stack_level
           end
           retval << content
         else
@@ -647,7 +645,11 @@ p @@content_stack_level
       else
         info = @@tag_stack.pop
         @@content_stack_level -= 1
-        @@indent_level = @@tag_stack[@@tag_stack.length-1].indent_level
+        if @@tag_stack.empty? then
+          @@indent_level = 0
+        else
+          @@indent_level = @@tag_stack[@@tag_stack.length-1].indent_level
+        end
         retval = MoinMoinParser.flush_block(info)
         retval << convert_block_list(list_type, indent_level, nstart, content)
       end
@@ -761,6 +763,9 @@ if $0 == __FILE__ then
       assert_equal('<p><dl><dt>term</dt><dd>definition</dd></dl></p>', __getobj__(" term:: definition\n").body_to_html)
       assert_equal('<p><dl><dt>term</dt><dd>definition</dd><dt>another term</dt><dd>and its definition</dd></dl></p>', __getobj__(" term:: definition\n another term:: and its definition\n").body_to_html)
       assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li></ol></li><dt>term</dt><dd>definition</dd></ul></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
+      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li><dt>term</dt><dd>definition</dd></ol></li></ul></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n  term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
+      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2<dl><dt>term</dt><dd>definition</dd></dl></li></ol></li></ul></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n   term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
+      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li></ol></li></ul><dl><dt>term</dt><dd>definition</dd></dl></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n  * list 1\n  * list 2\n   1. number 1\n   1. number 2\n\n term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
 #      assert_equal('<p><table><tr><td>foo</td><td>bar</td></tr></table></p>', __getobj__("||foo||bar||\n").body_to_html)
       assert_equal('<p></p>', __getobj__("\n").body_to_html)
     end # def test_body_to_html
