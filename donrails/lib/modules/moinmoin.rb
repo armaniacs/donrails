@@ -119,6 +119,8 @@ module DonRails
       retval = ''
       lines = self.to_s.split(/\r\n|\r|\n/)
       colorized_module = nil
+      need_paragraph_separated = false
+      paragraph_candidate = nil
 
       MoinMoinParser.init_params()
 
@@ -128,11 +130,10 @@ module DonRails
         line.extend(DonRails::MoinMoinParser)
 
         if line.empty? then
-          retval << MoinMoinParser.flush_blocks
-          unless retval.empty? then
-            paragraphs.push(retval)
-            retval = ''
-          end
+          # postpone determining the paragraph separation.
+          need_paragraph_separated = true
+          paragraph_candidate = retval if paragraph_candidate.nil?
+          retval = ''
           next
         end
 
@@ -170,6 +171,16 @@ module DonRails
           ehlen = $3.length
           if shlen == ehlen then
             ehlen = shlen = 5 if shlen > 5
+
+            if need_paragraph_separated then
+              paragraph_candidate << MoinMoinParser.flush_blocks
+              unless paragraph_candidate.empty? then
+                paragraphs.push(paragraph_candidate)
+              end
+              paragraph_candidate = nil
+              need_paragraph_separated = false
+            end
+
             retval << sprintf("<h%d>%s</h%d>", shlen, context, ehlen)
             next
           end
@@ -178,6 +189,16 @@ module DonRails
           hrlen = $1.length
           if hrlen >= 4 then
             hrlen = 10 if hrlen > 10
+
+            if need_paragraph_separated then
+              paragraph_candidate << MoinMoinParser.flush_blocks
+              unless paragraph_candidate.empty? then
+                paragraphs.push(paragraph_candidate)
+              end
+              paragraph_candidate = nil
+              need_paragraph_separated = false
+            end
+
             retval << sprintf("<hr%s/>", (hrlen > 4 ? sprintf(" class=\"hr%d\"", hrlen - 4) : ''))
             next
           end
@@ -195,6 +216,20 @@ module DonRails
           colorized_module = $1
         else
           line = line.convert_inline
+        end
+
+        # precheck for linebreak
+        if need_paragraph_separated then
+          if line =~ /\A(\s+).*/ then
+            retval = sprintf("%s%s", paragraph_candidate, retval)
+          else
+            paragraph_candidate << MoinMoinParser.flush_blocks
+            unless paragraph_candidate.empty? then
+              paragraphs.push(paragraph_candidate)
+            end
+          end
+          paragraph_candidate = nil
+          need_paragraph_separated = false
         end
 
         retval << line.convert_block
@@ -269,6 +304,8 @@ module DonRails
           retval = 'ol'
         when :ulist, :ulist_no_style, :ulist_no_style_or_append_line
           retval = 'ul'
+        when :dlist
+          retval = 'dl'
         else
         end
 
@@ -284,6 +321,7 @@ module DonRails
         when :ulist, :ulist_no_style, :ulist_no_style_or_append_line
         when :nlist_with_i, :nlist_with_I, :nlist_with_a, :nlist_with_A
           retval = sprintf(" type=\"%s\"", @list_type.to_s.sub(/\Anlist_with_/, ''))
+        when :dlist
         else
         end
 
@@ -298,6 +336,7 @@ module DonRails
         when :ulist
         when :ulist_no_style, :ulist_no_style_or_append_line
           retval = ' style="list-style-type:none"'
+        when :dlist
         else
         end
 
@@ -313,7 +352,6 @@ module DonRails
     @@is_bold = false
     @@is_italic = false
     @@is_pre = false
-    @@was_dlist = false
     @@indent_level = 0
     @@tag_stack = []
     @@content_stack_level = -1
@@ -327,7 +365,6 @@ module DonRails
 	@@is_bold = false
         @@is_italic = false
         @@is_pre = false
-        @@was_dlist = false
         @@indent_level = 0
         @@tag_stack = []
         @@content_stack_level = -1
@@ -369,7 +406,6 @@ module DonRails
       def flush_blocks
         retval = ''
 
-        retval << '</dl>' if @@was_dlist
         retval << DonRails::MoinMoinParser.flush_table unless @@table_stack.empty?
 
         @@tag_stack.reverse.each do |info|
@@ -513,7 +549,6 @@ module DonRails
       indent_level = 0
       content = nil
       nstart = nil
-      is_dlist = false
       is_table = false
 
       if target =~ /\{\{\{\Z/ && !@@is_pre then
@@ -549,10 +584,10 @@ module DonRails
 	indent_level = $1.length
         content = $2
         list_type = :ulist_no_style
-      elsif target =~ /\A\s+(.*)::\s+(.*)\Z/ then
-	retval << '<dl>' unless @@was_dlist
-	retval << sprintf("<dt>%s</dt><dd>%s</dd>", $1, $2)
-        is_dlist = true
+      elsif target =~ /\A(\s+)(.*)::\s+(.*)\Z/ then
+	indent_level = $1.length
+        content = sprintf("<dt>%s</dt><dd>%s</dd>", $2, $3)
+        list_type = :dlist
       elsif target =~ /\A(\s+)(.*)/ then
 	indent_level = $1.length
         content = $2
@@ -562,13 +597,6 @@ module DonRails
         is_table = true
       else
         retval << target
-      end
-
-      if is_dlist then
-        @@was_dlist = true
-      elsif @@was_dlist then
-	retval << sprintf("</dl>%s", retval)
-        @@was_dlist = false
       end
 
       if !@@table_stack.empty? && !is_table then
@@ -592,12 +620,26 @@ module DonRails
         tag = DonRails::Moinmoin::List.new(list_type)
         @@tag_stack.push(BlockStruct.new(tag, indent_level, false))
         @@indent_level = indent_level
-        retval << sprintf("<%s%s%s><li%s>%s", tag.to_tag,
-                          (nstart.nil? ? "" : sprintf(" start=\"%d\"", nstart.sub(/\A#/, '').to_i)),
-                          tag.params, tag.item_params, content)
+        if list_type == :dlist then
+          retval << sprintf("<%s>%s", tag.to_tag, content)
+          @@tag_stack[@@content_stack_level].is_child_closed = true
+        else
+          retval << sprintf("<%s%s%s><li%s>%s", tag.to_tag,
+                            (nstart.nil? ? "" : sprintf(" start=\"%d\"", nstart.sub(/\A#/, '').to_i)),
+                            tag.params, tag.item_params, content)
+        end
       elsif indent_level == @@indent_level then
 	if list_type == :ulist_no_style_or_append_line then
           retval << sprintf(" %s", content)
+        elsif list_type == :dlist then
+          if @@tag_stack[@@content_stack_level].tag.to_sym != :dlist &&
+              !@@tag_stack[@@content_stack_level].is_child_closed then
+            retval << '</li>'
+            @@tag_stack[@@content_stack_level].is_child_closed = true
+p @@tag_stack[@@content_stack_level]
+p @@content_stack_level
+          end
+          retval << content
         else
           retval << '</li>' unless @@tag_stack[@@content_stack_level].is_child_closed
           retval << sprintf("<li%s>%s", @@tag_stack[@@content_stack_level].tag.item_params, content)
@@ -608,7 +650,6 @@ module DonRails
         @@indent_level = @@tag_stack[@@tag_stack.length-1].indent_level
         retval = MoinMoinParser.flush_block(info)
         retval << convert_block_list(list_type, indent_level, nstart, content)
-        @@tag_stack[@@content_stack_level].is_child_closed = false
       end
 
       return retval
@@ -719,6 +760,7 @@ if $0 == __FILE__ then
       assert_equal('<p><ul><li>foo</li></ul></p><p>bar</p>', __getobj__(" * foo\n\nbar\n").body_to_html)
       assert_equal('<p><dl><dt>term</dt><dd>definition</dd></dl></p>', __getobj__(" term:: definition\n").body_to_html)
       assert_equal('<p><dl><dt>term</dt><dd>definition</dd><dt>another term</dt><dd>and its definition</dd></dl></p>', __getobj__(" term:: definition\n another term:: and its definition\n").body_to_html)
+      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li></ol></li><dt>term</dt><dd>definition</dd></ul></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
 #      assert_equal('<p><table><tr><td>foo</td><td>bar</td></tr></table></p>', __getobj__("||foo||bar||\n").body_to_html)
       assert_equal('<p></p>', __getobj__("\n").body_to_html)
     end # def test_body_to_html
