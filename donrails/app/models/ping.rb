@@ -23,6 +23,16 @@ class Ping < ActiveRecord::Base
     end 
   end
 
+  def send_ping2(pingurl) # XXX
+    rbody0 = send_ping_xmlrpc_extended(pingurl)
+    if rbody0 == true || rbody0['flerror'] == true
+      rbody = send_ping_xmlrpc(pingurl)
+      if rbody == true || rbody['flerror'] == true
+        send_ping_rest(pingurl)
+      end
+    end
+  end
+
   # http://www.weblogs.com/api.html#7
   # REST client
   #
@@ -34,13 +44,6 @@ class Ping < ActiveRecord::Base
   #
   # Example HTTP GET request:
   # http://rpc.weblogs.com/pingSiteForm?name=InfraBlog&url=http%3A%2F%2Finfrablog.verisignlabs.com 
-  def send_ping2(pingurl) # XXX
-    rbody = send_ping_xmlrpc(pingurl)
-    if rbody == true || rbody['flerror'] == true
-      send_ping_rest(pingurl)
-    end
-  end
-
   def send_ping_rest(pingurl) # XXX
     uri = URI.parse(pingurl)
     
@@ -74,6 +77,33 @@ class Ping < ActiveRecord::Base
       begin
         result = server.call('weblogUpdates.ping', RDF_TITLE, BASEURL, changeurl)
 #        return server.call('weblogUpdates.ping', RDF_TITLE, BASEURL)
+      rescue XMLRPC::FaultException => e
+        logger.error(e)
+      end
+    rescue Exception => e
+      logger.error(e)
+    end
+  end
+
+  # http://www.google.com/help/blogsearch/pinging_API.html
+  def send_ping_xmlrpc_extended(pingurl)
+    begin
+      if self.article.enrollment_id 
+        changeurl = BASEURL + 'id/' + self.article.enrollment_id.to_s
+      else
+        changeurl = BASEURL + 'id/' + self.article.id.to_s
+      end
+      rdf_recent = BASEURL + 'rdf_recent/feed.xml'
+
+      cas = Array.new
+      self.article.categories.each do |ca|
+        cas.push(ca.name)
+      end
+      categories = cas.join('|')
+
+      server = XMLRPC::Client.new2(pingurl)
+      begin
+        result = server.call('weblogUpdates.extendedPing', RDF_TITLE, BASEURL, changeurl, rdf_recent, categories)
       rescue XMLRPC::FaultException => e
         logger.error(e)
       end

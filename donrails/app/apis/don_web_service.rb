@@ -9,6 +9,8 @@ class DonWebApi < ActionWebService::API::Base
   inflect_names false
 
   api_method :ping, :returns => [DonWebServiceStructs::Ping]
+
+  api_method :extendedPing, :returns => [DonWebServiceStructs::Ping]
 end
 
 class DonWebService < ActionWebService::Base
@@ -18,6 +20,7 @@ class DonWebService < ActionWebService::Base
   def ping(*description)
     DonWebServiceStructs::Ping.new(:flerror => false, :message => 'Ok')
   end
+  alias :extendedPing :ping
 
   def initialize(controller)
     @controller = controller

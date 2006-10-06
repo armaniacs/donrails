@@ -4,7 +4,7 @@ require 'rexml/document'
 require 'htree'
 
 class PingTest < Test::Unit::TestCase
-  fixtures :pings, :articles
+  fixtures :pings, :articles, :categories, :categories_articles 
 
   def setup
     @ping = Ping.new
@@ -35,6 +35,13 @@ class PingTest < Test::Unit::TestCase
     @ping1 = Ping.find(1)
     pingurl = "http://localhost:3000/backend/api"
     rbody = @ping1.send_ping_xmlrpc(pingurl)
+    assert_equal(false, rbody['flerror'])
+  end
+
+  def test_send_ping_xmlrpc_extended
+    @ping1 = Ping.find(1)
+    pingurl = "http://localhost:3000/backend/api"
+    rbody = @ping1.send_ping_xmlrpc_extended(pingurl)
     assert_equal(false, rbody['flerror'])
   end
 
