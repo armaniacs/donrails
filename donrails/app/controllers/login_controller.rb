@@ -386,11 +386,15 @@ class LoginController < ApplicationController
         end
 
         if tburllist
+          baseurl = BASEURL.split('/')
+          baseurl << 'notes'
+          baseurl << 'id'
           if aris.enrollment_id
-            articleurl = BASEURL + 'id/' + aris.enrollment_id.to_s
+            baseurl << aris.enrollment_id.to_s
           else
-            articleurl = BASEURL + 'id/' + aris.id.to_s
+            baseurl << aris.id.to_s
           end
+          articleurl = baseurl.join('/')
           aris.send_trackback(articleurl, tburllist)
         end
         
@@ -485,11 +489,15 @@ class LoginController < ApplicationController
         aris1.save
 
         if tburllist
+          baseurl = BASEURL.split('/')
+          baseurl << 'notes'
+          baseurl << 'id'
           if aris1.enrollment_id
-            articleurl = BASEURL + 'id/' + aris1.enrollment_id.to_s
+            baseurl << aris1.enrollment_id.to_s
           else
-            articleurl = BASEURL + 'id/' + aris1.id.to_s
+            baseurl << aris1.id.to_s
           end
+          articleurl = baseurl.join('/')
           aris1.send_trackback(articleurl, tburllist)
         end
 

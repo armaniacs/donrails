@@ -26,20 +26,26 @@ class CommentMailer < ActionMailer::Base
     end
 
     if defined?(BASEURL) && BASEURL
-      url = BASEURL + 'show_title/' + article.id.to_s
-      enrollment_url = BASEURL + 'show_enrollment/' + article.enrollment_id.to_s
-      b = BASEURL.split('/')
-      b.pop
-      login_url = b.join('/') + '/login/manage_article'
+      baseurl = BASEURL.split('/')
+      url = baseurl.dup
+      url << 'notes'
+      enrollment_url = url.dup
+      url << 'show_title'
+      url << article.id.to_s
+      enrollment_url << 'show_enrollment'
+      enrollment_url << article.enrollment_id.to_s
+      login_url = baseurl.dup
+      login_url << 'login'
+      login_url << 'manage_article'
     else
-      url = '(Please set BASEURL in donrails_env.rb)/' + 'show_title/' + article.id.to_s
-      enrollment_url = '(Please set BASEURL in donrails_env.rb)/' + 'show_enrollment/' + article.id.to_s
-      login_url = '(Please set BASEURL in donrails_env.rb)/' + '../login/manage_article'
+      url = ['(Please set BASEURL in donrails_env.rb)', 'notes', 'show_title', article.id.to_s]
+      enrollment_url = ['(Please set BASEURL in donrails_env.rb)', 'notes', 'show_enrollment', article.id.to_s]
+      login_url = ['(Please set BASEURL in donrails_env.rb)', 'login', 'manage_article']
     end
 
     recipients recipient
     subject "[donrails comment]"
-    body :recipient => recipient, :comment => comment, :now => Time.now, :commenter => commenter, :article => article, :url => url, :login_url => login_url, :cort => cort, :enrollment_url => enrollment_url
+    body :recipient => recipient, :comment => comment, :now => Time.now, :commenter => commenter, :article => article, :url => url.join('/'), :login_url => login_url.join('/'), :cort => cort, :enrollment_url => enrollment_url.join('/')
   end
 
 end

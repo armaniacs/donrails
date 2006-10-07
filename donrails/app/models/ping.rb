@@ -46,12 +46,16 @@ class Ping < ActiveRecord::Base
   # http://rpc.weblogs.com/pingSiteForm?name=InfraBlog&url=http%3A%2F%2Finfrablog.verisignlabs.com 
   def send_ping_rest(pingurl) # XXX
     uri = URI.parse(pingurl)
+    baseurl = BASEURL.split('/')
+    baseurl << 'notes'
+    baseurl << 'id'
     
-    if self.article.enrollment_id 
-      changeurl = BASEURL + 'id/' + self.article.enrollment_id.to_s
+    if self.article.enrollment_id then
+      baseurl << self.article.enrollment_id.to_s
     else
-      changeurl = BASEURL + 'id/' + self.article.id.to_s
+      baseurl << self.article.id.to_s
     end
+    changeurl = baseurl.join('/')
 
     post = "name=#{URI.escape(RDF_TITLE)}"
     post << "&url=#{URI.escape(BASEURL)}"
@@ -67,11 +71,16 @@ class Ping < ActiveRecord::Base
   # require 'xmlrpc/client'
   def send_ping_xmlrpc(pingurl)
     begin
-      if self.article.enrollment_id 
-        changeurl = BASEURL + 'id/' + self.article.enrollment_id.to_s
+      baseurl = BASEURL.split('/')
+      baseurl << 'notes'
+      baseurl << 'id'
+
+      if self.article.enrollment_id then
+	baseurl << self.article.enrollment_id.to_s
       else
-        changeurl = BASEURL + 'id/' + self.article.id.to_s
+        baseurl << self.article.id.to_s
       end
+      changeurl = baseurl.join('/')
 
       server = XMLRPC::Client.new2(pingurl)
       begin
@@ -88,11 +97,15 @@ class Ping < ActiveRecord::Base
   # http://www.google.com/help/blogsearch/pinging_API.html
   def send_ping_xmlrpc_extended(pingurl)
     begin
+      baseurl = BASEURL.split('/')
+      baseurl << 'notes'
+      baseurl << 'id'
       if self.article.enrollment_id 
-        changeurl = BASEURL + 'id/' + self.article.enrollment_id.to_s
+        baseurl << self.article.enrollment_id.to_s
       else
-        changeurl = BASEURL + 'id/' + self.article.id.to_s
+        baseurl << self.article.id.to_s
       end
+      changeurl = baseurl.join('/')
       rdf_recent = BASEURL + 'rdf_recent/feed.xml'
 
       cas = Array.new

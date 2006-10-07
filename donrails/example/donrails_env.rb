@@ -10,7 +10,7 @@ RDF_COPYRIGHT = "Copyright 2006, User name"
 RDF_MANAGINGEDITOR = "my@mail.address (YOUR NAME)"
 RDF_WEBMASTER = "my@mail.address (YOUR NAME)"
 
-BASEURL = 'http://donrails.your.domain/notes/'
+BASEURL = 'http://donrails.your.domain/'
 
 $KCODE = 'u'
 

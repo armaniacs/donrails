@@ -28,11 +28,16 @@ class Article < ActiveRecord::Base
   def sendping
     if defined?(BASEURL)
       blogping = Blogping.find(:all, :conditions => ["active = 1"])
-      if self.enrollment_id
-        articleurl = BASEURL + 'id/' + self.enrollment_id.to_s
+      baseurl = BASEURL.split('/')
+      baseurl << 'notes'
+      baseurl << 'id'
+
+      if self.enrollment_id then
+	baseurl << self.enrollment_id.to_s
       else
-        articleurl = BASEURL + 'id/' + self.id.to_s
+        baseurl << self.id.to_s
       end
+      articleurl = baseurl.join('/')
       
       urllist = Array.new
       blogping.each do |ba|

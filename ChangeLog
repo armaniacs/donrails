@@ -1,3 +1,29 @@
+2006-10-07  Akira TAGOH  <at@gclab.org>
+
+	IMPORTANT: incompatible changes. BASEURL doesn't include the paths
+	anymore such as 'notes', which managed on RoR. it shouldn't be
+	configurable by any outside RoR, because it could be misleading easily
+	in some functions.
+
+	* donrails/app/models/ping.rb (Ping::send_ping_rest): add 'notes' in
+	URL.
+
+	* donrails/app/models/ping.rb (Ping::send_ping_xmlrpc): likewise.
+
+	* donrails/app/models/ping.rb (Ping::send_ping_xmlrpc_extended):
+	likewise.
+
+	* donrails/app/models/article.rb (Article::sendping): likewise.
+
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify):
+	likewise.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article):
+	likewise.
+	(LoginController::add_article): likewise.
+
+	* donrails/example/donrails_env.rb (BASEURL): remove 'notes'
+
 2006-10-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails-1.3.4
