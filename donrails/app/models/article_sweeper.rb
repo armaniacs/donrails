@@ -1,5 +1,5 @@
 class ArticleSweeper < ActionController::Caching::Sweeper
-  observe Article, Category, Comment, Trackback
+  observe Article, Category, Comment, Trackback, Enrollment, Picture
 
   def after_save(record)
     expire_for(record)
@@ -101,7 +101,8 @@ class ArticleSweeper < ActionController::Caching::Sweeper
         p $!
       end
 
-      expire_page(:controller => 'notes', :action => %w(rdf_article show_title show_enrollment), :id => record.id)
+      expire_page(:controller => 'notes', :action => %w(rdf_article show_title), :id => record.id)
+      expire_page(:controller => 'notes', :action => %w(show_enrollment), :id => record.enrollment_id) if record.enrollment_id
       expire_page(:controller => 'notes', :action => %w(rdf_article show_title2), :title => record.title)
 
       clall = Category.find_all
@@ -171,6 +172,10 @@ class ArticleSweeper < ActionController::Caching::Sweeper
     when Comment
       expire_for(record.article)
     when Trackback
+      expire_for(record.article)
+    when Picture
+      expire_for(record.article)
+    when Enrollment
       expire_for(record.article)
     end
 
