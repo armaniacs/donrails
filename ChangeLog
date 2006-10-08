@@ -1,5 +1,9 @@
 2006-10-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails-1.3.6
+	
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Fix it.
+
 	* donrails-1.3.5
 	
 	* donrails/tool/tables-mysql.sql: Fix to use article_id.

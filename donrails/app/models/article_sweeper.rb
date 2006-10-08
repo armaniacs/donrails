@@ -176,7 +176,6 @@ class ArticleSweeper < ActionController::Caching::Sweeper
     when Picture
       expire_for(record.article)
     when Enrollment
-      expire_for(record.article)
     end
 
   end
