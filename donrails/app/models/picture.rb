@@ -1,6 +1,5 @@
 class Picture < ActiveRecord::Base
   belongs_to :article
-#  belongs_to :enrollment
 
   validates_format_of :content_type, 
   :with => /^image/,
@@ -24,6 +23,18 @@ class Picture < ActiveRecord::Base
     self.path = dumpdir + self.name
     f = File.new(self.path, "w")
     self.size = f.write(picture_field.read)
+    f.close
+  end
+
+  def filesave(data)
+    t1 = Time.now
+    dumpdir = File.expand_path(RAILS_ROOT) + IMAGE_DUMP_PATH + t1.year.to_s + '-' + t1.month.to_s + '-' + t1.day.to_s + '/'
+    unless File.directory? dumpdir
+      Dir.mkdir dumpdir
+    end
+    self.path = dumpdir + self.name
+    f = File.new(self.path, "w")
+    self.size = f.write(data)
     f.close
   end
 

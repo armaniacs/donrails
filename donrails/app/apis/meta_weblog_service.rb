@@ -40,8 +40,6 @@ class MetaWeblogApi < ActionWebService::API::Base
 
   api_method :getCategories,
     :expects => [ {:blogid => :string}, {:username => :string}, {:password => :string} ],
-#    :returns => [[:string]]
-#    :returns => [[MetaWeblogStructs::Category]]
     :returns => [[MetaWeblogStructs::Category]]
 
   api_method :getPost,
@@ -64,9 +62,9 @@ class MetaWeblogApi < ActionWebService::API::Base
     :expects => [ {:blogid => :string}, {:username => :string}, {:password => :string}, {:struct => MetaWeblogStructs::Article}, {:publish => :int} ],
     :returns => [:string]
 
-#   api_method :newMediaObject,
-#     :expects => [ {:blogid => :string}, {:username => :string}, {:password => :string}, {:data => MetaWeblogStructs::MediaObject} ],
-#     :returns => [MetaWeblogStructs::Url]
+   api_method :newMediaObject,
+     :expects => [ {:blogid => :string}, {:username => :string}, {:password => :string}, {:data => MetaWeblogStructs::MediaObject} ],
+     :returns => [MetaWeblogStructs::Url]
 
 end
 
@@ -76,7 +74,6 @@ class MetaWeblogService < DonWebService
   before_invocation :authenticate
 
   def getCategories(blogid, username, password)
-#    Category.find(:all).collect { |c| c.name } # typo
     Category.find(:all).collect do |c| 
       MetaWeblogStructs::Article.new(
                                      :description => c.name
@@ -150,17 +147,18 @@ class MetaWeblogService < DonWebService
         article.categories << c if struct['categories'].include?(c.name)
       end
     end
-#    RAILS_DEFAULT_LOGGER.info(struct['mt_tb_ping_urls'])
     article.save
     true
   end
 
-#   def newMediaObject(blogid, username, password, data)
-#     resource = Resource.create(:filename => data['name'], :mime => data['type'], :created_at => Time.now)
-#     resource.write_to_disk(data['bits'])
+   def newMediaObject(blogid, username, password, data)
+     picture = Picture.new(:content_type => data['type'])
+     picture.name = File.basename(data['name']).gsub(/[^\w._-]/, '_')
+     picture.filesave(data['bits'])
+     picture.save
 
-#     MetaWeblogStructs::Url.new("url" => controller.url_for(:controller => "files", :action => "#{resource.filename}"))
-#   end
+     MetaWeblogStructs::Url.new("url" => controller.url_for(:controller => "notes", :action => "show_image", :id => picture.id))
+   end
 
   def article_dto_from(article)
     MetaWeblogStructs::Article.new(

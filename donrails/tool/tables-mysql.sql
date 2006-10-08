@@ -6,7 +6,7 @@ path      VARCHAR(100),
 size      INTEGER,
 content_type   VARCHAR(100),
 comment        TEXT,
-enrollment_id     INTEGER,
+article_id     INTEGER,
 hidden	       INTEGER,
 primary key (id)
 );
