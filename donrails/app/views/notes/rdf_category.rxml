@@ -36,7 +36,7 @@ xml.tag!("rdf:RDF",
       xml.trackback @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => 'trackback', :id => item.id)
 
       begin
-        ce = item.body_to_html
+        ce = item.body_to_xml
         if ce =~ (/^<html xmlns='http:\/\/www.w3.org\/1999\/xhtml'><body>(.*)<\/body><\/html>$/m)
           ce = $1
         end    

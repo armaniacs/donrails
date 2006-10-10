@@ -68,9 +68,9 @@ module DonRails
       begin
         bth = '<html><body>' + self.body_to_html + '</body></html>'
         xml = HTree.parse(bth).to_rexml
-        return xml.to_s
+        return xml.to_s.gsub('&nbsp;','')
       rescue
-        return self.to_s
+        return self.to_s.gsub('&nbsp;','')
       end
     end # def body_to_xml
 
