@@ -1,3 +1,13 @@
+2006-10-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails-1.3.7
+	
+	* donrails/app/views/notes/rdf_recent.rxml: Fix to parse &nbsp;.
+	* donrails/app/views/notes/rdf_search.rxml: likewise.
+	* donrails/app/views/notes/rdf_enrollment.rxml: likewise.
+	* donrails/app/views/notes/rdf_category.rxml: likewise.
+	* donrails/app/views/notes/rdf_article.rxml: likewise.
+
 2006-10-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails-1.3.6
