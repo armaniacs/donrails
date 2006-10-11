@@ -8,7 +8,7 @@ class LoginController < ApplicationController
   auto_complete_for :author, :name
   auto_complete_for :category, :name
 
-  cache_sweeper :article_sweeper, :only => [ :delete_article, :new_article, :fix_article, :add_category, :delete_category, :add_article, :delete_picture, :delete_trackback, :delete_comment ]
+  cache_sweeper :article_sweeper, :only => [ :delete_article, :new_article, :fix_article, :add_category, :delete_category, :add_article, :delete_picture, :delete_trackback, :delete_comment, :delete_enrollment ]
 
   layout "login", :except => [:login_index, :index]
 

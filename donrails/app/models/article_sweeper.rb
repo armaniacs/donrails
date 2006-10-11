@@ -176,6 +176,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
     when Picture
       expire_for(record.article)
     when Enrollment
+      expire_page(:controller => 'notes', :action => 'show_enrollment', :id => record.id)
     end
 
   end
