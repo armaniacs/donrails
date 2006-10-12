@@ -1,3 +1,8 @@
+2006-10-12  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/login/form_article.rhtml: choose the format from
+	things is currently available on system.
+
 2006-10-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController): Fix to observe Enrollment. (Fix to erase Enrollment cache file.)

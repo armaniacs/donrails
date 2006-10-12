@@ -41,12 +41,9 @@ Date:
 <%= text_field "article", "article_date", "size" => 12, "value" => kiji.article_date.to_date %>
 フォーマット形式:
 <select name="format">
-  <option value="<%= kiji.format %>"><%= kiji.format %></option>
-  <option value="plain">plain</option>
-  <option value="html">html</option>
-  <option value="hnf">hnf</option>
-  <option value="rd">rd</option>
-  <option value="wiliki">wiliki</option>
+<% don_supported_formats.each do |fmt| %>
+  <option value="<%= fmt %><%= '" selected="selected' if fmt == kiji.format %>"><%= fmt %></option>
+<% end %>
 </select>
 <br>
 タイトル:<%= text_field "article", "title", "size" => 80, "value" => kiji.title %><br>
