@@ -21,13 +21,14 @@ class LoginController < ApplicationController
 
 
   def login_index
+    flash.keep(:op)
     render :action => "index"
   end
 
   protected
   def authorize
+    flash.keep
     unless @session["person"] == "ok"
-      @request.reset_session
       @session = @request.session
       redirect_to :action => "login_index"
     end
@@ -36,6 +37,7 @@ class LoginController < ApplicationController
   
   public
   def authenticate
+    flash.keep(:op)
     name = String.new
     password = String.new
     case @request.method
@@ -49,11 +51,17 @@ class LoginController < ApplicationController
         @request.reset_session
         @session = @request.session
         @session["person"] = "ok"
-        redirect_to :action => "new_article"
+        if flash[:op]
+          redirect_to flash[:op] 
+        else
+          redirect_to :action => "new_article"
+        end
       else
+        flash[:notice] = "Wrong Password. Please input carefully."
         redirect_to :action => "login_index"
       end
     else
+      flash[:notice] = "Wrong method."
       redirect_to :action => "login_index"
     end
   end
@@ -73,6 +81,7 @@ class LoginController < ApplicationController
   end
 
   def logout
+    p cookies
     @request.reset_session
     @session = @request.session
     @session["person"] = "logout"

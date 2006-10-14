@@ -1,6 +1,15 @@
+2006-10-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::authorize): Change to keep request path. For example, you can access '/login/manage_enrollment' directory. If you have problems, please report me.
+	(LoginController::login_index): likewise.
+	(LoginController::authenticate): likewise.
+
+	* donrails/app/views/login/index.rhtml: Add to show @flash[:notice].
+
 2006-10-13  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Add to erase 'noteslist'.
+	(ArticleSweeper::expire_for): likewise.
 
 2006-10-12  Akira TAGOH  <at@gclab.org>
 
