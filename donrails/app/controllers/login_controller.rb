@@ -81,7 +81,6 @@ class LoginController < ApplicationController
   end
 
   def logout
-    p cookies
     @request.reset_session
     @session = @request.session
     @session["person"] = "logout"
