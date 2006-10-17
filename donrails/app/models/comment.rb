@@ -17,7 +17,7 @@ class Comment < ActiveRecord::Base
   after_create :notify_by_mail
 
   def notify_by_mail
-    if defined?(ADMIN_MAILADD) && !ADMIN_MAILADD.nil? && !ADMIN_MAILADD.empty? then
+    if defined?(don_get_config.admin_mailadd) && !don_get_config.admin_mailadd.nil? && !don_get_config.admin_mailadd.empty? then
       CommentMailer.deliver_notify(self)
     end
   end

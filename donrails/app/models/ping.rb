@@ -14,7 +14,7 @@ class Ping < ActiveRecord::Base
     post = "title=#{URI.escape(title)}"
     post << "&excerpt=#{URI.escape(excerpt)}"
     post << "&url=#{URI.escape(self.url)}"
-    post << "&blog_name=#{URI.escape(RDF_TITLE)}"
+    post << "&blog_name=#{URI.escape(don_get_config.rdf_title)}"
 
     Net::HTTP.start(uri.host, uri.port) do |http|
       http.read_timeout = 10
@@ -46,7 +46,7 @@ class Ping < ActiveRecord::Base
   # http://rpc.weblogs.com/pingSiteForm?name=InfraBlog&url=http%3A%2F%2Finfrablog.verisignlabs.com 
   def send_ping_rest(pingurl) # XXX
     uri = URI.parse(pingurl)
-    baseurl = BASEURL.split('/')
+    baseurl = don_get_config.baseurl.split('/')
     baseurl << 'notes'
     baseurl << 'id'
     
@@ -57,8 +57,8 @@ class Ping < ActiveRecord::Base
     end
     changeurl = baseurl.join('/')
 
-    post = "name=#{URI.escape(RDF_TITLE)}"
-    post << "&url=#{URI.escape(BASEURL)}"
+    post = "name=#{URI.escape(don_get_config.rdf_title)}"
+    post << "&url=#{URI.escape(don_get_config.baseurl)}"
     post << "&changesURL=#{URI.escape(changeurl)}"
 
     Net::HTTP.start(uri.host, uri.port) do |http|
@@ -71,7 +71,7 @@ class Ping < ActiveRecord::Base
   # require 'xmlrpc/client'
   def send_ping_xmlrpc(pingurl)
     begin
-      baseurl = BASEURL.split('/')
+      baseurl = don_get_config.baseurl.split('/')
       baseurl << 'notes'
       baseurl << 'id'
 
@@ -84,8 +84,7 @@ class Ping < ActiveRecord::Base
 
       server = XMLRPC::Client.new2(pingurl)
       begin
-        result = server.call('weblogUpdates.ping', RDF_TITLE, BASEURL, changeurl)
-#        return server.call('weblogUpdates.ping', RDF_TITLE, BASEURL)
+        result = server.call('weblogUpdates.ping', don_get_config.rdf_title, don_get_config.baseurl, changeurl)
       rescue XMLRPC::FaultException => e
         logger.error(e)
       end
@@ -97,7 +96,7 @@ class Ping < ActiveRecord::Base
   # http://www.google.com/help/blogsearch/pinging_API.html
   def send_ping_xmlrpc_extended(pingurl)
     begin
-      baseurl = BASEURL.split('/')
+      baseurl = don_get_config.baseurl.split('/')
       baseurl << 'notes'
       baseurl << 'id'
       if self.article.enrollment_id 
@@ -106,7 +105,7 @@ class Ping < ActiveRecord::Base
         baseurl << self.article.id.to_s
       end
       changeurl = baseurl.join('/')
-      rdf_recent = BASEURL + 'rdf_recent/feed.xml'
+      rdf_recent = don_get_config.baseurl + 'rdf_recent/feed.xml'
 
       cas = Array.new
       self.article.categories.each do |ca|
@@ -116,7 +115,7 @@ class Ping < ActiveRecord::Base
 
       server = XMLRPC::Client.new2(pingurl)
       begin
-        result = server.call('weblogUpdates.extendedPing', RDF_TITLE, BASEURL, changeurl, rdf_recent, categories)
+        result = server.call('weblogUpdates.extendedPing', don_get_config.rdf_title, don_get_config.baseurl, changeurl, rdf_recent, categories)
       rescue XMLRPC::FaultException => e
         logger.error(e)
       end

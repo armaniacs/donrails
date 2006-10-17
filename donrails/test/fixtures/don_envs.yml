@@ -1,0 +1,20 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+first:
+  id: 1
+  hidden: 0
+  image_dump_path: /public/images/dump/
+  admin_user: testuser
+  admin_password: testpass
+  admin_mailadd: yaar@localhost
+  rdf_title: ARAKI notes
+  rdf_description: ARAKI notes
+  rdf_copyright: (c) 1999-2006 ARAKI Yasuhiro
+  rdf_managingeditor: ARAKI Yasuhiro
+  rdf_webmaster: ARAKI Yasuhiro
+  baseurl: http://localhost:3000/
+  url_limit: 1
+  default_theme: custom
+  trackback_enable_time: 315360000
+#  env_name: test
+another:
+  id: 2

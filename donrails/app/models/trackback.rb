@@ -14,17 +14,17 @@ class Trackback < ActiveRecord::Base
 
   validates_each :article do |record, attr, value|
     if value &&
-       defined?(TRACKBACK_ENABLE_TIME) &&
-       TRACKBACK_ENABLE_TIME != 0 then
+       defined?(don_get_config.trackback_enable_time) &&
+       don_get_config.trackback_enable_time != 0 then
       configuration = { :message => "blocked. Because it is a too old article." }
-      if value.article_date and value.article_date + TRACKBACK_ENABLE_TIME < Time.now
+      if value.article_date and value.article_date + don_get_config.trackback_enable_time < Time.now
         record.errors.add(attr, configuration[:message]) 
       end
     end
   end
 
   def notify_by_mail
-    if defined?(ADMIN_MAILADD) && !ADMIN_MAILADD.nil? && !ADMIN_MAILADD.empty? then
+    if defined?(don_get_config.admin_mailadd) && !don_get_config.admin_mailadd.nil? && !don_get_config.admin_mailadd.empty? then
       CommentMailer.deliver_notify(self)
     end
   end

@@ -7,6 +7,7 @@
 ##
 
 require_dependency 'banlist'
+#require_dependency 'don_env'
 
 class AntiSpam
   def initialize

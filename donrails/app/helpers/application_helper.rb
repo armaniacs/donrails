@@ -35,7 +35,7 @@ module ApplicationHelper
 
 =begin rdoc
 
-=== ApplicationHelper#don_chomp_tags(text)
+== ApplicationHelper#don_chomp_tags(text)
 
 =end
 
@@ -360,11 +360,7 @@ module ApplicationHelper
     article.pictures.each do |pic|
       if pic.path
         hoi = pic.path.split('/public/').last
-        if $IMAGE_BASE_PATH
-          rpath = $IMAGE_BASE_PATH + hoi
-        else
-          rpath = "/" + hoi
-        end
+        rpath = "/" + hoi
         content += link_to(image_tag(rpath, :size => '100', :align => 'right'), rpath)
       end
     end
@@ -377,6 +373,10 @@ module ApplicationHelper
       content += display_article_images(article)
     end
     return content
+  end
+
+  def don_get_config
+    DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
   end
 
 end

@@ -64,7 +64,7 @@ class BloggerService < DonWebService
     [BloggerStructs::Blog.new(
        :url      => controller.url_for(:controller => "notes"),
        :blogid   => 1, 
-       :blogName => RDF_TITLE
+       :blogName => don_get_config.rdf_title
     )]
   end
 

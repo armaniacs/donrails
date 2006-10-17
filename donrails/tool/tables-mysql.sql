@@ -128,3 +128,30 @@ updated_at  DATETIME DEFAULT NULL,
 primary key (id)
 );
 
+-- added at 2006-10-14
+CREATE TABLE don_envs (
+id     SERIAL UNIQUE,
+hidden	       INTEGER,
+image_dump_path   VARCHAR(100),
+admin_user   VARCHAR(100),
+admin_password VARCHAR(100),
+admin_mailadd VARCHAR(100),
+rdf_title VARCHAR(100),
+rdf_description VARCHAR(100),
+rdf_copyright VARCHAR(100),
+rdf_managingeditor VARCHAR(100),
+rdf_webmaster VARCHAR(100),
+baseurl VARCHAR(100),
+url_limit INTEGER DEFAULT 5,
+default_theme VARCHAR(100),
+trackback_enable_time INTEGER,
+primary key (id)
+);
+
+-- added at 2006-10-14
+CREATE TABLE don_rbls (
+id     SERIAL UNIQUE,
+rbl_type   VARCHAR(100),
+hostname   VARCHAR(100),
+primary key (id)
+);

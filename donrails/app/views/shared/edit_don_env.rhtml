@@ -1,0 +1,19 @@
+<%= secure_form_tag :action => "add_don_env" %>
+<%= hidden_field "donenv", "id" %><br>
+
+image_dump_path:<%= text_field "donenv", "image_dump_path" %><br>
+admin_user:<%= text_field "donenv", "admin_user" %><br>
+admin_password:<%= text_field "donenv", "admin_password" %><br>
+admin_mailadd:<%= text_field "donenv", "admin_mailadd" %><br>
+rdf_title:<%= text_field "donenv", "rdf_title" %><br>
+rdf_description:<%= text_field "donenv", "rdf_description" %><br>
+rdf_copyright:<%= text_field "donenv", "rdf_copyright" %><br>
+rdf_managingeditor:<%= text_field "donenv", "rdf_managingeditor" %><br>
+rdf_webmaster:<%= text_field "donenv", "rdf_webmaster" %><br>
+baseurl:<%= text_field "donenv", "baseurl" %><br>
+url_limit:<%= text_field "donenv", "url_limit" %><br>
+
+default_theme:<%= text_field "donenv", "default_theme" %><br>
+trackback_enable_time:<%= text_field "donenv", "trackback_enable_time" %><br>
+<%= submit_tag "save" %>
+<%= end_form_tag %>

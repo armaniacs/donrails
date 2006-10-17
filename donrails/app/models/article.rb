@@ -26,9 +26,9 @@ class Article < ActiveRecord::Base
   end
 
   def sendping
-    if defined?(BASEURL)
+    if bu = don_get_config.baseurl
       blogping = Blogping.find(:all, :conditions => ["active = 1"])
-      baseurl = BASEURL.split('/')
+      baseurl = bu.split('/')
       baseurl << 'notes'
       baseurl << 'id'
 

@@ -5,20 +5,20 @@ xml.feed("xmlns" => "http://purl.org/atom/ns\#") do
   xml.link("type" => "application/atom+xml",
            "rel" => "service.post",
 	   "href" => @request.protocol + @request.host_with_port + url_for(:action => "post", :id => @latest_article.id + 1),
-	   "title" => RDF_TITLE)
+	   "title" => don_get_config.rdf_title)
   xml.link("type" => "application/atom+xml",
            "rel" => "service.feed",
 	   "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed"),
-	   "title" => RDF_TITLE)
+	   "title" => don_get_config.rdf_title)
   xml.link("type" => "application/atom+xml",
            "rel" => "service.feed",
 	   "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :id => @latest_article.id + 1),
-	   "title" => RDF_TITLE)
+	   "title" => don_get_config.rdf_title)
 =begin
   xml.link("type" => "application/atom+xml",
            "rel" => "service.categories",
 	   "href" => @request.protocol + @request.host_with_port + url_for(:action => "categories", :id => @latest_article.id + 1),
-	   "title" => RDF_TITLE)
+	   "title" => don_get_config.rdf_title)
 =end
 
 end		  

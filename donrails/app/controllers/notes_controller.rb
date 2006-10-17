@@ -599,11 +599,7 @@ class NotesController < ApplicationController
       if @image.hidden == 1
         render :text => 'image hidden', :status => 403
       else
-        if $IMAGE_BASE_PATH
-          redirect_to $IMAGE_BASE_PATH + @image.path.split('/public/')[1]
-        else
-          redirect_to '/' + @image.path.split('/public/')[1]
-        end
+        redirect_to '/' + @image.path.split('/public/')[1]
       end
     end
   end

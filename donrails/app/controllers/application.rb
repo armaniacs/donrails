@@ -129,4 +129,5 @@ class ApplicationController < ActionController::Base
   def clean_memory
     GC.start
   end
+  
 end

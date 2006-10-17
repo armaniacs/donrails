@@ -116,7 +116,6 @@ class AtomController < ApplicationController
   def image_post
     if request.method == :post
       begin
-#        @image = Image.new
         @image = Picture.new
 
         atom_parse_image(@image, request.raw_post)

@@ -18,7 +18,7 @@
 <meta name="robots" content="noindex">
 <% end %>
 
-<title><%= (defined?(RDF_TITLE) && !RDF_TITLE.empty? ? RDF_TITLE : "Myblog by donrails") %> - <%=h strip_links(@heading) if @heading %></title>
+<title><%= (defined?(don_get_config.rdf_title) && !don_get_config.rdf_title.empty? ? don_get_config.rdf_title : "Myblog by donrails") %> - <%=h strip_links(@heading) if @heading %></title>
 
 </head>
 

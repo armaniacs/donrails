@@ -1,3 +1,55 @@
+2006-10-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** Prepare to use DonRbl. (to be enable use in near few days.)
+	* donrails/test/fixtures/don_rbls.yml:
+	* donrails/test/unit/don_rbl_test.rb: likewise. New file.
+	* donrails/app/models/don_rbl.rb:
+
+	** NEW feature: Add DonEnv TABLE. It will replace donrails_env.rb in near future.
+	* donrails/tool/tables-mysql.sql: Add to use DonEnv (and DonRbl).
+	* donrails/tool/tables-postgresql.sql: Add to use DonEnv (and DonRbl).
+	* donrails/tool/tables-sqlite.sql: Add to use DonEnv (and DonRbl).
+	* donrails/app/models/don_env.rb: New file to use DonEnv.
+	* donrails/app/views/shared/edit_don_env.rhtml: New file.
+	* donrails/app/views/login/manage_don_env.rhtml: New file.
+	* donrails/test/unit/don_env_test.rb: likewise. New file.
+	* donrails/test/fixtures/don_envs.yml: likewise. New file.
+	* donrails/app/helpers/application_helper.rb 
+	(ApplicationHelper::don_get_config): New method to get entry of DonEnv TABLE.
+	(ApplicationHelper::display_article_images): Change to use don_get_config.
+	* donrails/app/controllers/login_controller.rb 
+	(LoginController::authenticate): likewise.
+	(LoginController::manage_blogping): likewise.
+	(LoginController::manage_don_env): New method. 
+	(LoginController::add_don_env): New method. 
+	(LoginController::delete_don_env): New method. 
+	* donrails/test/unit/article_test.rb (ArticleTest): Change to use don_get_config. Add :don_envs in fixtures in entry.
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): likewise.
+	* donrails/test/unit/trackback_test.rb: likewise. Add :don_envs in fixtures in entry.
+	* donrails/app/models/article.rb: likewise.
+	* donrails/app/models/trackback.rb: likewise.
+	* donrails/app/models/ping.rb: likewise.
+	* donrails/app/models/comment.rb: likewise.
+	* donrails/app/controllers/notes_controller.rb: likewise.
+	* donrails/app/apis/blogger_service.rb: likewise.
+	* donrails/app/views/atom/feed.rxml: likewise.
+	* donrails/app/views/atom/index.rxml: likewise.
+	* donrails/app/views/layouts/MT/notes.rhtml: likewise.
+	* donrails/app/views/shared/MT/banner.rhtml: likewise.
+	* donrails/app/views/notes/rdf_search.rxml: likewise.
+	* donrails/app/views/notes/rdf_category.rxml: likewise.
+	* donrails/app/views/notes/rdf_enrollment.rxml: likewise.
+	* donrails/app/views/notes/rdf_recent.rxml: likewise.
+	* donrails/app/views/notes/rdf_article.rxml: likewise.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::authorize): Fix to keep request path. (Change at 2006-10-14 is not valid.)
+	
+2006-10-16  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/atom_controller.rb (AtomController::image_post): Cleanup.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_image): cleanup.
+
 2006-10-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::authorize): Change to keep request path. For example, you can access '/login/manage_enrollment' directory. If you have problems, please report me.

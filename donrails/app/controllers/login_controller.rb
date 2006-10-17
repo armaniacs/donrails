@@ -19,7 +19,6 @@ class LoginController < ApplicationController
     :delete_trackback, :picture_save, :add_article, :add_author
   ]
 
-
   def login_index
     flash.keep(:op)
     render :action => "index"
@@ -27,7 +26,8 @@ class LoginController < ApplicationController
 
   protected
   def authorize
-    flash.keep
+    flash.keep(:op)
+    flash[:op] = @request.env['PATH_INFO']
     unless @session["person"] == "ok"
       @session = @request.session
       redirect_to :action => "login_index"
@@ -47,7 +47,7 @@ class LoginController < ApplicationController
         namae = c["n"]
         password = c["p"]
       end
-      if namae == ADMIN_USER and password == ADMIN_PASSWORD
+      if namae == don_get_config.admin_user and password == don_get_config.admin_password
         @request.reset_session
         @session = @request.session
         @session["person"] = "ok"
@@ -394,7 +394,7 @@ class LoginController < ApplicationController
         end
 
         if tburllist
-          baseurl = BASEURL.split('/')
+          baseurl = don_get_config.baseurl.split('/')
           baseurl << 'notes'
           baseurl << 'id'
           if aris.enrollment_id
@@ -497,7 +497,7 @@ class LoginController < ApplicationController
         aris1.save
 
         if tburllist
-          baseurl = BASEURL.split('/')
+          baseurl = don_get_config.baseurl.split('/')
           baseurl << 'notes'
           baseurl << 'id'
           if aris1.enrollment_id
@@ -801,8 +801,8 @@ class LoginController < ApplicationController
 
   ## blogping
   def manage_blogping
-    if defined?(BASEURL)
-      @flash[:note2] = 'BASEURL is ' + BASEURL
+    if defined?(don_get_config.baseurl)
+      @flash[:note2] = 'BASEURL is ' + don_get_config.baseurl
     else
       @flash[:note2] = '現在Ping送信機能は無効です'
     end
@@ -953,6 +953,76 @@ class LoginController < ApplicationController
       end
     end
     redirect_to :action => "manage_enrollment"
+  end
+
+  def manage_don_env
+    if @params['id']
+      @donenv = DonEnv.find(@params['id'])
+    end
+    @don_envs = DonEnv.find_all
+  end
+
+  def add_don_env
+    if c = @params["donenv"]
+      if c['id'] && c['id'].size > 0
+        aris1 = DonEnv.find(c['id'].to_i)
+      else aris1
+        aris1 = DonEnv.new
+      end
+      aris1.image_dump_path = c["image_dump_path"]
+      aris1.admin_user = c["admin_user"]
+      aris1.admin_password = c["admin_password"]
+      aris1.admin_mailadd = c["admin_mailadd"]
+      aris1.rdf_title = c["rdf_title"]
+      aris1.rdf_description = c["rdf_description"]
+      aris1.rdf_copyright = c["rdf_copyright"]
+      aris1.rdf_managingeditor = c["rdf_managingeditor"]
+      aris1.rdf_webmaster = c["rdf_webmaster"]
+      aris1.baseurl = c["baseurl"]
+      aris1.url_limit = c["url_limit"]
+      aris1.env_name = c["env_name"]
+      aris1.default_theme = c["default_theme"]
+      aris1.trackback_enable_time = c["trackback_enable_time"].to_i
+
+      aris1.save
+    end
+    redirect_to :action => "manage_don_env"
+  end
+
+  def delete_don_env
+    @flash[:note] = ''
+    @flash[:note2] = ''
+    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    c.each do |k, v|
+      if v.to_i == 1
+        if DonEnv.exists?(k.to_i)
+          b = DonEnv.find(k.to_i)
+          @flash[:note2] += '<br>Delete:' + k
+          b.destroy
+        else
+          @flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+    if c = @params["hideid"]
+      c.each do |k, v|
+        if DonEnv.exists?(k.to_i)
+          pf = DonEnv.find(k.to_i)
+          stmp = pf.hidden
+          if v.to_i == 1 and pf.hidden != 1
+            pf.update_attribute('hidden', 1)
+          elsif v.to_i == 0 and pf.hidden != 0
+            pf.update_attribute('hidden', 0)
+          end
+          unless stmp == pf.hidden
+            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+          end
+        else
+          @flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+    redirect_to :action => "manage_don_env"
   end
 
 

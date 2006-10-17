@@ -17,16 +17,16 @@ class CommentMailer < ActionMailer::Base
       return
     end
 
-    if defined?(ADMIN_MAILADD) && ADMIN_MAILADD
-      recipient = ADMIN_MAILADD
-      from ADMIN_MAILADD
+    if defined?(don_get_config.admin_mailadd) && don_get_config.admin_mailadd
+      recipient = don_get_config.admin_mailadd
+      from don_get_config.admin_mailadd
     else
       recipient = 'donrails@localhost'
       from 'donrails@localhost'
     end
 
-    if defined?(BASEURL) && BASEURL
-      baseurl = BASEURL.split('/')
+    if defined?(don_get_config.baseurl) && don_get_config.baseurl
+      baseurl = don_get_config.baseurl.split('/')
       url = baseurl.dup
       url << 'notes'
       enrollment_url = url.dup
@@ -38,9 +38,9 @@ class CommentMailer < ActionMailer::Base
       login_url << 'login'
       login_url << 'manage_article'
     else
-      url = ['(Please set BASEURL in donrails_env.rb)', 'notes', 'show_title', article.id.to_s]
-      enrollment_url = ['(Please set BASEURL in donrails_env.rb)', 'notes', 'show_enrollment', article.id.to_s]
-      login_url = ['(Please set BASEURL in donrails_env.rb)', 'login', 'manage_article']
+      url = ['(Please set BASEURL)', 'notes', 'show_title', article.id.to_s]
+      enrollment_url = ['(Please set BASEURL)', 'notes', 'show_enrollment', article.id.to_s]
+      login_url = ['(Please set BASEURL)', 'login', 'manage_article']
     end
 
     recipients recipient

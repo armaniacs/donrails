@@ -11,23 +11,23 @@ xml.feed("xmlns" => "http://purl.org/atom/ns\#") do
   xml.id 'tag:' + @request.host + ':notes:' + @articles.first.id.to_s + ':' + @articles.last.id.to_s
 
   if @one
-    xml.link("type" => "text/html", "rel" => "alternate", "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_title"), "title" => RDF_TITLE)
+    xml.link("type" => "text/html", "rel" => "alternate", "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_title"), "title" => don_get_config.rdf_title)
   elsif @articles_pages
-    xml.link("type" => "text/html", "rel" => "alternate", "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "noteslist", :page => @articles_pages.current), "title" => RDF_TITLE)
+    xml.link("type" => "text/html", "rel" => "alternate", "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "noteslist", :page => @articles_pages.current), "title" => don_get_config.rdf_title)
   else
-    xml.link("type" => "text/html", "rel" => "alternate", "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "noteslist"), "title" => RDF_TITLE)
+    xml.link("type" => "text/html", "rel" => "alternate", "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "noteslist"), "title" => don_get_config.rdf_title)
   end
-  xml.link("type" => "application/atom+xml", "rel" => "service.post", "href" => @request.protocol + @request.host_with_port + url_for(:action => "post"), "title" => RDF_TITLE)
+  xml.link("type" => "application/atom+xml", "rel" => "service.post", "href" => @request.protocol + @request.host_with_port + url_for(:action => "post"), "title" => don_get_config.rdf_title)
 
-  xml.link("type" => "application/atom+xml", "rel" => "start", "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :id => @articles.first.id.to_s), "title" => RDF_TITLE)
-  xml.link("type" => "application/atom+xml", "rel" => "prev", "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :id => @articles.first.id + 1), "title" => RDF_TITLE)
-  xml.link("type" => "application/atom+xml", "rel" => "next", "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :id => @articles.last.id - 1), "title" => RDF_TITLE)
+  xml.link("type" => "application/atom+xml", "rel" => "start", "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :id => @articles.first.id.to_s), "title" => don_get_config.rdf_title)
+  xml.link("type" => "application/atom+xml", "rel" => "prev", "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :id => @articles.first.id + 1), "title" => don_get_config.rdf_title)
+  xml.link("type" => "application/atom+xml", "rel" => "next", "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :id => @articles.last.id - 1), "title" => don_get_config.rdf_title)
 
-  xml.title RDF_TITLE
+  xml.title don_get_config.rdf_title
   xml.generator "donrails", "url" => "http://developer.berlios.de/projects/donrails/"
   xml.modified pub_date(@articles.first.article_mtime) if @articles.first and @articles.first.article_mtime
-  xml.tagline RDF_DESCRIPTION
-  xml.copyright RDF_COPYRIGHT
+  xml.tagline don_get_config.rdf_description
+  xml.copyright don_get_config.rdf_copyright
 
   @articles.each do |@article|
     xml.entry("xmlns" => "http://purl.org/atom/ns\#") do

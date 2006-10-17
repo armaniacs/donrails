@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ArticleTest < Test::Unit::TestCase
-  fixtures :articles, :categories, :comments, :enrollments, :trackbacks
+  fixtures :articles, :categories, :comments, :enrollments, :trackbacks, :don_envs
 
   def setup
     @a1 = Article.find(1)
