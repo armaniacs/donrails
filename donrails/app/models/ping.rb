@@ -105,7 +105,7 @@ class Ping < ActiveRecord::Base
         baseurl << self.article.id.to_s
       end
       changeurl = baseurl.join('/')
-      rdf_recent = don_get_config.baseurl + 'rdf_recent/feed.xml'
+      rdf_recent = don_get_config.baseurl + 'notes/rdf_recent/feed.xml'
 
       cas = Array.new
       self.article.categories.each do |ca|
