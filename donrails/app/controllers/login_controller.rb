@@ -1043,7 +1043,7 @@ class LoginController < ApplicationController
   end
 
   def add_don_rbl
-    if c = @params["donenv"]
+    if c = @params["donrbl"]
       if c['id'] && c['id'].size > 0
         aris1 = DonRbl.find(c['id'].to_i)
       else aris1

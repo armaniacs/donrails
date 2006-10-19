@@ -1,6 +1,9 @@
 2006-10-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/views/login/manage_category.rhtml: Fix description.
+
 	* donrails/app/controllers/login_controller.rb (LoginController::add_don_env): Fix to add unuse column.
+	(LoginController::add_don_rbl): Fix.
 
 	** Incompatible Change ::
 	(1) Before upgrade from r91 and before, you have to prepare 'don_envs' and 'don_rbls' TABLE. Please see 'donrails/tool/tables-{postgresql,mysql,sqlite}.sql'. 
