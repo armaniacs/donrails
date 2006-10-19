@@ -1,7 +1,9 @@
-### $ ruby -I../../lib application_helper_test.rb
+## Use like
+## cfard3:~/donrails-trunk/rails$ ruby app/helpers/application_helper_test.rb
+
+require File.dirname(__FILE__) + '/../../test/test_helper'
 
 require 'test/unit'
-#require '../../lib/delegator'
 require 'application_helper'
 
 class TC_ApplicationHelper < Test::Unit::TestCase
@@ -11,6 +13,20 @@ class TC_ApplicationHelper < Test::Unit::TestCase
   end
 
   def teardown
+  end
+
+  def test_don_get_config
+    dgc = don_get_config
+    assert_instance_of(DonEnv, dgc)
+    assert_equal('testuser', dgc.admin_user)
+    assert_equal('testpass', dgc.admin_password)
+  end
+
+  def test_don_get_ip_rbl
+    assert_instance_of(Array, don_get_ip_rbl)
+  end
+  def test_don_get_host_rbl
+    assert_instance_of(Array, don_get_host_rbl)
   end
 
   def test_parsecontent

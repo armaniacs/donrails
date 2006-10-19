@@ -1,0 +1,33 @@
+<% @heading = "グローバル設定" %>
+<h1>don_rbl management</h1>
+
+<hr>
+新規設定の追加
+<p>
+<%= render("shared/edit_don_rbl") %>
+<hr>
+設定の管理
+<% if @don_rbls %>
+<%= secure_form_tag :action => "delete_don_rbl" %>
+<table border="1" cellspacing="0">
+  <tr>
+    <td>Delete?</td>
+    <td>id</td>
+    <td>rbl_type</td>
+    <td>hostname</td>
+  </tr>
+  <% @don_rbls.each do |co| %>
+  <tr>
+    <td>
+      <%= link_to 'Edit', {:action => :manage_don_rbl, :id => co.id} %>
+      <%= check_box "deleteid", co.id %>
+    </td>
+    <td><%= co.id %></td>
+    <td><%=h co.rbl_type %></td>
+    <td><%=h co.hostname %></td>
+  </tr>
+  <% end %>
+</table>
+<%= submit_tag "send" %>
+<%= end_form_tag %>
+<% end %>

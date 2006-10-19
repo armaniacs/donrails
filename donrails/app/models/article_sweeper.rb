@@ -171,10 +171,13 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       expire_page(:controller => 'notes', :action => 'category_tree_list_a')
       expire_page(:controller => 'notes', :action => 'noteslist')
     when Comment
+      expire_page(:controller => 'notes', :action => 'noteslist')
       expire_for(record.article)
     when Trackback
+      expire_page(:controller => 'notes', :action => 'noteslist')
       expire_for(record.article)
     when Picture
+      expire_page(:controller => 'notes', :action => 'noteslist')
       expire_for(record.article)
     when Enrollment
       expire_page(:controller => 'notes', :action => 'show_enrollment', :id => record.id)

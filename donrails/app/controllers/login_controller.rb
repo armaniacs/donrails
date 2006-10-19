@@ -1025,6 +1025,64 @@ class LoginController < ApplicationController
     redirect_to :action => "manage_don_env"
   end
 
+  # RBL
+  def manage_don_rbl
+    if @params['id']
+      @donenv = DonRbl.find(@params['id'])
+    end
+    @don_rbls = DonRbl.find_all
+  end
+
+  def add_don_rbl
+    if c = @params["donenv"]
+      if c['id'] && c['id'].size > 0
+        aris1 = DonRbl.find(c['id'].to_i)
+      else aris1
+        aris1 = DonRbl.new
+      end
+      aris1.rbl_type = c["rbl_type"]
+      aris1.hostname = c["hostname"]
+      aris1.save
+    end
+    redirect_to :action => "manage_don_rbl"
+  end
+
+  def delete_don_rbl
+    @flash[:note] = ''
+    @flash[:note2] = ''
+    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    c.each do |k, v|
+      if v.to_i == 1
+        if DonRbl.exists?(k.to_i)
+          b = DonRbl.find(k.to_i)
+          @flash[:note2] += '<br>Delete:' + k
+          b.destroy
+        else
+          @flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+    if c = @params["hideid"]
+      c.each do |k, v|
+        if DonRbl.exists?(k.to_i)
+          pf = DonRbl.find(k.to_i)
+          stmp = pf.hidden
+          if v.to_i == 1 and pf.hidden != 1
+            pf.update_attribute('hidden', 1)
+          elsif v.to_i == 0 and pf.hidden != 0
+            pf.update_attribute('hidden', 0)
+          end
+          unless stmp == pf.hidden
+            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+          end
+        else
+          @flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+    redirect_to :action => "manage_don_rbl"
+  end
+
 
   # HNF
   def hnf_save_all

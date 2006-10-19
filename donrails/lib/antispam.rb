@@ -7,15 +7,16 @@
 ##
 
 require_dependency 'banlist'
-#require_dependency 'don_env'
+require_dependency 'don_env'
+require_dependency 'don_rbl'
 
 class AntiSpam
   def initialize
-    @IP_RBL = IP_RBL if defined?(IP_RBL)
+    @IP_RBL = don_get_ip_rbl if defined?(don_get_ip_rbl)
     @IP_RBL = [ 'niku.2ch.net', 'opm.blitzed.us', 'bsb.empty.us' ] unless defined?(@IP_RBL)
-    @HOST_RBL = HOST_RBL if defined?(HOST_RBL)
+    @HOST_RBL = don_get_host_rbl if defined?(don_get_host_rbl)
     @HOST_RBL = [ 'rbl.bulkfeeds.jp', 'sc.surbl.org', 'bsb.empty.us' ] unless defined?(@HOST_RBL)
-    @URL_LIMIT = URL_LIMIT if defined?(URL_LIMIT)
+    @URL_LIMIT = don_get_config.url_limit if defined?(don_get_config)
     @URL_LIMIT = 5 unless defined?(@URL_LIMIT)
   end
 

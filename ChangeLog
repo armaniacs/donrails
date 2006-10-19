@@ -1,3 +1,26 @@
+2006-10-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/layouts/login.rhtml: Add link to manage_don_{rbl,env}.
+
+	* donrails/lib/antispam.rb (AntiSpam::initialize): Change to use DonEnv and DonRbl.
+
+	* donrails/app/helpers/application_helper_test.rb: Change to test at rails directory like 'ruby app/helpers/application_helper_test.rb'.
+	(TC_ApplicationHelper::test_don_get_config): new method.
+	(TC_ApplicationHelper::test_don_get_ip_rbl): new method.
+	(TC_ApplicationHelper::test_don_get_host_rbl): new method.
+
+2006-10-18  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_get_config): Backword compatibility. If you had not set DonEnv and had set at donrails_env.rb, return temporaly DonEnv.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::expire_for): Add to erase for 'noteslist' when Category, Comment, Trackback and Picture update.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::manage_don_rbl): New method to use DonRbl.
+	(LoginController::add_don_rbl): likewise.
+	(LoginController::delete_don_rbl): likewise.
+	* donrails/app/views/login/manage_don_rbl.rhtml: New file.
+	* donrails/app/views/shared/edit_don_rbl.rhtml: New file
+	
 2006-10-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	** Prepare to use DonRbl. (to be enable use in near few days.)
