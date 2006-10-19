@@ -1,3 +1,10 @@
+2006-10-20  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/layouts/MT/notes.rhtml: reflects author and
+	author's email address from DB's.
+
+	* donrails/app/views/layouts/default/notes.rhtml: likewise.
+
 2006-10-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/login/manage_category.rhtml: Fix description.
