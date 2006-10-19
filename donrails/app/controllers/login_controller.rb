@@ -1,6 +1,11 @@
 require 'kconv'
-
 class LoginController < ApplicationController
+
+  class << self
+    include ApplicationHelper
+  end
+  @@dgc = don_get_config
+
   before_filter :authorize, :except => [:login_index, :authenticate]
   after_filter :compress
   after_filter :clean_memory
@@ -37,6 +42,8 @@ class LoginController < ApplicationController
   
   public
   def authenticate
+
+
     flash.keep(:op)
     name = String.new
     password = String.new
@@ -47,11 +54,14 @@ class LoginController < ApplicationController
         namae = c["n"]
         password = c["p"]
       end
-      if namae == don_get_config.admin_user and password == don_get_config.admin_password
+
+      if namae == @@dgc.admin_user and password == @@dgc.admin_password
         @request.reset_session
         @session = @request.session
         @session["person"] = "ok"
-        if flash[:op]
+        if flash[:op] == '/login'
+          redirect_to :action => "new_article"
+        elsif flash[:op]
           redirect_to flash[:op] 
         else
           redirect_to :action => "new_article"

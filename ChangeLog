@@ -1,5 +1,15 @@
 2006-10-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): Change address for manage. Now show /login/manage_{comment,trackback}
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_get_theme): Change to use don_get_config.
+
+	* donrails/app/controllers/login_controller.rb: Call don_get_config. (return is used as @@dgc.)
+	(LoginController::authenticate): Change to use @@dgc.
+
+	* r93
+	* donrails/app/controllers/login_controller.rb (LoginController::authenticate): Fix to redirect "new_article" (in some case).
+
 	* donrails/app/views/layouts/login.rhtml: Add link to manage_don_{rbl,env}.
 
 	* donrails/lib/antispam.rb (AntiSpam::initialize): Change to use DonEnv and DonRbl.

@@ -87,8 +87,7 @@ module ApplicationHelper
 =end
 
   def don_get_theme(name)
-    # XXX: where does it complete from?
-    theme = (defined?(DEFAULT_THEME) && !DEFAULT_THEME.empty? ? DEFAULT_THEME : "default")
+    theme = don_get_config.default_theme
     path = File.dirname(name)
     filename = File.basename(name)
     return File.join(path, theme, filename)
@@ -100,7 +99,7 @@ module ApplicationHelper
     :action =>"show_title", 
     :id => article.id
   end
-
+  
   def sendping(article, blogping)
     articleurl = article_url(article, false)
     urllist = Array.new
@@ -249,7 +248,7 @@ module ApplicationHelper
       sendping(article, blogping)
     end
   end
-
+  
 
   def atom_parse_image(image, raw_post)
     xml = REXML::Document.new(raw_post)
@@ -330,7 +329,7 @@ module ApplicationHelper
     end
     return content
   end
-
+  
   def display_article_date(article)
     if article and article.article_date
     content = link_to "#{article.article_date.year}年#{article.article_date.month}月#{article.article_date.day}日(#{article.article_date.strftime('%a')})",
@@ -375,7 +374,7 @@ module ApplicationHelper
     return content
   end
 
-  def don_get_config
+  def don_get_config # XXX
     begin
       DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
     rescue
@@ -396,7 +395,7 @@ module ApplicationHelper
       return de
     end
   end
-
+  
   def don_get_ip_rbl
     rblhosts = Array.new
     DonRbl.find(:all, :conditions => ["rbl_type = 'ip'"]).each do |dr|
