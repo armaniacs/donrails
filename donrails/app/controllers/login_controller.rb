@@ -990,7 +990,6 @@ class LoginController < ApplicationController
       aris1.rdf_webmaster = c["rdf_webmaster"]
       aris1.baseurl = c["baseurl"]
       aris1.url_limit = c["url_limit"]
-      aris1.env_name = c["env_name"]
       aris1.default_theme = c["default_theme"]
       aris1.trackback_enable_time = c["trackback_enable_time"].to_i
 
