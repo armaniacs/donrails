@@ -376,24 +376,31 @@ module ApplicationHelper
 
   def don_get_config # XXX
     begin
-      DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
+      de = DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
+      if de == nil
+        de = don_get_oldconfig 
+      end
     rescue
-      de = DonEnv.new
-      de.image_dump_path = IMAGE_DUMP_PATH if defined?(IMAGE_DUMP_PATH)
-      de.admin_user = ADMIN_USER if defined?(ADMIN_USER)
-      de.admin_password = ADMIN_PASSWORD if defined?(ADMIN_PASSWORD)
-      de.rdf_title = RDF_TITLE if defined?(RDF_TITLE)
-      de.rdf_description = RDF_DESCRIPTION if defined?(RDF_DESCRIPTION)
-      de.rdf_copyright = RDF_COPYRIGHT if defined?(RDF_COPYRIGHT)
-      de.rdf_managingeditor = RDF_MANAGINGEDITOR if defined?(RDF_MANAGINGEDITOR)
-      de.rdf_webmaster = RDF_WEBMASTER if defined?(RDF_WEBMASTER)
-      de.baseurl = BASEURL if defined?(BASEURL)
-      de.admin_mailadd = ADMIN_MAILADD if defined?(ADMIN_MAILADD)
-      de.default_theme = DEFAULT_THEME if defined?(DEFAULT_THEME)
-      de.trackback_enable_time = TRACKBACK_ENABLE_TIME if defined?(TRACKBACK_ENABLE_TIME)
-
-      return de
+      de = don_get_oldconfig
     end
+    return de
+  end
+
+  def don_get_oldconfig
+    de = DonEnv.new
+    de.image_dump_path = IMAGE_DUMP_PATH if defined?(IMAGE_DUMP_PATH)
+    de.admin_user = ADMIN_USER if defined?(ADMIN_USER)
+    de.admin_password = ADMIN_PASSWORD if defined?(ADMIN_PASSWORD)
+    de.rdf_title = RDF_TITLE if defined?(RDF_TITLE)
+    de.rdf_description = RDF_DESCRIPTION if defined?(RDF_DESCRIPTION)
+    de.rdf_copyright = RDF_COPYRIGHT if defined?(RDF_COPYRIGHT)
+    de.rdf_managingeditor = RDF_MANAGINGEDITOR if defined?(RDF_MANAGINGEDITOR)
+    de.rdf_webmaster = RDF_WEBMASTER if defined?(RDF_WEBMASTER)
+    de.baseurl = BASEURL if defined?(BASEURL)
+    de.admin_mailadd = ADMIN_MAILADD if defined?(ADMIN_MAILADD)
+    de.default_theme = DEFAULT_THEME if defined?(DEFAULT_THEME)
+    de.trackback_enable_time = TRACKBACK_ENABLE_TIME if defined?(TRACKBACK_ENABLE_TIME)
+    return de
   end
   
   def don_get_ip_rbl

@@ -1,9 +1,16 @@
 2006-10-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	** Incompatible Change ::
+	(1) Before upgrade from r91 and before, you have to prepare 'don_envs' and 'don_rbls' TABLE. Please see 'donrails/tool/tables-{postgresql,mysql,sqlite}.sql'. 
+	(2) After that, Please go '/login/manage_don_env' and './login/manage_don_rbl'. Then please input your configration like 'donrails_env.rb'.
+	
+	* donrails/app/helpers/application_helper.rb 
+	(ApplicationHelper::don_get_oldconfig): New method (it splitted from don_get_config) for backward compatibility. 
+	(ApplicationHelper::don_get_config): likewise.
+
+	* r94
 	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): Change address for manage. Now show /login/manage_{comment,trackback}
-
 	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_get_theme): Change to use don_get_config.
-
 	* donrails/app/controllers/login_controller.rb: Call don_get_config. (return is used as @@dgc.)
 	(LoginController::authenticate): Change to use @@dgc.
 
