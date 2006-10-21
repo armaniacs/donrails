@@ -2,38 +2,33 @@ ActionController::Routing::Routes.draw do |map|
   # Add your own custom routes here.
   # The priority is based upon order of creation: first created -> highest priority.
 
-    map.connect '', :controller => "notes", :action => "noteslist"
-    map.connect "notes/", :controller => "notes",  :action => "noteslist"
-    map.connect "notes/index", :controller => "notes",  :action => "noteslist"
+  map.connect '', :controller => "notes", :action => "noteslist", :page => '1'
+  map.connect "archives/", :controller => "notes",  :action => "noteslist" , :page => '1'
+  map.connect "archives/index", :controller => "notes",  :action => "noteslist" , :page => '1'
 
-#    map.connect '', :controller => "notes", :action => "index"
-#    map.connect "notes/", :controller => "notes", :action => "index"
+  map.connect "archives/noteslist", :controller => "notes",  :action => "noteslist" , :page => '1'
+  map.connect "archives/noteslist/page/:page", :controller => "notes", :action => "noteslist", :page => /\d+/
 
-  map.connect "notes/d", :controller => "notes", :action => "noteslist"
-  map.connect "notes/d/page/:page", :controller => "notes", :action => "noteslist", :page => /\d+/
-
-  map.connect "notes/articles_author/:id", :controller => "notes", :action => "articles_author",
-  :requirements => { 
-    :id => /\d+/
-  }
-  map.connect "notes/articles_author/:id/page/:page", :controller => "notes", :action => "articles_author",
+  map.connect "archives/articles_author/:id", :controller => "notes", :action => "articles_author", :id => /\d+/, :page => '1'
+  map.connect "archives/articles_author/:id/page/:page", :controller => "notes", :action => "articles_author",
   :requirements => { 
     :id => /\d+/,
     :page => /\d+/
   }
 
-  map.connect "notes/d/:category/page/:page", 
+  map.connect "archives/show_category_noteslist/:category/page/:page", 
   :controller => "notes", :action => "show_category_noteslist", 
   :requirements => { 
     :category => /.+/, :page => /\d+/
   }
-  map.connect "notes/d/:category", :controller => "notes", 
-  :action => "show_category_noteslist",
+  map.connect "archives/show_category_noteslist/:category", 
+  :controller => "notes",
+  :action => "show_category_noteslist", :page => '1',
   :requirements => { 
     :category => /.+/
   }
 
-  map.connect "notes/:year/:month/:day", :controller => "notes", 
+  map.connect "archives/:year/:month/:day", :controller => "notes", 
   :action => "show_date",
   :requirements => { 
     :year => /(19|20)\d\d/,
@@ -41,14 +36,14 @@ ActionController::Routing::Routes.draw do |map|
     :day => /[0-3]?\d/
   }
 
-  map.connect "notes/:year/:month", :controller => "notes", 
+  map.connect "archives/:year/:month", :controller => "notes", 
   :action => "show_month",
   :requirements => { 
     :year => /(19|20)\d\d/,
     :month => /[01]?\d/
   }
 
-  map.connect "notes/hnf/:year/:month/:day", :controller => "notes", 
+  map.connect "archives/hnf/:year/:month/:day", :controller => "notes", 
   :action => "hnf_save_date",
   :requirements => { 
     :year => /(19|20)\d\d/,
@@ -56,96 +51,93 @@ ActionController::Routing::Routes.draw do |map|
     :day => /[0-3]?\d/
   }
 
-  map.connect "notes/id/:id", :controller => "notes", 
+  map.connect "archives/id/:id", :controller => "notes", 
   :action => "show_enrollment",
   :requirements => { 
     :id => /\d+/
   }
 
-  map.connect "notes/t/:title", :controller => "notes", 
-  :action => "show_title",
-  :requirements => { 
-    :title => /\S+/
-  }
+  map.connect "archives/show_title/:title", :controller => "notes", 
+  :action => "show_title", :title => /.+/
 
   # for backward compatibility
-  map.connect "notes/pick_article/:id", :controller => "notes", 
+  map.connect "archives/pick_article/:id", :controller => "notes", 
   :action => "show_title",
   :requirements => { 
     :id => /\d+/
   }
 
-  map.connect "notes/afterday/:ymd2", :controller => "notes", 
+  map.connect "archives/afterday/:ymd2", :controller => "notes", 
   :action => "afterday", :ymd2 => /\d\d\d\d-\d\d-\d\d/
-  map.connect "notes/tendays/:ymd2", :controller => "notes", 
+  map.connect "archives/tendays/:ymd2", :controller => "notes", 
   :action => "tendays", :ymd2 => /\d\d\d\d-\d\d-\d\d/
 
-  map.connect "notes/category/:category", :controller => "notes", 
-  :action => "show_category"
-  map.connect "notes/category/:category/page/:page", :controller => "notes", 
-  :action => "show_category", :page => /\d+/
+  map.connect "archives/category/:category", 
+  :controller => "notes", 
+  :action => "show_category", :category => /\w+/, :page => '1'
+  map.connect "archives/category/:category/page/:page", 
+  :controller => "notes", 
+  :action => "show_category", :category => /\w+/, :page => /\d+/
 
-  map.connect "notes/show_category/:id/page/:page", :controller => "notes", 
+  map.connect "archives/show_category/:id", :controller => "notes", 
+  :action => "show_category", :page => '1',
+  :requirements => { 
+    :id => /\d+/
+  }
+  map.connect "archives/show_category/:id/page/:page", :controller => "notes", 
   :action => "show_category", 
   :requirements => { 
     :id => /\d+/, :page => /\d+/
   }
 
-  map.connect "notes/:nums", :controller => "notes", 
+  map.connect "archives/:nums", :controller => "notes", 
   :action => "parse_nums",
   :requirements => { 
     :nums => /^(\d|-)+/
   }
 
-  map.connect "notes/:nums", :controller => "notes", 
+  map.connect "archives/:nums", :controller => "notes", 
   :action => "indexabc",
   :requirements => { 
     :nums => /\d{6}(a|b|c).html/
   }
 
-  map.connect "notes/:nums", :controller => "notes", 
+  map.connect "archives/:nums", :controller => "notes", 
   :action => "parse_nums",
   :requirements => { 
     :nums => /\S+.html/
   }
 
-  map.connect "notes/every_year/:month/:day", :controller => "notes", 
+  map.connect "archives/every_year/:month/:day", :controller => "notes", 
   :action => "show_nnen",
   :requirements => { 
     :month => /[01]?\d/,
     :day => /[0-3]?\d/
   }
 
-  map.connect "notes/search/:q", :controller => "notes", 
-  :action => "search",
-  :requirements => { 
-	:q => /\w+/
-  }
+  map.xml 'archives/rdf_recent/feed.xml', :controller => 'notes', :action => "rdf_recent"
+#  map.connect "archives/di.cgi", :controller => "notes", :action => "rdf_recent"
 
-  map.xml 'notes/rdf_recent/feed.xml', :controller => 'notes', :action => "rdf_recent"
-  map.connect "notes/di.cgi", :controller => "notes", :action => "rdf_recent"
+  map.xml 'archives/rdf_article/:id/feed.xml', :controller => 'notes', :action => "rdf_article"
 
-  map.xml 'notes/rdf_article/:id/feed.xml', :controller => 'notes', :action => "rdf_article"
+  map.xml 'archives/rdf_category/:category/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => '1'
+  map.xml 'archives/rdf_category/:category/page/:page/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => /\d+/
 
-  map.xml 'notes/rdf_category/:category/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/
-  map.xml 'notes/rdf_category/:category/page/:page/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => /\d+/
+  map.connect 'archives/recent_category_title_a/:category', :controller => 'notes', :action => "recent_category_title_a", :category => /\w+/
+  map.connect 'archives/recent_trigger_title_a/:trigger', :controller => 'notes', :action => "recent_trigger_title_a", :trigger => /\w+/
 
-  map.connect "notes/rdf_search/:q", :controller => "notes", 
-  :action => "rdf_search",
-  :requirements => { 
-	:q => /\w+/
-  }
+  map.connect "archives/articles_long", :controller => "notes", :action => "articles_long", :page => '1'
+  map.connect "archives/articles_long/page/:page", :controller => "notes", :action => "articles_long", :page => /\d+/
 
-  map.connect 'notes/recent_category_title_a/:category', :controller => 'notes', :action => "recent_category_title_a", :category => /\w+/
-  map.connect 'notes/recent_trigger_title_a/:trigger', :controller => 'notes', :action => "recent_trigger_title_a", :trigger => /\w+/
-
-  map.connect "notes/articles_long/page/:page", :controller => "notes", :action => "articles_long", :page => /\d+/
-
-  map.xml 'atom/feed.xml', :controller => 'atom', :action => "feed"
-  map.xml 'atom/feed/page/:page/feed.xml', :controller => 'atom', :action => "feed", :page => /\d+/
+  map.xml 'atom/feed.xml', :controller => 'atom', 
+  :action => "feed", :page => '1'
+  map.xml 'atom/feed/page/:page/feed.xml', :controller => 'atom', 
+  :action => "feed", :page => /\d+/
   map.xml 'atom/feed/:id/feed.xml', :controller => 'atom', :action => "feed", :id => /\d+/
 
-  map.xml 'notes/sitemap.xml', :controller => 'notes', :action => "sitemap"
+  map.xml 'archives/sitemap.xml', :controller => 'notes', :action => "sitemap"
+
+  map.connect 'archives/:action/:id', :controller => 'notes'
 
   # Here's a sample route:
   # map.connect 'products/:id', :controller => 'catalog', :action => 'view'

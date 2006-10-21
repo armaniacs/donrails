@@ -812,7 +812,7 @@ class LoginController < ApplicationController
     if defined?(don_get_config.baseurl)
       @flash[:note2] = 'BASEURL is ' + don_get_config.baseurl
     else
-      @flash[:note2] = '現在Ping送信機能は無効です'
+      @flash[:note2] = '現在Ping送信機能は無効です。baseurlを設定してください。'
     end
     @blogpings_pages, @blogpings = paginate(:blogping,:per_page => 30,:order_by => 'id DESC')
   end

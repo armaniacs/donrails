@@ -52,7 +52,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
   def ep_notes
     expire_page(:controller => 'notes', :action => 'noteslist')
     begin
-      ppdir = RAILS_ROOT + "/public/notes/d/page"
+      ppdir = RAILS_ROOT + "/public/archives/noteslist/page"
       ppdir2 = Dir.entries(ppdir)
       ppdir2.each do |x|
         if x =~ /(\d+).html/
@@ -68,7 +68,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
   def ep_author(record)
     expire_page(:controller => 'notes', :action => 'articles_author', :id => record.author_id)
     begin
-      ppdir = RAILS_ROOT + "/public/notes/articles_author/#{record.author_id}/page"
+      ppdir = RAILS_ROOT + "/public/archives/articles_author/#{record.author_id}/page"
       ppdir2 = Dir.entries(ppdir)
       ppdir2.each do |x|
         if x =~ /(\d+).html/
@@ -84,7 +84,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
   def ep_articles_long
     expire_page(:controller => 'notes', :action => 'articles_long')
     begin
-      ppdir = RAILS_ROOT + "/public/notes/articles_long/d/page"
+      ppdir = RAILS_ROOT + "/public/archives/articles_long/page"
       ppdir2 = Dir.entries(ppdir)
       ppdir2.each do |x|
         if x =~ /(\d+).html/
@@ -100,7 +100,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
   def ep_category
     expire_page(:controller => 'notes', :action => 'recent_category_title_a')
     begin
-      ppdir = RAILS_ROOT + "/public/notes/recent_category_title_a"
+      ppdir = RAILS_ROOT + "/public/archives/recent_category_title_a"
       ppdir2 = Dir.entries(ppdir)
       ppdir2.each do |x|
         if x =~ /(\w+).html/
@@ -117,7 +117,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       expire_page(:controller => 'notes', :action => %w(rdf_category show_category show_category_noteslist) , :category => rc.name)
 
       begin
-        ppdir = RAILS_ROOT + "/public/notes/rdf_category/#{rc.name}/page"
+        ppdir = RAILS_ROOT + "/public/archives/rdf_category/#{rc.name}/page"
         ppdir2 = Dir.entries(ppdir)
         ppdir2.each do |x|
           if x =~ /(\d+)/
@@ -129,7 +129,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
         p $!
       end
       begin
-        ppdir = RAILS_ROOT + "/public/notes/category/#{rc.name}/page"
+        ppdir = RAILS_ROOT + "/public/archives/category/#{rc.name}/page"
         ppdir2 = Dir.entries(ppdir)
         ppdir2.each do |x|
           if x =~ /(\d+)/
@@ -142,7 +142,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       end
 
       begin
-        ppdir = RAILS_ROOT + "/public/notes/show_category/#{rc.id}/page"
+        ppdir = RAILS_ROOT + "/public/archives/show_category/#{rc.id}/page"
         ppdir2 = Dir.entries(ppdir)
         ppdir2.each do |x|
           if x =~ /(\d+)/
@@ -155,7 +155,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       end
 
       begin
-        ppdir = RAILS_ROOT + "/public/notes/d/#{rc.name}/page"
+        ppdir = RAILS_ROOT + "/public/archives/show_category_noteslist/#{rc.name}/page"
         ppdir2 = Dir.entries(ppdir)
         ppdir2.each do |x|
           if x =~ /(\d+)/
@@ -190,7 +190,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
   def ep_trigger_title_a
     expire_page(:controller => 'notes', :action => 'recent_trigger_title_a')
     begin
-      ppdir = RAILS_ROOT + "/public/notes/recent_trigger_title_a"
+      ppdir = RAILS_ROOT + "/public/archives/recent_trigger_title_a"
       ppdir2 = Dir.entries(ppdir)
       ppdir2.each do |x|
         if x =~ /(\w+).html/
