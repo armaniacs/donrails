@@ -577,7 +577,11 @@ class NotesController < ApplicationController
       aris1.valid?
       if aris1.errors.empty?
         aris1.save
-        redirect_to :action => "show_enrollment", :id => a.enrollment_id
+        if a.enrollment_id
+          redirect_to :action => "show_enrollment", :id => a.enrollment_id
+        else
+          redirect_to :action => "noteslist"
+        end
       else
         emg = ''
         aris1.errors.each_full do |msg|

@@ -18,10 +18,7 @@
   </tr>
   <% @don_rbls.each do |co| %>
   <tr>
-    <td>
-      <%= link_to 'Edit', {:action => :manage_don_rbl, :id => co.id} %>
-      <%= check_box "deleteid", co.id %>
-    </td>
+    <td><%= check_box "deleteid", co.id %></td>
     <td><%= co.id %></td>
     <td><%=h co.rbl_type %></td>
     <td><%=h co.hostname %></td>

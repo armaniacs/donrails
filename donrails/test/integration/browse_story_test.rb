@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class BrowseStoryTest < ActionController::IntegrationTest
-  fixtures :articles, :blogpings, :comments, :pings, :authors, :categories, :plugins, :banlists, :pictures, :trackbacks
+  fixtures :articles, :blogpings, :comments, :pings, :authors, :categories, :plugins, :banlists, :pictures, :trackbacks, :don_envs, :don_rbls, :enrollments
 
   # Replace this with your real tests.
   def test_truth
@@ -9,7 +9,7 @@ class BrowseStoryTest < ActionController::IntegrationTest
   end
 
   def test_fromtop
-    if defined?(DEFAULT_THEME) && DEFAULT_THEME == 'MT'
+    if don_get_config.default_theme == 'MT'
     else
       get "/notes/index"
       assert_equal 200, status
@@ -46,4 +46,5 @@ class BrowseStoryTest < ActionController::IntegrationTest
 
     # GET /notes/category/misc/page/108?article_date=.html    
   end
+
 end

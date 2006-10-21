@@ -474,12 +474,10 @@ class LoginController < ApplicationController
       end
 
       get_ymd
-      aris1 = Article.new("title" => title,
-                          "body" => body,
-                          "size" => body.size,
-                          "format" => format,
-                          "article_date" => @ymd
-                          )
+
+      aris1 = Article.new("title" => title, "body" => body, "size" => body.size, "format" => format)
+      aris.article_date = @ymd if @ymd
+
       aris1.build_enrollment
       aris1.enrollment.title = title
       aris1.enrollment.save
@@ -1036,9 +1034,6 @@ class LoginController < ApplicationController
 
   # RBL
   def manage_don_rbl
-    if @params['id']
-      @donenv = DonRbl.find(@params['id'])
-    end
     @don_rbls = DonRbl.find_all
   end
 
@@ -1049,7 +1044,7 @@ class LoginController < ApplicationController
       else aris1
         aris1 = DonRbl.new
       end
-      aris1.rbl_type = c["rbl_type"]
+      aris1.rbl_type = @params["format"]
       aris1.hostname = c["hostname"]
       aris1.save
     end

@@ -1,6 +1,11 @@
 <%= secure_form_tag :action => "add_don_rbl" %>
 <%= hidden_field "donrbl", "id" %><br>
-rbl_type:<%= text_field "donrbl", "rbl_type" %><br>
-hostname:<%= text_field "donrbl", "hostname" %><br>
+rbl_type:
+<select name="format">
+  <option value="ip">ip</option>
+  <option value="host">host</option>
+</select>
+<br>
+hostname:<%= text_field "donrbl", "hostname" %>(niku.2ch.netなど)<br>
 <%= submit_tag "save" %>
 <%= end_form_tag %>

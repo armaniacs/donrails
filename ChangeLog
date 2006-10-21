@@ -1,3 +1,24 @@
+2006-10-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/article_sweeper.rb 
+	(ArticleSweeper::expire_for): Split following methods.
+	(ArticleSweeper::ep_trigger_title_a): New method.
+	(ArticleSweeper::ep_atom): New method.
+	(ArticleSweeper::ep_category): New method.
+	(ArticleSweeper::ep_articles_long): New method.
+	(ArticleSweeper::ep_author): New method.
+	(ArticleSweeper::ep_notes): New method.
+
+	* donrails/app/models/article.rb (Article::renew_mtime): Fix: When article_date is not setted, this method set it.
+
+	* donrails/app/views/login/manage_don_rbl.rhtml: Cleanup.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::manage_don_rbl): Cleanup.
+
+	* donrails/app/views/shared/edit_don_rbl.rhtml (rbl_type): Change to use <select>.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::add_comment2): Fix to show article which has not enrollment_id.
+
 2006-10-20  Akira TAGOH  <at@gclab.org>
 
 	* donrails/app/views/layouts/MT/notes.rhtml: reflects author and
@@ -6,6 +27,8 @@
 	* donrails/app/views/layouts/default/notes.rhtml: likewise.
 
 2006-10-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/ping.rb (Ping::send_ping_xmlrpc_extended): Fix rdf url.
 
 	* donrails/app/views/login/manage_category.rhtml: Fix description.
 
