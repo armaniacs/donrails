@@ -54,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "archives/id/:id", :controller => "notes", 
   :action => "show_enrollment",
   :requirements => { 
-    :id => /\d+/
+    :id => /\d+(\.html)?/
   }
 
   map.connect "archives/show_title/:title", :controller => "notes", 
@@ -115,13 +115,12 @@ ActionController::Routing::Routes.draw do |map|
     :day => /[0-3]?\d/
   }
 
-  map.xml 'archives/rdf_recent/feed.xml', :controller => 'notes', :action => "rdf_recent"
-#  map.connect "archives/di.cgi", :controller => "notes", :action => "rdf_recent"
-
-  map.xml 'archives/rdf_article/:id/feed.xml', :controller => 'notes', :action => "rdf_article"
-
-  map.xml 'archives/rdf_category/:category/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => '1'
-  map.xml 'archives/rdf_category/:category/page/:page/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => /\d+/
+  map.xml 'rdf/rdf_recent/feed.xml', :controller => 'notes', :action => "rdf_recent"
+  map.xml 'rdf/rdf_article/:id/feed.xml', :controller => 'notes', :action => "rdf_article", :id => /\d+/
+  map.xml 'rdf/rdf_enrollment/:id/feed.xml', :controller => 'notes', :action => "rdf_enrollment", :id => /\d+/
+  map.xml 'rdf/rdf_search/:q/feed.xml', :controller => 'notes', :action => "rdf_search", :q => /.+/
+  map.xml 'rdf/rdf_category/:category/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => '1'
+  map.xml 'rdf/rdf_category/:category/page/:page/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => /\d+/
 
   map.connect 'archives/recent_category_title_a/:category', :controller => 'notes', :action => "recent_category_title_a", :category => /\w+/
   map.connect 'archives/recent_trigger_title_a/:trigger', :controller => 'notes', :action => "recent_trigger_title_a", :trigger => /\w+/

@@ -117,7 +117,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       expire_page(:controller => 'notes', :action => %w(rdf_category show_category show_category_noteslist) , :category => rc.name)
 
       begin
-        ppdir = RAILS_ROOT + "/public/archives/rdf_category/#{rc.name}/page"
+        ppdir = RAILS_ROOT + "/public/rdf/rdf_category/#{rc.name}/page"
         ppdir2 = Dir.entries(ppdir)
         ppdir2.each do |x|
           if x =~ /(\d+)/
