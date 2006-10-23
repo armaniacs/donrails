@@ -19,13 +19,13 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "archives/show_category_noteslist/:category/page/:page", 
   :controller => "notes", :action => "show_category_noteslist", 
   :requirements => { 
-    :category => /.+/, :page => /\d+/
+    :category => /\w+/, :page => /\d+/
   }
   map.connect "archives/show_category_noteslist/:category", 
   :controller => "notes",
   :action => "show_category_noteslist", :page => '1',
   :requirements => { 
-    :category => /.+/
+    :category => /\w+/
   }
 
   map.connect "archives/:year/:month/:day", :controller => "notes", 
