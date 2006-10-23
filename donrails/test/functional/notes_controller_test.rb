@@ -367,7 +367,7 @@ class NotesControllerTest < Test::Unit::TestCase
       "title" => "testtitle", 
       "body" => "testbody", "article_id" => 1}
     post :add_comment2, :comment => c
-    assert_match(/^http:\/\/test.host\/notes\/\w+\/1/, @response.headers['location'])
+    assert_match(/^http:\/\/test.host\/archives\/\w+\/1/, @response.headers['location'])
     assert_response 302
 
     c = {"author" => "testauthor", "password" => "hoge5", 
@@ -387,7 +387,7 @@ class NotesControllerTest < Test::Unit::TestCase
       "body" => "testbody", "article_id" => 1}
 
     get :add_comment2, :comment => c
-#    assert_equal('http://test.host/notes/d', @response.headers['location'])
+#    assert_equal('http://test.host/archives/d', @response.headers['location'])
     assert_response 302
   end
 

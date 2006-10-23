@@ -1,4 +1,10 @@
+2006-10-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/integration/cache_test.rb (CacheTest::test_caching_notes): Fix test path.
+
 2006-10-22  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/integration/browse_mt_test.rb (BrowseStoryTest::test_fromtop): Fix test path.
 
 	* donrails/config/routes.rb: Change URL /archives/rdf_(.+) to /rdf/rdf_$1.
 	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_category): likewise.
