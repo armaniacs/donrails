@@ -476,7 +476,7 @@ class LoginController < ApplicationController
       get_ymd
 
       aris1 = Article.new("title" => title, "body" => body, "size" => body.size, "format" => format)
-      aris.article_date = @ymd if @ymd
+      aris1.article_date = @ymd if @ymd
 
       aris1.build_enrollment
       aris1.enrollment.title = title
