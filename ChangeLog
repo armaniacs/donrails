@@ -1,5 +1,7 @@
 2006-10-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/test/functional/atom_controller_test.rb (AtomControllerTest::test_feed): Fix test code for modifing AtomController::feed.
+
 	* donrails/app/controllers/atom_controller.rb (AtomController::feed): Fix to wrong article to show.
 	* donrails/app/views/layouts/default/notes.rhtml: Fix link. likewise.
 	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_atom): Fix it. likewise.
