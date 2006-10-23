@@ -3,7 +3,7 @@
 
 <%= auto_discovery_link_tag(:rss, :action => 'rdf_category', :category => @rdf_category) if @rdf_category %>
 <%= auto_discovery_link_tag(:rss, :action => 'rdf_article', :id => @rdf_article) if @rdf_article %>
-<%= auto_discovery_link_tag(:atom, :controller => 'atom', :action => 'feed', :id => @rdf_article) if @rdf_article %>
+<%= auto_discovery_link_tag(:atom, :controller => 'atom', :action => 'feed', :aid => @rdf_article) if @rdf_article %>
 <%= auto_discovery_link_tag(:rss, :action => 'rdf_recent') %>
 <%= auto_discovery_link_tag(:atom, :controller => 'atom', :action => 'feed') %>
 
