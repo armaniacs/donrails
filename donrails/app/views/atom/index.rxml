@@ -12,7 +12,7 @@ xml.feed("xmlns" => "http://purl.org/atom/ns\#") do
 	   "title" => don_get_config.rdf_title)
   xml.link("type" => "application/atom+xml",
            "rel" => "service.feed",
-	   "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :id => @latest_article.id + 1),
+	   "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :aid => @latest_article.id + 1),
 	   "title" => don_get_config.rdf_title)
 =begin
   xml.link("type" => "application/atom+xml",

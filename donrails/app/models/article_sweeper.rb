@@ -172,7 +172,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
   def ep_atom(record)
     expire_page(:controller => 'atom', :action => 'feed')
-    expire_page(:controller => 'atom', :action => 'feed', :id => record.id)
+    expire_page(:controller => 'atom', :action => 'feed', :aid => record.id)
     begin
       ppdir = RAILS_ROOT + "/public/atom/feed/page"
       ppdir2 = Dir.entries(ppdir)

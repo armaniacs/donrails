@@ -132,7 +132,7 @@ ActionController::Routing::Routes.draw do |map|
   :action => "feed", :page => '1'
   map.xml 'atom/feed/page/:page/feed.xml', :controller => 'atom', 
   :action => "feed", :page => /\d+/
-  map.xml 'atom/feed/:id/feed.xml', :controller => 'atom', :action => "feed", :id => /\d+/
+  map.xml 'atom/feed/:aid/feed.xml', :controller => 'atom', :action => "feed", :aid => /\d+/
 
   map.xml 'archives/sitemap.xml', :controller => 'notes', :action => "sitemap"
 

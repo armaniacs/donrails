@@ -1,5 +1,14 @@
 2006-10-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/atom_controller.rb (AtomController::feed): Fix to wrong article to show.
+	* donrails/app/views/layouts/default/notes.rhtml: Fix link. likewise.
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_atom): Fix it. likewise.
+	* donrails/config/routes.rb: Fix url map. likewise. 
+	* donrails/app/views/atom/index.rxml: Fix link. likewise. 
+	* donrails/app/views/atom/feed.rxml: Fix link. likewise. 
+
+	* donrails/app/controllers/login_controller.rb (LoginController::add_article): Fix typo.
+
 	* donrails/config/routes.rb: Fix for show_category_noteslist entry.
 
 	* donrails/test/integration/cache_test.rb (CacheTest::test_caching_notes): Fix test path.

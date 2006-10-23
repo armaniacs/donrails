@@ -33,11 +33,11 @@ class AtomController < ApplicationController
 
   # atom feed
   def feed
-    if @params['id'] == nil
+    if @params['aid'] == nil
       @articles_pages, @articles = paginate(:article, :per_page => 20, :order_by => 'id DESC', :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     else
       begin
-        @article = Article.find(@params['id'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+        @article = Article.find(@params['aid'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
       rescue
         render :text => "no this id", :status => 403
       end
