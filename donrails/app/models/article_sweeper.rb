@@ -23,7 +23,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
       expire_page(:controller => 'notes', :action => %w(index rdf_recent articles_long category_tree_list_a sitemap))
       expire_page(:controller => 'notes', :action => %w(rdf_article show_title), :id => record.id)
-      expire_page(:controller => 'notes', :action => %w(show_enrollment), :id => record.enrollment_id) if record.enrollment_id
+      expire_page(:controller => 'notes', :action => %w(show_enrollment rdf_enrollment), :id => record.enrollment_id) if record.enrollment_id
       expire_page(:controller => 'notes', :action => %w(rdf_article show_title2), :title => record.title)
       expire_page(:controller => 'notes', :action => 'show_month', :year => record.article_date.year, :month => record.article_date.month)
       expire_page(:controller => 'notes', :action => 'show_nnen', :day => record.article_date.day, :month => record.article_date.month)
@@ -114,6 +114,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
     clall = Category.find_all
     clall.each do |rc|
+
       expire_page(:controller => 'notes', :action => %w(rdf_category show_category show_category_noteslist) , :category => rc.name)
 
       begin

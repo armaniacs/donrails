@@ -12,7 +12,7 @@
 
 <div class="section">
   <%= display_enrollment_images(@enrollment) %>
-  <%= auto_link article.body_to_html if article.body %>
+  <%= article.body_to_html if article.body %>
   <%= render(don_get_theme("shared/comment-enrollment"), "enrollment" => @enrollment, "article" => article) %>
   <div class="nndate">
     <%= render(don_get_theme("shared/authorhead"), "article" => article) %>

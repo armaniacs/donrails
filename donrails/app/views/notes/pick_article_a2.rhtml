@@ -1,7 +1,7 @@
 <% article = don_get_object(@article, 'html') %>
 <div class="section">
 <%= display_article_images article %>
-<%= auto_link article.body_to_html if article.body %>
+<%= article.body_to_html if article.body %>
 <%= render(don_get_theme("shared/comment"), "article" => article) %>
 <br clear='all'>
 </div>

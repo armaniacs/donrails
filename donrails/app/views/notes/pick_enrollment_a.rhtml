@@ -7,7 +7,7 @@
 <div class="section">
 <!--  display_article_images article % -->
 <%= display_enrollment_images @enrollment %>
-<%= auto_link article.body_to_html if article.body %>
+<%= article.body_to_html if article.body %>
 <%= render("shared/comment-noadd-enrollment", "enrollment" => @enrollment) %>
 <br clear='all'>
 </div> <!-- end section -->

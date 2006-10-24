@@ -57,8 +57,8 @@ ActionController::Routing::Routes.draw do |map|
     :id => /\d+(\.html)?/
   }
 
-  map.connect "archives/show_title/:title", :controller => "notes", 
-  :action => "show_title", :title => /.+/
+#  map.connect "archives/show_title/:title", :controller => "notes", 
+#  :action => "show_title", :title => /.+/
 
   # for backward compatibility
   map.connect "archives/pick_article/:id", :controller => "notes", 

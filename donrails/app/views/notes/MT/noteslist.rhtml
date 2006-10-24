@@ -20,7 +20,7 @@ if @articles then
   <div class="entry-content">
     <div class="entry-body">
       <%= display_article_images(article) %>
-      <%= auto_link(article.body_to_html) %>
+      <%= article.body_to_html %>
     </div><!-- the end of 'entry-body' -->
   </div><!-- the end of 'entry-content' -->
   <p class="entry-footer">

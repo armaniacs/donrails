@@ -49,7 +49,7 @@ article = don_get_object(a, 'html'); day0 = article.article_date.to_date %>
 
 <div class="section">
   <%= display_article_images(article) %>
-  <%= auto_link article.body_to_html %>
+  <%= article.body_to_html %>
   <%= render(don_get_theme("shared/comment2"), "article" => article) %>
   <div class="nndate">
     <%= render(don_get_theme("shared/authorhead"), "article" => article) %>

@@ -6,7 +6,7 @@
 </div> <!-- end nnenhead -->
 <div class="section">
 <%= display_article_images article %>
-<%= auto_link article.body_to_html if article.body %>
+<%= article.body_to_html if article.body %>
 <%= render("shared/comment-noadd", "article" => article) %>
 <br clear='all'>
 </div> <!-- end section -->

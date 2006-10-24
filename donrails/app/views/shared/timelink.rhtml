@@ -3,7 +3,7 @@ aad = article.article_date
 bt = article.body_to_html
 bt.gsub!(/昨日/, "yesterday")
 %>
-<%= auto_link bt %>
+<%= bt %>
 
 
 <%= link_to "昨日", {:action => "show_date", :year => aad.yesterday.year, :month => aad.yesterday.month, :day => aad.yesterday.day} %>
