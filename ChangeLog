@@ -1,3 +1,16 @@
+2006-10-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** TABLE change. VARCHAR(100) to TEXT.
+	* upgrade_1_4.mysql.sql: New file. 
+	* donrails/tool/tables-mysql.sql: Apply for this change. (For
+	PostgreSQL and Sqlite were not modified. TODO).
+
+	* donrails/app/views/notes/rdf_recent.rxml: Change channel link url from '/archives' to ''.
+
+2006-10-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/update-custom.sh: New file. It helps you to maintain  your layout customization. For usage, please read in this file.
+
 2006-10-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* Remove auto_link in following files.
