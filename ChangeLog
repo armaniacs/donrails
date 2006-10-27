@@ -1,5 +1,8 @@
 2006-10-28  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/views/layouts/MT/notes.rhtml: show the categorylist by
+	default.
+
 	* donrails/app/views/shared/MT/module-categorylist.rhtml:
 	new file to show the category list with Ajax.
 
