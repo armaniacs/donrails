@@ -1,5 +1,9 @@
 2006-10-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/config/routes.rb: Fix for such url (e.g. http://cfard3:3000/archives/category/road.html )	
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_category): likewise.
+	* donrails/test/integration/browse_story_test.rb (BrowseStoryTest::test_fromtop): Add test for it.
+
 	* donrails/app/models/ping.rb (Ping): Fix to change '/notes' to appropriate URI. This problem cause problem when you add/modify a article.
 
 2006-10-26  ARAKI Yasuhiro  <yasu@debian.or.jp>

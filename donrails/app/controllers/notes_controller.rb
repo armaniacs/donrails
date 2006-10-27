@@ -475,7 +475,8 @@ class NotesController < ApplicationController
     begin
       if @params[:id]
         @category = Category.find(@params[:id])
-      elsif @params['category']
+      elsif cp = @params['category']
+        cp.sub!(/\.html$/, '')
         @category = Category.find(:first, :conditions => ["name = ?", @params['category']])
       elsif @params['nocategory']
         @category = Category.find(:first, :conditions => ["NOT name = ?", @params['nocategory']])

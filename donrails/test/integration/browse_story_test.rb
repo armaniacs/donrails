@@ -11,40 +11,45 @@ class BrowseStoryTest < ActionController::IntegrationTest
   def test_fromtop
     if don_get_config.default_theme == 'MT'
     else
-      get "/notes/index"
+      get "/archives/index"
       assert_equal 200, status
     end
     get "/notes"
     assert_equal 200, status
 
-    get "/notes/search", :q => 'first body'
+    get "/archives/search", :q => 'first body'
     assert_equal 200, status
 
-    get "/notes/show_search_noteslist", :q => 'first body'
+    get "/archives/show_search_noteslist", :q => 'first body'
     assert_equal 200, status
 
-    get "/notes/pick_trackback_a", :pickid => '1'
+    get "/archives/pick_trackback_a", :pickid => '1'
     assert_equal 200, status
 
-    get "/notes/pick_comment_a", :pickid => '1'
+    get "/archives/pick_comment_a", :pickid => '1'
     assert_equal 200, status
 
-    get "/notes/199901a.html"
+    get "/archives/199901a.html"
     assert_equal 302, status
 
-    get_via_redirect "/notes/199901a.html"
+    get_via_redirect "/archives/199901a.html"
     assert_equal 200, status
 
-    # http://donrails.araki.net/notes/show_category/47?page=3
-    get '/notes/show_category/47?page=3'
+    # http://donrails.araki.net/archives/show_category/47?page=3
+    get '/archives/show_category/47?page=3'
     assert_equal 404, status
 #    p @response.headers
-    get '/notes/show_category/1?page=1'
+    get '/archives/show_category/1?page=1'
     assert_equal 200, status
-    get '/notes/show_category/1/page/1'
+    get '/archives/show_category/1/page/1'
     assert_equal 200, status
 
-    # GET /notes/category/misc/page/108?article_date=.html    
+    get '/archives/category/misc'
+    assert_equal 200, status
+    get '/archives/category/misc.html'
+    assert_equal 200, status
+
+    # GET /archives/category/misc/page/108?article_date=.html    
   end
 
 end
