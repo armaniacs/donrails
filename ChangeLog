@@ -1,3 +1,7 @@
+2006-10-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/ping.rb (Ping): Fix to change '/notes' to appropriate URI. This problem cause problem when you add/modify a article.
+
 2006-10-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	** TABLE change. VARCHAR(100) to TEXT.

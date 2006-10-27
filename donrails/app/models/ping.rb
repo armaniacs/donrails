@@ -47,7 +47,7 @@ class Ping < ActiveRecord::Base
   def send_ping_rest(pingurl) # XXX
     uri = URI.parse(pingurl)
     baseurl = don_get_config.baseurl.split('/')
-    baseurl << 'notes'
+    baseurl << 'archives'
     baseurl << 'id'
     
     if self.article.enrollment_id then
@@ -72,7 +72,7 @@ class Ping < ActiveRecord::Base
   def send_ping_xmlrpc(pingurl)
     begin
       baseurl = don_get_config.baseurl.split('/')
-      baseurl << 'notes'
+      baseurl << 'archives'
       baseurl << 'id'
 
       if self.article.enrollment_id then
@@ -97,7 +97,7 @@ class Ping < ActiveRecord::Base
   def send_ping_xmlrpc_extended(pingurl)
     begin
       baseurl = don_get_config.baseurl.split('/')
-      baseurl << 'notes'
+      baseurl << 'archives'
       baseurl << 'id'
       if self.article.enrollment_id 
         baseurl << self.article.enrollment_id.to_s
@@ -105,7 +105,7 @@ class Ping < ActiveRecord::Base
         baseurl << self.article.id.to_s
       end
       changeurl = baseurl.join('/')
-      rdf_recent = don_get_config.baseurl + 'notes/rdf_recent/feed.xml'
+      rdf_recent = don_get_config.baseurl + 'rdf/rdf_recent/feed.xml'
 
       cas = Array.new
       self.article.categories.each do |ca|
