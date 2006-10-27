@@ -1,29 +1,40 @@
 <div class="module-archives module">
   <h2 class="module-header">Recent articles</h2>
   <div class="module-content">
-    <ul class="module-list">
-      <%
-# XXX: really need a better way
-if @articles then
-  no = 10 unless no
-  i = 0
-  @articles.each do |a|
-    article = don_get_object(a, 'html')
-    btmp = strip_links(article.title_to_html)
-    i += 1
-    break if i > no.to_i
-      %>
-      <li class="module-list-item">
-        <% if article.enrollment_id then %>
-	<%= link_to(don_mb_truncate(btmp, 60), {:action => "show_enrollment", :id => article.enrollment_id}) %>
-	<% else %>
-	<%= link_to(don_mb_truncate(btmp, 60), {:action => "show_title", :id => article.id}) %>
-	<% end %>
-      </li>
-      <%
-  end
-end
-      %>
-    </ul><!-- the end of 'module-list' -->
+    <div id="recent-articles">
+      Reading...
+    </div>
+    <script type="text/javascript">
+    <!--
+    function rebuild_recent_article(domtree, parent) {
+      for (var i = 0; i < domtree.childNodes.length; i++) {
+        if (domtree.childNodes[i].nodeName == 'A') {
+	  var dom = document.createElement('li');
+	  dom.className = 'module-list-item';
+	  parent.appendChild(dom);
+	  dom.appendChild(domtree.childNodes[i]);
+	}
+      }
+    }
+    function rebuild_recent_articles() {
+      var domtree = document.getElementById('recent-articles');
+      if (domtree) {
+        var parent = document.createElement('ul');
+	parent.className = 'module-list';
+        for (var i = 0; i < domtree.childNodes.length; i++) {
+          if (domtree.childNodes[i].nodeName == 'DIV') {
+	    rebuild_recent_article(domtree.childNodes[i], parent);
+	  }
+        }
+	domtree.parentNode.appendChild(parent);
+	domtree.parentNode.removeChild(domtree);
+      } else {
+        window.setTimeout(rebuild_recent_articles, 1000);
+      }
+    }
+    <%= remote_function(:update => 'recent-articles', :url => {:controller => "notes", :action => "recent_trigger_title_a", :trigger => 'recents' }, :method => 'get') %>
+    window.setTimeout(rebuild_recent_articles, 1000);
+    -->
+    </script>
   </div><!-- the end of 'module-content' -->
 </div><!-- the end of 'module' -->

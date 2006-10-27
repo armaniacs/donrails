@@ -1,0 +1,38 @@
+<div class="module-categories module">
+  <h2 class="module-header">Categorires</h2>
+  <div class="module-content">
+    <div id="categories">
+      Reading...
+    </div>
+    <script type="text/javascript">
+    <!--
+    function modify_class_for_ul(domtree) {
+      for (var i = 0; i < domtree.childNodes.length; i++) {
+        if (domtree.childNodes[i].nodeName == 'UL') {
+	  domtree.childNodes[i].className = 'module-list';
+	  modify_class_for_li(domtree.childNodes[i]);
+	}
+      }
+    }
+    function modify_class_for_li(domtree) {
+      for (var i = 0; i < domtree.childNodes.length; i++) {
+        if (domtree.childNodes[i].nodeName == 'LI') {
+	  domtree.childNodes[i].className = 'module-list-item';
+	  modify_class_for_ul(domtree.childNodes[i]);
+	}
+      }
+    }
+    function modify_class_for_categorylist() {
+      var domtree = document.getElementById('roots_ul');
+      if (domtree) {
+        modify_class_for_ul(domtree);
+      } else {
+        window.setTimeout(modify_class_for_categorylist, 1000);
+      }
+    }
+    <%= remote_function(:update => 'categories', :url => {:controller => "notes", :action => "category_tree_list_a" }, :method => 'get') %>
+    window.setTimeout(modify_class_for_categorylist, 1000);
+    -->
+    </script>
+  </div><!-- the end of 'module-content' -->
+</div><!-- the end of 'module' -->

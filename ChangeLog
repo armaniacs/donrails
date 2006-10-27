@@ -1,3 +1,14 @@
+2006-10-28  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/shared/MT/module-categorylist.rhtml:
+	new file to show the category list with Ajax.
+
+	* donrails/app/views/shared/MT/module-titlelist.rhtml:
+	modified to show the recent articles with Ajax.
+
+	* donrails/app/views/shared/MT/simple-hatena.rhtml:
+	new file to add links for Hatena Bookmark features.
+
 2006-10-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/config/routes.rb: Fix for such url (e.g. http://cfard3:3000/archives/category/road.html )	
