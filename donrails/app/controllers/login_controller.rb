@@ -405,7 +405,7 @@ class LoginController < ApplicationController
 
         if tburllist
           baseurl = don_get_config.baseurl.split('/')
-          baseurl << 'notes'
+          baseurl << 'archives'
           baseurl << 'id'
           if aris.enrollment_id
             baseurl << aris.enrollment_id.to_s
@@ -506,7 +506,7 @@ class LoginController < ApplicationController
 
         if tburllist
           baseurl = don_get_config.baseurl.split('/')
-          baseurl << 'notes'
+          baseurl << 'archives'
           baseurl << 'id'
           if aris1.enrollment_id
             baseurl << aris1.enrollment_id.to_s

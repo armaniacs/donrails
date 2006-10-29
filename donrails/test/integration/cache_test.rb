@@ -23,8 +23,24 @@ class CacheTest < ActionController::IntegrationTest
 
     assert_expire_pages('/archives','/archives/id/1', 
                         '/archives/pick_article/1',
+
+                        '/archives/noteslist',
+                        '/archives/recent_category_title_a',
+
+                        # /archives/rdf_category?category=misc.html
+                        # /archives/show_category?category=misc.html
+                        # /archives/show_category_noteslist?category=misc.html
+                        # /archives/rdf_category?category=misc2.html
+                        # /archives/show_category?category=misc2.html
+                        # /archives/show_category_noteslist?category=misc2.html
+
                         '/rdf/rdf_recent/feed.xml',
+                        '/archives/articles_long',
+                        '/archives/category_tree_list_a',
+                        '/archives/sitemap.xml',
                         '/rdf/rdf_article/1/feed.xml',
+                        '/archives/pick_article/1',
+                        '/archives/id/1',
                         '/rdf/rdf_enrollment/1/feed.xml',
                         '/archives/1999/1',
                         '/archives/1999/1/1',
@@ -34,7 +50,7 @@ class CacheTest < ActionController::IntegrationTest
       c = {"author" => "testauthor", "password" => "hoge5", 
         "url" => "http://localhost/test.html", 
         "title" => "testtitle", 
-        "body" => "testbody", "article_id" => 1}
+        "body" => "testbody in cache_test", "article_id" => 1}
       post '/archives/add_comment2', :comment => c, :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
     end
 

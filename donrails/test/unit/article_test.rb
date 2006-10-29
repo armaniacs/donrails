@@ -44,14 +44,14 @@ class ArticleTest < Test::Unit::TestCase
   end
 
   def test_send_trackback
-    articleurl = ['http://localhost:3000/notes/id/1']
-    urllist = ['http://localhost:3000/notes/catch_trackback']
+    articleurl = ['http://localhost:3000/archives/id/1']
+    urllist = ['http://localhost:3000/archives/catch_trackback']
     @a1.send_trackback(articleurl, urllist)
   end
 
   def test_send_ping2
-    articleurl = ['http://localhost:3000/notes/id/1']
-    urllist = ['http://localhost:3000/notes/catch_ping']
+    articleurl = ['http://localhost:3000/archives/id/1']
+    urllist = ['http://localhost:3000/archives/catch_ping']
     @a1.send_pings2(articleurl, urllist)
   end
 

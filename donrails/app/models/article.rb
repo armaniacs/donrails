@@ -56,8 +56,8 @@ class Article < ActiveRecord::Base
         ping.send_ping2(url)
         ping.save
       rescue
-        p "ping.send_ping2 error"
         p $!
+        p "ping.send_ping2 error"
         # in case the remote server doesn't respond or gives an error,
         # we should throw an xmlrpc error here.
       end
