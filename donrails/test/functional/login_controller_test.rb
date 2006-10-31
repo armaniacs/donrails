@@ -281,13 +281,14 @@ class LoginControllerTest < Test::Unit::TestCase
     :format => 'plain',
     :category => {:name => 'test misc'},
     :author => {:name => 'test author'}
-    assert_redirected_to :action => 'manage_article'
+    assert_response 404
+#    assert_redirected_to :action => 'manage_article'
 
     post :add_article, 
     :article => {:title => 'test add article title', :body => 'body and soul', :tburl => 'http://localhost:3000/notes/trackback/1'}, 
     :format => 'plain',
     :category => {:name => 'test misc'},
-    :author => {:name => 'test author'}
+    :author => {:name => 'araki2'}
     assert_redirected_to :action => 'manage_article'
   end
 

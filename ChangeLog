@@ -1,3 +1,17 @@
+2006-10-31  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Usage CHANGE. Before adding article, you have to add at least an author by using '/login/manage_author'. (issue #25)
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): fix: When author name set. 
+	* donrails/app/models/article.rb (Article): Add validates_presence_of author_id, title, format and enrollment_id.
+	* donrails/app/controllers/login_controller.rb (LoginController::add_article): Change to return 404. When you had not input author entry, you get 404.
+	* donrails/test/unit/enrollment_test.rb 
+	(EnrollmentTest::test_2): Change to apply these changes.
+	(EnrollmentTest::test_1): likewise.
+
+2006-10-30  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/atom/feed.rxml: fix generator url.
+
 2006-10-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Fix to show trackback URL from 'notes' to 'archives'.

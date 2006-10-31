@@ -3,6 +3,7 @@ require 'net/http'
 include ApplicationHelper
 
 class Article < ActiveRecord::Base
+  validates_presence_of :author_id, :title, :format, :enrollment_id
   has_and_belongs_to_many :categories, :join_table => "categories_articles"
   has_many :pings, :order => "id ASC"
   has_many :trackbacks, :order => "id ASC"

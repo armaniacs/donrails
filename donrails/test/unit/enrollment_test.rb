@@ -25,8 +25,10 @@ class EnrollmentTest < Test::Unit::TestCase
     assert_nothing_raised {
       a3 = Article.new
       a3.title = 'test_1 title'
-      a3.build_enrollment
-      a3.enrollment.save
+      a3.format = 'plain'
+      a3.author_id = 1
+
+      a3.create_enrollment
       a3.save
       
       a3id = a3.id
@@ -41,10 +43,10 @@ class EnrollmentTest < Test::Unit::TestCase
     assert_nothing_raised {
       a3 = Article.new
       a3.title = 'test_1 title'
-      a3.build_enrollment
-      a3.enrollment.save
+      a3.format = 'plain'
+      a3.author_id = 1
+      a3.create_enrollment
       a3.save
-      
       a3id = a3.id
       a3eid = a3.enrollment_id
       

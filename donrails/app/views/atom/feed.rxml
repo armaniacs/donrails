@@ -24,7 +24,7 @@ xml.feed("xmlns" => "http://purl.org/atom/ns\#") do
   xml.link("type" => "application/atom+xml", "rel" => "next", "href" => @request.protocol + @request.host_with_port + url_for(:action => "feed", :aid => @articles.last.id - 1), "title" => don_get_config.rdf_title)
 
   xml.title don_get_config.rdf_title
-  xml.generator "donrails", "url" => "http://developer.berlios.de/projects/donrails/"
+  xml.generator "donrails", "url" => "http://code.google.com/p/donrails/"
   xml.modified pub_date(@articles.first.article_mtime) if @articles.first and @articles.first.article_mtime
   xml.tagline don_get_config.rdf_description
   xml.copyright don_get_config.rdf_copyright

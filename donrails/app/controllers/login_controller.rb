@@ -350,7 +350,7 @@ class LoginController < ApplicationController
 
       # original check
       oa = Article.find(id) # oa is original Article.
-      if format == oa.format and title == oa.title and body == oa.body and c["author_name"] and c["author_name"].length and c["author_name"] == oa.author.name and newcategory.size == 0 and article_date == oa.article_date.to_date.to_s and hideid == oa.hidden.to_s
+      if format == oa.format and title == oa.title and body == oa.body and c["author_name"] and c["author_name"].length and !oa.author.nil? && c["author_name"] == oa.author.name and newcategory.size == 0 and article_date == oa.article_date.to_date.to_s and hideid == oa.hidden.to_s
         @flash[:note2] = '<br>You have not change:' + id.to_s
         
         cat_ka_in = Array.new
@@ -465,12 +465,14 @@ class LoginController < ApplicationController
 
       if @params["author"] and @params["author"]['name']
         author_name = @params["author"]['name']
-        begin
-          author = Author.find(:first, :conditions => ["name = ?", author_name])
-        rescue
-          author = Author.new("name" => author_name)
-          author.save
+        author = Author.find(:first, :conditions => ["name = ?", author_name])
+        if author == nil
+          render :text => 'invalid entry', :status => 404
+          return
         end
+      else
+        render :text => 'invalid entry', :status => 404
+        return
       end
 
       get_ymd
@@ -478,7 +480,7 @@ class LoginController < ApplicationController
       aris1 = Article.new("title" => title, "body" => body, "size" => body.size, "format" => format)
       aris1.article_date = @ymd if @ymd
 
-      aris1.build_enrollment
+      aris1.create_enrollment
       aris1.enrollment.title = title
       aris1.enrollment.save
 
@@ -500,7 +502,7 @@ class LoginController < ApplicationController
         end
         aris1.categories.push_with_attributes(b)
       end
-      aris1.valid?
+
       if aris1.errors.empty?
         aris1.save
 
