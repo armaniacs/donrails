@@ -1,7 +1,7 @@
 require 'uri'
 require 'net/http'
 
-class Ping < ActiveRecord::Base
+class DonPing < ActiveRecord::Base
   belongs_to :article
 #  belongs_to :enrollment
 

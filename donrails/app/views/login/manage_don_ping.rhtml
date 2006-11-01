@@ -5,9 +5,9 @@
   <%= @flash[:note2] %>
 </div>
 ping record  
-<% if @pings %>
-<% if @pings_pages %>
-<%= pagination_links @pings_pages %>
+<% if @don_pings %>
+<% if @don_pings_pages %>
+<%= pagination_links @don_pings_pages %>
 <% end %>
 
 <table  border="1" cellspacing="0">
@@ -17,7 +17,7 @@ ping record
     <td>url</td>
   </tr>
 
-  <% @pings.each do |co| %>
+  <% @don_pings.each do |co| %>
   <tr>
     <td><%= co.id %></td>
     <td><%= co.article_id %></td>
@@ -27,8 +27,8 @@ ping record
 </table>
 <% end %>
 
-<% if @pings_pages %>
-<%= pagination_links @pings_pages %>
+<% if @don_pings_pages %>
+<%= pagination_links @don_pings_pages %>
 <% end %>
 
  

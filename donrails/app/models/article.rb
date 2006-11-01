@@ -5,7 +5,7 @@ include ApplicationHelper
 class Article < ActiveRecord::Base
   validates_presence_of :author_id, :title, :format, :enrollment_id
   has_and_belongs_to_many :categories, :join_table => "categories_articles"
-  has_many :pings, :order => "id ASC"
+  has_many :don_pings, :order => "id ASC"
   has_many :trackbacks, :order => "id ASC"
   has_many :pictures, :order => "id ASC"
   has_many :comments, :order => "id ASC"
@@ -53,12 +53,13 @@ class Article < ActiveRecord::Base
   def send_pings2(articleurl, urllist)
     urllist.each do |url|
       begin
-        ping = pings.build("url" => url)
+#        ping = pings.build("url" => url)
+        ping = don_pings.build("url" => url)
         ping.send_ping2(url)
         ping.save
       rescue
         p $!
-        p "ping.send_ping2 error"
+        p "donping.send_ping2 error"
         # in case the remote server doesn't respond or gives an error,
         # we should throw an xmlrpc error here.
       end
@@ -69,7 +70,8 @@ class Article < ActiveRecord::Base
     urllist.each do |url|
       if url and url.size > 1 # XXX 
         begin
-          ping = pings.build("url" => url)
+#          ping = pings.build("url" => url)
+          ping = don_pings.build("url" => url)
           ar2 = don_get_object(self, 'html')
           title = "#{URI.escape(ar2.title_to_html)}"
           begin
@@ -80,7 +82,7 @@ class Article < ActiveRecord::Base
           ping.send_trackback(url, title, excerpt)
           ping.save
         rescue
-          p "ping.send_ping2 error"
+          p "don ping.send_ping2 error"
           p $!
           # in case the remote server doesn't respond or gives an error,
           # we should throw an xmlrpc error here.

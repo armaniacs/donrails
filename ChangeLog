@@ -1,4 +1,25 @@
+2006-11-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::manage_don_ping): Rename Ping to DonPing. (issue #27)	
+	* upgrade_1_4.mysql.sql: likewise.
+	* upgrade_1_4.postgresql.sql: likewise.
+	* donrails/app/models/article.rb (Article): likewise.
+	* donrails/test/unit/don_ping_test.rb (PingTest): likewise.
+	* donrails/test/integration/browse_story_test.rb (BrowseStoryTest): likewise.
+	* donrails/test/integration/cache_test.rb (CacheTest): likewise.
+	* donrails/test/integration/browse_mt_test.rb (BrowseStoryTest): likewise.
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_manage_don_ping): likewise.
+	* donrails/app/models/don_ping.rb (DonPing): likewise.
+	* donrails/app/views/login/manage_ping.rhtml: likewise.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_notes): Fix to delete '/public/index.html'.
+
+	* donrails/app/apis/meta_weblog_service.rb (MetaWeblogService::newPost): Fix to apply checking Article.validates_presence_of enrollment_id.
+	* donrails/app/apis/blogger_service.rb (BloggerService::newPost): likewise.
+
 2006-10-31  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_get_oldconfig): Fix to initial login. (issue #26)
 
 	* Usage CHANGE. Before adding article, you have to add at least an author by using '/login/manage_author'. (issue #25)
 	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): fix: When author name set. 

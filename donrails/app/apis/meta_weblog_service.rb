@@ -97,9 +97,8 @@ class MetaWeblogService < DonWebService
     article.title       = struct['title'] || ''
     article.article_date = struct['dateCreated'].to_time.getlocal rescue Time.now
     article.format = 'html'
-    article.build_enrollment
+    article.create_enrollment
     article.enrollment.title = article.title
-    article.enrollment.save
     author1 = Author.find_by_name(username)
     article.author_id = author1.id
     if publish == false

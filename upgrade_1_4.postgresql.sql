@@ -26,5 +26,6 @@ hostname   VARCHAR
 );
 
 ----
+ALTER TABLE pings RENAME TO don_pings;
 
 COMMIT;

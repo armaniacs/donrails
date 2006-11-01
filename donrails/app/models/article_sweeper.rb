@@ -50,6 +50,13 @@ class ArticleSweeper < ActionController::Caching::Sweeper
   end
 
   def ep_notes
+    expire_page(:controller => 'notes', :action => 'index')
+    begin
+      ppfile = RAILS_ROOT + '/public/index.html'
+      File.delete ppfile
+    rescue
+    end
+
     expire_page(:controller => 'notes', :action => 'noteslist')
     begin
       ppdir = RAILS_ROOT + "/public/archives/noteslist/page"

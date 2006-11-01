@@ -804,10 +804,10 @@ class LoginController < ApplicationController
 
   public
   ## ping
-  def manage_ping
-    @pings_pages, @pings = paginate(:ping,:per_page => 30,:order_by => 'id DESC')
+  def manage_don_ping
+    @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30,:order_by => 'id DESC')
   end
-  
+  alias manage_ping manage_don_ping
 
   ## blogping
   def manage_blogping

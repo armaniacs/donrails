@@ -52,4 +52,6 @@ ALTER TABLE don_rbls CHANGE hostname hostname TEXT;
 
 ----
 
+ALTER TABLE pings RENAME TO don_pings;
+
 COMMIT;

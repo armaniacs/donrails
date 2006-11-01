@@ -387,9 +387,9 @@ class LoginControllerTest < Test::Unit::TestCase
     assert_response :redirect
   end
 
-  def test_manage_ping
+  def test_manage_don_ping
     @request.session['person'] = 'ok'
-    post :manage_ping
+    post :manage_don_ping
     assert_response :success
   end
 
