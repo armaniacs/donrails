@@ -215,7 +215,7 @@ if $0 == __FILE__ then
               print "\nArticle #{i}:\n"
               print "Title: #{stitle}\n"
               print "body: #{sbody}\n"
-              print "Categories: #{sec.categories.join(' ')}\n"
+              print "Categories: #{sec.categories.collect{|sc| Kconv.toutf8(sc)}.join(' ')}\n"
             else
               a = Article.new('title'=>stitle,
                               'body'=>sbody,
