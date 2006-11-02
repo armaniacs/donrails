@@ -168,6 +168,8 @@ if $0 == __FILE__ then
           diary.each_comment do |com|
             comments.push(com)
           end
+          save_pwd = Dir.pwd
+          Dir.chdir(conf.tdiarydir)
           plugin = TDiary::Plugin.new('conf'=>tdconf,
                                       'mode'=>"",
                                       'diaries'=>diaries,
@@ -177,6 +179,7 @@ if $0 == __FILE__ then
                                       'date'=>date,
                                       'comment'=>comments,
                                       'last_modified'=>diary.last_modified)
+          Dir.chdir(save_pwd)
 
           def plugin._eval_rhtml(rhtml)
             r = ERB.new(rhtml.untaint).result(binding)
@@ -203,7 +206,7 @@ if $0 == __FILE__ then
             print "Visibility: #{diary.visible?}\n"
           end
           diary.each_section do |sec|
-            stitle = Kconv.toutf8(sec.stripped_subtitle)
+            stitle = Kconv.toutf8(sec.stripped_subtitle || '')
             hd = plugin._body_enter_proc(Time.at(diary.date.to_i))
             r = Kconv.toutf8(plugin.eval_src(plugin._eval_rhtml(sec.body_to_html).untaint, false))
             ft = plugin._body_leave_proc(Time.at(diary.date.to_i))

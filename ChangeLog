@@ -1,3 +1,8 @@
+2006-11-03  Akira TAGOH  <at@gclab.org>
+
+	* donrails/tool/td2db.rb: fix possible plugin errors. (issue #17)
+	Patch from akira yamada.
+
 2006-11-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/notes_controller.rb (NotesController::noteslist): When neithor article found nor don_env found, redirect_to manage_don_env. (issue #26)
