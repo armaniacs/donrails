@@ -96,7 +96,7 @@ active		INTEGER,
 primary key (id)
 );
 
-CREATE TABLE pings (
+CREATE TABLE don_pings (
 id		SERIAL UNIQUE,
 article_id	INTEGER,
 url		TEXT DEFAULT NULL,

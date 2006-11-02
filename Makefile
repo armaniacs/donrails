@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.4.0-alpha2
+VERSION = 1.4.0-alpha3
 TESTDIR = '/tmp/.donrails'
 
 all: link
@@ -64,5 +64,5 @@ installertest: dist
 	cd $(TESTDIR)/donrails-trunk/rails/db && sqlite3 installertest-development-data.db < ../../donrails/tool/tables-sqlite.sql
 	cat $(TESTDIR)/donrails-trunk/donrails/example/.environment.rb >> $(TESTDIR)/donrails-trunk/rails/config/environment.rb
 	cd $(TESTDIR)/donrails-trunk/rails && ./script/server -d -p 13001
-	curl http://localhost:13001/notes/
+	curl -I http://localhost:13001/archives/noteslist
 	curl -u foo:bar http://localhost:13001/login

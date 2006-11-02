@@ -158,8 +158,15 @@ class NotesController < ApplicationController
                          :order_by => 'article_date DESC, id DESC',
 			 :conditions => ["hidden IS NULL OR hidden = 0"]
                          )
+
     unless @articles.empty?
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
+    else
+      de = DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
+      if de == nil
+        redirect_to :controller => 'login', :action => 'manage_don_env'
+        return
+      end
     end
 
     if minTime and @lm <= minTime

@@ -1,5 +1,12 @@
 2006-11-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/notes_controller.rb (NotesController::noteslist): When neithor article found nor don_env found, redirect_to manage_don_env. (issue #26)
+
+	* donrails/example/donrails_env.rb: Remove unused setting. 
+
+	* donrails/tool/tables-postgresql.sql: Rename Ping to DonPing. (issue #27)	
+	* donrails/tool/tables-mysql.sql: likewise.
+
 	* donrails/app/controllers/login_controller.rb (LoginController::manage_don_ping): Rename Ping to DonPing. (issue #27)	
 	* upgrade_1_4.mysql.sql: likewise.
 	* upgrade_1_4.postgresql.sql: likewise.

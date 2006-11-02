@@ -86,7 +86,7 @@ server_url    VARCHAR NOT NULL UNIQUE,
 active	      INTEGER
 );
 
-CREATE TABLE pings (
+CREATE TABLE don_pings (
 id          SERIAL PRIMARY KEY,
 article_id  INTEGER,
 url         VARCHAR DEFAULT NULL,
