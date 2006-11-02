@@ -1,3 +1,17 @@
+2006-11-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): Fix url from notes to archives. (issue #28)
+
+	* donrails/app/views/atom/post.rxml: likewise.
+
+	* donrails/app/views/atom/categories.rxml: likewise.
+
+	* donrails/app/views/atom/image_post.rxml: likewise.
+
+	* donrails/app/views/atom/index.rxml: likewise.
+
+	* donrails/app/views/atom/feed.rxml: Fix for comply rfc4287 and http://xmlns.com/wordnet/1.6/ for category.
+
 2006-11-03  Akira TAGOH  <at@gclab.org>
 
 	* donrails/tool/td2db.rb: deal with comments and trackbacks
@@ -14,6 +28,8 @@
 	Patch from akira yamada.
 
 2006-11-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_notes): Add logging when expire '/public/index.html'.
 
 	* donrails/app/controllers/notes_controller.rb (NotesController::noteslist): When neithor article found nor don_env found, redirect_to manage_don_env. (issue #26)
 

@@ -1,6 +1,6 @@
 xml.instruct! :xml, :version=>"1.0", :encoding => "utf-8"
 
-xml.entry("xmlns" => "http://purl.org/atom/ns\#") do
+xml.feed("xmlns" => "http://www.w3.org/2005/Atom") do
   xml.link("rel" => "alternate", "type" => 'text/html', "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_title", :id => @image.article_id))
 
   xml.link("rel" => "alternate", "type" => @image.content_type, "href" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_image", :id => @image.id))

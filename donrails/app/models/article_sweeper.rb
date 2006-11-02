@@ -54,6 +54,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
     begin
       ppfile = RAILS_ROOT + '/public/index.html'
       File.delete ppfile
+      logger.info "Expired page: #{ppfile}"
     rescue
     end
 

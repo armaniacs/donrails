@@ -2,10 +2,7 @@ xml.instruct! :xml, :version=>"1.0", :encoding => "utf-8"
 
 article = @article
 
-xml.categories("xmlns" => "http://sixapart.com/atom/category\#") do
-  article.categories.each do |cat|
-    xml.subject("xmlns" => "http://purl.org/dc/elements/1.1/") do
-      xml.text! cat.name
-    end  
-  end
+article.categories.each do |cat|
+  xml.category("scheme" => "http://xmlns.com/wordnet/1.6/", "term" => cat.name, "label" => cat.name)
 end
+

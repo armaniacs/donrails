@@ -30,7 +30,7 @@ class CommentMailer < ActionMailer::Base
     if defined?(don_get_config.baseurl) && don_get_config.baseurl
       baseurl = don_get_config.baseurl.split('/')
       url = baseurl.dup
-      url << 'notes'
+      url << 'archives'
       enrollment_url = url.dup
       url << 'show_title'
       url << article.id.to_s
@@ -40,8 +40,8 @@ class CommentMailer < ActionMailer::Base
       login_url << 'login'
       login_url << manage_action
     else
-      url = ['(Please set BASEURL)', 'notes', 'show_title', article.id.to_s]
-      enrollment_url = ['(Please set BASEURL)', 'notes', 'show_enrollment', article.id.to_s]
+      url = ['(Please set BASEURL)', 'archives', 'show_title', article.id.to_s]
+      enrollment_url = ['(Please set BASEURL)', 'archives', 'show_enrollment', article.id.to_s]
       login_url = ['(Please set BASEURL)', 'login', 'manage_article']
     end
 

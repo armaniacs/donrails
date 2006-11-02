@@ -7,7 +7,7 @@ if @article
   @articles[0] = @article
 end
 
-xml.feed("xmlns" => "http://purl.org/atom/ns\#") do
+xml.feed("xmlns" => "http://www.w3.org/2005/Atom") do
   xml.id 'tag:' + @request.host + ':notes:' + @articles.first.id.to_s + ':' + @articles.last.id.to_s
 
   if @one
@@ -25,12 +25,12 @@ xml.feed("xmlns" => "http://purl.org/atom/ns\#") do
 
   xml.title don_get_config.rdf_title
   xml.generator "donrails", "url" => "http://code.google.com/p/donrails/"
-  xml.modified pub_date(@articles.first.article_mtime) if @articles.first and @articles.first.article_mtime
+  xml.updated pub_date(@articles.first.article_mtime) if @articles.first and @articles.first.article_mtime
   xml.tagline don_get_config.rdf_description
   xml.copyright don_get_config.rdf_copyright
 
   @articles.each do |@article|
-    xml.entry("xmlns" => "http://purl.org/atom/ns\#") do
+    xml.entry do
       article = don_get_object(@article, 'html')
       xml.title article.title_to_html
       xml.link("type" => "text/html",
@@ -40,12 +40,12 @@ xml.feed("xmlns" => "http://purl.org/atom/ns\#") do
                "rel" => "service.edit",
                "href" => @request.protocol + @request.host_with_port + url_for(:action => "edit", :id => article.id),
                "title" => article.title)
-      xml.modified pub_date(article.article_mtime) if article.article_mtime
+      xml.updated pub_date(article.article_mtime) if article.article_mtime
       xml.issued pub_date(article.article_date)
       xml.id 'tag:' + @request.host + ':notes:' + article.id.to_s
       
       article.categories.each do |cat|
-        xml.category cat.name
+        xml.category("scheme" => "http://xmlns.com/wordnet/1.6/", "term" => cat.name, "label" => cat.name)
       end
       xml.trackback @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => 'trackback', :id => article.id)
 
