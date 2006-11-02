@@ -114,6 +114,14 @@ if $0 == __FILE__ then
 	@conf = conf
       end # def initialize
 
+      def mobile_agent?
+        false
+      end
+
+      def user_agent
+        'donrails td2db.rb'
+      end
+
       def method_missing(m, *args)
         @methods = [:restore_parser_cache, :store_parser_cache]
 

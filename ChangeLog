@@ -1,5 +1,9 @@
 2006-11-03  Akira TAGOH  <at@gclab.org>
 
+	* donrails/tool/td2db.rb (TDiary::Dummy::mobile_agent?): new method to
+	not generate HTMLs for mobile. (issue #19) Patch from akira yamada.
+	(TDiary::Dummy::user_agent): likewise.
+
 	* donrails/tool/td2db.rb: fix a debugging message to not screwed up.
 	(issue #18) Patch from akira yamada.
 
