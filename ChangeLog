@@ -1,5 +1,8 @@
 2006-11-03  Akira TAGOH  <at@gclab.org>
 
+	* donrails/tool/td2db.rb: deal with comments and trackbacks
+	separately. (issue #20) Patch from akira yamada.
+
 	* donrails/tool/td2db.rb (TDiary::Dummy::mobile_agent?): new method to
 	not generate HTMLs for mobile. (issue #19) Patch from akira yamada.
 	(TDiary::Dummy::user_agent): likewise.

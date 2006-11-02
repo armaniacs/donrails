@@ -45,7 +45,7 @@ class TD2DBConfig < Hash
 
   def dryrun=(val)
     self['dryrun'] = (val ? true : false)
-  end # def dryrun
+  end # def dryrun=
 
   def dryrun
     return self.has_key?('dryrun') ? self['dryrun'] : false
@@ -59,6 +59,14 @@ class TD2DBConfig < Hash
     return self.has_key?('tdiaryconfdir') ? self['tdiaryconfdir'] : './'
   end # def tdiaryconfdir
 
+  def addtdiaryanchor=(val)
+    self['addtdiaryanchor'] = (val ? true : false)
+  end # def addtdiaryanchor=
+
+  def addtdiaryanchor
+    return self.has_key?('addtdiaryanchor') ? self['addtdiaryanchor'] : false
+  end # def addtdiaryanchor
+
 end # class TD2DBConfig
 
 
@@ -70,6 +78,7 @@ if $0 == __FILE__ then
     opt.on('--confdir=DIR', 'DIR where the configuration directory for ROR') {|v| conf.confdir = v}
     opt.on('--dry-run', 'Actually not do anything') {|v| conf.dryrun = true}
     opt.on('--tdiaryconfdir=DIR', 'DIR where tdiary.conf is put on') {|v| conf.tdiaryconfdir = v}
+    opt.on('--addtdiaryanchor', 'add <a name="xNN"> style anchor') {|v| conf.addtdiaryanchor = true}
     opt.parse!
   end
   if $DEBUG then
@@ -91,6 +100,7 @@ if $0 == __FILE__ then
   require 'enrollment'
   require 'category'
   require 'comment'
+  require 'trackback'
 
   require 'tdiary'
   require 'tdiary/tdiary_style'
@@ -113,6 +123,14 @@ if $0 == __FILE__ then
       def initialize(conf = nil)
 	@conf = conf
       end # def initialize
+
+      def mobile_agent?
+        false
+      end
+
+      def user_agent
+        'donrails td2db.rb'
+      end
 
       def mobile_agent?
         false
@@ -214,11 +232,14 @@ if $0 == __FILE__ then
             print "Visibility: #{diary.visible?}\n"
           end
           diary.each_section do |sec|
-            stitle = Kconv.toutf8(sec.stripped_subtitle || '')
+            stitle = Kconv.toutf8(plugin.eval_src(plugin._eval_rhtml(sec.stripped_subtitle || '').untaint, false))
             hd = plugin._body_enter_proc(Time.at(diary.date.to_i))
             r = Kconv.toutf8(plugin.eval_src(plugin._eval_rhtml(sec.body_to_html).untaint, false))
             ft = plugin._body_leave_proc(Time.at(diary.date.to_i))
             sbody = sprintf("%s%s%s", hd, r, ft)
+	    if conf.addtdiaryanchor then
+	      sbody = "<a name=\"p%02d\"></a>"% + sbody
+	    end
             if conf.dryrun then
               print "\nArticle #{i}:\n"
               print "Title: #{stitle}\n"
@@ -253,28 +274,61 @@ if $0 == __FILE__ then
             end
             i += 1
           end
-          i = 1
-          diary.each_comment do |com|
+          com_no = 1
+          tb_no = 1
+          diary.each_comment(100) do |com|
             cbody = Kconv.toutf8(com.body)
             cname = Kconv.toutf8(com.name)
-            if conf.dryrun then
-              print "Comment #{i}:\n"
-              print "Posted: #{com.date}\n"
-              print "Visibility: #{com.visible?}\n"
-              print "Name: #{cname}\n"
-              print "email: #{com.mail}\n"
-              print "body: #{cbody}\n"
+            if /^(Track|Ping)Back$/ =~ cname then
+              tb_url, tb_blogname, tb_title, tb_excerpt = cbody.split(/(?:\r\n|\n|\r)/u, 4)
+              tb_blogname = '(no name)' if tb_blogname.empty?
+              tb_title = '(no title)' if tb_title.empty?
+              tb_excerpt = '' if tb_excerpt.nil?
+              if conf.addtdiaryanchor then
+                tb_excerpt = "<a name=\"t%02d\"></a>"%tb_no + tb_excerpt
+              end
+              if conf.dryrun then
+                print "Trackback: #{tb_no}\n"
+                print "Posted: #{com.date}\n"
+                print "Visibility: #{com.visible?}\n"
+                print "BlogName: #{tb_blogname}\n"
+                print "Blogtitle: #{tb_title}\n"
+                print "Excerpt: #{tb_excerpt}\n"
+              else
+                tb = Trackback.new('url'=>tb_url,
+                                   'blog_name'=>tb_blogname,
+                                   'title'=>tb_title,
+                                   'excerpt'=>tb_excerpt,
+                                   'ip'=>'127.0.0.1')
+                tb.save
+              end
+              tb_no += 1
+
             else
-              cm = Comment.new('password'=>(com.mail.nil? || com.mail.empty? ? cname : com.mail),
-                               'article_id'=>a.id,
-                               'date'=>com.date,
-                               'title'=>a.title,
-                               'author'=>cname,
-                               'hidden'=>(com.visible? ? 0 : 1),
-                               'body'=>cbody)
-              cm.save
+              if conf.addtdiaryanchor then
+                cbody = "<a name=\"c%02d\"></a>"%com_no + cbody
+              end
+              cmail = com.mail
+              cmail = Kconv.toutf8(cmail) if cmail
+              if conf.dryrun then
+                print "Comment: #{com_no}:\n"
+                print "Posted: #{com.date}\n"
+                print "Visibility: #{com.visible?}\n"
+                print "Name: #{cname}\n"
+                print "email: #{cmail}\n"
+                print "body: #{cbody}\n"
+              else
+                cm = Comment.new('password'=>(cmail.nil? || cmail.empty? ? cname : cmail),
+                                 'article_id'=>a.id,
+                                 'date'=>com.date,
+                                 'title'=>a.title,
+                                 'author'=>cname,
+                                 'hidden'=>(com.visible? ? 0 : 1),
+                                 'body'=>cbody)
+                cm.save
+              end
             end
-            i += 1
+            com_no += 1
           end
         end
         TDiary::TDiaryBase::DIRTY_NONE
