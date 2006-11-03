@@ -1,5 +1,9 @@
 2006-11-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_atom): Fix to erase /atom/feed.xml.
+
+	* donrails/app/views/layouts/login.rhtml: Fix link to manage_don_ping.
+
 	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): Fix url from notes to archives. (issue #28)
 
 	* donrails/app/views/atom/post.rxml: likewise.
