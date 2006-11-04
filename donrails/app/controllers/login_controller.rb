@@ -1089,6 +1089,15 @@ class LoginController < ApplicationController
     redirect_to :action => "manage_don_rbl"
   end
 
+  def delete_cache
+    begin
+      don_delete_cache_all
+      @flash[:note2] = 'cache files and sub-directories are deleted.'
+    rescue
+      @flash[:note2] = $!
+    end
+    redirect_to :action => "manage_cache"
+  end
 
   # HNF
   def hnf_save_all

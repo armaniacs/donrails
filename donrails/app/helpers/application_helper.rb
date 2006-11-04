@@ -419,4 +419,47 @@ module ApplicationHelper
     return rblhosts
   end
 
+  def don_delete_cache_all
+    logger.info 'Expireing: all page'
+    begin
+      ppfile = RAILS_ROOT + '/public/index.html'
+      File.delete ppfile
+      logger.info "Expired page: #{ppfile}"
+    rescue
+    end
+
+    begin
+      ppdir = RAILS_ROOT + '/public/archives'
+      don_delete_all(ppdir)
+      logger.info "Expired page: #{ppdir}"
+    rescue
+    end
+
+    begin
+      ppdir = RAILS_ROOT + '/public/rdf'
+      don_delete_all(ppdir)
+      logger.info "Expired page: #{ppdir}"
+    rescue
+    end
+
+    begin
+      ppdir = RAILS_ROOT + '/public/atom'
+      don_delete_all(ppdir)
+      logger.info "Expired page: #{ppdir}"
+    rescue
+    end
+  end
+
+  def don_delete_all(delthem)
+    if FileTest.directory?(delthem) then
+      Dir.foreach( delthem ) do |file|  
+        next if /^\.+$/ =~ file         
+        don_delete_all( delthem.sub(/\/+$/,"") + "/" + file )
+      end
+      Dir.rmdir(delthem) rescue ""      
+    else
+      File.delete(delthem)              
+    end
+  end
+
 end

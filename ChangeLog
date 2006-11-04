@@ -1,3 +1,10 @@
+2006-11-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_delete_all): New method. It deletes all files and sub-directories.
+	(ApplicationHelper::don_delete_cache_all): New method. It called by login/delete_cache.
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_cache): New method: It deletes all files and directories for cache pages.
+
 2006-11-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_atom): Fix to erase /atom/feed.xml.
