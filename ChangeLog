@@ -1,9 +1,18 @@
+2006-11-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::new_article): Change to use loing username as default article author.
+	* donrails/app/views/login/new_article.rhtml: likewise.
+
 2006-11-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
-	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_delete_all): New method. It deletes all files and sub-directories.
-	(ApplicationHelper::don_delete_cache_all): New method. It called by login/delete_cache.
-
+	* donrails/app/controllers/application.rb (ApplicationController::don_delete_all): New method. It deletes all files and sub-directories. 
+	(ApplicationController::don_delete_cache_all): New method. It called by login/delete_cache.
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_don_env): Change to clear all cached pages.
+	(LoginController::add_don_env): likewise.
 	* donrails/app/controllers/login_controller.rb (LoginController::delete_cache): New method: It deletes all files and directories for cache pages.
+	
+	* INSTALL.ja: Change to use /login/manage_don_env
+	* donrails/tool/donrails-setup.rb: Cleanup.
 
 2006-11-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
 

@@ -60,7 +60,7 @@ distributionを使うか、gemsを使います。gemsを使う場合
 
 2. $ make すると、railsのファイルと必要なツリーが構築される
 
-3. donrails/tool/donrails-setup.rb を実行する。
+3. ruby donrails/tool/donrails-setup.rb を実行する。
 
 おおまかな設定が行なわれます。
 
@@ -72,7 +72,7 @@ rails/config/database.yml
 rails/config/donrails_env.rb
 ("donrails/example/donrails_env.rb"にサンプルがあります)
 
-5. ユーザが自分のやりたいようにいじるファイル(必須)
+6. ユーザが自分のやりたいようにいじるファイル(必須)
 
 rails/app/views/notes/index.rhtml
 ("donrails/example/index.rhtml"にサンプルがあります)
@@ -91,6 +91,13 @@ rails/public/images/dump
 アップロードされたファイルは、GET /nosts/show_image/1 などとす
 ると、/images/dump/image-files.png などにリダイレクトされます。
 
-リダイレクト先は $IMAGE_BASE_PATH で指定できます。これが
+リダイレクト先は後から、/login/manage_don_envで設定します。
 /test/ のときは、/test/images/dump/image-files.png などにリダイレクトされます。
 	
+7. Webプラウザを使って設定をする
+
+http://127.0.0.1/login/manage_don_env にアクセスし、必要な設定をします。
+ユーザとパスワードの設定は、
+「3. ruby donrails/tool/donrails-setup.rb を実行する。」
+で、終了しているはずです。
+(忘れた場合には rails/config/environments/donrails_env.rb を参照します)

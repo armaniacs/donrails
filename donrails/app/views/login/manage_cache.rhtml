@@ -1,0 +1,13 @@
+<% @heading = "グローバル設定" %>
+<h1>cache management</h1>
+<div class="notice">
+  <%=h @flash[:note] %>
+  <%=h @flash[:note2] %>
+</div>
+  
+<hr>
+<%= secure_form_tag :action => "delete_cache" %>
+キャッシュしている全てをexpireします。
+<%= submit_tag "expire" %>
+<%= end_form_tag %>
+

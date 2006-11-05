@@ -42,8 +42,6 @@ class LoginController < ApplicationController
   
   public
   def authenticate
-
-
     flash.keep(:op)
     name = String.new
     password = String.new
@@ -83,6 +81,7 @@ class LoginController < ApplicationController
     rescue
       retval = []
     end
+    @dgc = @@dgc
     if retval.nil? || retval.empty? then
       @defaultformat = 'plain'
     else
@@ -995,6 +994,12 @@ class LoginController < ApplicationController
 
       aris1.save
     end
+    begin
+      don_delete_cache_all
+      @flash[:note2] = 'cache files and sub-directories are deleted.'
+    rescue
+      @flash[:note2] = $!
+    end
     redirect_to :action => "manage_don_env"
   end
 
@@ -1031,6 +1036,14 @@ class LoginController < ApplicationController
         end
       end
     end
+
+    begin
+      don_delete_cache_all
+      @flash[:note2] = 'cache files and sub-directories are deleted.'
+    rescue
+      @flash[:note2] = $!
+    end
+
     redirect_to :action => "manage_don_env"
   end
 
