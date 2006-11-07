@@ -22,15 +22,7 @@ class LoginControllerTest < Test::Unit::TestCase
   end
   def test_authenticate__fail
     post :authenticate, :nz => {:n => 'testuser', :p => 'wrongpass'}
-    assert_redirected_to :action => 'login_index'
-  end
-  def test_authenticate__fail2
-    post :authenticate, :nz => {:n => 'nouser', :p => 'wrongpass'}
-    assert_redirected_to :action => 'login_index'
-  end
-  def test_authenticate__fail3
-    post :authenticate
-    assert_redirected_to :action => 'login_index'
+    assert_response(403)
   end
 
 
@@ -262,13 +254,23 @@ class LoginControllerTest < Test::Unit::TestCase
     post :fix_article, :article => {:title => 'test fix article title', :id => 1}, :newid => {:id => 1}
     assert_redirected_to :action => 'manage_article'
 
-#    post :fix_article, :article => {:title => 'test fix article title + tb', :id => 1, :tburl => 'http://localhost:3000/notes/trackback/1', :body => 'this a test trackback'}, :newid => {'1' => '1'}
-#    assert_redirected_to :action => 'manage_article'
-
     # id 22 を元に新規記事として書く。trackbackを21にむけて出す
     post :fix_article, :article => {:title => 'fixtest + tb', :id => 22, :tburl => 'http://localhost:3000/notes/trackback/5340', :body => 'this a test trackback'}, :newid => {'22' => '1'}
     assert_redirected_to :action => 'manage_article'
-    
+  end
+
+  def test_fix_article__1
+    @request.session['person'] = 'ok'
+    post :fix_article, 
+    :article =>{"article_date"=>"2006-11-05", "title"=>"test", "body"=>"これはてすと\r\n{{{\r\n[2006-11-05 23:15:19] INFO  going to shutdown ...\r\n[2006-11-05 23:15:19] INFO  WEBrick::HTTPServer#start done.\r\nYou have new mail
+in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r\n}}}\r\n", "author_name"=>"araki", "tburl"=>"", "id"=> 1, "author_id"=>"1"}, 
+    :commit =>"save", 
+    :format =>"wiliki", 
+    :category =>{"name"=>"misc3"}, 
+    :catname =>{"1"=>"1"},
+    :newid => {"1" => '1'}
+    assert_redirected_to :action => 'manage_article'
+
   end
 
   def test_add_article
@@ -374,6 +376,36 @@ class LoginControllerTest < Test::Unit::TestCase
     :format => 'regexp'
     assert_response :redirect
     assert_equal "please input", flash[:note2]
+  end
+
+  def test_add_banlist_ipaddr
+    @request.env["HTTP_REFERER"] = __FILE__
+    @request.session['person'] = 'ok'
+    post :add_banlist
+    assert_response :redirect
+
+    post :add_banlist,
+    :banlist => {:add => '1', :pattern => '123.123.123.123'},
+    :format => 'ipaddr'
+    assert_response :redirect
+
+    post :add_banlist,
+    :banlist => {
+      "add"=>"0", "white"=>"0", "pattern"=>"127.0.0.1", "teststring"=>"127.0.0.1"},
+    :format => 'ipaddr'
+    assert_response :redirect
+
+    post :add_banlist,
+    :commit =>"\343\203\206\343\202\271\343\203\210", 
+    :format =>"ipaddr", 
+    :banlist =>{"add"=>"0", "white"=>"0", "pattern"=>"127.0.0.1", "teststring"=>"127.0.0.1"}
+    assert_response :redirect
+
+    post :add_banlist,
+    :commit =>"\343\203\206\343\202\271\343\203\210", 
+    :format =>"ipaddr", 
+    :banlist =>{"add"=>"0", "white"=>"0", "pattern"=>"127.0.0.1"}
+    assert_response :redirect
   end
 
   def test_test_banlist

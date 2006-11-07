@@ -1,3 +1,12 @@
+2006-11-07  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Fix to add new category. (issue #30)
+	(LoginController::authenticate): Change to redirect_to flash[:op]. (issue #31? TODO: check)
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_add_banlist_ipaddr): Add test for private method (banlist_test_by_ar_ipaddr).
+
+	* donrails/app/controllers/login_controller.rb (LoginController::banlist_test_by_ar_ipaddr): Small Change for stability. 
+
 2006-11-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::new_article): Change to use loing username as default article author.

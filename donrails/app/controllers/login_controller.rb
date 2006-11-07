@@ -31,7 +31,6 @@ class LoginController < ApplicationController
 
   protected
   def authorize
-    flash.keep(:op)
     flash[:op] = @request.env['PATH_INFO']
     unless @session["person"] == "ok"
       @session = @request.session
@@ -66,7 +65,14 @@ class LoginController < ApplicationController
         end
       else
         flash[:notice] = "Wrong Password. Please input carefully."
-        redirect_to :action => "login_index"
+        if flash[:op] == nil
+          render :status => 403, :text => 'fail'
+        elsif flash[:op] == '/login/authenticate'
+          redirect_to '/login' 
+        else
+          redirect_to flash[:op] 
+        end
+
       end
     else
       flash[:notice] = "Wrong method."
@@ -339,6 +345,7 @@ class LoginController < ApplicationController
       id = c["id"].to_i
       article_date = c["article_date"]
       reentry = @params["newid"]["#{id}"]
+
       hideid = @params["hideid"]["#{id}"] if @params["hideid"]
       
       referer = c["referer"] if c["referer"] 
@@ -423,6 +430,10 @@ class LoginController < ApplicationController
         if newcategory
           nb = Category.find(:first, :conditions => ["name = ?", newcategory])
           if nb
+            aris.categories.push_with_attributes(nb)
+          else
+            nb = Category.new("name" => newcategory)
+            nb.save
             aris.categories.push_with_attributes(nb)
           end
         end
@@ -646,13 +657,13 @@ class LoginController < ApplicationController
   def banlist_test_by_ar_ipaddr(pattern, teststring)
     @hit_tbs = Array.new
     Trackback.find(:all, :limit => 10, :order => 'id DESC').each do |tb|
-      if tb.ip.match(/#{pattern}/)
+      if tb.ip && tb.ip.match(/#{pattern}/)
         @hit_tbs.push(tb)
       end
     end
     @hit_comments = Array.new
     Comment.find(:all, :limit => 10, :order => 'id DESC').each do |tb|
-      if tb.ipaddr.match(/#{pattern}/)
+      if tb.ipaddr && tb.ipaddr.match(/#{pattern}/)
         @hit_comments.push(tb)
       end
     end
