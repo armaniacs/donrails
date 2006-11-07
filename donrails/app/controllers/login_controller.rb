@@ -27,7 +27,6 @@ class LoginController < ApplicationController
   def login_index
     flash.keep(:op)
     render :action => "index"
-    p flash[:op]
   end
 
   protected

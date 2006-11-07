@@ -1,5 +1,9 @@
 2006-11-07  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/login_controller.rb
+	(LoginController::login_index): Cleanup. (Close issue #31)
+	
+	* r130
 	* donrails/app/controllers/login_controller.rb (LoginController::authorize): Change to apply for no PATH_INFO support httpd. Change to use @request.env['PATH_INFO'] or @request.env['REQUEST_URI'].
 
 	* r129
