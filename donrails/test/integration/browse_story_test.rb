@@ -8,6 +8,17 @@ class BrowseStoryTest < ActionController::IntegrationTest
     assert true
   end
 
+  def test_login
+    get '/login/manage_article'
+    assert_equal 302, status
+    follow_redirect!
+    assert_equal '/login/login_index', path
+
+    post '/login/authenticate', :nz => {"n" => 'testuser', "p" => 'testpass'}, :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
+    follow_redirect!
+    assert_equal '/login/manage_article', path
+  end
+
   def test_fromtop
     if don_get_config.default_theme == 'MT'
     else

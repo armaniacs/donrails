@@ -27,11 +27,17 @@ class LoginController < ApplicationController
   def login_index
     flash.keep(:op)
     render :action => "index"
+    p flash[:op]
   end
 
   protected
   def authorize
-    flash[:op] = @request.env['PATH_INFO']
+    if @request.env['PATH_INFO'] 
+      flash[:op] = @request.env['PATH_INFO'] 
+    elsif @request.env['REQUEST_URI']
+      flash[:op] = @request.env['REQUEST_URI']
+    end
+
     unless @session["person"] == "ok"
       @session = @request.session
       redirect_to :action => "login_index"

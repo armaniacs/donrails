@@ -1,5 +1,8 @@
 2006-11-07  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/login_controller.rb (LoginController::authorize): Change to apply for no PATH_INFO support httpd. Change to use @request.env['PATH_INFO'] or @request.env['REQUEST_URI'].
+
+	* r129
 	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Fix to add new category. (issue #30)
 	(LoginController::authenticate): Change to redirect_to flash[:op]. (issue #31? TODO: check)
 
