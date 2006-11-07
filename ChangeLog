@@ -1,5 +1,9 @@
 2006-11-07  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/test/integration/browse_story_test.rb (BrowseStoryTest): Move some test to login_story_test.rb
+
+	* donrails/test/integration/login_story_test.rb (LoginStoryTest): New test file.
+	
 	* donrails/app/controllers/login_controller.rb
 	(LoginController::login_index): Cleanup. (Close issue #31)
 	
