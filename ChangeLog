@@ -1,3 +1,8 @@
+2006-11-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/form_article.rhtml: Add to show 'space is a category separator'. (issue #34)
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Fix to add plural new category. (issue #34)
+
 2006-11-07  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/integration/browse_story_test.rb (BrowseStoryTest): Move some test to login_story_test.rb

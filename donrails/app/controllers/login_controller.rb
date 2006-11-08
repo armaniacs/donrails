@@ -433,13 +433,16 @@ class LoginController < ApplicationController
         end
 
         if newcategory
-          nb = Category.find(:first, :conditions => ["name = ?", newcategory])
-          if nb
-            aris.categories.push_with_attributes(nb)
-          else
-            nb = Category.new("name" => newcategory)
-            nb.save
-            aris.categories.push_with_attributes(nb)
+          nca = newcategory.split(/\s+/)
+          nca.each do |ca|
+            nb = Category.find(:first, :conditions => ["name = ?", ca])
+            if nb
+              aris.categories.push_with_attributes(nb)
+            else
+              nb = Category.new("name" => ca)
+              nb.save
+              aris.categories.push_with_attributes(nb)
+            end
           end
         end
         

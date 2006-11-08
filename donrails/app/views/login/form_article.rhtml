@@ -59,7 +59,7 @@ Date:
 <br>
 <% end %>
 
-さらにカテゴリを追加する⇒カテゴリ:<%= text_field_with_auto_complete :category, :name %>
+さらにカテゴリを追加する⇒カテゴリ:<%= text_field_with_auto_complete :category, :name %>(スペースで区切ると複数カテゴリの追加ができます)
 <br>
 <% if @request.env['HTTP_REFERER'] =~ /manage_enrollment$/ %>
 <%= hidden_field "article", "referer", "value" => 'manage_enrollment' %>
