@@ -88,3 +88,14 @@ fixtest:
   article_date: 2026-09-26 00:00:00
   article_mtime: 2026-09-26 00:00:01
   enrollment_id: 10
+<% for i in 50..59 %>
+issue33test<%= i %>:
+  id: <%= i %>
+  title: issue33test
+  body: issue33<%= i %>
+  article_date: 2000-01-05 00:00:00
+  article_mtime: 2000-01-05 00:00:<%= i %>
+  format: plain
+  author_id: 1
+  enrollment_id: 50
+<% end %>

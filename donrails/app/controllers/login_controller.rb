@@ -365,9 +365,11 @@ class LoginController < ApplicationController
         @flash[:note2] = '<br>You have not change:' + id.to_s
         
         cat_ka_in = Array.new
-        catname.each do |k,v|
-          if v.to_i == 1
-            cat_ka_in.push(k.to_i)
+        if catname
+          catname.each do |k,v|
+            if v.to_i == 1
+              cat_ka_in.push(k.to_i)
+            end
           end
         end
         cat_ka_in.sort!.uniq!
@@ -589,7 +591,7 @@ class LoginController < ApplicationController
           @flash[:note2] += '<br>Delete:' + k
           b.destroy
         else
-          @flash[:note2] += '<br>Not exists:' + k
+          @flash[:note2] += '<br>Not exists (no delete):' + k
         end
       end
     end
@@ -606,8 +608,8 @@ class LoginController < ApplicationController
           unless stmp == pf.hidden
             @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
-        else
-          @flash[:note2] += '<br>Not exists:' + k
+#        else ## XXX
+#          @flash[:note2] += '<br>Not exists (no hidden status change):' + k
         end
       end
     end
@@ -691,7 +693,7 @@ class LoginController < ApplicationController
     end
     @hit_comments = Array.new
     Comment.find(:all, :limit => 10, :order => 'id DESC').each do |tb|
-      if tb.title.match(/#{pattern}/) 
+      if tb.title and tb.title.match(/#{pattern}/) 
         @hit_comments.push(tb)
       elsif tb.url and tb.url.match(/#{pattern}/) 
         @hit_comments.push(tb)

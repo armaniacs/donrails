@@ -1,5 +1,13 @@
 2006-11-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Fix: When no category.
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_article__issue33): likewise.
+
+	* donrails/test/fixtures/articles.yml: likewise.
+
+	* donrails/test/fixtures/enrollments.yml: Add entry to fix for issue #33
+
 	* donrails/app/views/login/form_article.rhtml: Add to show 'space is a category separator'. (issue #34)
 	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Fix to add plural new category. (issue #34)
 

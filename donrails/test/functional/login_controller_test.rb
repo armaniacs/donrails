@@ -270,7 +270,6 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     :catname =>{"1"=>"1"},
     :newid => {"1" => '1'}
     assert_redirected_to :action => 'manage_article'
-
   end
 
   def test_add_article
@@ -310,7 +309,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     assert_redirected_to :action => 'manage_article'
 
     post :delete_article, :deleteid => {'40000' => '1'}
-    assert_equal "<br>Not exists:40000", flash[:note2]
+    assert_equal "<br>Not exists (no delete):40000", flash[:note2]
     assert_redirected_to :action => 'manage_article'
 
     post :delete_article,
@@ -325,8 +324,48 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
 
     post :delete_article, 
     :hideid => {'40000' => '1'}
-    assert_equal "<br>Not exists:40000", flash[:note2]
+    assert_equal "", flash[:note2]
     assert_redirected_to :action => 'manage_article'
+  end
+
+  def test_delete_article__issue33
+    @request.session['person'] = 'ok'
+
+    assert_nothing_raised do 
+      for i in 50..59
+        Article.find(i) 
+      end
+    end
+    post :delete_article, :deleteid => {'59' => '1'}
+    assert_equal "<br>Delete:59", flash[:note2]
+    assert_redirected_to :action => 'manage_article'
+    assert_nothing_raised do 
+      for i in 50..58
+        Article.find(i) 
+      end
+    end
+    assert_raise(ActiveRecord::RecordNotFound) do  Article.find(59) end
+
+    post :delete_article, :deleteid => {'58' => '1'}
+    post :delete_article, :deleteid => {'57' => '1'}
+    post :delete_article, :deleteid => {'56' => '1'}
+    post :delete_article, :deleteid => {'55' => '1'}
+    post :delete_article, :deleteid => {'54' => '1'}
+    post :delete_article, :deleteid => {'53' => '1'}
+    post :delete_article, :deleteid => {'52' => '1'}
+    post :delete_article, :deleteid => {'51' => '1'}
+
+    assert_raise(ActiveRecord::RecordNotFound) do 
+      for i in 51..58
+        Article.find(i) 
+      end
+    end
+    assert_nothing_raised do 
+      for i in 50..50
+        Article.find(i) 
+      end
+    end
+
   end
 
   def test_manage_banlist
@@ -378,6 +417,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     assert_equal "please input", flash[:note2]
   end
 
+  ## issue29
   def test_add_banlist_ipaddr
     @request.env["HTTP_REFERER"] = __FILE__
     @request.session['person'] = 'ok'

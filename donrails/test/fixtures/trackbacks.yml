@@ -45,3 +45,16 @@ tb<%= i %>:
   ip: 127.0.0.1
   created_at: 1999-01-01 01:00:<%= i %>
 <% end %>
+
+<% for i in 30..31 %>
+tb<%= i %>:
+  id: <%= i %>
+  article_id: <%= i %>
+  category_id: 1
+  blog_name: blog test trackback in fixture <%= i %>
+  title: tb trackback
+  excerpt: excerpt test tb in fixture <%= i %>
+  url: http://example.com/<%= i %>/valid_path.html
+#  ip: 127.0.0.1
+  created_at: 1999-01-01 01:00:<%= i %>
+<% end %>

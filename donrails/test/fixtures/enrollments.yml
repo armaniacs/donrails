@@ -31,3 +31,7 @@ old:
   hidden: 0
   created_at: 1989-01-03 00:00:00
   updated_at: 1989-01-05 00:00:01
+issue33test:
+  id: 50
+  title: issue33test
+  hidden: 0

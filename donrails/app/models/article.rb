@@ -99,7 +99,7 @@ class Article < ActiveRecord::Base
   end
 
   def enrollclean
-    if self.enrollment and self.enrollment.articles.size <= 1
+    if self.enrollment and self.enrollment.articles.size < 1
       self.enrollment.destroy
     end
   end
