@@ -1,3 +1,7 @@
+2006-11-12  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_categories): Change to use from ':category' to ':id' in link_to.
+
 2006-11-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Fix: When no category.

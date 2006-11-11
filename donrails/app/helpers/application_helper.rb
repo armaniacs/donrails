@@ -346,7 +346,7 @@ module ApplicationHelper
     article.categories.each do |cat|
       begin
         if cat.name
-          content += '[' + link_to(cat.name, {:action => "show_category", :category => cat.name}) + ']'
+          content += '[' + link_to(cat.name, {:action => "show_category", :id => cat.id}) + ']'
         end
       rescue
       end
