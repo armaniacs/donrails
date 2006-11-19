@@ -1,3 +1,22 @@
+2006-11-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** NOTE ** Incompatible change. 
+	* New feature: Change to use Akismet. (http://akismet.com/).
+	* donrails/app/controllers/notes_controller.rb (NotesController::trackback): Add to use Akismet.
+	* donrails/tool/tables-postgresql.sql: likewise.
+	* donrails/tool/tables-mysql.sql: likewise. 
+	* donrails/lib/akismet.rb: likewise. New file.
+	* donrails/app/views/login/manage_don_env.rhtml: likewise. Add entry.
+	* donrails/app/views/shared/edit_don_env.rhtml (akismet_key): likewise. Add entry.
+	* donrails/app/controllers/login_controller.rb (LoginController::add_don_env): likewise. Add entry.
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): likewise. If trackback is bloked by akismet, display 'hidden is 1' in notify mail.
+	* donrails/test/fixtures/don_envs.yml (first): Add akismet_key.
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_trackback__akismet): likewise. Add test.
+	* donrails/app/views/comment_mailer/notify.rhtml: likewise. If trackback is bloked by akismet, display 'hidden is 1' in notify mail.
+	* donrails/tool/tables-mysql.sql: 'add column akismet_key TEXT' in don_envs table.
+	* upgrade_1_5.mysql.sql: New file.
+	* upgrade_1_5.postgresql.sql: New file.
+
 2006-11-12  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_categories): Change to use from ':category' to ':id' in link_to.

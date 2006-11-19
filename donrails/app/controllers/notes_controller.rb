@@ -1,6 +1,8 @@
 require 'kconv'
 class NotesController < ApplicationController
 
+  include Akismet
+
   class << self
     include ApplicationHelper
   end
@@ -639,16 +641,31 @@ class NotesController < ApplicationController
           tb.title = @params['title'] || @params['url']
           tb.excerpt = @params['excerpt'] if @params['excerpt']
           tb.url = @params['url']
-
           tb.ip = request.remote_ip
           tb.created_at = Time.now
-          tb.save
-          if tb.errors.empty?
-            @catched = true
-            @message = 'success'
-          else
+
+          # aq is Akismet query
+          aq = {
+            :comment_content => tb.excerpt,
+            :comment_author_url => tb.url,
+            :comment_author => tb.title
+          }
+          if don_get_config.akismet_key && is_spam_by_akismet?(aq)
+            # spam
+            logger.info "Akismet is blocking."
+            tb.hidden = 1
             @catched = false
-            @message = 'count:' + tb.errors.count.to_s
+            @message = 'blocked by Akismet'
+            tb.save # XXX
+          else
+            tb.save
+            if tb.errors.empty?
+              @catched = true
+              @message = 'success'
+            else
+              @catched = false
+              @message = 'count:' + tb.errors.count.to_s
+            end
           end
         end
       rescue

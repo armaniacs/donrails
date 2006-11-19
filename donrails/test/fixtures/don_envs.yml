@@ -15,6 +15,7 @@ first:
   url_limit: 1
   default_theme: custom
   trackback_enable_time: 315360000
+  akismet_key: 64c061aa654f
 #  env_name: test
 another:
   id: 2

@@ -1012,6 +1012,7 @@ class LoginController < ApplicationController
       aris1.url_limit = c["url_limit"]
       aris1.default_theme = c["default_theme"]
       aris1.trackback_enable_time = c["trackback_enable_time"].to_i
+      aris1.akismet_key = c["akismet_key"]
 
       aris1.save
     end

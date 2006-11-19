@@ -9,12 +9,14 @@ class CommentMailer < ActionMailer::Base
       article = ct.article
       cort = 'Comment'
       manage_action = 'manage_comment'
+      hidden = ct.hidden
     when 'Trackback'
       comment = ct.excerpt
       commenter = ct.blog_name
       article = ct.article
       cort = 'Trackback'
       manage_action = 'manage_trackback'
+      hidden = ct.hidden
     else
       return
     end
@@ -47,7 +49,7 @@ class CommentMailer < ActionMailer::Base
 
     recipients recipient
     subject "[donrails comment]"
-    body :recipient => recipient, :comment => comment, :now => Time.now, :commenter => commenter, :article => article, :url => url.join('/'), :login_url => login_url.join('/'), :cort => cort, :enrollment_url => enrollment_url.join('/')
+    body :recipient => recipient, :comment => comment, :now => Time.now, :commenter => commenter, :article => article, :url => url.join('/'), :login_url => login_url.join('/'), :cort => cort, :enrollment_url => enrollment_url.join('/'), :hidden => hidden
   end
 
 end

@@ -145,6 +145,9 @@ baseurl		TEXT,
 url_limit	INTEGER DEFAULT 5,
 default_theme	VARCHAR(100),
 trackback_enable_time INTEGER,
+-- add 2006-11-19
+akismet_key	TEXT,
+
 primary key (id)
 );
 

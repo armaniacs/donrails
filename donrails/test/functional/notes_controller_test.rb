@@ -64,6 +64,19 @@ class NotesControllerTest < Test::Unit::TestCase
 #     assert_equal require_response_body, @response.body
 #   end
 
+  def test_trackback__akismet
+    post :trackback,
+    :id => 1,
+    :title => 'viagra-test-123',
+    :excerpt => 'this comment_author triggers known spam',
+    :url => "http://test.example.com/blog/",
+    :blog_name => 'test of donrails'
+
+    require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>blocked by Akismet</message>\n</response>\n"
+    assert_response :success
+    assert_equal require_response_body, @response.body
+  end
+
   def test_trackback__too_old
     post :trackback,
     :id => 100,
