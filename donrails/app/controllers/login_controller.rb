@@ -1,6 +1,8 @@
 require 'kconv'
 class LoginController < ApplicationController
 
+  include Akismet
+
   class << self
     include ApplicationHelper
   end
@@ -252,6 +254,35 @@ class LoginController < ApplicationController
   def manage_trackback
     @trackbacks_pages, @trackbacks = paginate(:trackback, :per_page => 30,
                                               :order_by => 'id DESC')
+  end
+
+  def akismet_report
+    if @params[:id] && @params[:sh] == 's'
+      pf = Trackback.find(@params[:id])
+      aq = {
+        :comment_content => pf.excerpt,
+        :comment_author_url => pf.url,
+        :comment_author => pf.title
+      }
+      if don_get_config.akismet_key && submit_spam_to_akismet(aq)
+        logger.info "[Akismet] Report SPAM"
+        pf.update_attribute('hidden', 1)
+        @flash[:note2] = "Report to Akismet: #{pf.id} is SPAM"
+      end
+    elsif @params[:id] && @params[:sh] == 'h'
+      pf = Trackback.find(@params[:id])
+      aq = {
+        :comment_content => pf.excerpt,
+        :comment_author_url => pf.url,
+        :comment_author => pf.title
+      }
+      if don_get_config.akismet_key && submit_ham_to_akismet(aq)
+        logger.info "[Akismet] Report HAM"
+        pf.update_attribute('hidden', 0)
+        @flash[:note2] = "Report to Akismet: #{pf.id} is HAM"
+      end
+    end
+    redirect_to :back
   end
 
   def delete_trackback

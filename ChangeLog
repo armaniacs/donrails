@@ -1,5 +1,9 @@
 2006-11-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/login_controller.rb (LoginController::akismet_report): Add new mthod to spam/ham report to Akismet.
+	* donrails/app/views/shared/add_banlist.rhtml: likewise. Some format change.
+	* donrails/app/views/shared/table_trackback.rhtml: likewise. Add report method to Akismet.
+
 	** NOTE ** Incompatible change. 
 	* New feature: Change to use Akismet. (http://akismet.com/).
 	* donrails/app/controllers/notes_controller.rb (NotesController::trackback): Add to use Akismet.

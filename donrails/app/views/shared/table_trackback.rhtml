@@ -1,7 +1,9 @@
+spam / ham を選択すると、Akismetにレポートします。
 <table  border="1" cellspacing="0">
   <tr>
     <td>Hide?</td>
     <td>Delete?</td>
+    <td>Report</td>
     <td>status</td>
     <td>article id</td>
     <td>blog_name</td>
@@ -19,7 +21,18 @@
       <% end %>
     </td>
     <td><%= check_box "deleteid", co.id %></td>
-    <td><% if co.hidden == 1 %>(hidden)<% else %>normal<% end %></td>
+    <td>
+      <%= link_to 'spam', {:action => 'akismet_report', :sh => 's', :id => co.id}, :confirm => 'Really report this is SPAM to Akismet?' %>
+      /
+      <%= link_to 'ham', {:action => 'akismet_report', :sh => 'h', :id => co.id}, :confirm => 'Really report this is HAM to Akismet?' %>
+    </td>
+    <td>
+      <% if co.hidden == 1 %>
+      hidden
+      <% else %>
+      normal
+      <% end %>
+    </td>
     <td>
       <% if co.article %>
       <%= link_to_remote(co.article.id, :update => "trackback_ajax", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.article.id }) %>

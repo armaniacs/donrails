@@ -652,7 +652,7 @@ class NotesController < ApplicationController
           }
           if don_get_config.akismet_key && is_spam_by_akismet?(aq)
             # spam
-            logger.info "Akismet is blocking."
+            logger.info "[Akismet] blocking."
             tb.hidden = 1
             @catched = false
             @message = 'blocked by Akismet'
