@@ -1,3 +1,12 @@
+2006-11-20  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::trackback): Change to return 403 when receive wrong trackback.
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_trackback__too_old): Change to apply it.
+	(NotesControllerTest::test_trackback__akismet): likewise.
+	(NotesControllerTest::test_trackback__2): likewise.
+
+	* donrails/lib/akismet.rb: Fix for rake test stability.
+
 2006-11-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::akismet_report): Add new mthod to spam/ham report to Akismet.

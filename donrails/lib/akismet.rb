@@ -15,7 +15,10 @@
 require 'net/http'
 require 'uri'
 
+require File.dirname(__FILE__) + '/../app/helpers/application_helper'
+
 module Akismet
+  include ApplicationHelper
 
   STANDARD_HEADERS = {
     'User-Agent' => "Rails/#{Rails::VERSION::STRING} | AkismetPlugin/1.0",

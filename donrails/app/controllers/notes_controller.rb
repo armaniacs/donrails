@@ -676,6 +676,11 @@ class NotesController < ApplicationController
       @catched = false
       @message = 'Please use HTTP POST'
     end
+    
+    if @catched == false
+      render :status => 403
+      return
+    end
   end
 
   def catch_trackback

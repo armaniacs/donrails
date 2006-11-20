@@ -34,7 +34,7 @@ class NotesControllerTest < Test::Unit::TestCase
     :blog_name => 'test of donrails'
 
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>count:1</message>\n</response>\n"
-    assert_response :success
+    assert_response 403
     assert_equal require_response_body, @response.body
   end
 
@@ -73,7 +73,7 @@ class NotesControllerTest < Test::Unit::TestCase
     :blog_name => 'test of donrails'
 
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>blocked by Akismet</message>\n</response>\n"
-    assert_response :success
+    assert_response 403
     assert_equal require_response_body, @response.body
   end
 
@@ -86,7 +86,7 @@ class NotesControllerTest < Test::Unit::TestCase
     :blog_name => 'test of donrails'
 
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>count:1</message>\n</response>\n"
-    assert_response :success
+    assert_response 403
     assert_equal require_response_body, @response.body
   end
 
