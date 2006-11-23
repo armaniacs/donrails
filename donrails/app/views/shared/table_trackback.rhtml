@@ -1,4 +1,5 @@
 spam / ham を選択すると、Akismetにレポートします。
+hiddenが1のものを<%= link_to 'まとめて消去', {:action => 'delete_hidden_trackback_all'}, :confirm => 'Really erase trackbacks that hidden are 1?' %>
 <table  border="1" cellspacing="0">
   <tr>
     <td>Hide?</td>

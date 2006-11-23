@@ -317,10 +317,35 @@ class LoginController < ApplicationController
     redirect_to :action => "manage_trackback"
   end
 
+  def delete_hidden_trackback_all
+    @flash[:note] = ''
+    @flash[:note2] = ''
+    begin
+      Trackback.delete_all "hidden = 1"
+      @flash[:note2] += '<br>Delete: ALL hidden trackbacks'
+    rescue
+      @heading = 'fail delete_hidden_trackback_all'
+    end
+    redirect_to :action => "manage_trackback"
+  end
+
   ## comment
   def manage_comment
     @comments_pages, @comments = paginate(:comment, :per_page => 30,
                                           :order_by => 'id DESC')
+  end
+
+
+  def delete_hidden_comment_all
+    @flash[:note] = ''
+    @flash[:note2] = ''
+    begin
+      Comment.delete_all "hidden = 1"
+      @flash[:note2] += '<br>Delete: ALL hidden comments'
+    rescue
+      @heading = 'fail delete_hidden_comment_all'
+    end
+    redirect_to :action => "manage_comment"
   end
 
   def delete_comment
@@ -1044,6 +1069,7 @@ class LoginController < ApplicationController
       aris1.default_theme = c["default_theme"]
       aris1.trackback_enable_time = c["trackback_enable_time"].to_i
       aris1.akismet_key = c["akismet_key"]
+      aris1.notify_level = c["notify_level"].to_i
 
       aris1.save
     end

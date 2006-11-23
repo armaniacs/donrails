@@ -21,6 +21,15 @@ class AntiSpam
     @URL_LIMIT = 5 unless defined?(@URL_LIMIT)
   end
 
+  def is_spam_by_antispam?(args)
+    args.each do |name, string|
+      if is_spam?(name, string)
+        return true
+      end
+    end
+    return false
+  end
+
   def is_spam?(name, string)
     return false if string.nil?
     return false if string == ""

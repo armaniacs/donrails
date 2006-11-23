@@ -174,5 +174,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def don_is_spam?(args)
+    if don_get_config.akismet_key && is_spam_by_akismet?(args)
+      logger.info "[Akismet] blocking."
+      @catched = false
+      @message = 'blocked by Akismet'
+    elsif AntiSpam.new.is_spam_by_antispam?(args)
+      @catched = false
+      @message = 'blocked by AntiSpam'
+    end
+ 
+   if @catched == false
+      return true
+    else
+      return false
+    end
+  end
   
 end

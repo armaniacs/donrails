@@ -21,6 +21,18 @@ class CommentMailer < ActionMailer::Base
       return
     end
 
+    # notify level 0: no notify
+    if defined?(don_get_config.notify_level) && don_get_config.notify_level == 0
+      return
+    end
+
+    # notify level 1: no notify when hidden is '1'.
+    if hidden == 1
+      if defined?(don_get_config.notify_level) && don_get_config.notify_level <= 1
+        return
+      end
+    end
+
     if defined?(don_get_config.admin_mailadd) && don_get_config.admin_mailadd
       recipient = don_get_config.admin_mailadd
       from don_get_config.admin_mailadd

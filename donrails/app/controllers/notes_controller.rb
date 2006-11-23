@@ -584,6 +584,25 @@ class NotesController < ApplicationController
                           "body" => body,
                           "article_id" => a.id
                           )
+      akq = {
+        :comment_content => aris1.body,
+        :comment_author_url => aris1.url,
+        :comment_author => aris1.title,
+        :title => aris1.title,
+        :body => aris1.body,
+        :url => aris1.url,
+        :ip => aris1.ipaddr
+      }
+      if don_is_spam?(akq)
+        aris1.hidden = 1
+      end
+
+      if @catched == false
+        aris1.save
+        render :text => @message, :status => 403
+        return
+      end
+
       aris1.valid?
       if aris1.errors.empty?
         aris1.save
@@ -644,28 +663,27 @@ class NotesController < ApplicationController
           tb.ip = request.remote_ip
           tb.created_at = Time.now
 
-          # aq is Akismet query
-          aq = {
+          akq = {
             :comment_content => tb.excerpt,
             :comment_author_url => tb.url,
-            :comment_author => tb.title
+            :comment_author => tb.title,
+            :blog_name => tb.blog_name,
+            :title => tb.title,
+            :excerpt => tb.excerpt,
+            :url => tb.url,
+            :ip => tb.ip
           }
-          if don_get_config.akismet_key && is_spam_by_akismet?(aq)
-            # spam
-            logger.info "[Akismet] blocking."
+          if don_is_spam?(akq)
             tb.hidden = 1
-            @catched = false
-            @message = 'blocked by Akismet'
-            tb.save # XXX
+          end
+
+          tb.save
+          if tb.errors.empty?
+            @catched = true if @catched == nil
+            @message = 'success' if @message == nil
           else
-            tb.save
-            if tb.errors.empty?
-              @catched = true
-              @message = 'success'
-            else
-              @catched = false
-              @message = 'count:' + tb.errors.count.to_s
-            end
+            @catched = false
+            @message = 'count:' + tb.errors.count.to_s if @message == nil
           end
         end
       rescue
@@ -676,7 +694,7 @@ class NotesController < ApplicationController
       @catched = false
       @message = 'Please use HTTP POST'
     end
-    
+
     if @catched == false
       render :status => 403
       return

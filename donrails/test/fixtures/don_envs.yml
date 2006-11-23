@@ -16,6 +16,7 @@ first:
   default_theme: custom
   trackback_enable_time: 315360000
   akismet_key: 64c061aa654f
+  notify_level: 2
 #  env_name: test
 another:
   id: 2

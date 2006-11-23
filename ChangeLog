@@ -1,3 +1,29 @@
+2006-11-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_hidden_comment_all): New method to delete all of comments that hidden are 1.
+	* donrails/app/views/shared/table_comment.rhtml:  Add link to delte_hidden_comment_all
+	* donrails/app/views/shared/table_trackback.rhtml: Add link to delte_hidden_trackback_all
+	* donrails/app/controllers/login_controller.rb (LoginController::delete_hidden_trackback_all): New method to delete all of trackbacks that hidden are 1.
+
+	* donrails/app/controllers/application.rb (ApplicationController::don_is_spam?): Add method to integrate antispam method.	
+	* donrails/app/models/trackback.rb (Trackback): likewise. Remove some entories to apply it.
+	* donrails/lib/antispam.rb (AntiSpam::is_spam_by_antispam): likewise. New method.
+	* donrails/app/controllers/notes_controller.rb (NotesController::add_comment2): likewise. Change to apply it.
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_add_comment2__spam): Add test for it.
+
+	** New feature: You can set nofify e-mail level in DonEnv.notify_level when comment/trackback received. If set is
+	- 0: no e-mail
+	- 1: mail for non spam message.
+	- 2: mail for all message.
+	* donrails/app/models/comment_mailer.rb (CommentMailer::notify): likewise.
+	* donrails/app/controllers/notes_controller.rb (NotesController::trackback): likewise.
+	* donrails/app/controllers/login_controller.rb (LoginController::add_don_env): likewise.
+	* donrails/app/views/shared/edit_don_env.rhtml: likewise.
+	* donrails/app/views/login/manage_don_env.rhtml: likewise.
+	* donrails/test/fixtures/don_envs.yml (first): likewise.
+	* upgrade_1_5.mysql.sql: likewise.
+	* upgrade_1_5.postgresql.sql: likewise.
+
 2006-11-20  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/notes_controller.rb (NotesController::trackback): Change to return 403 when receive wrong trackback.
