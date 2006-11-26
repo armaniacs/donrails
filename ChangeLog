@@ -1,3 +1,10 @@
+2006-11-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/application.rb (ApplicationController::don_is_spam): New feature: Whitelist.
+
+	* donrails/lib/antispam.rb (AntiSpam::scan_ipaddr_white): Change this method from protected to public.
+	(AntiSpam::scan_ipaddr): Change not to use scan_ipaddr_white.
+
 2006-11-23  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::delete_hidden_comment_all): New method to delete all of comments that hidden are 1.

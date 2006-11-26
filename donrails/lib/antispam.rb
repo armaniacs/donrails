@@ -71,12 +71,10 @@ class AntiSpam
         return true
       end
     end
+    return false
   end
-  protected :scan_ipaddr_white
-
 
   def scan_ipaddr(ip_address)
-    return false if true == scan_ipaddr_white(ip_address)
     Banlist.find(:all, :conditions => ["format = ?", "ipaddr"]).each do |bp|
       throw :hit, "IPaddress #{bp.pattern} matched" if ip_address.match(/#{bp.pattern}/)
     end

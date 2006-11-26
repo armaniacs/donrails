@@ -175,6 +175,12 @@ class ApplicationController < ActionController::Base
   end
 
   def don_is_spam?(args)
+    ip = args[:ip] || @request.remote_ip
+    if AntiSpam.new.scan_ipaddr_white(ip)
+      @message = '[Whitelist]: ' + ip
+      return false
+    end
+
     if don_get_config.akismet_key && is_spam_by_akismet?(args)
       logger.info "[Akismet] blocking."
       @catched = false

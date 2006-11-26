@@ -6,7 +6,7 @@ first:
 second:
   id: 2
   format: ipaddr
-  pattern: 0.0.0.0
+  pattern: 127.0.0.100
   white: 1
 #another:
 #  id: 2
