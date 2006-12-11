@@ -63,27 +63,35 @@ class LoginController < ApplicationController
         @request.reset_session
         @session = @request.session
         @session["person"] = "ok"
-        if flash[:op] == '/login'
+
+        if flash[:op] =~ /^\/login\/?$/
           redirect_to :action => "new_article"
+          return
         elsif flash[:op]
           redirect_to flash[:op] 
+          return
         else
           redirect_to :action => "new_article"
+          return
         end
       else
         flash[:notice] = "Wrong Password. Please input carefully."
         if flash[:op] == nil
           render :status => 403, :text => 'fail'
+          return
         elsif flash[:op] == '/login/authenticate'
           redirect_to '/login' 
+          return
         else
           redirect_to flash[:op] 
+          return
         end
 
       end
     else
       flash[:notice] = "Wrong method."
       redirect_to :action => "login_index"
+      return
     end
   end
 
