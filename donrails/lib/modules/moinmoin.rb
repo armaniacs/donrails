@@ -489,6 +489,11 @@ module DonRails
                      sprintf("<img alt=\"%s\" src=\"%s\" title=\"%s\"/>",
                              filename, url, filename))
       end
+      if target =~ /(?:\A|\s+)(#{supported_protocol_format}\S+)(?:\Z|\s+)/ then
+	url = $1
+	target.gsub!(/(#{supported_protocol_format}\S+)/,
+	sprintf("<a href=\"%s\">%s</a>", url, url))
+      end
 
       return convert_smileys
     end # def convert_inline
@@ -762,10 +767,10 @@ if $0 == __FILE__ then
       assert_equal('<p><ul><li>foo</li></ul></p><p>bar</p>', __getobj__(" * foo\n\nbar\n").body_to_html)
       assert_equal('<p><dl><dt>term</dt><dd>definition</dd></dl></p>', __getobj__(" term:: definition\n").body_to_html)
       assert_equal('<p><dl><dt>term</dt><dd>definition</dd><dt>another term</dt><dd>and its definition</dd></dl></p>', __getobj__(" term:: definition\n another term:: and its definition\n").body_to_html)
-      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li></ol></li><dt>term</dt><dd>definition</dd></ul></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
-      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li><dt>term</dt><dd>definition</dd></ol></li></ul></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n  term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
-      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2<dl><dt>term</dt><dd>definition</dd></dl></li></ol></li></ul></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n   term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
-      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li></ol></li></ul><dl><dt>term</dt><dd>definition</dd></dl></p><p>https://mope.example.net/mope/</p>', __getobj__("foo\n  * list 1\n  * list 2\n   1. number 1\n   1. number 2\n\n term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
+      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li></ol></li><dt>term</dt><dd>definition</dd></ul></p><p><a href="https://mope.example.net/mope/">https://mope.example.net/mope/</a></p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
+      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li><dt>term</dt><dd>definition</dd></ol></li></ul></p><p><a href="https://mope.example.net/mope/">https://mope.example.net/mope/</a></p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n  term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
+      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2<dl><dt>term</dt><dd>definition</dd></dl></li></ol></li></ul></p><p><a href="https://mope.example.net/mope/">https://mope.example.net/mope/</a></p>', __getobj__("foo\n * list 1\n * list 2\n  1. number 1\n  1. number 2\n\n   term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
+      assert_equal('<p>foo<ul><li>list 1</li><li>list 2<ol type="1"><li>number 1</li><li>number 2</li></ol></li></ul><dl><dt>term</dt><dd>definition</dd></dl></p><p><a href="https://mope.example.net/mope/">https://mope.example.net/mope/</a></p>', __getobj__("foo\n  * list 1\n  * list 2\n   1. number 1\n   1. number 2\n\n term:: definition\n\nhttps://mope.example.net/mope/\n").body_to_html)
 #      assert_equal('<p><table><tr><td>foo</td><td>bar</td></tr></table></p>', __getobj__("||foo||bar||\n").body_to_html)
       assert_equal('<p></p>', __getobj__("\n").body_to_html)
     end # def test_body_to_html
