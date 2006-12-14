@@ -1,3 +1,7 @@
+2006-12-14  Akira TAGOH  <at@gclab.org>
+
+	* upgrade_1_X.postgresql.sql: correct charset setting.
+
 2006-11-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/application.rb (ApplicationController::don_is_spam): New feature: Whitelist.

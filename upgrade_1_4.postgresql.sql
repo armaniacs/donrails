@@ -1,4 +1,4 @@
-SET CHARACTER SET UTF8;
+SET client_encoding = 'UTF8';
 START TRANSACTION;
 
 CREATE TABLE don_envs (
