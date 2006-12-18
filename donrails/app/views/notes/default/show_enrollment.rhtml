@@ -21,11 +21,11 @@
 </div> <!-- end section -->
 
 <div class="linktitle">
-<% if (@enrollment_l and @enrollment_r) %>
+<% if (@enrollment_l && @enrollment_l.articles.first && @enrollment_r && @enrollment_r.articles.first) %>
 <%= render(don_get_theme("shared/linktitle"), "lastarticle" => don_get_object(@enrollment_l.articles.first, 'html'), "nextarticle" => don_get_object(@enrollment_r.articles.first, 'html')) %>
-<% elsif (@enrollment_l and @enrollment_r == nil) %>
+<% elsif (@enrollment_l && @enrollment_l.articles.first && @enrollment_r == nil) %>
 <%= render(don_get_theme("shared/linktitle"), "lastarticle" => don_get_object(@enrollment_l.articles.first, 'html')) %>
-<% elsif (@enrollment_l == nil and @enrollment_r) %>
+<% elsif (@enrollment_l == nil && @enrollment_r && @enrollment_r.articles.first) %>
 <%= render(don_get_theme("shared/linktitle"), "nextarticle" => don_get_object(@enrollment_r.articles.first, 'html')) %>
 <% else %>
 (sorry, I can not link previous and next articles)
