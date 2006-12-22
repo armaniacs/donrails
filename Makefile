@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.5.0
+VERSION = 1.5.1
 TESTDIR = '/tmp/.donrails'
 
 all: link

@@ -1,3 +1,9 @@
+2006-12-22  ARAKI Ysauhiro  <yasu@debian.or.jp>
+
+	* Release: donrails-1.5.1.
+	* Remove tables-sqlite.sql. After donrails 1.5, sqlite/sqlite3 are not supported!.
+	* fix issues #36,37.
+
 2006-12-14  Akira TAGOH  <at@gclab.org>
 
 	* upgrade_1_X.postgresql.sql: correct charset setting.
