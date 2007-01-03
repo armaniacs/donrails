@@ -7,7 +7,10 @@ class Article < ActiveRecord::Base
   has_and_belongs_to_many :categories, :join_table => "categories_articles"
   has_many :don_pings, :order => "id ASC"
   has_many :trackbacks, :order => "id ASC"
+
   has_many :pictures, :order => "id ASC"
+  has_many :don_attachments, :order => "id ASC"
+
   has_many :comments, :order => "id ASC"
   belongs_to :author
   belongs_to :enrollment

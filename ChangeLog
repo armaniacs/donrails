@@ -1,8 +1,43 @@
+2007-01-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/layouts/simple.rhtml: New file.
+	* rails/app/helpers/application_helper.rb (ApplicationHelper::display_article_attachments): New method.
+	* donrails/test/unit/don_attachment_test.rb (DonAttachmentTest): New test. (Remove donrails/test/unit/picture_test.rb.)
+	* donrails/test/functional/notes_controller_test.rb: Small fix for test.
+	* donrails/test/integration/*_test.rb: Change to apply don_attachments TABLE.
+	* donrails/test/fixtures/pictures.yml: Remove.
+	* donrails/test/fixtures/don_attachments.yml: New file.
+	* donrails/app/models/article_sweeper.rb: Change to clean article at record.enrollment_id - 1.
+	* donrails/app/models/{article,picture}.rb: Change to apply don_attachments TABLE.
+	* donrails/app/models/don_attachment.rb: Change to apply don_attachments TABLE.
+	* donrails/app/models/don_ping.rb: Small fix for qeury character.
+	* donrails/app/controllers/application.rb: Small fix.
+	* donrails/app/controllers/login_controller.rb: Add 'picture_save' in cache_sweeper entry. And Change to apply don_attachments TABLE.
+	* donrails/app/controllers/notes_controller.rb: Change to apply don_attachments TABLE.
+	(NotesController): Add to use layout/simple.rhtml.
+
+	* donrails/app/views/shared/table_trackback.rhtml: likewise.
+	* donrails/app/views/shared/attachments/picture.rhtml: New file.
+	* donrails/app/views/login/manage_picture_detail.rhtml: Change to apply don_attachments TABLE.
+	* donrails/app/views/login/manage_picture.rhtml: likewise.
+	* donrails/app/views/notes/MT/show_enrollment.rhtml: likewise.
+	* donrails/app/views/notes/default/show_title.rhtml: likewise.
+	* donrails/app/views/notes/default/noteslist.rhtml: likewise.
+
+	** donrails-1.5.99.1
+	* NEW Feature at 1.6: You can expand attachment of article. (issue #35)
+	* UNCOMPATIBLE table change. Please apply upgrade_1_6.mysql.sql before use.
+	
 2006-12-22  ARAKI Ysauhiro  <yasu@debian.or.jp>
 
 	* Release: donrails-1.5.1.
 	* Remove tables-sqlite.sql. After donrails 1.5, sqlite/sqlite3 are not supported!.
 	* fix issues #36,37.
+
+2006-12-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/application.rb (ApplicationController::don_is_spam): If @request.env['skip_akismet'] is true, then donrails does not use Akismet.
+
 
 2006-12-14  Akira TAGOH  <at@gclab.org>
 
@@ -10,6 +45,11 @@
 
 	* donrails/lib/modules/moinmoin.rb: support the automatic link
 	feature.
+
+2006-12-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::authenticate): Fix for ActionController::DoubleRenderError.(issue #36)
+
 
 2006-11-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
 

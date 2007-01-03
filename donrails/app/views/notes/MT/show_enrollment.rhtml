@@ -8,7 +8,7 @@ article = don_get_object(@enrollment.articles.first, 'html')
   </h3><!-- the end of 'entry-header' -->
   <div class="entry-content">
     <div class="entry-body">
-      <%= display_article_images(article) %>
+      <%= display_article_attachments(article) %>
       <%= article.body_to_html %>
     </div><!-- the end of 'entry-body' -->
   </div><!-- the end of 'entry-content' -->

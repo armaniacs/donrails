@@ -22,8 +22,11 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       expire_action(:controller => 'notes', :action => %w(pick_article_a pick_article_a2))
 
       expire_page(:controller => 'notes', :action => %w(index rdf_recent articles_long category_tree_list_a sitemap))
+
       expire_page(:controller => 'notes', :action => %w(rdf_article show_title), :id => record.id)
       expire_page(:controller => 'notes', :action => %w(show_enrollment rdf_enrollment), :id => record.enrollment_id) if record.enrollment_id
+      expire_page(:controller => 'notes', :action => %w(show_enrollment show_title), :id => record.enrollment_id - 1) if record.enrollment_id
+
       expire_page(:controller => 'notes', :action => %w(rdf_article show_title2), :title => record.title)
       expire_page(:controller => 'notes', :action => 'show_month', :year => record.article_date.year, :month => record.article_date.month)
       expire_page(:controller => 'notes', :action => 'show_nnen', :day => record.article_date.day, :month => record.article_date.month)

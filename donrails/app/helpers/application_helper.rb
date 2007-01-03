@@ -354,22 +354,23 @@ module ApplicationHelper
     return content
   end
 
-  def display_article_images(article)
+  def display_article_attachments(article)
     content = ''
-    article.pictures.each do |pic|
-      if pic.path
-        hoi = pic.path.split('/public/').last
-        rpath = "/" + hoi
-        content += link_to(image_tag(rpath, :size => '100', :align => 'right'), rpath)
+    article.don_attachments.each do |atta|
+      if atta.format
+        content += render("shared/attachments/#{atta.format}", "atta" => atta)
+      else
+        content += render("shared/attachments/picture", "atta" => atta)
       end
     end
     return content
   end
+  alias :display_article_images :display_article_attachments
 
   def display_enrollment_images(enrollment)
     content = ''
     enrollment.articles.each do |article|
-      content += display_article_images(article)
+      content += display_article_attachments(article)
     end
     return content
   end

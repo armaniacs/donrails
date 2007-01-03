@@ -1,0 +1,7 @@
+<% if atta.path
+     hoi = atta.path.split('/public/').last
+     rpath = "/" + hoi %>
+<%= link_to(image_tag(rpath, :size => '100', :align => 'right'), rpath) %>
+<% end %>
+
+

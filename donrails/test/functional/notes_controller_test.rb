@@ -13,19 +13,22 @@ class NotesControllerTest < Test::Unit::TestCase
 
 
   def test_trackback
+    @request.env['skip_akismet'] = true
+
     post :trackback,
     :id => 1,
     :title => 'title test util',
     :excerpt => 'excerpt text excerpt text',
     :url => "http://test.example.com/blog/",
     :blog_name => 'test of donrails'
-
+    
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>0</error>\n  <message>success</message>\n</response>\n"
     assert_response :success
-    assert_equal require_response_body, @response.body
+    assert_match require_response_body, @response.body
   end
 
   def test_trackback__2
+    @request.env['skip_akismet'] = true
     post :trackback,
     :id => 1,
     :title => 'title test util',
@@ -35,10 +38,11 @@ class NotesControllerTest < Test::Unit::TestCase
 
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>blocked by AntiSpam</message>\n</response>\n"
     assert_response 403
-    assert_equal require_response_body, @response.body
+    assert_match require_response_body, @response.body
   end
 
   def test_trackback__3
+    @request.env['skip_akismet'] = true
     post :trackback,
     :id => 1,
     :title => 'title test util',
@@ -48,7 +52,7 @@ class NotesControllerTest < Test::Unit::TestCase
 
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>0</error>\n  <message>success</message>\n</response>\n"
     assert_response :success
-    assert_equal require_response_body, @response.body
+    assert_match require_response_body, @response.body
 
   end
 
@@ -74,12 +78,13 @@ class NotesControllerTest < Test::Unit::TestCase
     :blog_name => 'test of donrails'
 
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>blocked by Akismet</message>\n</response>\n"
-    assert_equal require_response_body, @response.body
+    assert_match require_response_body, @response.body
     assert_response 403
 
   end
 
   def test_trackback__too_old
+    @request.env['skip_akismet'] = true
     post :trackback,
     :id => 100,
     :title => 'title test util',
@@ -89,7 +94,7 @@ class NotesControllerTest < Test::Unit::TestCase
 
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>1</error>\n  <message>count:1</message>\n</response>\n"
     assert_response 403
-    assert_equal require_response_body, @response.body
+    assert_match require_response_body, @response.body
   end
 
 

@@ -63,7 +63,11 @@ class DonPing < ActiveRecord::Base
 
     Net::HTTP.start(uri.host, uri.port) do |http|
       http.read_timeout = 10
-      response = http.post("#{uri.path}?#{uri.query}", post)
+      if uri.query
+        response = http.post("#{uri.path}?#{uri.query}", post)
+      else
+        response = http.post("#{uri.path}", post)
+      end
       return response.body
     end 
   end

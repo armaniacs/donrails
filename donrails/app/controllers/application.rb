@@ -181,7 +181,7 @@ class ApplicationController < ActionController::Base
       return false
     end
 
-    if don_get_config.akismet_key && is_spam_by_akismet?(args)
+    if @request.env['skip_akismet'] != true && don_get_config.akismet_key && is_spam_by_akismet?(args)
       logger.info "[Akismet] blocking."
       @catched = false
       @message = 'blocked by Akismet'

@@ -24,7 +24,7 @@ day0 = Time.new; day1 = day0
 </div> <!-- end nnenhead -->
 
 <div class="section">
-  <%= display_article_images(article) %>
+  <%= display_article_attachments(article) %>
   <%= article.body_to_html %>
   <%= render(don_get_theme("shared/comment2"), "article" => article) %>
   <div class="nndate">

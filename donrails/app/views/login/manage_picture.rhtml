@@ -43,8 +43,8 @@
      <td>size</td>
      <td>content_type</td>
 -->
-     <td>name</td>
-     
+     <td>title</td>
+     <td>body</td>
      <td>Delete/File Delete?</td>
    </tr>
 
@@ -70,12 +70,9 @@
 <!--
      <td><%= pic.size if pic.size %></td>
      <td><%= pic.content_type if pic.content_type %></td>
-
-     <td>
-       <%= pic.comment if pic.comment %>
-     </td>
 -->     
-     <td><%= pic.name if pic.name %></td>
+     <td><%= pic.title if pic.title %></td>
+     <td><%= pic.body if pic.body %></td>
      <td>
        <%= check_box "deleteid", pic.id %>/
        <%= check_box "filedeleteid", pic.id %>

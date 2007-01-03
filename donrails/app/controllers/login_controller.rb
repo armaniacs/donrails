@@ -15,7 +15,7 @@ class LoginController < ApplicationController
   auto_complete_for :author, :name
   auto_complete_for :category, :name
 
-  cache_sweeper :article_sweeper, :only => [ :delete_article, :new_article, :fix_article, :add_category, :delete_category, :add_article, :delete_picture, :delete_trackback, :delete_comment, :delete_enrollment ]
+  cache_sweeper :article_sweeper, :only => [ :delete_article, :new_article, :fix_article, :add_category, :delete_category, :add_article, :delete_picture, :delete_trackback, :delete_comment, :delete_enrollment, :picture_save ]
 
   layout "login", :except => [:login_index, :index]
 
@@ -191,7 +191,7 @@ class LoginController < ApplicationController
     if p2 and p2['id']
       @picture = Picture.find(p2['id'])
       @picture.article_id = p2['article_id'] if p2['article_id']
-      @picture.comment = p2['comment'] if p2['comment']
+      @picture.body = p2['body'] if p2['body']
       @picture.save
     end
     redirect_to :back
@@ -329,8 +329,13 @@ class LoginController < ApplicationController
     @flash[:note] = ''
     @flash[:note2] = ''
     begin
-      Trackback.delete_all "hidden = 1"
-      @flash[:note2] += '<br>Delete: ALL hidden trackbacks'
+      if @params["trigger"] == 'hidden'
+        Trackback.delete_all "hidden = 1"
+        @flash[:note2] += '<br>Delete: ALL hidden trackbacks'
+      else @params["trigger"] == 'spam'
+        Trackback.delete_all "spam = 1"
+        @flash[:note2] += '<br>Delete: ALL spam trackbacks'
+      end
     rescue
       @heading = 'fail delete_hidden_trackback_all'
     end
@@ -551,7 +556,7 @@ class LoginController < ApplicationController
         author_name = @params["author"]['name']
         author = Author.find(:first, :conditions => ["name = ?", author_name])
         if author == nil
-          render :text => 'invalid entry', :status => 404
+          render :text => 'Non-registered Author Name. Please submit this article after author registration.', :status => 404
           return
         end
       else

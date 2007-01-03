@@ -1,5 +1,6 @@
-class Picture < ActiveRecord::Base
-  belongs_to :article
+#class Picture < ActiveRecord::Base
+class Picture < DonAttachment
+#  belongs_to :article
 
   validates_format_of :content_type, 
   :with => /^image/,
@@ -13,10 +14,15 @@ class Picture < ActiveRecord::Base
   def picture=(picture_field)
     self.name = base_part_of(picture_field.original_filename)
     self.content_type = picture_field.content_type.chomp
+    self.format = 'picture'
 
     t1 = Time.now
 
-    dumpdir = File.expand_path(RAILS_ROOT) + IMAGE_DUMP_PATH + t1.year.to_s + '-' + t1.month.to_s + '-' + t1.day.to_s + '/'
+    dumprootdir = File.expand_path(RAILS_ROOT) + don_get_config.image_dump_path
+    unless File.directory? dumprootdir
+      Dir.mkdir dumprootdir
+    end
+    dumpdir = dumprootdir + t1.year.to_s + '-' + t1.month.to_s + '-' + t1.day.to_s + '/'
     unless File.directory? dumpdir
       Dir.mkdir dumpdir
     end

@@ -1,8 +1,13 @@
-spam / ham を選択すると、Akismetにレポートします。
-hiddenが1のものを<%= link_to 'まとめて消去', {:action => 'delete_hidden_trackback_all'}, :confirm => 'Really erase trackbacks that hidden are 1?' %>
+<ul>
+  <li>spam / ham を選択すると、Akismetにレポートします。</li>
+  <li>hiddenが1のものを<%= link_to 'まとめて消去', {:action => 'delete_hidden_trackback_all', :trigger => 'hidden'}, :confirm => 'Really erase trackbacks that hidden are 1?' %></li>
+  <li>spamが1のものを<%= link_to 'まとめて消去', {:action => 'delete_hidden_trackback_all', :trigger => 'spam'}, :confirm => 'Really erase trackbacks that spam are 1?' %></li>
+</ul>
+
 <table  border="1" cellspacing="0">
   <tr>
     <td>Hide?</td>
+    <td>Spam?</td>
     <td>Delete?</td>
     <td>Report</td>
     <td>status</td>
@@ -21,6 +26,13 @@ hiddenが1のものを<%= link_to 'まとめて消去', {:action => 'delete_hidd
       <%= check_box "hideid", co.id %>
       <% end %>
     </td>
+    <td>
+      <% if co.spam == 1 %>
+      <%= check_box "spamid", co.id, :checked => 'checked' %>
+      <% else %>
+      <%= check_box "spamid", co.id %>
+      <% end %>
+    </td>
     <td><%= check_box "deleteid", co.id %></td>
     <td>
       <%= link_to 'spam', {:action => 'akismet_report', :sh => 's', :id => co.id}, :confirm => 'Really report this is SPAM to Akismet?' %>
@@ -28,6 +40,9 @@ hiddenが1のものを<%= link_to 'まとめて消去', {:action => 'delete_hidd
       <%= link_to 'ham', {:action => 'akismet_report', :sh => 'h', :id => co.id}, :confirm => 'Really report this is HAM to Akismet?' %>
     </td>
     <td>
+      <% if co.spam == 1 %>
+      spam /
+      <% end %>
       <% if co.hidden == 1 %>
       hidden
       <% else %>
