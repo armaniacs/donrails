@@ -45,27 +45,6 @@ class NotesController < ApplicationController
     :pick_enrollment_a                             
   ]
 
-  layout "simple", :only => [
-    :pick_article_a,
-    :pick_article_a2,
-    :recent_category_title_a,
-    :recent_trigger_title_a,
-    :rdf_recent,
-    :rdf_article,
-    :rdf_enrollment,
-    :rdf_search,
-    :rdf_category,
-    :trackback,
-    :pick_trackback_a,
-    :category_select_a,
-    :comment_form_a,
-    :comment_form,
-    :pick_comment_a,
-    :category_tree_list_a,
-    :sitemap,
-    :pick_enrollment_a                             
-  ]
-
   def index
     @heading = "index"
     recent
