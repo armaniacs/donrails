@@ -1,3 +1,7 @@
+2007-01-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/picture.rb (Picture::picture): Fix picture.name to picture.title.
+
 2007-01-03  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/layouts/simple.rhtml: New file.

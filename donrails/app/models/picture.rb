@@ -1,7 +1,4 @@
-#class Picture < ActiveRecord::Base
 class Picture < DonAttachment
-#  belongs_to :article
-
   validates_format_of :content_type, 
   :with => /^image/,
   :message => "--- you can only upload pictures"
@@ -12,7 +9,7 @@ class Picture < DonAttachment
   end
 
   def picture=(picture_field)
-    self.name = base_part_of(picture_field.original_filename)
+    self.title = base_part_of(picture_field.original_filename)
     self.content_type = picture_field.content_type.chomp
     self.format = 'picture'
 
@@ -26,7 +23,7 @@ class Picture < DonAttachment
     unless File.directory? dumpdir
       Dir.mkdir dumpdir
     end
-    self.path = dumpdir + self.name
+    self.path = dumpdir + self.title
     f = File.new(self.path, "w")
     self.size = f.write(picture_field.read)
     f.close
@@ -38,7 +35,7 @@ class Picture < DonAttachment
     unless File.directory? dumpdir
       Dir.mkdir dumpdir
     end
-    self.path = dumpdir + self.name
+    self.path = dumpdir + self.title
     f = File.new(self.path, "w")
     self.size = f.write(data)
     f.close
