@@ -6,7 +6,6 @@ first:
   size: 5830
   content_type: image/gif
   body: abba logo
-  article_id: 1
   format: picture
 second:
   id: 2
@@ -15,6 +14,5 @@ second:
   size: 5830
   content_type: image/gif
   body: abba logo
-  article_id: 1
   hidden: 1
   format: picture

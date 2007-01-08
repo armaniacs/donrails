@@ -232,6 +232,7 @@ class LoginController < ApplicationController
           elsif v.to_i == 0
             pf.update_attribute('hidden', 0)
           end
+
           unless stmp == pf.hidden
             @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
@@ -677,8 +678,6 @@ class LoginController < ApplicationController
           unless stmp == pf.hidden
             @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
-#        else ## XXX
-#          @flash[:note2] += '<br>Not exists (no hidden status change):' + k
         end
       end
     end

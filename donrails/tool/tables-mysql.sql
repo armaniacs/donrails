@@ -8,11 +8,22 @@ path		TEXT,
 size		INTEGER,
 content_type	VARCHAR(100),
 body		TEXT, -- change at 1.6
-article_id	INTEGER,
+-- article_id	INTEGER,
 hidden		INTEGER,
 format		VARCHAR(100), -- added at 1.6
 primary key (id)
 );
+
+CREATE TABLE don_attachments_articles (
+don_attachment_id	INTEGER NOT NULL,
+article_id	INTEGER NOT NULL,
+constraint fk_cp_don_attachment foreign key (don_attachment_id) 
+	   references don_attachments(id),
+constraint fk_cp_article foreign key (article_id) 
+	   references articles(id),
+primary key (don_attachment_id, article_id)
+);
+
 
 CREATE TABLE comments (
 id		SERIAL UNIQUE,

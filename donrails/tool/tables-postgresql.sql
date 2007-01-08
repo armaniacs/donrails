@@ -1,13 +1,23 @@
-CREATE TABLE pictures 
+CREATE TABLE don_attachments
 (	
 id       SERIAL PRIMARY KEY,
-name     VARCHAR,
+title     VARCHAR, -- added at 1.6
 path      VARCHAR,
 size      INTEGER,
 content_type   VARCHAR,
 comment        VARCHAR,
 hidden	       INTEGER,
-article_id     VARCHAR
+body	       VARCHAR, -- added at 1.6
+format	       VARCHAR -- added at 1.6
+);
+
+
+CREATE TABLE don_attachments_articles (
+don_attachment_id       INTEGER NOT NULL,
+article_id       INTEGER NOT NULL,
+constraint fk_cp_attachment foreign key (don_attachment_id) references don_attachments(id),
+constraint fk_cp_article foreign key (article_id) references articles(id),
+primary key (don_attachment_id, article_id)
 );
 
 CREATE TABLE comments (

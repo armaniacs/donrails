@@ -23,7 +23,7 @@ class DonPing < ActiveRecord::Base
     end 
   end
 
-  def send_ping2(pingurl) # XXX
+  def send_ping2(pingurl) 
     rbody0 = send_ping_xmlrpc_extended(pingurl)
     if rbody0 == true || rbody0['flerror'] == true
       rbody = send_ping_xmlrpc(pingurl)
@@ -44,7 +44,7 @@ class DonPing < ActiveRecord::Base
   #
   # Example HTTP GET request:
   # http://rpc.weblogs.com/pingSiteForm?name=InfraBlog&url=http%3A%2F%2Finfrablog.verisignlabs.com 
-  def send_ping_rest(pingurl) # XXX
+  def send_ping_rest(pingurl) 
     uri = URI.parse(pingurl)
     baseurl = don_get_config.baseurl.split('/')
     baseurl << 'archives'

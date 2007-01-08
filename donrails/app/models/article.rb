@@ -4,13 +4,13 @@ include ApplicationHelper
 
 class Article < ActiveRecord::Base
   validates_presence_of :author_id, :title, :format, :enrollment_id
+
   has_and_belongs_to_many :categories, :join_table => "categories_articles"
+  has_and_belongs_to_many :don_attachments, :join_table => "don_attachments_articles"
+  has_and_belongs_to_many :pictures, :join_table => "don_attachments_articles", :class_name => "DonAttachment", :conditions => "format = 'picture'"
+
   has_many :don_pings, :order => "id ASC"
   has_many :trackbacks, :order => "id ASC"
-
-  has_many :pictures, :order => "id ASC"
-  has_many :don_attachments, :order => "id ASC"
-
   has_many :comments, :order => "id ASC"
   belongs_to :author
   belongs_to :enrollment
@@ -71,7 +71,7 @@ class Article < ActiveRecord::Base
 
   def send_trackback(articleurl, urllist) # urllist is target url.
     urllist.each do |url|
-      if url and url.size > 1 # XXX 
+      if url && url.size > 1 
         begin
 #          ping = pings.build("url" => url)
           ping = don_pings.build("url" => url)

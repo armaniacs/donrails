@@ -1,3 +1,24 @@
+2007-01-08  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* test/functional/login_controller_test.rb: Character code change to UTF-8.
+
+
+	** donrails-1.5.99.2
+	* NEW Feature at 1.6: Change to add 'has and belongs to' relation for don_attachments and articles (Enhance issue #35) NEW tables: don_attachments_articles.
+	* UNCOMPATIBLE table change. Please apply upgrade_1_6.mysql.sql before use.
+	* test/integration/login_story_test.rb: Apply for don_attachments_articles.
+	* test/fixtures/don_attachments.yml: likewise.
+	* app/helpers/application_helper.rb: Change for robustness.
+	* app/models/article_sweeper.rb: Apply for don_attachments_articles.
+	* app/models/article.rb: likewise.
+	* app/models/don_attachment.rb: likewise.
+	* app/models/don_ping.rb: Cleanup.
+	* app/controllers/login_controller.rb: Cleanup.
+	* app/views/login/manage_picture_detail.rhtml: Apply for don_attachments_articles. But I will add some codes to apply for don_attachments_articles.
+	* app/views/login/manage_picture.rhtml: Apply for don_attachments_articles.
+	* tool/tables-postgresql.sql: Apply for don_attachments_articles.
+	* tool/tables-mysql.sql: Apply for don_attachments_articles.
+	
 2007-01-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/picture.rb (Picture::picture): Fix picture.name to picture.title.

@@ -254,7 +254,7 @@ class LoginControllerTest < Test::Unit::TestCase
     post :fix_article, :article => {:title => 'test fix article title', :id => 1}, :newid => {:id => 1}
     assert_redirected_to :action => 'manage_article'
 
-    # id 22 ¤ò¸µ¤Ë¿·µ¬µ­»ö¤È¤·¤Æ½ñ¤¯¡£trackback¤ò21¤Ë¤à¤±¤Æ½Ð¤¹
+    # id 22 ã‚’å…ƒã«æ–°è¦è¨˜äº‹ã¨ã—ã¦æ›¸ãã€‚trackbackã‚’21ã«ã‚€ã‘ã¦å‡ºã™
     post :fix_article, :article => {:title => 'fixtest + tb', :id => 22, :tburl => 'http://localhost:3000/notes/trackback/5340', :body => 'this a test trackback'}, :newid => {'22' => '1'}
     assert_redirected_to :action => 'manage_article'
   end
@@ -262,7 +262,7 @@ class LoginControllerTest < Test::Unit::TestCase
   def test_fix_article__1
     @request.session['person'] = 'ok'
     post :fix_article, 
-    :article =>{"article_date"=>"2006-11-05", "title"=>"test", "body"=>"¤³¤ì¤Ï¤Æ¤¹¤È\r\n{{{\r\n[2006-11-05 23:15:19] INFO  going to shutdown ...\r\n[2006-11-05 23:15:19] INFO  WEBrick::HTTPServer#start done.\r\nYou have new mail
+    :article =>{"article_date"=>"2006-11-05", "title"=>"test", "body"=>"ã“ã‚Œã¯ã¦ã™ã¨\r\n{{{\r\n[2006-11-05 23:15:19] INFO  going to shutdown ...\r\n[2006-11-05 23:15:19] INFO  WEBrick::HTTPServer#start done.\r\nYou have new mail
 in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r\n}}}\r\n", "author_name"=>"araki", "tburl"=>"", "id"=> 1, "author_id"=>"1"}, 
     :commit =>"save", 
     :format =>"wiliki", 

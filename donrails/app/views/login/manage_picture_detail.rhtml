@@ -7,7 +7,7 @@
 id:<%= @picture.id %> |
 ファイルサイズ:<%= @picture.size if @picture.size %> バイト |
 ファイル形式:<%= @picture.content_type if @picture.content_type %> |
-article_id:<%= text_field "picture", "article_id", "size" => 5, "value" => @picture.article_id %> |
+articleとの関連づけ(XXX)|
 body:<%= text_field "picture", "body", "size" => 80, "value" => @picture.body %>
 <p>
 <%= submit_tag %>
@@ -15,10 +15,10 @@ body:<%= text_field "picture", "body", "size" => 80, "value" => @picture.body %>
 
 <div class="kakomi">
 <div id="ca">
-<% if @picture.article_id %>
+<% @picture.articles.each do |pa| %>
 <script type="text/javascript">
 //<![CDATA[
-<%= remote_function(:update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => @picture.article_id }, :method => 'get') %>
+<%= remote_function(:update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => pa.id }, :method => 'get') %>
 //]]>
 </script>
 <% end %>

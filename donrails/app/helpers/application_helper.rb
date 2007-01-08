@@ -90,7 +90,13 @@ module ApplicationHelper
     theme = don_get_config.default_theme
     path = File.dirname(name)
     filename = File.basename(name)
-    return File.join(path, theme, filename)
+    if path && theme && filename
+      return File.join(path, theme, filename)
+    elsif path && filename
+      return File.join(path, filename)
+    elsif filename
+      return File.join(filename)
+    end
   end # def don_get_theme
 
   def article_url(article, only_path = true)
@@ -375,7 +381,7 @@ module ApplicationHelper
     return content
   end
 
-  def don_get_config # XXX
+  def don_get_config
     begin
       de = DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
       if de == nil

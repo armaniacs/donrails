@@ -53,8 +53,8 @@
    <tr>
      <td><%= link_to pic.id, {:controller => 'notes', :action => 'show_image', :id => pic.id} %></td>
      <td>
-       <% if pic.article_id %>
-       <%= link_to_remote(pic.article_id, :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => pic.article_id }) %>
+       <% pic.articles.each do |pa| %>
+       <%= link_to_remote(pa.id, :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => pa.id }) %>
        <% end %>
      </td>
      <td><%= image_tag(rpath, :size => '100') %></td>

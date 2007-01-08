@@ -42,9 +42,11 @@ class ArticleSweeper < ActionController::Caching::Sweeper
     when Trackback
       expire_page(:controller => 'notes', :action => 'noteslist')
       expire_for(record.article)
-    when Picture
+    when Picture, DonAttachment
       expire_page(:controller => 'notes', :action => 'noteslist')
-      expire_for(record.article)
+      record.articles.each do |ra|
+        expire_for(ra)
+      end
     when Enrollment
       expire_page(:controller => 'notes', :action => 'show_enrollment', :id => record.id)
       expire_page(:controller => 'notes', :action => 'noteslist')
