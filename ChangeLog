@@ -1,3 +1,9 @@
+2007-01-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** donrails-1.5.99.3
+	* donrails/app/controllers/login_controller.rb: Change to apply don_attachments_articles.
+	* donrails/app/views/login/manage_picture_detail.rhtml: likewise.
+
 2007-01-08  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* test/functional/login_controller_test.rb: Character code change to UTF-8.

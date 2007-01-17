@@ -190,8 +190,20 @@ class LoginController < ApplicationController
     p2 = @params["picture"]
     if p2 and p2['id']
       @picture = Picture.find(p2['id'])
-      @picture.article_id = p2['article_id'] if p2['article_id']
+      if p2['aid']
+        p2['aid'].split(/\s+/).each do |pe|
+          na = Article.find(pe)
+          @picture.articles.push_with_attributes(na)
+        end
+      end
       @picture.body = p2['body'] if p2['body']
+      @params['bp'].each do |k,v|
+        if v.to_i == 0
+          uba = Article.find(k)
+          @picture.articles.delete(uba)
+        end
+      end
+
       @picture.save
     end
     redirect_to :back

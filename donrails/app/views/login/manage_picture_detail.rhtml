@@ -6,23 +6,31 @@
 
 id:<%= @picture.id %> |
 ファイルサイズ:<%= @picture.size if @picture.size %> バイト |
-ファイル形式:<%= @picture.content_type if @picture.content_type %> |
-articleとの関連づけ(XXX)|
+ファイル形式:<%= @picture.content_type if @picture.content_type %>
+<br>
 body:<%= text_field "picture", "body", "size" => 80, "value" => @picture.body %>
+<br>
+関連づけられたarticle:
+<% @picture.articles.each do |pa| %>
+<%= check_box "bp", pa.id, :checked => 'checked' %>
+<a href="#<%= pa.id %>"><%= pa.id %></a> /
+<% end %>
+<br>追加するarticle id:<input type="text" id="picture_aid" name="picture[aid]" size="20">
 <p>
 <%= submit_tag %>
 <%= end_form_tag %>
 
 <div class="kakomi">
-<div id="ca">
 <% @picture.articles.each do |pa| %>
+<a name="<%= pa.id %>">id:<%= pa.id %></a>
+<div id="ca_<%= pa.id %>">
 <script type="text/javascript">
 //<![CDATA[
-<%= remote_function(:update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => pa.id }, :method => 'get') %>
+<%= remote_function(:update => "ca_#{pa.id}", :url => {:controller => "notes", :action => "pick_article_a", :pickid => pa.id }, :method => 'get') %>
 //]]>
 </script>
-<% end %>
 </div>
+<% end %>
 </div>
 オリジナルサイズの表示
 <br>
