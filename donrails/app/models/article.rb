@@ -56,7 +56,6 @@ class Article < ActiveRecord::Base
   def send_pings2(articleurl, urllist)
     urllist.each do |url|
       begin
-#        ping = pings.build("url" => url)
         ping = don_pings.build("url" => url)
         ping.send_ping2(url)
         ping.save

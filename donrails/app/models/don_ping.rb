@@ -24,11 +24,13 @@ class DonPing < ActiveRecord::Base
   end
 
   def send_ping2(pingurl) 
-    rbody0 = send_ping_xmlrpc_extended(pingurl)
-    if rbody0 == true || rbody0['flerror'] == true
-      rbody = send_ping_xmlrpc(pingurl)
-      if rbody == true || rbody['flerror'] == true
-        send_ping_rest(pingurl)
+    Thread.start do
+      rbody0 = send_ping_xmlrpc_extended(pingurl)
+      if rbody0 == true || rbody0['flerror'] == true
+        rbody = send_ping_xmlrpc(pingurl)
+        if rbody == true || rbody['flerror'] == true
+          send_ping_rest(pingurl)
+        end
       end
     end
   end

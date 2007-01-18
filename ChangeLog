@@ -1,3 +1,7 @@
+2007-01-18  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/don_ping.rb (DonPing::send_ping2): Change to wrap in Thread in order to apply for too slow Blog Ping Aggregator (like pingoo).
+
 2007-01-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	** donrails-1.5.99.3
