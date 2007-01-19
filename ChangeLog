@@ -1,3 +1,7 @@
+2007-01-19  Akira TAGOH  <at@gclab.org>
+
+	* upgrade_1_6.postgresql.sql: add.
+
 2007-01-18  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/don_ping.rb (DonPing::send_ping2): Revised this change. It cause to lost connection between DB. Sorry.
