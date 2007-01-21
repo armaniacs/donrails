@@ -31,7 +31,8 @@ class Picture < DonAttachment
 
   def filesave(data)
     t1 = Time.now
-    dumpdir = File.expand_path(RAILS_ROOT) + IMAGE_DUMP_PATH + t1.year.to_s + '-' + t1.month.to_s + '-' + t1.day.to_s + '/'
+#    dumpdir = File.expand_path(RAILS_ROOT) + IMAGE_DUMP_PATH + t1.year.to_s + '-' + t1.month.to_s + '-' + t1.day.to_s + '/'
+    dumpdir = File.expand_path(RAILS_ROOT) + don_get_config.image_dump_path + t1.year.to_s + '-' + t1.month.to_s + '-' + t1.day.to_s + '/'
     unless File.directory? dumpdir
       Dir.mkdir dumpdir
     end

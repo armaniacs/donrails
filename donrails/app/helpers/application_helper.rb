@@ -90,6 +90,7 @@ module ApplicationHelper
     theme = don_get_config.default_theme
     path = File.dirname(name)
     filename = File.basename(name)
+
     if path && theme && filename
       return File.join(path, theme, filename)
     elsif path && filename

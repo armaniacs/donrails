@@ -3,7 +3,8 @@ class Author < ActiveRecord::Base
   has_many :articles
 
   def self.authenticate(name, pass)
-    find_first(["name = ? AND pass = ?", name, pass])
+    a = find_first(["name = ? AND pass = ?", name, pass])
+    return a
   end
 
   def self.authenticate?(name, pass)

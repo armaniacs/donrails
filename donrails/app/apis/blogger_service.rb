@@ -40,7 +40,6 @@ end
 
 class BloggerService < DonWebService
   web_service_api BloggerApi
-
   before_invocation :authenticate
 
   def deletePost(appkey, postid, username, password, publish)

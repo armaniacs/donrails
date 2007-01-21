@@ -17,6 +17,8 @@ class DonWebService < ActionWebService::Base
   web_service_api DonWebApi
   attr_accessor :controller
   
+  include ApplicationHelper
+
   def ping(*description)
     DonWebServiceStructs::Ping.new(:flerror => false, :message => 'Ok')
   end

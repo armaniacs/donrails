@@ -110,9 +110,11 @@ class MovableTypeService < DonWebService
     article.categories.clear if categories != nil
 
     for c in categories
-      category = Category.find(c['categoryId'])
-#      article.categories.push_with_attributes(category, :is_primary => c['isPrimary'])
-      article.categories.push_with_attributes(category)
+      begin
+        category = Category.find(c['categoryId'])
+        article.categories.push_with_attributes(category)
+      rescue
+      end
     end
     article.save
   end

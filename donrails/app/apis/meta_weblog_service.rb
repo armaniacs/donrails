@@ -152,7 +152,7 @@ class MetaWeblogService < DonWebService
 
    def newMediaObject(blogid, username, password, data)
      picture = Picture.new(:content_type => data['type'])
-     picture.name = File.basename(data['name']).gsub(/[^\w._-]/, '_')
+     picture.title = File.basename(data['name']).gsub(/[^\w._-]/, '_')
      picture.filesave(data['bits'])
      picture.save
 

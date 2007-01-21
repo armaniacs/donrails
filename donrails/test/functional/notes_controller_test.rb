@@ -382,14 +382,18 @@ class NotesControllerTest < Test::Unit::TestCase
   end
 
   def test_add_comment2
+    @request.env['skip_akismet'] = true
     c = {"author" => "testauthor", "password" => "hoge5", 
       "url" => "http://localhost/test.html", 
-      "title" => "testtitle", 
-      "body" => "testbody", "article_id" => 1}
+      "title" => "donrails", 
+      "body" => "this is donrails test", "article_id" => 1}
     post :add_comment2, :comment => c
     assert_match(/^http:\/\/test.host\/archives\/\w+\/1/, @response.headers['location'])
     assert_response 302
+  end
 
+  def test_add_comment2__too_short
+    @request.env['skip_akismet'] = true
     c = {"author" => "testauthor", "password" => "hoge5", 
       "url" => "http://localhost/test.html", 
       "title" => "testtitle", 
@@ -406,7 +410,7 @@ class NotesControllerTest < Test::Unit::TestCase
       "body" => "sex sex sex", "article_id" => 1}
     post :add_comment2, :comment => c
     assert_response 403
-    assert_match('blocked by AntiSpam', @response.body)
+    assert_match('blocked by ', @response.body)
   end
 
   # get is not valid request.

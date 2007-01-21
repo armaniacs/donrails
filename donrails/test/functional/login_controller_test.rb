@@ -479,7 +479,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     post :delete_blogping,
     :acid => {'1' => '1'}
     assert_redirected_to :action => 'manage_blogping'
-    assert_equal '', flash[:note]
+    assert_equal '[Activate] http://localhost:3000/backend/api<br>', flash[:note]
     
     post :delete_blogping,
     :acid => {'1' => '0'}

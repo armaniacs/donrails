@@ -1,3 +1,18 @@
+2007-01-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/fixtures/blogpings.yml: Change entry.
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_delete_blogping): fix for fixture change.
+
+	* donrails/app/models/don_attachment.rb (DonAttachment): Add 'include ApplicationHelper' to fix a problem which is caused when initial input is XML-RPC.
+	* donrails/app/apis/movable_type_service.rb (MovableTypeService::setPostCategories): Ignore when wrong or no-existent category id is inputted.
+	* donrails/app/models/author.rb (Author::self.authenticate): Fix.
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_add_comment2): Add to unuse Akismet in this test.(Added @request.env['skip_akismet'] = true)
+	(NotesControllerTest::test_add_comment2__too_short): Split this test from test_add_comment2.
+
+2007-01-20  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/apis/don_web_service.rb (DonWebService): Add 'include ApplicationHelper' to fix a problem which is caused when initial input is XML-RPC.
+
 2007-01-19  Akira TAGOH  <at@gclab.org>
 
 	* upgrade_1_6.postgresql.sql: add.
