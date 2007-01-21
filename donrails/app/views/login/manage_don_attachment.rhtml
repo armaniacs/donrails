@@ -1,0 +1,89 @@
+<% @heading = 'don_attachment management' %>
+<h1>don_attachment management</h1>
+ファイルのアップロード
+
+<%= secure_form_tag({:action => "don_attachment_save"},:multipart => 'true')  %>
+<input id="don_attachment_don_attachment" name="don_attachment[don_attachment]" size="30" type="file" />
+<input name="commit" type="submit" value="Upload file" />
+<%= end_form_tag %>
+
+<% if @don_attachments %>
+
+<% if @don_attachments_pages %>
+<%= pagination_links @don_attachments_pages %>
+<% end %>
+
+<%= secure_form_tag :action => "delete_don_attachment" %>
+<div class="kakomi">
+<div id="ca">
+記事が表示されます
+</div>
+</div>
+
+<ul>
+  <li>Hide?ボックスをチェックすると、hiddenステータスの1/0を切りかえます。</li>
+  <li>Delete?ボックスをチェックすると、don_attachmentをdbから削除します。(fileは残ります)</li>
+  <li>File Delete?ボックスをチェックすると、don_attachmentをdbから削除し、ファイルも削除します。</li>
+  <li>Edit? をクリックするとdon_attachmentと記事を関連づけたり、より詳細な情報を見ることができます。</li>
+</ul>
+
+<div class="notice">
+  <%= @flash[:note] %>
+  <%= @flash[:note2] %>
+</div>
+
+<%= submit_tag %>
+<table  border="1" cellspacing="0">
+   <tr>
+     <td>id</td>
+     <td>article_id</td>
+     <td>image</td>
+     <td>Hide?/Edit?</td>
+     <td>title</td>
+     <td>path</td>
+     <td>size</td>
+     <td>content_type</td>
+     <td>format</td>
+     <td>body</td>
+     <td>Delete/File Delete?</td>
+   </tr>
+
+   <% @don_attachments.each do |pic| %>
+   <% rpath = '/' + pic.path.split('/public/').last %>
+   <tr>
+     <td><%= link_to pic.id, {:controller => 'notes', :action => 'show_image', :id => pic.id} %></td>
+     <td>
+       <% pic.articles.each do |pa| %>
+       <%= link_to_remote(pa.id, :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => pa.id }) %>
+       <% end %>
+     </td>
+     <td><%= image_tag(rpath, :size => '100') %></td>
+     <td>
+       <% if pic.hidden == 1 %>
+       <%= check_box "hideid", pic.id, :checked => 'checked' %>
+       <% else %>
+       <%= check_box "hideid", pic.id %>
+       <% end %>
+       /
+       <%= link_to("edit", :action => "manage_don_attachment_detail", :id => pic.id) %>
+     </td>
+     <td><%= pic.title if pic.title %></td>
+     <td><%= pic.path if pic.path %></td>
+     <td><%= pic.size if pic.size %></td>
+     <td><%= pic.content_type if pic.content_type %></td>
+     <td><%= pic.format if pic.format %></td>
+     <td><%= pic.body if pic.body %></td>
+     <td>
+       <%= check_box "deleteid", pic.id %>/
+       <%= check_box "filedeleteid", pic.id %>
+     </td>
+   </tr>
+   <% end %>
+ </table>
+ <%= submit_tag %>
+ <%= end_form_tag %>
+ <% end %>
+
+ <% if @don_attachments_pages %>
+ <%= pagination_links @don_attachments_pages %>
+ <% end %>

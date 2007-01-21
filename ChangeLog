@@ -1,3 +1,12 @@
+2007-01-22  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::manage_don_attachment): New method.
+	(LoginController::manage_don_attachment_detail): New method.
+	(LoginController::edit_don_attachment): New method.
+
+	* donrails/app/views/login/manage_don_attachment_detail.rhtml: New file.
+	* donrails/app/views/login/manage_don_attachment.rhtml: New file.
+
 2007-01-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/fixtures/blogpings.yml: Change entry.

@@ -175,6 +175,39 @@ class LoginController < ApplicationController
     redirect_to :action => "manage_category"
  end
 
+  def manage_don_attachment
+    @don_attachments_pages, @don_attachments = paginate(:don_attachment,:per_page => 30,:order_by => 'id DESC')
+  end
+  def manage_don_attachment_detail
+    if @params["id"]
+      @don_attachment = DonAttachment.find(@params["id"])
+    else
+      redirect_to :back
+    end
+  end
+  def edit_don_attachment
+    p2 = @params["don_attachment"]
+    if p2 and p2['id']
+      @don_attachment = DonAttachment.find(p2['id'])
+      if p2['aid']
+        p2['aid'].split(/\s+/).each do |pe|
+          na = Article.find(pe)
+          @don_attachment.articles.push_with_attributes(na)
+        end
+      end
+      @don_attachment.body = p2['body'] if p2['body']
+      @params['bp'].each do |k,v|
+        if v.to_i == 0
+          uba = Article.find(k)
+          @don_attachment.articles.delete(uba)
+        end
+      end
+
+      @don_attachment.save
+    end
+    redirect_to :back
+  end
+
   ## picture
   def manage_picture
     @pictures_pages, @pictures = paginate(:picture,:per_page => 30,:order_by => 'id DESC')
