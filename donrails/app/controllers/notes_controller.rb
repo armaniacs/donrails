@@ -16,7 +16,7 @@ class NotesController < ApplicationController
   cache_sweeper :article_sweeper, :only => [:add_comment2, :trackback]
   verify_form_posts_have_security_token :only => [:add_comment2]
 
-  caches_page :index, :rdf_recent, :rdf_article, :rdf_category, :rdf_enrollment, :show_month, :show_nnen, :show_date, :show_category, :show_category_noteslist, :articles_long, :noteslist, :category_select_a, :recent_trigger_title_a, :recent_category_title_a, :category_tree_list_a, :articles_author, :sitemap, :show_enrollment
+  caches_page :index, :show_month, :show_nnen, :show_date, :show_category, :show_category_noteslist, :articles_long, :noteslist, :category_select_a, :recent_trigger_title_a, :recent_category_title_a, :category_tree_list_a, :articles_author, :sitemap, :show_enrollment
 
   after_filter :add_cache_control
   after_filter :compress
@@ -27,11 +27,6 @@ class NotesController < ApplicationController
     :pick_article_a2,
     :recent_category_title_a,
     :recent_trigger_title_a,
-    :rdf_recent,
-    :rdf_article,
-    :rdf_enrollment,
-    :rdf_search,
-    :rdf_category,
     :trackback,
     :pick_trackback_a,
     :catch_ping,
@@ -200,72 +195,6 @@ class NotesController < ApplicationController
     else
       @notice = "正しく日付を指定してください" unless @notice
       redirect_to :action => 'noteslist', :notice => @notice
-    end
-  end
-
-  def rdf_recent
-    @headers["Content-Type"] = "application/xml; charset=utf-8"
-    @recent_articles = Article.find(:all, :order => "article_mtime DESC", :limit => 20, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
-    unless @recent_articles.empty? then
-      @lm = @recent_articles.first.article_mtime.gmtime if @recent_articles.first.article_mtime
-    end
-  end
-
-  def rdf_article
-    begin
-      if @params['id'] and @article = Article.find(@params['id'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
-        @rdf_article = @article.id
-        @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
-        @headers["Content-Type"] = "application/xml; charset=utf-8"
-      else
-        render :text => "no entry", :status => 404
-      end
-    rescue
-      render :text => "no entry", :status => 404
-    end
-  end
-
-  def rdf_enrollment
-    begin
-      if @params['id'] and @enrollment = Enrollment.find(@params['id'], :conditions => ["enrollments.hidden IS NULL OR enrollments.hidden = 0"])
-        @rdf_enrollment = @enrollment.id
-        @lm = @enrollment.updated_at.gmtime if @enrollment and @enrollment.updated_at
-        @headers["Content-Type"] = "application/xml; charset=utf-8"
-      else
-        render :text => "no entry", :status => 404
-      end
-    rescue
-      render :text => "no entry", :status => 404
-    end
-  end
-
-  def rdf_search
-    @headers["Content-Type"] = "application/xml; charset=utf-8"
-    @lm = Time.now.gmtime
-    @recent_articles = Article.search(@params["q"])
-    @rdf_search = @params["q"]
-    if @recent_articles == nil
-      render_text "no entry"
-    end
-  end
-
-  def rdf_category
-    @headers["Content-Type"] = "application/xml; charset=utf-8"
-    @category = Category.find(:first, :conditions => ["name = ?", @params['category']])
-    if @category == nil
-      @params["q"] = @params["category"]
-      redirect_to :action => 'rdf_search', :q => @params["category"]
-    else
-      @recent_articles_pages, 
-      @recent_articles = paginate(:article, :per_page => 20,
-                                  :order_by => 'id DESC',
-                                  :join => "JOIN categories_articles on (categories_articles.article_id=articles.id and categories_articles.category_id=#{@category.id})",
-                                  :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
-                                  )
-      @rdf_category = @category.name
-      unless @recent_articles.empty? then
-        @lm = @recent_articles.first.article_mtime.gmtime if @recent_articles.first.article_mtime
-      end
     end
   end
 

@@ -1,3 +1,19 @@
+2007-02-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** New Add rss2 entries.
+	** Split rdf related actions from notes controller to rdf controller.
+	* donrails/config/routes.rb: Added rss2_* entries.
+	* donrails/app/views/rdf/rss2_*.rxml: New files.
+	* donrails/app/views/rdf/rdf_*.rxml: Moved from app/views/notes/rdf_*.
+	* donrails/app/views/layouts/default/notes.rhtml: Apply to change. Add auto_discovery_link_tag to rss2.
+	* donrails/app/views/layouts/MT/notes.rhtml: Apply to change. Add auto_discovery_link_tag to rss2.
+	* donrails/app/controllers/notes_controller.rb: Apply to change.
+	* donrails/app/controllers/rdf_controller.rb: New file.
+	* donrails/app/models/article_sweeper.rb: Apply to change.
+	* donrails/app/helpers/rdf_helper.rb: New file.
+	* donrails/test/functional/notes_controller_test.rb: Apply to change.
+	* donrails/test/functional/rdf_controller_test.rb: New file.
+
 2007-01-22  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::manage_don_attachment): New method.

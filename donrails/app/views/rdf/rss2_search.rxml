@@ -1,0 +1,47 @@
+xml.instruct! :xml, :version=>"1.0", :encoding => "utf-8"
+xml.rss("version"=>"2.0") do
+
+  xml.channel do 
+    xml.title don_get_config.rdf_title
+    xml.link(@request.protocol + @request.host_with_port + url_for(:action => "search", :q => @rdf_search))
+    xml.description don_get_config.rdf_description
+    xml.copyright don_get_config.rdf_copyright
+    xml.language "ja"
+    xml.pubDate Time.new.rfc2822
+    xml.docs "http://blogs.law.harvard.edu/tech/rss"
+    xml.generator "donrails"
+
+    for i in @recent_articles
+      item = don_get_object(i, 'xml')
+      xml.item do 
+        xml.title(item.title_to_xml)
+        xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => item.id))
+        item.categories.each do |cat|
+          xml.category cat.name
+        end
+
+        begin
+          ce = item.body_to_xml
+          if ce =~ (/^<html xmlns='http:\/\/www.w3.org\/1999\/xhtml'><body>(.*)<\/body><\/html>$/m)
+            ce = $1
+          end    
+          if ce =~ (/<content>(.*)<\/content>/m)
+            ce = $1
+          end    
+          xml.description do
+            xml.cdata! ce
+          end    
+        rescue
+          print "Error: #{$!} in #{item.id}\n"
+        end
+        if item.article_mtime
+          xml.pubDate item.article_mtime.rfc2822
+        end
+        item.pictures.each do |pic|
+          tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
+          xml.enclosure("url"=> tmpurl1)
+        end
+      end
+    end
+  end
+end

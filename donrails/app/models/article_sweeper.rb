@@ -21,13 +21,15 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
       expire_action(:controller => 'notes', :action => %w(pick_article_a pick_article_a2))
 
-      expire_page(:controller => 'notes', :action => %w(index rdf_recent articles_long category_tree_list_a sitemap))
-
-      expire_page(:controller => 'notes', :action => %w(rdf_article show_title), :id => record.id)
-      expire_page(:controller => 'notes', :action => %w(show_enrollment rdf_enrollment), :id => record.enrollment_id) if record.enrollment_id
+      expire_page(:controller => 'notes', :action => %w(index articles_long category_tree_list_a sitemap))
+      expire_page(:controller => 'rdf', :action => %w(rdf_recent rss2_recent))
+      expire_page(:controller => 'notes', :action => %w(show_title), :id => record.id)
+      expire_page(:controller => 'rdf', :action => %w(rdf_article rss2_article), :id => record.id)
+      expire_page(:controller => 'notes', :action => %w(show_enrollment), :id => record.enrollment_id) if record.enrollment_id
+      expire_page(:controller => 'rdf', :action => %w(rdf_enrollment rss2_enrollment), :id => record.enrollment_id) if record.enrollment_id
       expire_page(:controller => 'notes', :action => %w(show_enrollment show_title), :id => record.enrollment_id - 1) if record.enrollment_id
-
-      expire_page(:controller => 'notes', :action => %w(rdf_article show_title2), :title => record.title)
+      expire_page(:controller => 'notes', :action => %w(show_title2), :title => record.title)
+      expire_page(:controller => 'rdf', :action => %w(rdf_article rss2_article), :title => record.title)
       expire_page(:controller => 'notes', :action => 'show_month', :year => record.article_date.year, :month => record.article_date.month)
       expire_page(:controller => 'notes', :action => 'show_nnen', :day => record.article_date.day, :month => record.article_date.month)
       expire_page(:controller => 'notes', :action => 'show_date', :day => record.article_date.day, :month => record.article_date.month, :year => record.article_date.year)
@@ -127,21 +129,35 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
     clall = Category.find_all
     clall.each do |rc|
-
-      expire_page(:controller => 'notes', :action => %w(rdf_category show_category show_category_noteslist) , :category => rc.name)
+      expire_page(:controller => 'notes', :action => %w(show_category show_category_noteslist) , :category => rc.name)
+      expire_page(:controller => 'rdf', :action => %w(rdf_category rss2_category) , :category => rc.name)
 
       begin
         ppdir = RAILS_ROOT + "/public/rdf/rdf_category/#{rc.name}/page"
         ppdir2 = Dir.entries(ppdir)
         ppdir2.each do |x|
           if x =~ /(\d+)/
-            expire_page(:controller => 'notes', :action => 'rdf_category', :page => $1, :category => rc.name)
+            expire_page(:controller => 'rdf', :action => 'rdf_category', :page => $1, :category => rc.name)
           end
         end
       rescue Errno::ENOENT
       rescue
         p $!
       end
+
+      begin
+        ppdir = RAILS_ROOT + "/public/rdf/rss2_category/#{rc.name}/page"
+        ppdir2 = Dir.entries(ppdir)
+        ppdir2.each do |x|
+          if x =~ /(\d+)/
+            expire_page(:controller => 'notes', :action => 'rss2_category', :page => $1, :category => rc.name)
+          end
+        end
+      rescue Errno::ENOENT
+      rescue
+        p $!
+      end
+
       begin
         ppdir = RAILS_ROOT + "/public/archives/category/#{rc.name}/page"
         ppdir2 = Dir.entries(ppdir)

@@ -115,12 +115,19 @@ ActionController::Routing::Routes.draw do |map|
     :day => /[0-3]?\d/
   }
 
-  map.xml 'rdf/rdf_recent/feed.xml', :controller => 'notes', :action => "rdf_recent"
-  map.xml 'rdf/rdf_article/:id/feed.xml', :controller => 'notes', :action => "rdf_article", :id => /\d+/
-  map.xml 'rdf/rdf_enrollment/:id/feed.xml', :controller => 'notes', :action => "rdf_enrollment", :id => /\d+/
-  map.xml 'rdf/rdf_search/:q/feed.xml', :controller => 'notes', :action => "rdf_search", :q => /.+/
-  map.xml 'rdf/rdf_category/:category/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => '1'
-  map.xml 'rdf/rdf_category/:category/page/:page/feed.xml', :controller => 'notes', :action => "rdf_category", :category => /\w+/, :page => /\d+/
+  map.xml 'rdf/rdf_recent/feed.xml', :controller => 'rdf', :action => "rdf_recent"
+  map.xml 'rdf/rdf_article/:id/feed.xml', :controller => 'rdf', :action => "rdf_article", :id => /\d+/
+  map.xml 'rdf/rdf_enrollment/:id/feed.xml', :controller => 'rdf', :action => "rdf_enrollment", :id => /\d+/
+  map.xml 'rdf/rdf_search/:q/feed.xml', :controller => 'rdf', :action => "rdf_search", :q => /.+/
+  map.xml 'rdf/rdf_category/:category/feed.xml', :controller => 'rdf', :action => "rdf_category", :category => /\w+/, :page => '1'
+  map.xml 'rdf/rdf_category/:category/page/:page/feed.xml', :controller => 'rdf', :action => "rdf_category", :category => /\w+/, :page => /\d+/
+
+  map.xml 'rdf/rss2_recent/feed.xml', :controller => 'rdf', :action => "rss2_recent"
+  map.xml 'rdf/rss2_article/:id/feed.xml', :controller => 'rdf', :action => "rss2_article", :id => /\d+/
+  map.xml 'rdf/rss2_enrollment/:id/feed.xml', :controller => 'rdf', :action => "rss2_enrollment", :id => /\d+/
+  map.xml 'rdf/rss2_search/:q/feed.xml', :controller => 'rdf', :action => "rss2_search", :q => /.+/
+  map.xml 'rdf/rss2_category/:category/feed.xml', :controller => 'rdf', :action => "rss2_category", :category => /\w+/, :page => '1'
+  map.xml 'rdf/rss2_category/:category/page/:page/feed.xml', :controller => 'rdf', :action => "rss2_category", :category => /\w+/, :page => /\d+/
 
   map.connect 'archives/recent_category_title_a/:category', :controller => 'notes', :action => "recent_category_title_a", :category => /\w+/
   map.connect 'archives/recent_trigger_title_a/:trigger', :controller => 'notes', :action => "recent_trigger_title_a", :trigger => /\w+/
