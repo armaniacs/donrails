@@ -320,7 +320,7 @@ class LoginController < ApplicationController
       }
       if don_get_config.akismet_key && submit_spam_to_akismet(aq)
         logger.info "[Akismet] Report SPAM"
-        pf.update_attribute('hidden', 1)
+        pf.update_attribute('spam', 1)
         @flash[:note2] = "Report to Akismet: #{pf.id} is SPAM"
       end
     elsif @params[:id] && @params[:sh] == 'h'
@@ -332,7 +332,7 @@ class LoginController < ApplicationController
       }
       if don_get_config.akismet_key && submit_ham_to_akismet(aq)
         logger.info "[Akismet] Report HAM"
-        pf.update_attribute('hidden', 0)
+        pf.update_attribute('spam', 0)
         @flash[:note2] = "Report to Akismet: #{pf.id} is HAM"
       end
     end
@@ -362,6 +362,20 @@ class LoginController < ApplicationController
           end
           unless stmp == pf.hidden
             @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+          end
+        end
+      end
+      if c = @params["spamid"]
+        c.each do |k, v|
+          pf = Trackback.find(k.to_i)
+          stmp = pf.spam
+          if v.to_i == 1
+            pf.update_attribute('spam', 1)
+          elsif v.to_i == 0
+            pf.update_attribute('spam', 0)
+          end
+          unless stmp == pf.spam
+            @flash[:note2] += '<br>Spam status:' + k + ' is ' + pf.spam.to_s
           end
         end
       end

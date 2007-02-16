@@ -10,6 +10,7 @@ first_trackback:
   ip: 127.0.0.1
   created_at: 1999-01-01 01:00:00
   hidden: 0
+  spam: 0
 second_trackback:
   id: 2
   article_id: 1
@@ -21,6 +22,7 @@ second_trackback:
   ip: 127.0.0.1
   created_at: 1999-01-01 01:00:00
   hidden: 1
+  spam: 1
 
 third_trackback:
   id: 3
@@ -33,6 +35,7 @@ third_trackback:
   ip: 127.0.0.1
   created_at: 1999-01-01 01:00:00
   hidden: 1
+  spam: 1
 <% for i in 10..20 %>
 tb<%= i %>:
   id: <%= i %>

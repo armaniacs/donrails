@@ -182,8 +182,18 @@ class LoginControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'manage_trackback'
 
     post :delete_trackback, 
+    :spamid => {'2' => '0'}
+    assert_equal "<br>Spam status:2 is 0", flash[:note2]
+    assert_redirected_to :action => 'manage_trackback'
+
+    post :delete_trackback, 
     :hideid => {'2' => '1'}
     assert_equal "<br>Hyde status:2 is 1", flash[:note2]
+    assert_redirected_to :action => 'manage_trackback'
+
+    post :delete_trackback, 
+    :spamid => {'2' => '1'}
+    assert_equal "<br>Spam status:2 is 1", flash[:note2]
     assert_redirected_to :action => 'manage_trackback'
 
     post :delete_trackback, 
@@ -194,6 +204,16 @@ class LoginControllerTest < Test::Unit::TestCase
     post :delete_trackback, 
     :hideid => {'3' => '1'}
     assert_equal "<br>Hyde status:3 is 1", flash[:note2]
+    assert_redirected_to :action => 'manage_trackback'
+
+    post :delete_trackback, 
+    :spamid => {'3' => '0'}
+    assert_equal "<br>Spam status:3 is 0", flash[:note2]
+    assert_redirected_to :action => 'manage_trackback'
+
+    post :delete_trackback, 
+    :spamid => {'3' => '1'}
+    assert_equal "<br>Spam status:3 is 1", flash[:note2]
     assert_redirected_to :action => 'manage_trackback'
   end
 
