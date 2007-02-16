@@ -26,4 +26,10 @@ INSERT INTO don_attachments_articles (don_attachment_id, article_id)
        SELECT id,article_id from don_attachments WHERE article_id > 0;
 ALTER TABLE don_attachments DROP column article_id;
 
+--
+-- correct constraint
+--
+ALTER TABLE don_rbls ADD primary key(id);
+ALTER TABLE don_rbls DROP CONSTRAINT don_rbls_id_key;
+
 COMMIT;

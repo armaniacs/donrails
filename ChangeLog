@@ -1,5 +1,7 @@
 2007-02-16  Akira TAGOH  <at@gclab.org>
 
+	* upgrade_1_6.postgresql.sql: correct constraint for don_rbls.
+
 	* donrails/tool/tables-postgresql.sql: sync.
 
 2007-02-13  ARAKI Yasuhiro  <yasu@debian.or.jp>
