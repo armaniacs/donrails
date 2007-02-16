@@ -1,5 +1,7 @@
 2007-02-16  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/views/rdf/{rdf,rss2}_{recent,enrollment}.rxml: Fix link.
+
 	* donrails/app/controllers/login_controller.rb 
 	(LoginController::akismet_report): Change: When you SPAM report to Akismet, trackback.spam is 1. To the contrary, When you HAM report to Akismet, trackback.spam is 0.
 	(LoginController::delete_trackback): Change to apply, when you check/uncheck spam checkbox in manage_trackback.

@@ -17,7 +17,7 @@ xml.tag!("rdf:RDF",
     xml.items do    
       xml.tag!("rdf:Seq") do
         for item in @recent_articles
-          xml.rdf(:li, "rdf:resource"=> "#{@request.protocol}#{@request.host_with_port}#{url_for(:action => "show_enrollment", :id => item.enrollment_id)}") if item.enrollment_id
+          xml.rdf(:li, "rdf:resource"=> "#{@request.protocol}#{@request.host_with_port}#{url_for(:controller => 'notes', :action => "show_enrollment", :id => item.enrollment_id)}") if item.enrollment_id
         end
       end
     end
@@ -26,10 +26,10 @@ xml.tag!("rdf:RDF",
   for i in @recent_articles
     item = don_get_object(i, 'xml')
     if item.enrollment_id
-      xml.item("rdf:about" => @request.protocol + @request.host_with_port + url_for(:action => "show_enrollment", :id => item.enrollment_id)) do
+      xml.item("rdf:about" => @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_enrollment", :id => item.enrollment_id)) do
 
         xml.title(item.title_to_xml)
-        xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_enrollment", :id => item.enrollment_id))
+        xml.link(@request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_enrollment", :id => item.enrollment_id))
         item.categories.each do |cat|
           xml.category cat.name
         end
