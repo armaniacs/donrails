@@ -32,6 +32,7 @@ url              VARCHAR,
 
 ipaddr           VARCHAR,
 hidden	         INTEGER,
+spam             INTEGER,
 body             VARCHAR
 );
 
@@ -112,17 +113,17 @@ title       VARCHAR DEFAULT NULL,
 excerpt     VARCHAR DEFAULT NULL,
 url         VARCHAR DEFAULT NULL,
 ip          VARCHAR DEFAULT NULL,
-hidden	       INTEGER,
+hidden	    INTEGER,
+spam        INTEGER,
 created_at  TIMESTAMP DEFAULT NULL
 );
 
 CREATE TABLE enrollments (
-id         SERIAL UNIQUE,
+id         SERIAL PRIMARY KEY,
 title      VARCHAR,
 hidden     INTEGER,
 created_at TIMESTAMP DEFAULT NULL,
 updated_at TIMESTAMP DEFAULT NULL,
-primary key (id)
 );
 
 -- added at 2006-10-14
@@ -147,7 +148,7 @@ akismet_key	VARCHAR,
 
 -- added at 2006-10-14
 CREATE TABLE don_rbls (
-id     SERIAL UNIQUE,
+id     SERIAL PRIMARY KEY,
 rbl_type   VARCHAR,
 hostname   VARCHAR
 );
