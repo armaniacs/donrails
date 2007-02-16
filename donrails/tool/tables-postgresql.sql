@@ -12,14 +12,6 @@ format	       VARCHAR -- added at 1.6
 );
 
 
-CREATE TABLE don_attachments_articles (
-don_attachment_id       INTEGER NOT NULL,
-article_id       INTEGER NOT NULL,
-constraint fk_cp_attachment foreign key (don_attachment_id) references don_attachments(id),
-constraint fk_cp_article foreign key (article_id) references articles(id),
-primary key (don_attachment_id, article_id)
-);
-
 CREATE TABLE comments (
 id               SERIAL PRIMARY KEY,
 article_id       INTEGER,
@@ -56,6 +48,14 @@ hnfid            INTEGER,
 author_id        INTEGER,
 hidden           INTEGER,
 format           VARCHAR
+);
+
+CREATE TABLE don_attachments_articles (
+don_attachment_id       INTEGER NOT NULL,
+article_id       INTEGER NOT NULL,
+constraint fk_cp_attachment foreign key (don_attachment_id) references don_attachments(id),
+constraint fk_cp_article foreign key (article_id) references articles(id),
+primary key (don_attachment_id, article_id)
 );
 
 CREATE TABLE categories_articles (
@@ -123,7 +123,7 @@ id         SERIAL PRIMARY KEY,
 title      VARCHAR,
 hidden     INTEGER,
 created_at TIMESTAMP DEFAULT NULL,
-updated_at TIMESTAMP DEFAULT NULL,
+updated_at TIMESTAMP DEFAULT NULL
 );
 
 -- added at 2006-10-14
@@ -144,6 +144,7 @@ url_limit INTEGER DEFAULT 5,
 default_theme VARCHAR,
 trackback_enable_time INTEGER,
 akismet_key	VARCHAR,
+notify_level    INTEGER
 );
 
 -- added at 2006-10-14
