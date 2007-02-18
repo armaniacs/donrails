@@ -1,5 +1,7 @@
 2007-02-18  Akira TAGOH  <at@gclab.org>
 
+	* Makefile: Make a symlink for test dir to be rake-test-ready.
+
 	* donrails/tool/tables-postgresql.sql: set default value to
 	notify_level.
 
