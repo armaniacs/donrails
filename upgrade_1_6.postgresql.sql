@@ -32,4 +32,10 @@ ALTER TABLE don_attachments DROP column article_id;
 ALTER TABLE don_rbls ADD primary key(id);
 ALTER TABLE don_rbls DROP CONSTRAINT don_rbls_id_key;
 
+--
+-- correct default value
+--
+ALTER TABLE don_envs ALTER COLUMN notify_level SET DEFAULT 1;
+
+
 COMMIT;

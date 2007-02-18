@@ -25,4 +25,9 @@ INSERT INTO don_attachments_articles (don_attachment_id, article_id)
        SELECT id,article_id from don_attachments;
 ALTER TABLE don_attachments DROP column article_id;
 
+--
+-- correct default value
+--
+ALTER TABLE don_envs ALTER COLUMN notify_level SET DEFAULT 1;
+
 COMMIT;

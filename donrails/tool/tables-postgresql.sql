@@ -144,7 +144,7 @@ url_limit INTEGER DEFAULT 5,
 default_theme VARCHAR,
 trackback_enable_time INTEGER,
 akismet_key	VARCHAR,
-notify_level    INTEGER
+notify_level    INTEGER DEFAULT 1
 );
 
 -- added at 2006-10-14

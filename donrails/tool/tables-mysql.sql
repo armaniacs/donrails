@@ -163,6 +163,7 @@ default_theme	VARCHAR(100),
 trackback_enable_time INTEGER,
 -- add 2006-11-19
 akismet_key	TEXT,
+notify_level    INTEGER DEFAULT 1,
 
 primary key (id)
 );
