@@ -1,3 +1,8 @@
+2007-02-18  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/login_controller_test.rb (LoginControllerTest::test_edit_picture_{2,3,4}): New test.
+	* donrails/app/controllers/login_controller.rb (LoginController::edit_picture): Small fix.
+
 2007-02-16  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/rdf/{rdf,rss2}_{recent,enrollment}.rxml: Fix link.

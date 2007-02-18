@@ -120,6 +120,30 @@ class LoginControllerTest < Test::Unit::TestCase
     post :edit_picture
     assert_redirected_to :action => 'login_index'
   end
+  def test_edit_picture_2
+    @request.session['person'] = 'ok'
+    @request.env["HTTP_REFERER"] = __FILE__
+    p2 = {:id => 12345}
+    assert_raise ActiveRecord::RecordNotFound do
+      post :edit_picture, :picture => p2
+    end
+  end
+
+  def test_edit_picture_3
+    @request.session['person'] = 'ok'
+    @request.env["HTTP_REFERER"] = __FILE__
+    p2 = {:id => 1, :aid => '1'}
+    post :edit_picture, :picture => p2
+    assert_response :redirect
+  end
+
+  def test_edit_picture_4
+    @request.session['person'] = 'ok'
+    @request.env["HTTP_REFERER"] = __FILE__
+    p2 = {:id => 1, :body => 'test body'}
+    post :edit_picture, :picture => p2
+    assert_response :redirect
+  end
 
   def test_delete_picture
     @request.session['person'] = 'ok'

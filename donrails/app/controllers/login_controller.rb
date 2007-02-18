@@ -219,6 +219,7 @@ class LoginController < ApplicationController
       redirect_to :back
     end
   end
+
   def edit_picture
     p2 = @params["picture"]
     if p2 and p2['id']
@@ -230,13 +231,14 @@ class LoginController < ApplicationController
         end
       end
       @picture.body = p2['body'] if p2['body']
-      @params['bp'].each do |k,v|
-        if v.to_i == 0
-          uba = Article.find(k)
-          @picture.articles.delete(uba)
+      if @params['bp']
+        @params['bp'].each do |k,v|
+          if v.to_i == 0
+            uba = Article.find(k)
+            @picture.articles.delete(uba)
+          end
         end
       end
-
       @picture.save
     end
     redirect_to :back
