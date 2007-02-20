@@ -51,10 +51,10 @@ dist:	clean
 	cd .. ; tar czvf $(NAME)-$(VERSION).tar.gz \
 		--exclude .svn \
 		--exclude rails \
-		--exclude donrails-trunk/donrails/app/views/notes/index.rhtml \
-		--exclude donrails-trunk/donrails/app/views/layouts/custom \
-		donrails-trunk ; \
-		mv $(NAME)-$(VERSION).tar.gz donrails-trunk 
+		--exclude $(PWD)/donrails/app/views/notes/index.rhtml \
+		--exclude $(PWD)/donrails/app/views/layouts/custom \
+		$(PWD) ; \
+		mv $(NAME)-$(VERSION).tar.gz $(PWD)
 
 installertest: dist
 	-rm -rf $(TESTDIR) && mkdir $(TESTDIR) && cp $(NAME)-$(VERSION).tar.gz $(TESTDIR)
