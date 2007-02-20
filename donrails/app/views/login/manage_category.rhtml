@@ -1,10 +1,11 @@
 <% @heading = 'category management' %>
-<h1>category management</h1>
 
 <div id="navigation">
 <%= display_categories_roots_ul(@roots, true) %>
 </div> <!-- end of class:menu -->
 
+<div id="content">
+<h1>category management</h1>
 <h2>カテゴリの追加またはカテゴリ情報の更新</h2>
 <%= render("shared/edit_category") %>
 <hr>
@@ -57,3 +58,4 @@
  <%= pagination_links @categories_pages %>
  <% end %>
  
+</div>

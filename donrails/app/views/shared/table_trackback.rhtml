@@ -1,3 +1,4 @@
+<div id="table_trackback_20">
 <ul>
   <li>spam / ham を選択すると、Akismetにレポートします。</li>
   <li>hiddenが1のものを<%= link_to 'まとめて消去', {:action => 'delete_hidden_trackback_all', :trigger => 'hidden'}, :confirm => 'Really erase trackbacks that hidden are 1?' %></li>
@@ -17,6 +18,7 @@
     <td>excerpt</td>
     <td>ip <br> url</td>
   </tr>
+
   <% @trackbacks.each do |co| %>
   <tr>
     <td>
@@ -35,9 +37,9 @@
     </td>
     <td><%= check_box "deleteid", co.id %></td>
     <td>
-      <%= link_to 'spam', {:action => 'akismet_report', :sh => 's', :id => co.id}, :confirm => 'Really report this is SPAM to Akismet?' %>
+      <%= link_to_remote 'spam', :update => 'table_trackback_20', :url => {:action => 'akismet_report', :sh => 'as', :id => co.id} %>
       /
-      <%= link_to 'ham', {:action => 'akismet_report', :sh => 'h', :id => co.id}, :confirm => 'Really report this is HAM to Akismet?' %>
+      <%= link_to_remote 'ham', :update => 'table_trackback_20', :url => {:action => 'akismet_report', :sh => 'ah', :id => co.id} %>
     </td>
     <td>
       <% if co.spam == 1 %>
@@ -65,6 +67,7 @@
       <%=h co.url if co.url %>
     </td>
   </tr>
+
   <% end %>
 </table>
-  
+  </div>  

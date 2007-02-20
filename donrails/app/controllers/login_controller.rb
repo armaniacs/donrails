@@ -311,9 +311,15 @@ class LoginController < ApplicationController
     @trackbacks_pages, @trackbacks = paginate(:trackback, :per_page => 30,
                                               :order_by => 'id DESC')
   end
+  def table_trackback_a
+    @headers["Content-Type"] = "text/html; charset=utf-8"
+    @trackbacks_pages, @trackbacks = paginate(:trackback, :per_page => 30,
+                                              :order_by => 'id DESC')
+    render :template => 'shared/table_trackback', :layout => false
+  end
 
   def akismet_report
-    if @params[:id] && @params[:sh] == 's'
+    if @params[:id] && @params[:sh] == 's' || @params[:sh] == 'as' 
       pf = Trackback.find(@params[:id])
       aq = {
         :comment_content => pf.excerpt,
@@ -325,7 +331,14 @@ class LoginController < ApplicationController
         pf.update_attribute('spam', 1)
         @flash[:note2] = "Report to Akismet: #{pf.id} is SPAM"
       end
-    elsif @params[:id] && @params[:sh] == 'h'
+      if @params[:sh] == 's'
+        redirect_to :back
+      elsif @params[:sh] == 'as'
+        if request.env["HTTP_REFERER"] =~ /\/login\/manage_trackback$/
+          table_trackback_a
+        end
+      end
+    elsif @params[:id] && @params[:sh] == 'h' || @params[:sh] == 'ah' 
       pf = Trackback.find(@params[:id])
       aq = {
         :comment_content => pf.excerpt,
@@ -337,8 +350,14 @@ class LoginController < ApplicationController
         pf.update_attribute('spam', 0)
         @flash[:note2] = "Report to Akismet: #{pf.id} is HAM"
       end
+      if @params[:sh] == 'h'
+        redirect_to :back
+      elsif @params[:sh] == 'ah'
+        if request.env["HTTP_REFERER"] =~ /\/login\/manage_trackback$/
+          table_trackback_a
+        end
+      end
     end
-    redirect_to :back
   end
 
   def delete_trackback

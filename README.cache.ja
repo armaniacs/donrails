@@ -26,3 +26,6 @@ webrickのlogのほうだけにアクセスlogが残ることで確認できま�
 * apacheの場合
 
 (未)
+
+* Cache Test Plugin
+http://www.cosinux.org/~dam/projects/page-cache-test/cache_test-0.2.tar.bz2

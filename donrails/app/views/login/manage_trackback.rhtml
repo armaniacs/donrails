@@ -1,19 +1,18 @@
 <% @heading = "trackback management" %>
-
+<div id="content">
+  <h1><%= @heading %></h1>  
 <% if @trackbacks %>
-
-<% if @trackbacks_pages %>
-<%= pagination_links @trackbacks_pages %>
-<% end %>
-
-<h1><%= @heading %></h1>
 
 <%= render('shared/add_banlist') %>
 <hr>
+  <% if @trackbacks_pages %>
+<%= pagination_links @trackbacks_pages %>
+<% end %>
+
 <%= secure_form_tag :action => "delete_trackback" %>
 <div class="kakomi">
 <div id="trackback_ajax">
-[記事]を押すと削除対象コメントと親記事が表示されます
+[article id]を押すと削除対象コメントと親記事が表示されます
 </div>
 </div>
 
@@ -27,4 +26,4 @@
 <% if @trackbacks_pages %>
 <%= pagination_links @trackbacks_pages %>
 <% end %>
- 
+</div>
