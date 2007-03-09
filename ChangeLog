@@ -1,3 +1,7 @@
+2007-03-09  akira yamada  <akira@arika.org>
+
+	* donrails/tool/td2db.rb (TDiary::Dummy): remove duplicated methods.
+
 2007-02-20  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/shared/table_trackback.rhtml: Change: You can report to akismet via Ajax link.
