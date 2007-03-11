@@ -2,7 +2,7 @@
 first:
   id: 1
   hidden: 0
-  image_dump_path: /public/images/dump/
+  image_dump_path: public/images/dump/
   admin_user: testuser
   admin_password: testpass
   admin_mailadd: yaar@localhost

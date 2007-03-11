@@ -39,33 +39,25 @@ class DonAttachment < ActiveRecord::Base
 
   def filesave_internal(data, original_filename=nil)
     dirname = filedump_dir
-    basename = filedump_name
-    if original_filename
-      if File.extname(basename) != File.extname(original_filename)
-        basename += File.extname(original_filename)
-      end
-    end
+    basename = filedump_name(original_filename)
     filename = File.join(dirname, basename)
-    path = File.expand_path(dirname, RAILS_ROOT)
 
-    FileUtils.mkdir_p(Dir::pwd + path)
+    path = File.expand_path(dirname, RAILS_ROOT)
+    FileUtils.mkdir_p(path)
     path = File.expand_path(filename, RAILS_ROOT)
-    File.open(Dir::pwd + path, "w") do |o|
+    File.open(path, "w") do |o|
       self.size = o.write(data)
     end
     self.path = filename
   end
 
-  def filedump_name
-    if /\.\w+$/ =~ self.title
-      ext = $&
-    else
-      ext = ''
-    end
+  def filedump_name(filename = nil)
+    ext = File.extname(filename || self.title)
     md5 = Digest::MD5.new(self.title)
     md5.update(self.id.to_s)
     md5.hexdigest + ext
   end
+
   def filedump_dir
     File.join(don_get_config.image_dump_path,
               Time.now.strftime("%Y-%m-%d"))

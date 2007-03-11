@@ -130,7 +130,8 @@ updated_at TIMESTAMP DEFAULT NULL
 CREATE TABLE don_envs (
 id          SERIAL PRIMARY KEY,
 hidden	       INTEGER,
-image_dump_path   VARCHAR,
+-- image_dump_path   VARCHAR,
+image_dump_path	VARCHAR DEFAULT 'public/images/dump/',
 admin_user   VARCHAR,
 admin_password VARCHAR,
 admin_mailadd VARCHAR,

@@ -1,5 +1,15 @@
 2007-03-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/models/don_attachment.rb 
+	(DonAttachment::filesave_internal): Change: no use Dir.pwd.
+	(DonAttachment::filedump_name): Change to use inputted filename.
+
+	* donrails/app/views/shared/edit_don_env.rhtml: Add small message.
+
+	* donrails/tool/tables-{mysql,postgresql}.sql: Set default value in DonEnv.image_dump_path.
+
+	* donrails/test/fixtures/don_envs.yml: Change in image_dump_path.
+
 	* donrails/app/controllers/login_controller.rb: Fix: removed duplicate methods.
 	
 	* donrails/app/views/layouts/login.rhtml: Add link to manage_don_attachment.

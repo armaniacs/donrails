@@ -88,6 +88,7 @@ module ApplicationHelper
 
   def don_get_theme(name)
     theme = don_get_config.default_theme
+    theme = "default" if theme.empty?
     path = File.dirname(name)
     filename = File.basename(name)
 
