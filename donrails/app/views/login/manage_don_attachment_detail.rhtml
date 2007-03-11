@@ -8,7 +8,9 @@ id:<%= @don_attachment.id %> |
 ファイルサイズ:<%= @don_attachment.size if @don_attachment.size %> バイト |
 ファイル形式:<%= @don_attachment.content_type if @don_attachment.content_type %>
 <br>
-body:<%= text_field "don_attachment", "body", "size" => 80, "value" => @don_attachment.body %>
+タイトル:<%= text_field "don_attachment", "title", "size" => 80, "value" => @don_attachment.title %><br>
+フォーマット:<%= text_field "don_attachment", "format", "size" => 15, "value" => @don_attachment.format %><br>
+本文:<br><%= text_area "don_attachment", "body", "rows" => 20, "cols" => 80, "value" => @don_attachment.body %><br>
 <br>
 関連づけられたarticle:
 <% @don_attachment.articles.each do |pa| %>
@@ -34,5 +36,5 @@ body:<%= text_field "don_attachment", "body", "size" => 80, "value" => @don_atta
 </div>
 オリジナルサイズの表示
 <br>
-<% rpath = '/' + @don_attachment.path.split('/public/').last %>
-<%= image_tag(rpath) %>
+<% rpath = @don_attachment.path ? '/' + @don_attachment.path.split(%r!(?:^|/)public/!).last : nil %>
+<%= rpath ? image_tag(rpath) : '' %>

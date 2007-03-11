@@ -25,7 +25,16 @@
 著者名:<%= text_field_with_auto_complete :author, :name, 'value' => @dgc.admin_user %><br>
 タイトル:<%= text_field "article", "title", "size" => 80 %><br>
 トラックバック先:<%= text_field "article", "tburl", "size" => 80 %><br>
-本文:<br><%= text_area "article", "body", "rows" => 40, "cols" => 80 %><br>
+本文:
+<br>
+<% if @b_title && @b_url && @b_text %>
+<%= text_area "article", "body", "rows" => 40, "cols" => 80, 'value' => @b_title + "\n" + @b_url + "\n\n" + @b_text %>
+<% elsif @b_title && @b_url %>
+<%= text_area "article", "body", "rows" => 40, "cols" => 80, 'value' => @b_title + "\n" + @b_url %>
+<% else %>
+<%= text_area "article", "body", "rows" => 40, "cols" => 80 %>
+<% end %>
+<br>
 <%= submit_tag "save" %>
 <%= end_form_tag %>
 

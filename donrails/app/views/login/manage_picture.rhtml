@@ -49,7 +49,7 @@
    </tr>
 
    <% @pictures.each do |pic| %>
-   <% rpath = '/' + pic.path.split('/public/').last %>
+   <% rpath = pic.path ? '/' + pic.path.split(%r!(?:^|/)public/!).last : nil %>
    <tr>
      <td><%= link_to pic.id, {:controller => 'notes', :action => 'show_image', :id => pic.id} %></td>
      <td>
@@ -57,7 +57,7 @@
        <%= link_to_remote(pa.id, :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => pa.id }) %>
        <% end %>
      </td>
-     <td><%= image_tag(rpath, :size => '100') %></td>
+     <td><%= rpath ? image_tag(rpath, :size => '100') : '' %></td>
      <td>
        <% if pic.hidden == 1 %>
        <%= check_box "hideid", pic.id, :checked => 'checked' %>

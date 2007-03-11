@@ -1,3 +1,24 @@
+2007-03-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* patch from akira yamada for administration of don_attachment.
+	- donrails/app/models/don_attachment.rb
+	- donrails/app/models/picture.rb
+	- donrails/app/controllers/notes_controller.rb
+	- donrails/app/controllers/login_controller.rb
+	- donrails/app/views/shared/attachments/picture.rhtml
+	- donrails/app/views/login/manage_don_attachment.rhtml
+	- donrails/app/views/login/manage_picture_detail.rhtml
+	- donrails/app/views/login/manage_don_attachment_detail.rhtml
+	- donrails/app/views/login/manage_picture.rhtml
+	
+	* donrails/app/views/layouts/login.rhtml: Add donrails bookmarklet.
+	* donrails/app/views/login/new_article.rhtml: Change to apply for bookmarklet.
+	* donrails/app/controllers/login_controller.rb (LoginController::bm): New method which catches input from bookmarklet. And some redirection fix.
+
+2007-03-10  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/donrails-setup.rb: add line change.(Report by akira yamada)
+
 2007-03-09  akira yamada  <akira@arika.org>
 
 	* donrails/tool/td2db.rb (TDiary::Dummy): remove duplicated methods.

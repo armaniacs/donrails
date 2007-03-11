@@ -163,6 +163,7 @@ end
 
 envfile = topdir + "rails/config/environment.rb"
 envfiledata = open(envfile, "a")
+envfiledata.write("\n")
 envfiledata.write("require_dependency \"environments/donrails_env\"\n")
 envfiledata.write("require_dependency \"antispam\"\n")
 envfiledata.write("$KCODE = 'u'\n")

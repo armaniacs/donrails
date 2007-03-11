@@ -34,5 +34,5 @@ body:<%= text_field "picture", "body", "size" => 80, "value" => @picture.body %>
 </div>
 オリジナルサイズの表示
 <br>
-<% rpath = '/' + @picture.path.split('/public/').last %>
+<% rpath = '/' + @picture.path.split(%r!(?:^|/)public/!).last %>
 <%= image_tag(rpath) %>

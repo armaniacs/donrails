@@ -28,6 +28,7 @@ class LoginController < ApplicationController
 
   def login_index
     flash.keep(:op)
+    flash.keep(:pbp)
     render :action => "index"
   end
 
@@ -40,6 +41,7 @@ class LoginController < ApplicationController
     end
 
     unless @session["person"] == "ok"
+      flash[:pbp] = params
       @session = @request.session
       redirect_to :action => "login_index"
     end
@@ -49,6 +51,8 @@ class LoginController < ApplicationController
   public
   def authenticate
     flash.keep(:op)
+    flash.keep(:pbp)
+
     name = String.new
     password = String.new
     case @request.method
@@ -67,8 +71,8 @@ class LoginController < ApplicationController
         if flash[:op] =~ /^\/login\/?$/
           redirect_to :action => "new_article"
           return
-        elsif flash[:op]
-          redirect_to flash[:op] 
+        elsif flash[:pbp]
+          redirect_to flash[:pbp] 
           return
         else
           redirect_to :action => "new_article"
@@ -185,6 +189,14 @@ class LoginController < ApplicationController
       redirect_to :back
     end
   end
+  def manage_don_attachment_detail
+    if @params["id"]
+      @don_attachment = DonAttachment.find(@params["id"])
+    else
+      redirect_to :back
+    end
+  end
+
   def edit_don_attachment
     p2 = @params["don_attachment"]
     if p2 and p2['id']
@@ -207,10 +219,24 @@ class LoginController < ApplicationController
     end
     redirect_to :back
   end
+  def don_attachment_save
+    begin
+      @don_attachment = DonAttachment.new(@params["don_attachment"])
+      if @don_attachment.save
+        redirect_to :action => "manage_don_attachment"
+      else
+        render :action => 'picture_get', :controller => 'notes'
+      end
+    rescue
+      raise
+      render :text => 'fail', :status => 403
+    end
+  end
+
 
   ## picture
   def manage_picture
-    @pictures_pages, @pictures = paginate(:picture,:per_page => 30,:order_by => 'id DESC')
+    @pictures_pages, @pictures = paginate(:picture,:conditions => ['format = \'picture\''], :per_page => 30,:order_by => 'id DESC')
   end
   def manage_picture_detail
     if @params["id"]
@@ -301,7 +327,7 @@ class LoginController < ApplicationController
         render :action => 'picture_get', :controller => 'notes'
       end
     rescue
-      render :text => 'fail', :status => 403
+      render :text => 'fail'+$!.to_s, :status => 403
     end
   end
 
@@ -618,6 +644,19 @@ class LoginController < ApplicationController
       redirect_to :action => referer
     else
       redirect_to :action => "manage_article"
+    end
+  end
+
+  def bm
+    @dgc = @@dgc
+    if @params['f'] == 'add' && @params['url'] && @params['title']
+      @b_url = @params['url']
+      @b_title = @params['title']
+      @b_text = @params['text'] if @params['text']
+      render :action => 'new_article'
+    else
+      render :text => 'Please check your bookmarklet setting'
+      return
     end
   end
 
