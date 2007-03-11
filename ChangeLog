@@ -1,5 +1,11 @@
 2007-03-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/login_controller.rb: Fix: removed duplicate methods.
+	
+	* donrails/app/views/layouts/login.rhtml: Add link to manage_don_attachment.
+	
+	* donrails/app/models/don_attachment.rb (DonAttachment::filesave_internal): Change to use extname of original filename for older than rails 2.0. (See also: http://api.rubyonrails.org/classes/ActionView/Helpers/AssetTagHelper.html#M000595)
+
 	* patch from akira yamada for administration of don_attachment.
 	- donrails/app/models/don_attachment.rb
 	- donrails/app/models/picture.rb

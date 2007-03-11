@@ -182,13 +182,7 @@ class LoginController < ApplicationController
   def manage_don_attachment
     @don_attachments_pages, @don_attachments = paginate(:don_attachment,:per_page => 30,:order_by => 'id DESC')
   end
-  def manage_don_attachment_detail
-    if @params["id"]
-      @don_attachment = DonAttachment.find(@params["id"])
-    else
-      redirect_to :back
-    end
-  end
+
   def manage_don_attachment_detail
     if @params["id"]
       @don_attachment = DonAttachment.find(@params["id"])
@@ -219,6 +213,7 @@ class LoginController < ApplicationController
     end
     redirect_to :back
   end
+
   def don_attachment_save
     begin
       @don_attachment = DonAttachment.new(@params["don_attachment"])

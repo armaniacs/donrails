@@ -33,19 +33,24 @@ class DonAttachment < ActiveRecord::Base
 
     if attachment_field.original_filename &&
         !attachment_field.original_filename.empty?
-      filesave_internal(attachment_field.read)
+      filesave_internal(attachment_field.read, attachment_field.original_filename)
     end
   end
 
-  def filesave_internal(data)
+  def filesave_internal(data, original_filename=nil)
     dirname = filedump_dir
     basename = filedump_name
+    if original_filename
+      if File.extname(basename) != File.extname(original_filename)
+        basename += File.extname(original_filename)
+      end
+    end
     filename = File.join(dirname, basename)
-
     path = File.expand_path(dirname, RAILS_ROOT)
-    FileUtils.mkdir_p(path)
+
+    FileUtils.mkdir_p(Dir::pwd + path)
     path = File.expand_path(filename, RAILS_ROOT)
-    File.open(path, "w") do |o|
+    File.open(Dir::pwd + path, "w") do |o|
       self.size = o.write(data)
     end
     self.path = filename
