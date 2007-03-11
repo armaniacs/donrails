@@ -327,7 +327,7 @@ class LoginController < ApplicationController
         render :action => 'picture_get', :controller => 'notes'
       end
     rescue
-      render :text => 'fail'+$!.to_s, :status => 403
+      render :text => 'fail', :status => 403
     end
   end
 
