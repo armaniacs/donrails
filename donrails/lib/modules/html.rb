@@ -74,6 +74,6 @@ module DonRails
       end
     end # def body_to_xml
 
-  end # module HNF
+  end # module HTML
 
 end # module DonRails
