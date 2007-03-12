@@ -69,7 +69,7 @@ distributionを使うか、gemsを使います。gemsを使う場合
 rails/config/database.yml
 ("donrails/example/database.yml"にサンプルがあります)
 
-rails/config/donrails_env.rb
+rails/config/environments/donrails_env.rb
 ("donrails/example/donrails_env.rb"にサンプルがあります)
 
 6. ユーザが自分のやりたいようにいじるファイル(必須)
