@@ -4,6 +4,6 @@ class Picture < DonAttachment
   :message => "--- you can only upload pictures"
 
   def picture=(picture_field)
-    don_attachment_assign(picture_field, 'picture')
+    attachment_assign(picture_field, 'picture')
   end
 end

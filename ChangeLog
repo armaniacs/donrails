@@ -1,3 +1,12 @@
+2007-03-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/tables-mysql.sql: Fix. (BLOB and TEXT columns cannot have DEFAULT values.)
+	* donrails/tool/tables-postgresql.sql: likewise.
+
+	* donrails/test/unit/don_attachment_test.rb: New. (TODO: test for some methods )
+	
+	* patch from akira yamada (at Mar. 10 and 13)
+	
 2007-03-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/don_attachment.rb 

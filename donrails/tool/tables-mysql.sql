@@ -148,7 +148,7 @@ primary key (id)
 CREATE TABLE don_envs (
 id		SERIAL UNIQUE,
 hidden		INTEGER,
-image_dump_path	TEXT DEFAULT 'public/images/dump/',
+image_dump_path	TEXT,
 admin_user	VARCHAR(100),
 admin_password	VARCHAR(100),
 admin_mailadd	TEXT,

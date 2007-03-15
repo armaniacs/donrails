@@ -194,21 +194,15 @@ class LoginController < ApplicationController
   def edit_don_attachment
     p2 = @params["don_attachment"]
     if p2 and p2['id']
-      @don_attachment = DonAttachment.find(p2['id'])
-      if p2['aid']
-        p2['aid'].split(/\s+/).each do |pe|
-          na = Article.find(pe)
-          @don_attachment.articles.push_with_attributes(na)
-        end
+      params = p2.dup
+      if tmp = params.delete('aid')
+        params['join_article_ids'] = tmp
       end
-      @don_attachment.body = p2['body'] if p2['body']
-      @params['bp'].each do |k,v|
-        if v.to_i == 0
-          uba = Article.find(k)
-          @don_attachment.articles.delete(uba)
-        end
+      if tmp = params.delete('bp')
+        params['curr_article_ids'] = tmp
       end
-
+      @don_attachment = DonAttachment.find(params['id'])
+      @don_attachment.update_attachment_attributes(params, nil)
       @don_attachment.save
     end
     redirect_to :back
@@ -630,6 +624,10 @@ class LoginController < ApplicationController
             rescue
             end
           end
+        end
+
+        oa.don_attachments.each do |atta|
+          aris.don_attachments.push_with_attributes(atta)
         end
 
         aris.save
