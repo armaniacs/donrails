@@ -428,7 +428,7 @@ class LoginController < ApplicationController
       if @params["trigger"] == 'hidden'
         Trackback.delete_all "hidden = 1"
         @flash[:note2] += '<br>Delete: ALL hidden trackbacks'
-      else @params["trigger"] == 'spam'
+      elsif @params["trigger"] == 'spam'
         Trackback.delete_all "spam = 1"
         @flash[:note2] += '<br>Delete: ALL spam trackbacks'
       end
@@ -1176,7 +1176,7 @@ class LoginController < ApplicationController
     if c = @params["donenv"]
       if c['id'] && c['id'].size > 0
         aris1 = DonEnv.find(c['id'].to_i)
-      else aris1
+      else
         aris1 = DonEnv.new
       end
       aris1.image_dump_path = c["image_dump_path"]
@@ -1259,7 +1259,7 @@ class LoginController < ApplicationController
     if c = @params["donrbl"]
       if c['id'] && c['id'].size > 0
         aris1 = DonRbl.find(c['id'].to_i)
-      else aris1
+      else
         aris1 = DonRbl.new
       end
       aris1.rbl_type = @params["format"]
