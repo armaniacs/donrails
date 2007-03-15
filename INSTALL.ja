@@ -41,14 +41,14 @@ Distributionを使っている場合には apt-get 等でインストールす�
 
 PostgreSQLなら
  $ createdb rails_production
- $ psql rails_production < donrails/tools/tables-postgresql.sql
+ $ psql rails_production < donrails/tool/tables-postgresql.sql
 
 MySQLなら
  $ mysqladmin create donrails_production
- $ mysql donrails_production < donrails/tools/tables-mysql.sql
+ $ mysql donrails_production < donrails/tool/tables-mysql.sql
 
 sqliteなら
- $ sqlite donrails_production < donrails/tools/tables-sqlite.sql
+ $ sqlite donrails_production < donrails/tool/tables-sqlite.sql
 
 3. rubyからDBを呼びだせるようにbindingをインストールする
 
