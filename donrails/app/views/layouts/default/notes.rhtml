@@ -2,7 +2,7 @@
 <head>
 
 <% if @rdf_category %>
-<%= auto_discovery_link_tag(:rss, :controller => 'rdf', :action => 'rdf_category', :category => @rdf_category, :title => 'カテゴリ: ' + @rdf_category + ' 関連' %>
+<%= auto_discovery_link_tag(:rss, :controller => 'rdf', :action => 'rdf_category', :category => @rdf_category, :title => 'カテゴリ: ' + @rdf_category + ' 関連') %>
 <%= auto_discovery_link_tag(:rss, :controller => 'rdf', :action => 'rss2_category', :category => @rdf_category, :title => '(RSS2.0)カテゴリ: ' + @rdf_category + ' 関連') %>
 <% end %>
 <% if @rdf_article %>
