@@ -130,6 +130,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
     clall = Category.find_all
     clall.each do |rc|
       expire_page(:controller => 'notes', :action => %w(show_category show_category_noteslist) , :category => rc.name)
+      expire_page(:controller => 'notes', :action => %w(show_category show_category_noteslist) , :id => rc.id)
       expire_page(:controller => 'rdf', :action => %w(rdf_category rss2_category) , :category => rc.name)
 
       begin
@@ -196,6 +197,20 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       rescue 
         p $!
       end
+
+      begin
+        ppdir = RAILS_ROOT + "/public/archives/category_articles/#{rc.id}/page"
+        ppdir2 = Dir.entries(ppdir)
+        ppdir2.each do |x|
+          if x =~ /(\d+)/
+            expire_page(:controller => 'notes', :action => 'show_category_noteslist', :page => $1, :id => rc.id)
+          end
+        end
+      rescue Errno::ENOENT
+      rescue 
+        p $!
+      end
+
     end
 
   end

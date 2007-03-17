@@ -1,3 +1,17 @@
+2007-03-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/rdf/rss2_category.rxml: Change time entity from 'dc:date' to 'pubDate'.
+
+	* donrails/app/views/rdf/*.rxml: Fix wrong link.
+
+	* donrails/app/views/notes/show_category.rhtml: Change link address. Because when 'category name' is not ascii letters, link_to make a missing link.
+	* donrails/app/views/notes/default/noteslist.rhtml: likewise.
+	* donrails/test/integration/cache_test.rb: Change to apply for it.
+	* donrails/app/models/article_sweeper.rb: likewise.
+	* donrails/app/controllers/rdf_controller.rb: likewise.
+	* donrails/app/controllers/notes_controller.rb: likewise.
+	* donrails/config/routes.rb: likewise.
+
 2007-03-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/tool/tables-mysql.sql: Fix. (BLOB and TEXT columns cannot have DEFAULT values.)

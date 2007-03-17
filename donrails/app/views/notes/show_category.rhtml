@@ -1,5 +1,5 @@
 <h3>カテゴリ: <%= @category.name %>(<%= @category.articles.size.to_s %>) のリスト
-[<%= link_to "記事", {:action => "show_category_noteslist", :category => @category.name} %>]
+[<%= link_to "記事", {:action => "show_category_noteslist", :id => @category.id} %>]
 </h3>
 <%=h @category.description %>
 <div id='roots_ul'>

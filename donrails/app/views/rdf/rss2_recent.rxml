@@ -41,7 +41,7 @@ xml.rss("version"=>"2.0") do
           end
 
           item.pictures.each do |pic|
-            tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
+            tmpurl1 = @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_image", :id => pic.id)
             xml.enclosure("url"=> tmpurl1)
           end
           

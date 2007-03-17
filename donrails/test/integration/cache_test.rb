@@ -21,6 +21,9 @@ class CacheTest < ActionController::IntegrationTest
     assert_cache_pages('/archives/1999/1', '/archives/1999/1/1')
     assert_cache_pages('/archives/every_year/1/1')
 
+#    assert_cache_pages('/archives/show_category_noteslist/misc')
+#    assert_cache_pages('/archives/category_articles/1')
+
     assert_expire_pages('/archives','/archives/id/1', 
                         '/archives/pick_article/1',
 
@@ -30,6 +33,7 @@ class CacheTest < ActionController::IntegrationTest
                         # /archives/rdf_category?category=misc.html
                         # /archives/show_category?category=misc.html
                         # /archives/show_category_noteslist?category=misc.html
+                        #'/archives/show_category_noteslist/misc',
                         # /archives/rdf_category?category=misc2.html
                         # /archives/show_category?category=misc2.html
                         # /archives/show_category_noteslist?category=misc2.html

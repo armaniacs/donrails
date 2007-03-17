@@ -16,6 +16,18 @@ ActionController::Routing::Routes.draw do |map|
     :page => /\d+/
   }
 
+  map.connect "archives/category_articles/:id/page/:page", 
+  :controller => "notes", :action => "show_category_noteslist", 
+  :requirements => { 
+    :id => /\d+/, :page => /\d+/
+  }
+  map.connect "archives/category_articles/:id", 
+  :controller => "notes",
+  :action => "show_category_noteslist", :page => '1',
+  :requirements => { 
+    :id => /\d+/
+  }
+
   map.connect "archives/show_category_noteslist/:category/page/:page", 
   :controller => "notes", :action => "show_category_noteslist", 
   :requirements => { 

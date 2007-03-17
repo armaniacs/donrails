@@ -445,7 +445,7 @@ class NotesController < ApplicationController
   def show_category_noteslist
     begin
       show_category
-      @rdf_category = @params['category']
+#      @rdf_category = @params['category']
       render_action(don_get_theme('noteslist'))
     rescue
       render_text "no article", 404

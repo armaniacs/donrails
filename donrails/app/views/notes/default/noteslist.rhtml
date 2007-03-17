@@ -12,7 +12,7 @@
 
 <% if @category %>
 <h3>カテゴリ: <%=h @category.name %> の記事
-[<%= link_to "リスト", {:action => "show_category", :category => @category.name} %>]
+[<%= link_to "リスト", {:action => "show_category", :id => @category.id} %>]
 </h3>
 <%=h @category.description %>
 <div id='roots_ul'>

@@ -3,7 +3,7 @@ xml.rss("version"=>"2.0") do
 
   xml.channel do 
     xml.title don_get_config.rdf_title
-    xml.link(@request.protocol + @request.host_with_port + url_for(:action => "search", :q => @rdf_search))
+    xml.link(@request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "search", :q => @rdf_search))
     xml.description don_get_config.rdf_description
     xml.copyright don_get_config.rdf_copyright
     xml.language "ja"
@@ -15,7 +15,7 @@ xml.rss("version"=>"2.0") do
       item = don_get_object(i, 'xml')
       xml.item do 
         xml.title(item.title_to_xml)
-        xml.link(@request.protocol + @request.host_with_port + url_for(:action => "show_title", :id => item.id))
+        xml.link(@request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_title", :id => item.id))
         item.categories.each do |cat|
           xml.category cat.name
         end
@@ -38,7 +38,7 @@ xml.rss("version"=>"2.0") do
           xml.pubDate item.article_mtime.rfc2822
         end
         item.pictures.each do |pic|
-          tmpurl1 = @request.protocol + @request.host_with_port + url_for(:action => "show_image", :id => pic.id)
+          tmpurl1 = @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_image", :id => pic.id)
           xml.enclosure("url"=> tmpurl1)
         end
       end
