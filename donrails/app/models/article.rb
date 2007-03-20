@@ -59,7 +59,7 @@ class Article < ActiveRecord::Base
         ping = don_pings.build("url" => url)
         ping.send_ping2(url)
         ping.save
-      rescue
+      rescue Exception
         p $!
         p "donping.send_ping2 error"
         # in case the remote server doesn't respond or gives an error,

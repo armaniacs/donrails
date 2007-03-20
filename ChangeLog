@@ -1,3 +1,7 @@
+2007-03-20  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/models/article.rb (send_pings2): rescue all exceptions.
+
 2007-03-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/rdf/rss2_category.rxml: Change time entity from 'dc:date' to 'pubDate'.
