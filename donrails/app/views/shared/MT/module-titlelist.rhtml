@@ -23,7 +23,11 @@
 	parent.className = 'module-list';
         for (var i = 0; i < domtree.childNodes.length; i++) {
           if (domtree.childNodes[i].nodeName == 'DIV') {
-	    rebuild_recent_article(domtree.childNodes[i], parent);
+	    for (var j = 0; j < domtree.childNodes[i].childNodes.length; j++) {
+	      if (domtree.childNodes[i].childNodes[j].nodeName == 'DIV') {
+	        rebuild_recent_article(domtree.childNodes[i].childNodes[j], parent);
+	      }
+	    }
 	  }
         }
 	domtree.parentNode.appendChild(parent);

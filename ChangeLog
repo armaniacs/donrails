@@ -1,5 +1,8 @@
 2007-03-20  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/views/shared/MT/module-titlelist.rhtml:
+	  Fix a javascript to get it working properly.
+
 	* donrails/app/models/article.rb (send_pings2): rescue all exceptions.
 
 2007-03-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
