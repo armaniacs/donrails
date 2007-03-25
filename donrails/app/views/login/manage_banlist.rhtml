@@ -8,7 +8,7 @@
 <%= pagination_links @banlists_pages %>
 <% end %>
 
-<%= secure_form_tag :action => "delete_banlist" %>
+<% form_tag :action => "delete_banlist" do hidden_field_tag("session_id_validation", security_token) -%>
 <table  border="1" cellspacing="0">
   <tr>
     <td>消去</td>
@@ -29,7 +29,7 @@
   <% end %>
 </table>
 <%= submit_tag "send" %>
-<%= end_form_tag %>
+<% end %>
 <% end %>
 
 <% if @banlists_pages %>

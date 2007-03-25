@@ -85,7 +85,7 @@ class MovableTypeService < DonWebService
   end
 
   def getCategoryList(blogid, username, password)
-    Category.find_all.collect do |c|
+    Category.find(:all).collect do |c|
       MovableTypeStructs::CategoryList.new(
           :categoryId   => c.id,
           :categoryName => c.name

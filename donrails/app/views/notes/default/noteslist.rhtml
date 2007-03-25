@@ -60,7 +60,7 @@ article = don_get_object(a, 'html'); day0 = article.article_date.to_date %>
 <% end %>
 <% end %>
 
-<% if @params['action'] =~ /(show_date|show_nnen)/ %>
+<% if params['action'] =~ /(show_date|show_nnen)/ %>
 <div class="pagelink">
   <%= render(don_get_theme("shared/nextlink2"), "articles" => @articles) %>
 </div> <!-- end pagelink -->

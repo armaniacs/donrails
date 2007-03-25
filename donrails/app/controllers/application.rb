@@ -29,20 +29,20 @@ class ApplicationController < ActionController::Base
   end
 
   def set_charset
-    unless @headers["Content-Type"]
-      @headers["Content-Type"] = "text/html; charset=utf-8"
+    unless headers["Content-Type"]
+      headers["Content-Type"] = "text/html; charset=utf-8"
     end
   end
 
   def get_ymd
     if @ymd
       ymd = @ymd
-    elsif @params['ymd2']
-      ymd = convert_ymd(@params['ymd2']) 
-    elsif (@params["year"] and @params["month"] and @params["day"])
-      ymd = convert_ymd("#{@params["year"]}-#{@params["month"]}-#{@params["day"]}")
-    elsif (@params["year"] and @params["month"])
-      ymd = convert_ymd("#{@params["year"]}-#{@params["month"]}-01")
+    elsif params['ymd2']
+      ymd = convert_ymd(params['ymd2']) 
+    elsif (params["year"] and params["month"] and params["day"])
+      ymd = convert_ymd("#{params["year"]}-#{params["month"]}-#{params["day"]}")
+    elsif (params["year"] and params["month"])
+      ymd = convert_ymd("#{params["year"]}-#{params["month"]}-01")
     end
     @ymd = ymd
 
@@ -175,13 +175,13 @@ class ApplicationController < ActionController::Base
   end
 
   def don_is_spam?(args)
-    ip = args[:ip] || @request.remote_ip
+    ip = args[:ip] || request.remote_ip
     if AntiSpam.new.scan_ipaddr_white(ip)
       @message = '[Whitelist]: ' + ip
       return false
     end
 
-    if @request.env['skip_akismet'] != true && don_get_config.akismet_key && is_spam_by_akismet?(args)
+    if request.env['skip_akismet'] != true && don_get_config.akismet_key && is_spam_by_akismet?(args)
       logger.info "[Akismet] blocking."
       @catched = false
       @message = 'blocked by Akismet'

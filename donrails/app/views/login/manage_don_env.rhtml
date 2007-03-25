@@ -1,8 +1,8 @@
 <% @heading = "グローバル設定" %>
 <h1>don_env management</h1>
 <div class="notice">
-  <%=h @flash[:note] %>
-  <%=h @flash[:note2] %>
+  <%=h flash[:note] %>
+  <%=h flash[:note2] %>
 </div>
 <hr>
 新規設定の追加
@@ -11,7 +11,7 @@
 <hr>
 設定の管理
 <% if @don_envs %>
-<%= secure_form_tag :action => "delete_don_env" %>
+<% form_tag :action => "delete_don_env" do hidden_field_tag("session_id_validation", security_token) -%>
 <table border="1" cellspacing="0">
   <tr>
     <td>Hide?</td>
@@ -70,5 +70,5 @@
   <% end %>
 </table>
 <%= submit_tag "send" %>
-<%= end_form_tag %>
+<% end %>
 <% end %>

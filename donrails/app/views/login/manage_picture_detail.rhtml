@@ -1,7 +1,7 @@
 <% @heading = "#{@picture.title} picture management" %>
 
 <h1><%=h @picture.title %></h1>
-<%= secure_form_tag :action => "edit_picture" %>
+<% form_tag :action => "edit_picture" do hidden_field_tag("session_id_validation", security_token) -%>
 <%= hidden_field "picture", "id", "value" => @picture.id %>
 
 id:<%= @picture.id %> |
@@ -18,7 +18,7 @@ body:<%= text_field "picture", "body", "size" => 80, "value" => @picture.body %>
 <br>追加するarticle id:<input type="text" id="picture_aid" name="picture[aid]" size="20">
 <p>
 <%= submit_tag %>
-<%= end_form_tag %>
+<% end %>
 
 <div class="kakomi">
 <% @picture.articles.each do |pa| %>

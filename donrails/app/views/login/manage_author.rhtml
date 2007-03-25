@@ -12,7 +12,7 @@
 <%= pagination_links @authors_pages %>
 <% end %>
 
-<%= secure_form_tag :action => "delete_unwrite_author" %>
+<% form_tag :action => "delete_unwrite_author" do hidden_field_tag("session_id_validation", security_token) -%>
 <table border="1" cellspacing="0">
   <tr>
     <td>著者を消去</td>
@@ -37,7 +37,7 @@
   <% end %>
 </table>
 <%= submit_tag "send" %>
-<%= end_form_tag %>
+<% end %>
 <% end %>
 
 <% if @authors_pages %>

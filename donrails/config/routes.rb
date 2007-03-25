@@ -16,29 +16,19 @@ ActionController::Routing::Routes.draw do |map|
     :page => /\d+/
   }
 
+  map.connect "archives/category_articles/:id", 
+  :controller => "notes", :action => "show_category_noteslist",
+  :page => '1', :requirements =>{:id => /\d+/}
   map.connect "archives/category_articles/:id/page/:page", 
   :controller => "notes", :action => "show_category_noteslist", 
-  :requirements => { 
-    :id => /\d+/, :page => /\d+/
-  }
-  map.connect "archives/category_articles/:id", 
-  :controller => "notes",
-  :action => "show_category_noteslist", :page => '1',
-  :requirements => { 
-    :id => /\d+/
-  }
+  :requirements => {:id => /\d+/, :page => /\d+/}
 
+  map.connect "archives/show_category_noteslist/:category", 
+  :controller => "notes", :action => "show_category_noteslist", 
+  :page => '1', :requirements => {:category => /\D+\w*/}
   map.connect "archives/show_category_noteslist/:category/page/:page", 
   :controller => "notes", :action => "show_category_noteslist", 
-  :requirements => { 
-    :category => /\w+/, :page => /\d+/
-  }
-  map.connect "archives/show_category_noteslist/:category", 
-  :controller => "notes",
-  :action => "show_category_noteslist", :page => '1',
-  :requirements => { 
-    :category => /\w+/
-  }
+  :requirements => {:category => /\D+\w*/, :page => /\d+/}
 
   map.connect "archives/:year/:month/:day", :controller => "notes", 
   :action => "show_date",
@@ -105,7 +95,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "archives/:nums", :controller => "notes", 
   :action => "parse_nums",
   :requirements => { 
-    :nums => /^(\d|-)+/
+    :nums => /(\d|-)+/
   }
 
   map.connect "archives/:nums", :controller => "notes", 

@@ -45,7 +45,7 @@
   <%= link_to "キャッシュ消去", {:action => "manage_cache"} %>/
   <%= link_to "(hnf保存)", {:action => "hnf_save_all"}, :confirm => "Really login for save hnf files?" %>/
   <br>
-  <a href="javascript:location.href='<%= @request.protocol + @request.host_with_port + url_for(:controller => 'login', :action => 'bm', :f => 'add') %>&text='+encodeURIComponent(document.getSelection())+'&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)">donrails bookmarklet</a>
+  <a href="javascript:location.href='<%= request.protocol + request.host_with_port + url_for(:controller => 'login', :action => 'bm', :f => 'add') %>&text='+encodeURIComponent(document.getSelection())+'&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)">donrails bookmarklet</a>
   
 </div> <!-- end of class:head -->
 

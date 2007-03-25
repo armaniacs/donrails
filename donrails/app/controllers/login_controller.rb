@@ -19,12 +19,12 @@ class LoginController < ApplicationController
 
   layout "login", :except => [:login_index, :index]
 
-  verify_form_posts_have_security_token :only => [
-    :fix_article, :authenticate, :delete_article,
-    :delete_unwrite_author, :add_banlist, :delete_banlist,
-    :add_blogping, :delete_blogping, :delete_comment,
-    :delete_trackback, :picture_save, :add_article, :add_author
-  ]
+#  verify_form_posts_have_security_token :only => [
+#    :fix_article, :authenticate, :delete_article,
+#    :delete_unwrite_author, :add_banlist, :delete_banlist,
+#    :add_blogping, :delete_blogping, :delete_comment,
+#    :delete_trackback, :picture_save, :add_article, :add_author
+#  ]
 
   def login_index
     flash.keep(:op)
@@ -34,39 +34,36 @@ class LoginController < ApplicationController
 
   protected
   def authorize
-    if @request.env['PATH_INFO'] 
-      flash[:op] = @request.env['PATH_INFO'] 
-    elsif @request.env['REQUEST_URI']
-      flash[:op] = @request.env['REQUEST_URI']
+    if request.env['PATH_INFO'] 
+      flash[:op] = request.env['PATH_INFO'] 
+    elsif request.env['REQUEST_URI']
+      flash[:op] = request.env['REQUEST_URI']
     end
 
-    unless @session["person"] == "ok"
+    unless session["person"] == "ok"
       flash[:pbp] = params
-      @session = @request.session
+      session = request.session
       redirect_to :action => "login_index"
     end
-    @response.headers["X-donrails"] = "login"
+    response.headers["X-donrails"] = "login"
   end
   
   public
   def authenticate
     flash.keep(:op)
     flash.keep(:pbp)
-
     name = String.new
     password = String.new
-    case @request.method
+    case request.method
     when :post
-      c = @params["nz"]
+      c = params["nz"]
       if c
         namae = c["n"]
         password = c["p"]
       end
 
       if namae == @@dgc.admin_user and password == @@dgc.admin_password
-        @request.reset_session
-        @session = @request.session
-        @session["person"] = "ok"
+        session["person"] = "ok"
 
         if flash[:op] =~ /^\/login\/?$/
           redirect_to :action => "new_article"
@@ -101,7 +98,7 @@ class LoginController < ApplicationController
 
   def new_article
     begin
-      @categories = Category.find_all
+      @categories = Category.find(:all)
       retval = Article.find_by_sql("SELECT format FROM articles ORDER BY id DESC LIMIT 1")
     rescue
       retval = []
@@ -115,16 +112,16 @@ class LoginController < ApplicationController
   end
 
   def logout
-    @request.reset_session
-    @session = @request.session
-    @session["person"] = "logout"
+    request.reset_session
+    session = request.session
+    session["person"] = "logout"
     redirect_to :action => "login_index"
   end
 
   ## category
   def manage_category
-    if @params['id']
-      @category = Category.find(@params['id'])
+    if params['id']
+      @category = Category.find(params['id'])
       if @category.parent_id
         @parent = Category.find(@category.parent_id)
       end
@@ -137,7 +134,7 @@ class LoginController < ApplicationController
   end
 
   def add_category
-    c = @params["category"]
+    c = params["category"]
     if c
       parent = Category.find(:first, :conditions => ["name = ?", c["parent_name"]])
       aris1 = Category.find(:first, :conditions => ["name = ?", c["name"]])
@@ -162,7 +159,7 @@ class LoginController < ApplicationController
   end
 
   def delete_category
-    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
         
@@ -184,15 +181,15 @@ class LoginController < ApplicationController
   end
 
   def manage_don_attachment_detail
-    if @params["id"]
-      @don_attachment = DonAttachment.find(@params["id"])
+    if params["id"]
+      @don_attachment = DonAttachment.find(params["id"])
     else
       redirect_to :back
     end
   end
 
   def edit_don_attachment
-    p2 = @params["don_attachment"]
+    p2 = params["don_attachment"]
     if p2 and p2['id']
       params = p2.dup
       if tmp = params.delete('aid')
@@ -210,7 +207,7 @@ class LoginController < ApplicationController
 
   def don_attachment_save
     begin
-      @don_attachment = DonAttachment.new(@params["don_attachment"])
+      @don_attachment = DonAttachment.new(params["don_attachment"])
       if @don_attachment.save
         redirect_to :action => "manage_don_attachment"
       else
@@ -228,15 +225,15 @@ class LoginController < ApplicationController
     @pictures_pages, @pictures = paginate(:picture,:conditions => ['format = \'picture\''], :per_page => 30,:order_by => 'id DESC')
   end
   def manage_picture_detail
-    if @params["id"]
-      @picture = Picture.find(@params["id"])
+    if params["id"]
+      @picture = Picture.find(params["id"])
     else
       redirect_to :back
     end
   end
 
   def edit_picture
-    p2 = @params["picture"]
+    p2 = params["picture"]
     if p2 and p2['id']
       @picture = Picture.find(p2['id'])
       if p2['aid']
@@ -246,8 +243,8 @@ class LoginController < ApplicationController
         end
       end
       @picture.body = p2['body'] if p2['body']
-      if @params['bp']
-        @params['bp'].each do |k,v|
+      if params['bp']
+        params['bp'].each do |k,v|
           if v.to_i == 0
             uba = Article.find(k)
             @picture.articles.delete(uba)
@@ -260,32 +257,32 @@ class LoginController < ApplicationController
   end
 
   def delete_picture
-    @flash[:note] = ''
-    @flash[:note2] = ''
+    flash[:note] = ''
+    flash[:note2] = ''
     begin
-      if cf = @params["filedeleteid"]
+      if cf = params["filedeleteid"]
         cf.each do |k, v|
           if v.to_i == 1
             pf = Picture.find(k.to_i)
             begin
               File.delete pf.path
             rescue
-              @flash[:note] += '<br>' + $!
+              flash[:note] += '<br>' + $!
             end
-            @flash[:note2] += '<br>Delete File:' + k
+            flash[:note2] += '<br>Delete File:' + k
             Picture.delete(k.to_i)
           end
         end
       end
-      if c = @params["deleteid"]
+      if c = params["deleteid"]
         c.each do |k, v|
           if v.to_i == 1
             Picture.delete(k.to_i)
-            @flash[:note2] += '<br>Delete:' + k
+            flash[:note2] += '<br>Delete:' + k
           end
         end
       end
-      if c = @params["hideid"]
+      if c = params["hideid"]
         c.each do |k, v|
           pf = Picture.find(k.to_i)
           stmp = pf.hidden
@@ -296,12 +293,12 @@ class LoginController < ApplicationController
           end
 
           unless stmp == pf.hidden
-            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
         end
       end
     rescue
-      @flash[:note] += '<br>' + $!
+      flash[:note] += '<br>' + $!
     end
     redirect_to :action => "manage_picture"
   end
@@ -309,7 +306,7 @@ class LoginController < ApplicationController
 
   def picture_save
     begin
-      @picture = Picture.new(@params['picture'])
+      @picture = Picture.new(params['picture'])
       if @picture.save
         redirect_to :action => "manage_picture"
       else
@@ -327,15 +324,15 @@ class LoginController < ApplicationController
                                               :order_by => 'id DESC')
   end
   def table_trackback_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
+    headers["Content-Type"] = "text/html; charset=utf-8"
     @trackbacks_pages, @trackbacks = paginate(:trackback, :per_page => 30,
                                               :order_by => 'id DESC')
     render :template => 'shared/table_trackback', :layout => false
   end
 
   def akismet_report
-    if @params[:id] && @params[:sh] == 's' || @params[:sh] == 'as' 
-      pf = Trackback.find(@params[:id])
+    if params[:id] && params[:sh] == 's' || params[:sh] == 'as' 
+      pf = Trackback.find(params[:id])
       aq = {
         :comment_content => pf.excerpt,
         :comment_author_url => pf.url,
@@ -344,17 +341,17 @@ class LoginController < ApplicationController
       if don_get_config.akismet_key && submit_spam_to_akismet(aq)
         logger.info "[Akismet] Report SPAM"
         pf.update_attribute('spam', 1)
-        @flash[:note2] = "Report to Akismet: #{pf.id} is SPAM"
+        flash[:note2] = "Report to Akismet: #{pf.id} is SPAM"
       end
-      if @params[:sh] == 's'
+      if params[:sh] == 's'
         redirect_to :back
-      elsif @params[:sh] == 'as'
+      elsif params[:sh] == 'as'
         if request.env["HTTP_REFERER"] =~ /\/login\/manage_trackback$/
           table_trackback_a
         end
       end
-    elsif @params[:id] && @params[:sh] == 'h' || @params[:sh] == 'ah' 
-      pf = Trackback.find(@params[:id])
+    elsif params[:id] && params[:sh] == 'h' || params[:sh] == 'ah' 
+      pf = Trackback.find(params[:id])
       aq = {
         :comment_content => pf.excerpt,
         :comment_author_url => pf.url,
@@ -363,11 +360,11 @@ class LoginController < ApplicationController
       if don_get_config.akismet_key && submit_ham_to_akismet(aq)
         logger.info "[Akismet] Report HAM"
         pf.update_attribute('spam', 0)
-        @flash[:note2] = "Report to Akismet: #{pf.id} is HAM"
+        flash[:note2] = "Report to Akismet: #{pf.id} is HAM"
       end
-      if @params[:sh] == 'h'
+      if params[:sh] == 'h'
         redirect_to :back
-      elsif @params[:sh] == 'ah'
+      elsif params[:sh] == 'ah'
         if request.env["HTTP_REFERER"] =~ /\/login\/manage_trackback$/
           table_trackback_a
         end
@@ -376,18 +373,18 @@ class LoginController < ApplicationController
   end
 
   def delete_trackback
-    @flash[:note] = ''
-    @flash[:note2] = ''
+    flash[:note] = ''
+    flash[:note2] = ''
     begin
-      if c = @params["deleteid"]
+      if c = params["deleteid"]
         c.each do |k, v|
           if v.to_i == 1
             Trackback.delete(k.to_i)
-            @flash[:note2] += '<br>Delete:' + k
+            flash[:note2] += '<br>Delete:' + k
           end
         end
       end
-      if c = @params["hideid"]
+      if c = params["hideid"]
         c.each do |k, v|
           pf = Trackback.find(k.to_i)
           stmp = pf.hidden
@@ -397,11 +394,11 @@ class LoginController < ApplicationController
             pf.update_attribute('hidden', 0)
           end
           unless stmp == pf.hidden
-            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
         end
       end
-      if c = @params["spamid"]
+      if c = params["spamid"]
         c.each do |k, v|
           pf = Trackback.find(k.to_i)
           stmp = pf.spam
@@ -411,7 +408,7 @@ class LoginController < ApplicationController
             pf.update_attribute('spam', 0)
           end
           unless stmp == pf.spam
-            @flash[:note2] += '<br>Spam status:' + k + ' is ' + pf.spam.to_s
+            flash[:note2] += '<br>Spam status:' + k + ' is ' + pf.spam.to_s
           end
         end
       end
@@ -422,15 +419,15 @@ class LoginController < ApplicationController
   end
 
   def delete_hidden_trackback_all
-    @flash[:note] = ''
-    @flash[:note2] = ''
+    flash[:note] = ''
+    flash[:note2] = ''
     begin
-      if @params["trigger"] == 'hidden'
+      if params["trigger"] == 'hidden'
         Trackback.delete_all "hidden = 1"
-        @flash[:note2] += '<br>Delete: ALL hidden trackbacks'
-      elsif @params["trigger"] == 'spam'
+        flash[:note2] += '<br>Delete: ALL hidden trackbacks'
+      elsif params["trigger"] == 'spam'
         Trackback.delete_all "spam = 1"
-        @flash[:note2] += '<br>Delete: ALL spam trackbacks'
+        flash[:note2] += '<br>Delete: ALL spam trackbacks'
       end
     rescue
       @heading = 'fail delete_hidden_trackback_all'
@@ -446,11 +443,11 @@ class LoginController < ApplicationController
 
 
   def delete_hidden_comment_all
-    @flash[:note] = ''
-    @flash[:note2] = ''
+    flash[:note] = ''
+    flash[:note2] = ''
     begin
       Comment.delete_all "hidden = 1"
-      @flash[:note2] += '<br>Delete: ALL hidden comments'
+      flash[:note2] += '<br>Delete: ALL hidden comments'
     rescue
       @heading = 'fail delete_hidden_comment_all'
     end
@@ -458,21 +455,21 @@ class LoginController < ApplicationController
   end
 
   def delete_comment
-    @flash[:note] = ''
-    @flash[:note2] = ''
-    if c = @params["deleteid"]
+    flash[:note] = ''
+    flash[:note2] = ''
+    if c = params["deleteid"]
       c.each do |k, v|
         if v.to_i == 1
           begin
             b = Comment.find(k.to_i)
             Comment.delete(k.to_i)
-            @flash[:note2] += '<br>Delete:' + k
+            flash[:note2] += '<br>Delete:' + k
           rescue
           end
         end
       end
     end
-    if c = @params["hideid"]
+    if c = params["hideid"]
       c.each do |k, v|
         begin
           pf = Comment.find(k.to_i)
@@ -483,7 +480,7 @@ class LoginController < ApplicationController
             pf.update_attribute('hidden', 0)
           end
           unless stmp == pf.hidden
-            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
         rescue
         end
@@ -493,9 +490,9 @@ class LoginController < ApplicationController
   end
 
   def form_article
-    if @params['pickid']
+    if params['pickid']
       begin
-        @article = Article.find(@params['pickid'].to_i)
+        @article = Article.find(params['pickid'].to_i)
       rescue
         render :text => 'no entry', :status => 404
       end
@@ -505,29 +502,29 @@ class LoginController < ApplicationController
   end
 
   def fix_article
-    if c = @params["article"] and @params["newid"]
-      format = @params["format"]
-      catname = @params["catname"]
+    if c = params["article"] and params["newid"]
+      format = params["format"]
+      catname = params["catname"]
 
       title = c["title"]
       body = c["body"]
       tburllist = [c["tburl"]]
       id = c["id"].to_i
       article_date = c["article_date"]
-      reentry = @params["newid"]["#{id}"]
+      reentry = params["newid"]["#{id}"]
 
-      hideid = @params["hideid"]["#{id}"] if @params["hideid"]
+      hideid = params["hideid"]["#{id}"] if params["hideid"]
       
       referer = c["referer"] if c["referer"] 
 
-      if @params[:category]
-        newcategory = @params['category']['name'].nil? ? nil : @params["category"]['name']
+      if params[:category]
+        newcategory = params['category']['name'].nil? ? nil : params["category"]['name']
       end
 
       # original check
       oa = Article.find(id) # oa is original Article.
       if format == oa.format and title == oa.title and body == oa.body and c["author_name"] and c["author_name"].length and !oa.author.nil? && c["author_name"] == oa.author.name and newcategory.size == 0 and article_date == oa.article_date.to_date.to_s and hideid == oa.hidden.to_s
-        @flash[:note2] = '<br>You have not change:' + id.to_s
+        flash[:note2] = '<br>You have not change:' + id.to_s
         
         cat_ka_in = Array.new
         if catname
@@ -642,10 +639,10 @@ class LoginController < ApplicationController
 
   def bm
     @dgc = @@dgc
-    if @params['f'] == 'add' && @params['url'] && @params['title']
-      @b_url = @params['url']
-      @b_title = @params['title']
-      @b_text = @params['text'] if @params['text']
+    if params['f'] == 'add' && params['url'] && params['title']
+      @b_url = params['url']
+      @b_title = params['title']
+      @b_text = params['text'] if params['text']
       render :action => 'new_article'
     else
       render :text => 'Please check your bookmarklet setting'
@@ -654,19 +651,19 @@ class LoginController < ApplicationController
   end
 
   def add_article
-    if c = @params["article"]
+    if c = params["article"]
       title = c["title"]
       body = c["body"]
       tburllist = [c["tburl"]]
-      format = @params["format"]
+      format = params["format"]
 
-      if @params["category"] and @params["category"]['name']
-        category0 = @params["category"]['name']
+      if params["category"] and params["category"]['name']
+        category0 = params["category"]['name']
         ca = category0.split(/\s+/)
       end
 
-      if @params["author"] and @params["author"]['name']
-        author_name = @params["author"]['name']
+      if params["author"] and params["author"]['name']
+        author_name = params["author"]['name']
         author = Author.find(:first, :conditions => ["name = ?", author_name])
         if author == nil
           render :text => 'Non-registered Author Name. Please submit this article after author registration.', :status => 404
@@ -686,7 +683,7 @@ class LoginController < ApplicationController
       aris1.enrollment.title = title
       aris1.enrollment.save
 
-      if @params["hideid"] and @params["hideid"]['hidden'].to_i == 1
+      if params["hideid"] and params["hideid"]['hidden'].to_i == 1
         aris1.hidden = 1
       end
       aris1.author_id = author.id if author
@@ -737,7 +734,7 @@ class LoginController < ApplicationController
   end
 
   def manage_article
-    if @params[:nohidden] == '1'
+    if params[:nohidden] == '1'
       @articles_pages, @articles = paginate(:article, :per_page => 30,
                                             :order_by => 'id DESC',
                                             :conditions => ["hidden IS NULL OR hidden = 0"]
@@ -750,9 +747,9 @@ class LoginController < ApplicationController
   end
 
   def delete_article
-    @flash[:note] = ''
-    @flash[:note2] = ''
-    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    flash[:note] = ''
+    flash[:note2] = ''
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
         if Article.exists?(k.to_i)
@@ -770,14 +767,14 @@ class LoginController < ApplicationController
             bp.article_id = nil
             bp.save
           end
-          @flash[:note2] += '<br>Delete:' + k
+          flash[:note2] += '<br>Delete:' + k
           b.destroy
         else
-          @flash[:note2] += '<br>Not exists (no delete):' + k
+          flash[:note2] += '<br>Not exists (no delete):' + k
         end
       end
     end
-    if c = @params["hideid"]
+    if c = params["hideid"]
       c.each do |k, v|
         if Article.exists?(k.to_i)
           pf = Article.find(k.to_i)
@@ -788,7 +785,7 @@ class LoginController < ApplicationController
             pf.update_attribute('hidden', 0)
           end
           unless stmp == pf.hidden
-            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
         end
       end
@@ -803,7 +800,7 @@ class LoginController < ApplicationController
   end
 
   def delete_banlist
-    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
         b = Banlist.find(k.to_i)
@@ -814,24 +811,24 @@ class LoginController < ApplicationController
   end
 
   def add_banlist
-    if c = @params["banlist"]
+    if c = params["banlist"]
       flash[:pattern] = c['pattern']
       flash[:teststring] = c['teststring'] 
-      flash[:format] = @params['format']
+      flash[:format] = params['format']
 
-      if c['add'] == '1' and c["pattern"].size > 0 and @params["format"]
+      if c['add'] == '1' and c["pattern"].size > 0 and params["format"]
         aris1 = Banlist.new("pattern" => c["pattern"],
-                            "format" => @params["format"],
+                            "format" => params["format"],
                             "white" => c["white"])
-        banlist_test_by_valid(c["pattern"], @params["format"])
+        banlist_test_by_valid(c["pattern"], params["format"])
         unless flash[:ban]
           aris1.save 
-          flash[:note2] =  '"' + c["pattern"] + '" is saved as ' + @params["format"]
+          flash[:note2] =  '"' + c["pattern"] + '" is saved as ' + params["format"]
         else
           aris1.destroy
         end
-      elsif c["pattern"] and c["pattern"].size > 0 and @params["format"]
-        if banlist_test_by_ar(c["pattern"], c["teststring"], @params["format"])
+      elsif c["pattern"] and c["pattern"].size > 0 and params["format"]
+        if banlist_test_by_ar(c["pattern"], c["teststring"], params["format"])
           flash[:note2] =  'teststring: "' + c["teststring"] + '" is matched pattern: "' + c["pattern"] + '"'
         end
       else
@@ -936,7 +933,7 @@ class LoginController < ApplicationController
 
   public
   def test_banlist
-    if @params["banlist"] and checktext = @params["banlist"]["pattern"]
+    if params["banlist"] and checktext = params["banlist"]["pattern"]
       banlist_test_by_valid(checktext)
     end
     redirect_to :back
@@ -1012,15 +1009,15 @@ class LoginController < ApplicationController
   ## blogping
   def manage_blogping
     if defined?(don_get_config.baseurl)
-      @flash[:note2] = 'BASEURL is ' + don_get_config.baseurl
+      flash[:note2] = 'BASEURL is ' + don_get_config.baseurl
     else
-      @flash[:note2] = '現在Ping送信機能は無効です。baseurlを設定してください。'
+      flash[:note2] = '現在Ping送信機能は無効です。baseurlを設定してください。'
     end
     @blogpings_pages, @blogpings = paginate(:blogping,:per_page => 30,:order_by => 'id DESC')
   end
 
   def delete_blogping
-    c = @params["acid"].nil? ? [] : @params["acid"]
+    c = params["acid"].nil? ? [] : params["acid"]
     flash[:note] = ''
     c.each do |k, v|
       b = Blogping.find(k.to_i)
@@ -1035,7 +1032,7 @@ class LoginController < ApplicationController
       end
     end
 
-    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
         b = Blogping.find(k.to_i)
@@ -1047,7 +1044,7 @@ class LoginController < ApplicationController
   end
 
   def add_blogping
-    if c = @params["blogping"]
+    if c = params["blogping"]
       aris1 = Blogping.new("server_url" => c["server_url"])
       aris1.active = 1
       aris1.save
@@ -1059,8 +1056,8 @@ class LoginController < ApplicationController
 
   # author
   def manage_author
-    if @params['id']
-      @author = Author.find(@params['id'])
+    if params['id']
+      @author = Author.find(params['id'])
     end
     @authors_pages, @authors = paginate(:author, :per_page => 30,
                                           :order_by => 'id DESC'
@@ -1068,7 +1065,7 @@ class LoginController < ApplicationController
   end
 
   def delete_unwrite_author
-    c = @params["unwriteid"].nil? ? [] : @params["unwriteid"]
+    c = params["unwriteid"].nil? ? [] : params["unwriteid"]
     c.each do |k, v|
       if v.to_i == 1
         b = Author.find(k.to_i)
@@ -1081,7 +1078,7 @@ class LoginController < ApplicationController
         end
       end
     end
-    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
         b = Author.find(k.to_i)
@@ -1092,7 +1089,7 @@ class LoginController < ApplicationController
   end
 
   def add_author
-    if c = @params["author"]
+    if c = params["author"]
       aris1 = Author.find(:first, :conditions => ["name = ?", c["name"]])
       unless aris1
         aris1 = Author.new("name" => c["name"])
@@ -1108,7 +1105,7 @@ class LoginController < ApplicationController
 
 
   def manage_enrollment
-    if @params[:nohidden] == '1'
+    if params[:nohidden] == '1'
       @enrollments_pages, @enrollments = paginate(:enrollment, :per_page => 30,
                                                   :order_by => 'id DESC',
                                                   :conditions => ["hidden IS NULL OR hidden = 0"]
@@ -1122,10 +1119,10 @@ class LoginController < ApplicationController
 
 
   def delete_enrollment
-    @flash[:note] = ''
-    @flash[:note2] = ''
+    flash[:note] = ''
+    flash[:note2] = ''
     now_delete = Array.new
-    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
         if Enrollment.exists?(k.to_i)
@@ -1134,15 +1131,15 @@ class LoginController < ApplicationController
             ba.enrollment_id = nil
             ba.save
           end
-          @flash[:note2] += '<br>Delete:' + k
+          flash[:note2] += '<br>Delete:' + k
           now_delete.push(k)
           b.destroy
         else
-          @flash[:note2] += '<br>Not exists:' + k
+          flash[:note2] += '<br>Not exists:' + k
         end
       end
     end
-    if c = @params["hideid"]
+    if c = params["hideid"]
       c.each do |k, v|
         if Enrollment.exists?(k.to_i)
           pf = Enrollment.find(k.to_i)
@@ -1153,11 +1150,11 @@ class LoginController < ApplicationController
             pf.update_attribute('hidden', 0)
           end
           unless stmp == pf.hidden
-            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
         else
           unless now_delete.include?(k)
-            @flash[:note2] += '<br>Not exists:' + k
+            flash[:note2] += '<br>Not exists:' + k
           end
         end
       end
@@ -1166,14 +1163,14 @@ class LoginController < ApplicationController
   end
 
   def manage_don_env
-    if @params['id']
-      @donenv = DonEnv.find(@params['id'])
+    if params['id']
+      @donenv = DonEnv.find(params['id'])
     end
-    @don_envs = DonEnv.find_all
+    @don_envs = DonEnv.find(:all)
   end
 
   def add_don_env
-    if c = @params["donenv"]
+    if c = params["donenv"]
       if c['id'] && c['id'].size > 0
         aris1 = DonEnv.find(c['id'].to_i)
       else
@@ -1199,29 +1196,29 @@ class LoginController < ApplicationController
     end
     begin
       don_delete_cache_all
-      @flash[:note2] = 'cache files and sub-directories are deleted.'
+      flash[:note2] = 'cache files and sub-directories are deleted.'
     rescue
-      @flash[:note2] = $!
+      flash[:note2] = $!
     end
     redirect_to :action => "manage_don_env"
   end
 
   def delete_don_env
-    @flash[:note] = ''
-    @flash[:note2] = ''
-    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    flash[:note] = ''
+    flash[:note2] = ''
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
         if DonEnv.exists?(k.to_i)
           b = DonEnv.find(k.to_i)
-          @flash[:note2] += '<br>Delete:' + k
+          flash[:note2] += '<br>Delete:' + k
           b.destroy
         else
-          @flash[:note2] += '<br>Not exists:' + k
+          flash[:note2] += '<br>Not exists:' + k
         end
       end
     end
-    if c = @params["hideid"]
+    if c = params["hideid"]
       c.each do |k, v|
         if DonEnv.exists?(k.to_i)
           pf = DonEnv.find(k.to_i)
@@ -1232,19 +1229,19 @@ class LoginController < ApplicationController
             pf.update_attribute('hidden', 0)
           end
           unless stmp == pf.hidden
-            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
         else
-          @flash[:note2] += '<br>Not exists:' + k
+          flash[:note2] += '<br>Not exists:' + k
         end
       end
     end
 
     begin
       don_delete_cache_all
-      @flash[:note2] = 'cache files and sub-directories are deleted.'
+      flash[:note2] = 'cache files and sub-directories are deleted.'
     rescue
-      @flash[:note2] = $!
+      flash[:note2] = $!
     end
 
     redirect_to :action => "manage_don_env"
@@ -1252,17 +1249,17 @@ class LoginController < ApplicationController
 
   # RBL
   def manage_don_rbl
-    @don_rbls = DonRbl.find_all
+    @don_rbls = DonRbl.find(:all)
   end
 
   def add_don_rbl
-    if c = @params["donrbl"]
+    if c = params["donrbl"]
       if c['id'] && c['id'].size > 0
         aris1 = DonRbl.find(c['id'].to_i)
       else
         aris1 = DonRbl.new
       end
-      aris1.rbl_type = @params["format"]
+      aris1.rbl_type = params["format"]
       aris1.hostname = c["hostname"]
       aris1.save
     end
@@ -1270,21 +1267,21 @@ class LoginController < ApplicationController
   end
 
   def delete_don_rbl
-    @flash[:note] = ''
-    @flash[:note2] = ''
-    c = @params["deleteid"].nil? ? [] : @params["deleteid"]
+    flash[:note] = ''
+    flash[:note2] = ''
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
     c.each do |k, v|
       if v.to_i == 1
         if DonRbl.exists?(k.to_i)
           b = DonRbl.find(k.to_i)
-          @flash[:note2] += '<br>Delete:' + k
+          flash[:note2] += '<br>Delete:' + k
           b.destroy
         else
-          @flash[:note2] += '<br>Not exists:' + k
+          flash[:note2] += '<br>Not exists:' + k
         end
       end
     end
-    if c = @params["hideid"]
+    if c = params["hideid"]
       c.each do |k, v|
         if DonRbl.exists?(k.to_i)
           pf = DonRbl.find(k.to_i)
@@ -1295,10 +1292,10 @@ class LoginController < ApplicationController
             pf.update_attribute('hidden', 0)
           end
           unless stmp == pf.hidden
-            @flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
           end
         else
-          @flash[:note2] += '<br>Not exists:' + k
+          flash[:note2] += '<br>Not exists:' + k
         end
       end
     end
@@ -1308,9 +1305,9 @@ class LoginController < ApplicationController
   def delete_cache
     begin
       don_delete_cache_all
-      @flash[:note2] = 'cache files and sub-directories are deleted.'
+      flash[:note2] = 'cache files and sub-directories are deleted.'
     rescue
-      @flash[:note2] = $!
+      flash[:note2] = $!
     end
     redirect_to :action => "manage_cache"
   end

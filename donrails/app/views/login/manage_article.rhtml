@@ -3,28 +3,28 @@
 <% if @articles %>
 
 <% if @articles_pages %>
-<% if @params['nohidden'] == '1' %>
+<% if params['nohidden'] == '1' %>
 <%= pagination_links @articles_pages, :params => { :nohidden => 1 } %>
 <% else %>
 <%= pagination_links @articles_pages %>
 <% end %>
 <% end %>
 /
-<% if @params['nohidden'] == '1' %>
+<% if params['nohidden'] == '1' %>
 <%= link_to '隱されている記事も表示する', {:action => 'manage_article'} %>
 <% else %>
 <%= link_to '隱されていない記事のみを表示する', {:action => 'manage_article', :nohidden => 1 } %>
 <% end %>
 
-<%= secure_form_tag :action => "delete_article" %>
+<% form_tag :action => "delete_article" do hidden_field_tag("session_id_validation", security_token) -%>
 <div class="kakomi">
 <div id="ca">
 [記事]を押すと記事が表示されます
 </div>
 </div>
 <div class="notice">
-  <%= @flash[:note] %>
-  <%= @flash[:note2] %>
+  <%= flash[:note] %>
+  <%= flash[:note2] %>
 </div>
   
 <%= submit_tag %>
@@ -86,7 +86,7 @@
    <% end %>
  </table>
  <%= submit_tag %>
- <%= end_form_tag %>
+ <% end %>
  <% end %>
 
  <% if @articles_pages %>

@@ -1,4 +1,4 @@
-<%= secure_form_tag :action => "add_category" %>
+<% form_tag :action => "add_category" do hidden_field_tag("session_id_validation", security_token) -%>
 name:<%= text_field "category", "name" %><br>
 
 <% if @parent %>
@@ -10,4 +10,4 @@ parent:<%= text_field "category", "parent_name", "value" => '' %>
 <br>
 description:(カテゴリの簡単な紹介。例: railsのハック)<br><%= text_area "category", "description", "rows" => 4 %><br>
 <%= submit_tag "save" %>
-<%= end_form_tag %>
+<% end %>

@@ -12,36 +12,37 @@
 
 <div class="banlist">
 <div class="notice">
-  <%= @flash[:note2] %>
+  <%= flash[:note2] %>
   <br>
-  pattern:<%=h @flash[:pattern] %> /
-  teststring:<%=h @flash[:teststring] %> /
-  format:<%=h @flash[:format] %>
+  pattern:<%=h flash[:pattern] %> /
+  teststring:<%=h flash[:teststring] %> /
+  format:<%=h flash[:format] %>
 
-  <% if @flash[:hit_tbs] and @flash[:hit_tbs].size > 0 %>
-  <%= secure_form_tag :action => "delete_trackback" %>
-  <%= @flash[:hit_tbs].size %>件のトラックバックがマッチします。
-  <% @trackbacks = @flash[:hit_tbs] %>
+  <% if flash[:hit_tbs] and flash[:hit_tbs].size > 0 %>
+  <% form_tag :action => "delete_trackback" do hidden_field_tag("session_id_validation", security_token) -%>
+  <%= flash[:hit_tbs].size %>件のトラックバックがマッチします。
+  <% @trackbacks = flash[:hit_tbs] %>
   <%= submit_tag "チェックしたトラックバックを削除する" %>
   <%= render('shared/table_trackback') %>
   <%= submit_tag "チェックしたトラックバックを削除する" %>
-  <%= end_form_tag %>
+  <% end %>
   <% end %>
 
-  <% if @flash[:hit_comments] and @flash[:hit_comments].size > 0 %>
-  <%= secure_form_tag :action => "delete_comment" %>
-  <%= @flash[:hit_comments].size %>件のコメントがマッチします。
-  <% @comments = @flash[:hit_comments] %>
+  <% if flash[:hit_comments] and flash[:hit_comments].size > 0 %>
+  <% form_tag :action => "delete_comment" do hidden_field_tag("session_id_validation", security_token) -%>
+  <%= flash[:hit_comments].size %>件のコメントがマッチします。
+  <% @comments = flash[:hit_comments] %>
   <%= submit_tag "チェックしたコメントを削除する" %>  
   <%= render('shared/table_comment') %>
   <%= submit_tag "チェックしたコメントを削除する" %>  
+  <% end %>
   <% end %>
 </div>
 
 <div id="trackback_ajax">
 </div>
 
-<%= secure_form_tag :action => "add_banlist" %>
+<% form_tag :action => "add_banlist" do hidden_field_tag("session_id_validation", security_token) -%>
 format:
 <select name="format">
   <option value="regexp">regexp</option>
@@ -58,26 +59,26 @@ format:
 <br><%= check_box "banlist", "white" %>whitelist
 <br><%= check_box "banlist", "add" %>登録する(登録時はチェックする)
 <%= submit_tag "テスト" %>
-<%= end_form_tag %>
+<% end %>
 </div>
 
 <div class="bantest">
 登録済みのbanlistを試す: テストしたいパターンを入力すると、そのパターンがフィルタされるかどうかがわかります。
-<% if @flash[:note] %>
-<% unless @flash[:note2] %>
+<% if flash[:note] %>
+<% unless flash[:note2] %>
 <div class="notice">
-  <% if @flash[:ban] %>
-  <%= @flash[:note] %>はフィルタされます。(<%= @flash[:ban_message] %>)
+  <% if flash[:ban] %>
+  <%= flash[:note] %>はフィルタされます。(<%= flash[:ban_message] %>)
   <% else %>
-  <%= @flash[:note] %>は未登録です。(フィルタされません)
+  <%= flash[:note] %>は未登録です。(フィルタされません)
   <% end %>
 </div>
 <% end %>
 <% end %>
 
-<%= secure_form_tag :action => "test_banlist" %>
+<% form_tag :action => "test_banlist" do hidden_field_tag("session_id_validation", security_token) -%>
 test pattern:
 <%= text_field "banlist", "pattern" %>
 <%= submit_tag "テスト" %>
-<%= end_form_tag %>
+<% end %>
 </div>

@@ -177,7 +177,7 @@ class NotesControllerTest < Test::Unit::TestCase
   def test_parse_nums__1
     get :parse_nums, :nums => '200403051'
     assert_response 302
-    assert_match(/notice=200403051/, @response.headers['location'])
+    assert_match(/notice=200403051/, @response.headers['Location'])
   end
   def test_parse_nums__2
     get :parse_nums, :nums => '20040305'
@@ -345,7 +345,9 @@ class NotesControllerTest < Test::Unit::TestCase
       "title" => "donrails", 
       "body" => "this is donrails test", "article_id" => 1}
     post :add_comment2, :comment => c
-    assert_match(/^http:\/\/test.host\/archives\/\w+\/1/, @response.headers['location'])
+
+    assert_match(/^http:\/\/test.host\/archives\/\w+\/1/, @response.headers['Location'])
+
     assert_response 302
   end
 

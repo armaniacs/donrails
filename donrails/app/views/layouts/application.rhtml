@@ -7,9 +7,9 @@
 
 <body>
 <h1><%=h @heading %></h1>
-<% if @flash["notice"] %>
+<% if flash["notice"] %>
 <span class="notice" %>
-  <%= @flash["notice"] %>
+  <%= flash["notice"] %>
 </span>
 <% end %>
 
@@ -17,23 +17,23 @@
 <%= link_to "kakulist", :action => "kakulist" %>
 <%= link_to "recent", :action => "recent" %>
 
-<%= form_tag :action => 'show_date' %>
+<% form_tag :action => 'show_date' do -%>
 <%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
 <%= submit_tag "select one day" %>
-<%= end_form_tag %>
+<% end %>
 
-<%= form_tag :action => 'afterday' %>
+<% form_tag :action => 'afterday' do -%>
 <%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
 <%= submit_tag "select day (show after .. )" %>
-<%= end_form_tag %>
+<% end %>
 
-<%= form_tag :action => 'betweenday' %>
+<% form_tag :action => 'betweenday' do -%>
 from:
 <%= date_select(:ymd1, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
 to:
 <%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
 <%= submit_tag "select from.. to" %>
-<%= end_form_tag %>
+<% end %>
 
 <br>
 <%= @content_for_layout %>

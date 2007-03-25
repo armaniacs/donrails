@@ -127,7 +127,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       p $!
     end
 
-    clall = Category.find_all
+    clall = Category.find(:all)
     clall.each do |rc|
       expire_page(:controller => 'notes', :action => %w(show_category show_category_noteslist) , :category => rc.name)
       expire_page(:controller => 'notes', :action => %w(show_category show_category_noteslist) , :id => rc.id)

@@ -267,7 +267,7 @@ module ApplicationHelper
 
     if xml.root.elements['relateid']
       ida = xml.root.elements['relateid'].text.split(':')
-      if ida[0] == 'tag' and ida[1] == @request.host and ida[2] == 'notes'
+      if ida[0] == 'tag' and ida[1] == request.host and ida[2] == 'notes'
         image.article_id = ida[3].to_i
       end
     end

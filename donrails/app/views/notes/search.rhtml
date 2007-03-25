@@ -1,8 +1,8 @@
 <% if @articles.size == 0 %>
-<h3>検索結果: <%=h @params["q"] %> の該当はありません。</h3>
+<h3>検索結果: <%=h params["q"] %> の該当はありません。</h3>
 <% else %>
-<h3>検索結果: <%=h @params["q"] %> のリスト(全<%= @articles.size %>件)
-[<%= link_to "記事", {:action => "show_search_noteslist", :q => @params['q']} %>]</h3>
+<h3>検索結果: <%=h params["q"] %> のリスト(全<%= @articles.size %>件)
+[<%= link_to "記事", {:action => "show_search_noteslist", :q => params['q']} %>]</h3>
 <% an = 0 %>
 <dl>
 <%
@@ -12,8 +12,8 @@
   <% an += 1 %>
   <% btmp = strip_links art.body_to_html %>
   <% btmp = don_chomp_tags(btmp) %>
-  <% btmp = excerpt(btmp, @params["q"], 150) %>
-  <% btmp = highlight(btmp, @params["q"]) %>
+  <% btmp = excerpt(btmp, params["q"], 150) %>
+  <% btmp = highlight(btmp, params["q"]) %>
   <dt><%= link_to "\##{an}", {:action => "show_enrollment", :id => art.enrollment_id} %>  <%= art.title_to_html %></dt>
   <dd>
     <%= btmp %>

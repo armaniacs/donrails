@@ -33,11 +33,11 @@ class AtomController < ApplicationController
 
   # atom feed
   def feed
-    if @params['aid'] == nil
+    if params['aid'] == nil
       @articles_pages, @articles = paginate(:article, :per_page => 20, :order_by => 'id DESC', :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     else
       begin
-        @article = Article.find(@params['aid'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+        @article = Article.find(params['aid'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
       rescue
         render :text => "no this id", :status => 403
       end
@@ -49,8 +49,8 @@ class AtomController < ApplicationController
     if request.method == :post
       begin
         author = Author.find(:first, :conditions => ["name = ?", @user])
-        if @params['id']
-          aris1 = Article.new("id" => @params['id'])
+        if params['id']
+          aris1 = Article.new("id" => params['id'])
         else
           aris1 = Article.new
         end
@@ -76,7 +76,7 @@ class AtomController < ApplicationController
     if request.method == :put
       begin
         author = Author.find(:first, :conditions => ["name = ?", @user])
-        aris1 = Article.find(@params['id'])
+        aris1 = Article.find(params['id'])
         atom_update_article2(aris1, request.raw_post)
         aris1.author_id = author.id if author        
         aris1.save
@@ -88,8 +88,8 @@ class AtomController < ApplicationController
       end
     elsif request.method == :delete
       begin
-        Article.destroy(@params['id'])
-        render :text => "dslete #{@params['id']}", :status => 204
+        Article.destroy(params['id'])
+        render :text => "dslete #{params['id']}", :status => 204
       rescue
         render :text => "no method #{request.method}", :status => 403
       end
@@ -100,13 +100,13 @@ class AtomController < ApplicationController
 
   # beta testing..
   def categories
-    if @params['id'] == nil
+    if params['id'] == nil
       render :text => "no method #{request.method}", :status => 400
     end
 
-    if @params['id']
+    if params['id']
       begin
-        @article = Article.find(@params['id'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+        @article = Article.find(params['id'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
       rescue
         render :text => "no this id", :status => 400
       end

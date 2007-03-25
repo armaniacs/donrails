@@ -46,56 +46,56 @@ class NotesController < ApplicationController
   end
 
   def search
-    @articles = Article.search(@params["q"])
-    @heading = @params["q"]
+    @articles = Article.search(params["q"])
+    @heading = params["q"]
     @noindex = true
     @lm = Time.now.gmtime
   end
 
   def show_search_noteslist
     search
-    @rdf_category = @params['q']
-    @heading = "検索結果:#{@params['q']}"
+    @rdf_category = params['q']
+    @heading = "検索結果:#{params['q']}"
     render_action(don_get_theme('noteslist'))
   end
 
   def pick_trackback_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
-    @trackback = Trackback.find(@params['pickid'].to_i)
+    headers["Content-Type"] = "text/html; charset=utf-8"
+    @trackback = Trackback.find(params['pickid'].to_i)
   end
 
   def pick_comment_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
-    @comment = Comment.find(@params['pickid'].to_i)
+    headers["Content-Type"] = "text/html; charset=utf-8"
+    @comment = Comment.find(params['pickid'].to_i)
   end
 
   def pick_enrollment_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
-    @enrollment = Enrollment.find(@params['pickid'].to_i)
+    headers["Content-Type"] = "text/html; charset=utf-8"
+    @enrollment = Enrollment.find(params['pickid'].to_i)
     @lm = @enrollment.updated_at.gmtime if @enrollment and @enrollment.updated_at
   end
 
   def pick_article_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
-    @article = Article.find(@params['pickid'].to_i)
+    headers["Content-Type"] = "text/html; charset=utf-8"
+    @article = Article.find(params['pickid'].to_i)
     @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
   end
 
   def pick_article_a2
-    @headers["Content-Type"] = "text/html; charset=utf-8"
-    @article = Article.find(@params['pickid'].to_i)
+    headers["Content-Type"] = "text/html; charset=utf-8"
+    @article = Article.find(params['pickid'].to_i)
     @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
   end
 
   def comment_form_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
-    @article = Article.find(@params['id'].to_i)
+    headers["Content-Type"] = "text/html; charset=utf-8"
+    @article = Article.find(params['id'].to_i)
     @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
   end
 
   def comment_form
     @noindex = true
-    @article = Article.find(@params['id'].to_i)
+    @article = Article.find(params['id'].to_i)
     @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
   end
 
@@ -116,9 +116,9 @@ class NotesController < ApplicationController
     begin
       @articles_pages, @articles = paginate(:article, :per_page => 10,
                                             :order_by => 'id DESC',
-                                            :conditions => ["author_id = ? AND ( hidden IS NULL OR hidden = 0 )", @params['id']]
+                                            :conditions => ["author_id = ? AND ( hidden IS NULL OR hidden = 0 )", params['id']]
                                             )
-      @author = Author.find(@params['id'])
+      @author = Author.find(params['id'])
       if @author
         if @author.nickname
           @heading = @author.nickname + "の記事"
@@ -136,7 +136,7 @@ class NotesController < ApplicationController
   end
 
   def indexabc
-    k = @params['nums']
+    k = params['nums']
     if k =~ /^(\d\d\d\d)(\d\d)a(\.html)?$/
       redirect_to :action => "tendays", :year => $1, :month => $2, :day => "01"
     elsif k =~ /^(\d\d\d\d)(\d\d)b(\.html)?$/
@@ -176,14 +176,14 @@ class NotesController < ApplicationController
         a = don_get_object(@articles.first, 'html')
         @heading = "#{don_chomp_tags(a.title_to_html)} at #{@articles.first.article_date.to_date}"
       end
-      @notice = @params['notice'] unless @notice
+      @notice = params['notice'] unless @notice
     end
     render_action(don_get_theme('noteslist'))
   end
 
 
   def parse_nums
-    nums = @params['nums'] if @params['nums'] 
+    nums = params['nums'] if params['nums'] 
 
     @notice = nums
     if nums =~ /^(\d\d\d\d)(\d\d)(\d\d)$/
@@ -226,15 +226,15 @@ class NotesController < ApplicationController
 
 
   def recent_trigger_title_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
-    if @params['trigger'] == 'recents'
+    headers["Content-Type"] = "text/html; charset=utf-8"
+    if params['trigger'] == 'recents'
       @articles = Article.find(:all, :order => "id DESC", :limit => 10, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
-    elsif @params['trigger'] == 'trackbacks'
+    elsif params['trigger'] == 'trackbacks'
       @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN trackbacks on (trackbacks.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
-    elsif @params['trigger'] == 'comments'
+    elsif params['trigger'] == 'comments'
 #      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN comments_articles on (comments_articles.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
       @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN comments on (comments.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
-    elsif @params['trigger'] == 'long'
+    elsif params['trigger'] == 'long'
       @articles = Article.find(:all, :order => "size DESC", :limit => 10, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     end
     unless @articles.empty? then
@@ -242,12 +242,12 @@ class NotesController < ApplicationController
     end
   end
 
-  # if @request.post? is true, cache_page does not work.
+  # if request.post? is true, cache_page does not work.
   def recent_category_title_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
+    headers["Content-Type"] = "text/html; charset=utf-8"
 
-    if @params['category']
-      categories = Category.find(:first, :conditions => ["name = ?", @params['category']])
+    if params['category']
+      categories = Category.find(:first, :conditions => ["name = ?", params['category']])
       return [] if categories.nil?
       @articles = categories.articles.reverse
       unless @articles.empty? then
@@ -257,12 +257,12 @@ class NotesController < ApplicationController
   end
 
   def category_select_a 
-    @headers["Content-Type"] = "text/html; charset=utf-8"
-    @categories = Category.find_all
+    headers["Content-Type"] = "text/html; charset=utf-8"
+    @categories = Category.find(:all)
   end
 
   def category_tree_list_a
-    @headers["Content-Type"] = "text/html; charset=utf-8"
+    headers["Content-Type"] = "text/html; charset=utf-8"
     expires_in 72.hours, 'max-stale' => 120.hours, :private => nil, :public => true
     @roots = Category.find(:all, :conditions => ["parent_id IS NULL"])
   end
@@ -291,8 +291,8 @@ class NotesController < ApplicationController
   end
 
   def show_nnen
-    if (@params["day"] and @params["month"])
-      ymdnow = convert_ymd("#{Time.now.year}-#{@params["month"]}-#{@params["day"]}")
+    if (params["day"] and params["month"])
+      ymdnow = convert_ymd("#{Time.now.year}-#{params["month"]}-#{params["day"]}")
     else
       render_text "no article", 404
     end
@@ -343,14 +343,14 @@ class NotesController < ApplicationController
 
   def show_title
     @noindex = true
-    if @params['id']
-      @articles =  Article.find(:all, :conditions => ["id = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @params['id']]) 
-    elsif @params['pickid']
-      @articles =  Article.find(:all, :conditions => ["id = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @params['pickid']]) 
+    if params['id']
+      @articles =  Article.find(:all, :conditions => ["id = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", params['id']]) 
+    elsif params['pickid']
+      @articles =  Article.find(:all, :conditions => ["id = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", params['pickid']]) 
       redirect_to :action => 'show_title', :id => @articles.first.id if @articles
       return
-    elsif @params['title'] and @params['title'].size > 0
-      @articles =  Article.find(:all, :conditions => ["title = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @params['title']]) 
+    elsif params['title'] and params['title'].size > 0
+      @articles =  Article.find(:all, :conditions => ["title = ? AND (articles.hidden IS NULL OR articles.hidden = 0)", params['title']]) 
       redirect_to :action => 'show_title', :id => @articles.first.id if @articles and @articles.first
       return
     else
@@ -379,7 +379,7 @@ class NotesController < ApplicationController
       end
     else
       begin
-        a1 = Article.find(@params['id'])
+        a1 = Article.find(params['id'])
         redirect_to :action => 'show_enrollment', :id => a1.enrollment_id
         return
       rescue
@@ -391,7 +391,7 @@ class NotesController < ApplicationController
   end
 
   def show_enrollment
-    if pid = @params['id'].to_i
+    if pid = params['id'].to_i
       @enrollment = Enrollment.find(pid, :conditions => ["hidden IS NULL OR hidden = 0"])
       @heading = "#{don_chomp_tags(don_get_object(@enrollment.articles.first, 'html').title_to_html)}"
       @rdf_enrollment = @enrollment.id
@@ -411,13 +411,13 @@ class NotesController < ApplicationController
 
   def show_category
     begin
-      if @params[:id]
-        @category = Category.find(@params[:id])
-      elsif cp = @params['category']
+      if params[:id]
+        @category = Category.find(params[:id])
+      elsif cp = params['category']
         cp.sub!(/\.html$/, '')
-        @category = Category.find(:first, :conditions => ["name = ?", @params['category']])
-      elsif @params['nocategory']
-        @category = Category.find(:first, :conditions => ["NOT name = ?", @params['nocategory']])
+        @category = Category.find(:first, :conditions => ["name = ?", params['category']])
+      elsif params['nocategory']
+        @category = Category.find(:first, :conditions => ["NOT name = ?", params['nocategory']])
       end
 
       if @category and @category.id
@@ -428,7 +428,7 @@ class NotesController < ApplicationController
                    :join => "JOIN categories_articles on (categories_articles.article_id=articles.id and categories_articles.category_id=#{@category.id})",
                    :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
                    )
-        @heading = "カテゴリ:#{@params['category']}"
+        @heading = "カテゴリ:#{params['category']}"
         @heading += '(' + @category.articles.size.to_s + ')'
 
         unless @articles.empty? then
@@ -445,7 +445,6 @@ class NotesController < ApplicationController
   def show_category_noteslist
     begin
       show_category
-#      @rdf_category = @params['category']
       render_action(don_get_theme('noteslist'))
     rescue
       render_text "no article", 404
@@ -494,7 +493,7 @@ class NotesController < ApplicationController
   end
 
   def add_comment2
-    c = @params["comment"]
+    c = params["comment"]
     if c and request.post?
       author = c["author"]
       password = c["password"]
@@ -509,7 +508,7 @@ class NotesController < ApplicationController
                           "title" => title,
                           "author" => author,
                           "url" => url,
-                          "ipaddr" => @request.remote_ip,
+                          "ipaddr" => request.remote_ip,
                           "body" => body,
                           "article_id" => a.id
                           )
@@ -558,7 +557,7 @@ class NotesController < ApplicationController
   end
 
   def show_image 
-    if @image = Picture.find(@params['id'].to_i)
+    if @image = Picture.find(params['id'].to_i)
       if @image.hidden == 1
         render :text => 'image hidden', :status => 403
       else
@@ -570,13 +569,13 @@ class NotesController < ApplicationController
   def trackback
     if request.method == :post
       begin
-        unless (@params.has_key?('url') and @params.has_key?('id'))
+        unless (params.has_key?('url') and params.has_key?('id'))
           @catched = false
           @message = 'need url and id '
         end
 
         begin
-          article = Article.find(@params['id'], :conditions => ["hidden IS NULL OR hidden = 0"])
+          article = Article.find(params['id'], :conditions => ["hidden IS NULL OR hidden = 0"])
         rescue
           @catched = false
           @message = 'need valid id '
@@ -585,11 +584,11 @@ class NotesController < ApplicationController
         if @catched != false
           tb = Trackback.new
           tb.article_id = article.id
-          tb.category = @params['category'] if @params['category'] 
-          tb.blog_name = @params['blog_name'] if @params['blog_name']
-          tb.title = @params['title'] || @params['url']
-          tb.excerpt = @params['excerpt'] if @params['excerpt']
-          tb.url = @params['url']
+          tb.category = params['category'] if params['category'] 
+          tb.blog_name = params['blog_name'] if params['blog_name']
+          tb.title = params['title'] || params['url']
+          tb.excerpt = params['excerpt'] if params['excerpt']
+          tb.url = params['url']
           tb.ip = request.remote_ip
           tb.created_at = Time.now
 
@@ -634,11 +633,11 @@ class NotesController < ApplicationController
 
   def catch_trackback
     if request.method == :post
-      category = @params['category'] if @params['category'] 
-      blog_name = @params['blog_name'] if @params['blog_name']
-      title = @params['title'] || @params['url']
-      excerpt = @params['excerpt'] if @params['excerpt']
-      url = @params['url']
+      category = params['category'] if params['category'] 
+      blog_name = params['blog_name'] if params['blog_name']
+      title = params['title'] || params['url']
+      excerpt = params['excerpt'] if params['excerpt']
+      url = params['url']
       
       ip = request.remote_ip
       created_at = Time.now
@@ -662,7 +661,7 @@ class NotesController < ApplicationController
 
   protected
   def authenticate
-    unless @session["person"]
+    unless session["person"]
       redirect_to :controller => "login", :action => "login_index"
       return false
     end
@@ -670,18 +669,18 @@ class NotesController < ApplicationController
 
   def add_cache_control
     if @lm
-      @headers['Last-Modified'] = @lm.httpdate.to_s
+      headers['Last-Modified'] = @lm.httpdate.to_s
     end
     if @maxage and @maxage == 0
-      @headers['Cache-Control'] = 'no-cache'
+      headers['Cache-Control'] = 'no-cache'
     elsif @maxage
-      @headers['Cache-Control'] = 'max-age=#{@maxage.to_s}'
+      headers['Cache-Control'] = 'max-age=#{@maxage.to_s}'
     elsif @lm and @noindex and Time.now - @lm < 86400 * 7
-      @headers['Cache-Control'] = 'max-age=86400'
+      headers['Cache-Control'] = 'max-age=86400'
     elsif @lm and Time.now - @lm < 86400 * 7
-      @headers['Cache-Control'] = 'no-cache'
+      headers['Cache-Control'] = 'no-cache'
     else
-      @headers['Cache-Control'] = 'public'
+      headers['Cache-Control'] = 'public'
     end
   end
 

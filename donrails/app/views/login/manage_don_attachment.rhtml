@@ -2,13 +2,13 @@
 <h1>don_attachment management</h1>
 添付データの登録
 
-<%= secure_form_tag({:action => "don_attachment_save"},:multipart => 'true')  %>
+<% form_tag({:action => "don_attachment_save"},:multipart => 'true')  do hidden_field_tag("session_id_validation", security_token) -%>
 タイトル:<%= text_field "don_attachment", "title", "size" => 80 %><br>
 フォーマット:<%= text_field "don_attachment", "format", "size" => 15 %><br>
 本文:<br><%= text_area "don_attachment", "body", "rows" => 20, "cols" => 80 %><br>
 <input id="don_attachment_don_attachment" name="don_attachment[don_attachment]" size="30" type="file" />
 <input name="commit" type="submit" value="Upload file" />
-<%= end_form_tag %>
+<% end %>
 
 <% if @don_attachments %>
 
@@ -16,7 +16,7 @@
 <%= pagination_links @don_attachments_pages %>
 <% end %>
 
-<%= secure_form_tag :action => "delete_don_attachment" %>
+<% form_tag :action => "delete_don_attachment" do hidden_field_tag("session_id_validation", security_token) -%>
 <div class="kakomi">
 <div id="ca">
 記事が表示されます
@@ -31,8 +31,8 @@
 </ul>
 
 <div class="notice">
-  <%= @flash[:note] %>
-  <%= @flash[:note2] %>
+  <%= flash[:note] %>
+  <%= flash[:note2] %>
 </div>
 
 <%= submit_tag %>
@@ -84,7 +84,7 @@
    <% end %>
  </table>
  <%= submit_tag %>
- <%= end_form_tag %>
+ <% end %>
  <% end %>
 
  <% if @don_attachments_pages %>

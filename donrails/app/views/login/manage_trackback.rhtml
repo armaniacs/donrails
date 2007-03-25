@@ -9,7 +9,7 @@
 <%= pagination_links @trackbacks_pages %>
 <% end %>
 
-<%= secure_form_tag :action => "delete_trackback" %>
+<% form_tag :action => "delete_trackback" do hidden_field_tag("session_id_validation", security_token) -%>
 <div class="kakomi">
 <div id="trackback_ajax">
 [article id]を押すと削除対象コメントと親記事が表示されます
@@ -20,7 +20,7 @@
 <%= submit_tag %>
 <%= render('shared/table_trackback') %>
 <%= submit_tag %>
-<%= end_form_tag %>
+<% end %>
 <% end %>
 
 <% if @trackbacks_pages %>

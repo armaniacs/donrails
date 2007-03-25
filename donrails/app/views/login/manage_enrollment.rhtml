@@ -3,28 +3,28 @@
 <% if @enrollments %>
 
 <% if @enrollments_pages %>
-<% if @params['nohidden'] == '1' %>
+<% if params['nohidden'] == '1' %>
 <%= pagination_links @enrollments_pages, :params => { :nohidden => 1 } %>
 <% else %>
 <%= pagination_links @enrollments_pages %>
 <% end %>
 <% end %>
 /
-<% if @params['nohidden'] == '1' %>
+<% if params['nohidden'] == '1' %>
 <%= link_to '隱されている記事も表示する', {:action => 'manage_enrollment'} %>
 <% else %>
 <%= link_to '隱されていない記事のみを表示する', {:action => 'manage_enrollment', :nohidden => 1 } %>
 <% end %>
 
-<%= secure_form_tag :action => "delete_enrollment" %>
+<% form_tag :action => "delete_enrollment" do hidden_field_tag("session_id_validation", security_token) -%>
 <div class="kakomi">
 <div id="ca">
 [記事]を押すと記事が表示されます
 </div>
 </div>
 <div class="notice">
-  <%= @flash[:note] %>
-  <%= @flash[:note2] %>
+  <%= flash[:note] %>
+  <%= flash[:note2] %>
 </div>
   
 <%= submit_tag %>
@@ -67,7 +67,7 @@
    <% end %>
  </table>
  <%= submit_tag %>
- <%= end_form_tag %>
+ <% end %>
  <% end %>
 
  <% if @enrollments_pages %>

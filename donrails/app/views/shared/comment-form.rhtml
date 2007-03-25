@@ -1,5 +1,5 @@
 <% x = don_get_object(article, 'xml') %>
-<%= secure_form_tag :action => "add_comment2" %>
+<% form_tag :action => "add_comment2" do hidden_field_tag("session_id_validation", security_token) -%>
 おなまえ:
 <%= text_field "comment", "author", "size" => 20, "id" => "dx_addcomment2author_#{x.id}" %>
 <br />
@@ -15,4 +15,4 @@
 <br />
 <%= hidden_field "comment", "article_id", "value" => x.id, "id" => "dx_addcomment2articleid_#{x.id}" %>
 <input type="submit" value="Save" />
-<%= end_form_tag %>
+<% end %>

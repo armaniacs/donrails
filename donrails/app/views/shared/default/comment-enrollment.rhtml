@@ -28,7 +28,7 @@
 
 <div class="boardlink">
   [<%= link_to('コメントする', :action => "comment_form", :id => @enrollment.articles.first.id) %>]
-  [TrackBack URL:<%= @request.protocol + @request.host_with_port + url_for(:action => 'trackback', :id => @enrollment.articles.first.id) %>]
+  [TrackBack URL:<%= request.protocol + request.host_with_port + url_for(:action => 'trackback', :id => @enrollment.articles.first.id) %>]
   [<%= link_to('パーマリンク', :action => "show_enrollment", :id => @enrollment.id) %>]
 </div>
   

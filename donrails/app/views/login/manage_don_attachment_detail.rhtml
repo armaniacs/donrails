@@ -1,7 +1,7 @@
 <% @heading = "#{@don_attachment.title} don_attachment management" %>
 
 <h1><%=h @don_attachment.title %></h1>
-<%= secure_form_tag :action => "edit_don_attachment" %>
+<% form_tag :action => "edit_don_attachment" do hidden_field_tag("session_id_validation", security_token) -%>
 <%= hidden_field "don_attachment", "id", "value" => @don_attachment.id %>
 
 id:<%= @don_attachment.id %> |
@@ -20,7 +20,7 @@ id:<%= @don_attachment.id %> |
 <br>追加するarticle id:<input type="text" id="don_attachment_aid" name="don_attachment[aid]" size="20">
 <p>
 <%= submit_tag %>
-<%= end_form_tag %>
+<% end %>
 
 <div class="kakomi">
 <% @don_attachment.articles.each do |pa| %>

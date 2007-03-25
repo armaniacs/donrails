@@ -1,18 +1,18 @@
 <h1>blogping management</h1>
 <hr>
 <div class="notice">
-  <%= @flash[:note2] %>
+  <%= flash[:note2] %>
 </div>
 <div class="notice">
-  <%= @flash[:note] %>
+  <%= flash[:note] %>
 </div>
 新規pingする先の追加
 <p>
-<%= secure_form_tag :action => "add_blogping" %>
+<% form_tag :action => "add_blogping" do hidden_field_tag("session_id_validation", security_token) -%>
 server_url:
 <%= text_field "blogping", "server_url" %>
 <%= submit_tag "pingする先を追加する" %>
-<%= end_form_tag %>
+<% end %>
 <p>
 (cf: http://feeds.feedburner.com/yourblogname)
 
@@ -23,7 +23,7 @@ pingする先の管理(active=1の先は有効)
 <%= pagination_links @blogpings_pages %>
 <% end %>
 
-<%= secure_form_tag :action => "delete_blogping" %>
+<% form_tag :action => "delete_blogping" do hidden_field_tag("session_id_validation", security_token) -%>
 <table  border="1" cellspacing="0">
   <tr>
     <td>pingする先を消去</td>
@@ -48,7 +48,7 @@ pingする先の管理(active=1の先は有効)
   <% end %>
 </table>
 <%= submit_tag "send" %>
-<%= end_form_tag %>
+<% end %>
 <% end %>
 
 <% if @blogpings_pages %>

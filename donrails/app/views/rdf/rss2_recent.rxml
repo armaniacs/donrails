@@ -3,7 +3,7 @@ xml.rss("version"=>"2.0") do
  
   xml.channel do 
     xml.title don_get_config.rdf_title
-    xml.link(@request.protocol + @request.host_with_port)
+    xml.link(request.protocol + request.host_with_port)
     xml.description don_get_config.rdf_description
     xml.language "ja"
     xml.pubDate Time.new.rfc2822
@@ -16,7 +16,7 @@ xml.rss("version"=>"2.0") do
       if item.enrollment_id
         xml.item do
           xml.title(item.title_to_xml)
-          xml.link(@request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_enrollment", :id => item.enrollment_id))
+          xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_enrollment", :id => item.enrollment_id))
           item.categories.each do |cat|
             xml.category cat.name
           end
@@ -41,7 +41,7 @@ xml.rss("version"=>"2.0") do
           end
 
           item.pictures.each do |pic|
-            tmpurl1 = @request.protocol + @request.host_with_port + url_for(:controller => 'notes', :action => "show_image", :id => pic.id)
+            tmpurl1 = request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_image", :id => pic.id)
             xml.enclosure("url"=> tmpurl1)
           end
           

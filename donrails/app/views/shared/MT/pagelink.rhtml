@@ -27,7 +27,7 @@ if !lastarticle.nil? || !nextarticle.nil? then
 elsif !pages.nil? && pages.length > 1 then
 %>
   <span style="font-size: 80%">
-    ページ選択: <%= pagination_links pages, :params => {:article_date => @params['article_date'], :ymd2 => @ymd, :ymd3 => @ymd3, :ymd4 => @ymd4} %>
+    ページ選択: <%= pagination_links pages, :params => {:article_date => params['article_date'], :ymd2 => @ymd, :ymd3 => @ymd3, :ymd4 => @ymd4} %>
   </span>
 <% end %>
 </p><!-- the end of 'content-nav' -->

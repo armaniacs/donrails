@@ -11,7 +11,7 @@
 <hr>
 <h2>カテゴリの管理</h2>
 <div class="notice">
-  <%= @flash[:note] %>
+  <%= flash[:note] %>
 </div>
 <ul>
   <li>Delete?ボックスをチェックすると、categoryがdb上から削除されます</li>
@@ -28,7 +28,7 @@
 <%= pagination_links @categories_pages %>
 <% end %>
 
-<%= secure_form_tag :action => "delete_category" %>
+<% form_tag :action => "delete_category" do hidden_field_tag("session_id_validation", security_token) -%>
 <%= submit_tag %>
 <table  border="1" cellspacing="0">
    <tr>
@@ -51,7 +51,7 @@
    <% end %>
  </table>
  <%= submit_tag %>
- <%= end_form_tag %>
+ <% end %>
  <% end %>
 
  <% if @categories_pages %>
