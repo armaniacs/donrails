@@ -1,3 +1,7 @@
+2007-04-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/config/routes.rb: Small fix.
+
 2007-03-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	*** APPLY FOR rails1.2 ***

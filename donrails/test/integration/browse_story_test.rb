@@ -52,4 +52,11 @@ class BrowseStoryTest < ActionController::IntegrationTest
     # GET /archives/category/misc/page/108?article_date=.html    
   end
 
+  def test_notes_show_category_noteslist
+    get '/archives/show_category_noteslist/misc/page/1'
+    assert_equal 200, status
+    get '/archives/show_category_noteslist/misc'
+    assert_equal 200, status
+  end
+
 end
