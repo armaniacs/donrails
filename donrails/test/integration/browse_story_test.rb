@@ -59,4 +59,9 @@ class BrowseStoryTest < ActionController::IntegrationTest
     assert_equal 200, status
   end
 
+  def test_notes_show_category
+    get '/archives/show_category/1'
+    assert_equal 200, status
+  end
+
 end

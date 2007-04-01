@@ -305,7 +305,7 @@ module ApplicationHelper
     if categories.size > 0
       content = '<ul>'
       categories.each do |category|
-        content += '<li>' + link_to(category.name, {:controller => 'notes', :action => :show_category, :id => category.id}) 
+        content += '<li><a href="/archives/show_category/' +  category.id.to_s + '">' + category.name + '</a>' 
         if manage
           content += '[' + link_to('管理', {:controller => 'login', :action => :manage_category, :id => category.id}) + ']'
         end
