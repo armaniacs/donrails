@@ -1,5 +1,7 @@
 2007-04-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/notes_controller.rb (NotesController): fix add_comment2. Maybe it was caused by updating rails1.2? Now add_comment2 does not use verify_form_posts_have_security_token.
+
 	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_categories_roots_ul): Fix to link under '/archives/show_category'. (Is it a bug of link_to in rails1.2.3?)
 
 2007-04-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
