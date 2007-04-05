@@ -1,3 +1,10 @@
+2007-04-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** RELEASE as donrails-1.6.0
+	* Please see at http://code.google.com/p/donrails/wiki/Donrails_1_6.
+	
+	* donrails/app/controllers/rdf_controller.rb (RdfController::rdf_category): Fix @params to params.
+
 2007-04-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/notes_controller.rb (NotesController): fix add_comment2. Maybe it was caused by updating rails1.2? Now add_comment2 does not use verify_form_posts_have_security_token.

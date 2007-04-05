@@ -57,14 +57,14 @@ class RdfController < ApplicationController
 
   def rdf_category
     headers["Content-Type"] = "application/xml; charset=utf-8"
-    if @params['id']
+    if params['id']
       @category = Category.find(params['id'])
     else
       @category = Category.find(:first, :conditions => ["name = ?", params['category']])
     end
     if @category == nil
       params["q"] = params["category"]
-      redirect_to :action => 'rdf_search', :q => @params["category"]
+      redirect_to :action => 'rdf_search', :q => params["category"]
     else
       @recent_articles_pages, 
       @recent_articles = paginate(:article, :per_page => 20,

@@ -384,15 +384,16 @@ class NotesControllerTest < Test::Unit::TestCase
     assert_response 302
   end
 
-  def test_add_comment2_not
-    c = {"author" => "testauthor", "password" => "hoge5", 
-      "url" => "http://localhost/test.html", 
-      "title" => "testtitle", 
-      "body" => "testbody", "article_id" => 1}
+## donrails1.6.0.0 does not use secure POST.
+#   def test_add_comment2_not
+#     c = {"author" => "testauthor", "password" => "hoge5", 
+#       "url" => "http://localhost/test.html", 
+#       "title" => "testtitle", 
+#       "body" => "testbody", "article_id" => 1}
 
-    post_without_security :add_comment2, :comment => c
-    assert_response 403
-  end
+#     post_without_security :add_comment2, :comment => c
+#     assert_response 403
+#   end
 
   def test_catch_ping
     post :catch_ping, :category => 'misc', :blog_name => 'test blog',
