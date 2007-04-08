@@ -2,9 +2,12 @@
 <head>
 
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<link rev="made" href="mailto:yasu@debian.or.jp">
-<meta name="author" content="ARAKI Yasuhiro">
-
+<% if defined?(don_get_config.rdf_webmaster) then %>
+  <link rev="made" href="mailto:<%= don_get_config.rdf_webmaster %>">
+<% end %>
+<% if defined?(don_get_config.rdf_managingeditor) then %>
+  <meta name="author" content="<%= don_get_config.rdf_managingeditor %>">
+<% end %>
 <%= stylesheet_link_tag "login" %>
 
 <%= javascript_include_tag "code-toggle-popup.js" %>

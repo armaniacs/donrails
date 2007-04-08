@@ -145,3 +145,22 @@ pre {
 
 div.even {  background: #ffffbb ; margin-right: 2pt }
 div.odd {  background: #bbffff ; margin-right: 2pt }
+
+div.head {  background: #dda; }
+
+div.preview { 
+              background: #eeb;
+              margin: 20px;
+}
+
+div.preview div.section div.authorhead { 
+  color: red;
+  font-style: normal;
+  text-align: right;
+  right: 3em;
+}
+
+
+div.preview div.section {
+  margin-bottom: 0.5em; margin-left: 1em; margin-right: 1em; margin-top: 0
+}

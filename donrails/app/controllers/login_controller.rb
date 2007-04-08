@@ -490,15 +490,29 @@ class LoginController < ApplicationController
   end
 
   def form_article
-    if params['pickid']
+    if params['pickid'] 
       begin
         @article = Article.find(params['pickid'].to_i)
+      rescue
+        render :text => 'no entry', :status => 404
+      end
+    elsif params['id'] 
+      begin
+        @article = Article.find(params['id'].to_i)
       rescue
         render :text => 'no entry', :status => 404
       end
     else
       render :text => 'no entry', :status => 404
     end
+  end
+  alias :preview_article :form_article
+
+  def preview_article_confirm
+    article = Article.find(params[:article][:id])
+    article.hidden = 0
+    article.save
+    redirect_to :action => "manage_article"
   end
 
   def fix_article
@@ -557,7 +571,15 @@ class LoginController < ApplicationController
       elsif reentry == "1"
         aris = Article.new
       end
+
+      preview = 0
+
       if aris
+        if params['preview'] && params['preview']['preview'].to_i == 1
+          preview = 1
+          aris.hidden = 1
+        end
+
         if hideid == "0"
           aris.hidden = 0
         elsif hideid == "1"
@@ -630,7 +652,10 @@ class LoginController < ApplicationController
         aris.save
       end
     end
-    if referer
+
+    if preview == 1
+      redirect_to :action => 'preview_article', :id => aris.id
+    elsif referer
       redirect_to :action => referer
     else
       redirect_to :action => "manage_article"
@@ -683,7 +708,13 @@ class LoginController < ApplicationController
       aris1.enrollment.title = title
       aris1.enrollment.save
 
-      if params["hideid"] and params["hideid"]['hidden'].to_i == 1
+      preview = 0
+      if params['preview'] && params['preview']['preview'].to_i == 1
+        preview = 1
+        aris1.hidden = 1
+      end
+
+      if params['hideid'] && params['hideid']['hidden'].to_i == 1
         aris1.hidden = 1
       end
       aris1.author_id = author.id if author
@@ -720,7 +751,11 @@ class LoginController < ApplicationController
 
         ca.clear
         c.clear
-        redirect_to :action => "manage_article"
+        if preview == 1
+          redirect_to :action => 'preview_article', :id => aris1.id
+        else
+          redirect_to :action => "manage_article"
+        end
       else
         emg = ''
         aris1.errors.each_full do |msg|

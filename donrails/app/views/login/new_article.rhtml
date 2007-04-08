@@ -11,6 +11,8 @@
 
 <% form_tag :action => "add_article" do hidden_field_tag("session_id_validation", security_token) -%>
 <%= submit_tag "save" %>
+<%= check_box "hideid", 'hidden' %>記事を隱す
+<%= check_box "preview", 'preview', :checked => 'checked' %>記事をプレビューする
 <br>
 <%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
 <br>
@@ -21,7 +23,6 @@
   <option value="<%= fmt %><%= '" selected="selected' if fmt == @defaultformat %>"><%= fmt %></option>
 <% end %>
 </select>
-<%= check_box "hideid", 'hidden' %>記事を隱す<br>
 著者名:<%= text_field_with_auto_complete :author, :name, 'value' => @dgc.admin_user %><br>
 タイトル:<%= text_field "article", "title", "size" => 80 %><br>
 トラックバック先:<%= text_field "article", "tburl", "size" => 80 %><br>
@@ -36,6 +37,8 @@
 <% end %>
 <br>
 <%= submit_tag "save" %>
+<%= check_box "hideid", 'hidden' %>記事を隱す
+<%= check_box "preview", 'prevew' %>記事をプレビューする
 <% end %>
 
 <hr>

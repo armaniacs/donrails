@@ -1,10 +1,11 @@
-<% @heading = "form_article" %>
+<% @heading = "form_article" unless @heading %>
 
 <% kiji = @article %>
 <% form_tag :action => "fix_article" do -%>
 <%= hidden_field "article", "id", "value" => kiji.id %>
 <%= hidden_field("article", "author_id", "value" => kiji.author_id) if kiji.author_id %>
 <p>
+
 <% if kiji.enrollment %>
 Enrollmented history:
 <ul>
@@ -16,7 +17,9 @@ Enrollmented history:
   </li>
   <% end %>
 </ul>
+
 <%= submit_tag "save" %>
+<%= check_box "preview", 'preview', :checked => 'checked' %>記事をプレビューする
 <br>
 <%= check_box "newid", kiji.id, :checked => 'checked' %>(enrollmented)
 <% else %>

@@ -1,3 +1,13 @@
+2007-04-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	**¡¡New feature: added article preview function.
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Apply for preview_article.
+	* donrails/public/stylesheets/login.css: add some format.
+	* donrails/app/views/login/new_article.rhtml: likewise.
+	* donrails/app/views/login/form_article.rhtml: likewise.
+
+	* donrails/app/views/layouts/login.rhtml: Fix mail address and author name in <header/>.
+
 2007-04-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	** RELEASE as donrails-1.6.0
