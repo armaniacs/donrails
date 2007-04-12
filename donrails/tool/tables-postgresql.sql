@@ -5,7 +5,6 @@ title     VARCHAR, -- added at 1.6
 path      VARCHAR,
 size      INTEGER,
 content_type   VARCHAR,
-comment        VARCHAR,
 hidden	       INTEGER,
 body	       VARCHAR, -- added at 1.6
 format	       VARCHAR -- added at 1.6

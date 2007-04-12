@@ -1,3 +1,8 @@
+2007-04-12  Akira TAGOH  <at@gclab.org>
+
+	* donrails/tool/tables-postgresql.sql (don_attachments): remove
+	'comment' column that isn't necessary aymore.
+
 2007-04-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	**¡¡New feature: added article preview function.
