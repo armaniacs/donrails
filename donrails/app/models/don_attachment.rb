@@ -71,7 +71,7 @@ class DonAttachment < ActiveRecord::Base
       path = File.expand_path(self.path, RAILS_ROOT)
     else
       ext = File.extname(original_filename || self.title)
-      md5 = Digest::MD5.new(self.title)
+      md5 = Digest::MD5.new.update(self.title)
       md5.update(self.id.to_s)
       basename = md5.hexdigest + ext
       dirname = File.join(don_get_config.image_dump_path,

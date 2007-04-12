@@ -1,5 +1,8 @@
 2007-04-12  Akira TAGOH  <at@gclab.org>
 
+	* donrails/app/models/don_attachment.rb (filesave_internal):
+	s/Digest::MD5.new/Digest::MD5.new.update/
+
 	* donrails/tool/tables-postgresql.sql (don_attachments): remove
 	'comment' column that isn't necessary aymore.
 
