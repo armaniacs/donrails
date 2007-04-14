@@ -509,9 +509,13 @@ class LoginController < ApplicationController
   alias :preview_article :form_article
 
   def preview_article_confirm
-    article = Article.find(params[:article][:id])
-    article.hidden = 0
-    article.save
+    if params[:commit] == 'create'
+      article = Article.find(params[:article][:id])
+      article.hidden = 0
+      article.save
+    elsif params[:commit] == 'delete'
+      Article.delete(params[:article][:id])
+    end
     redirect_to :action => "manage_article"
   end
 
@@ -577,7 +581,7 @@ class LoginController < ApplicationController
       if aris
         if params['preview'] && params['preview']['preview'].to_i == 1
           preview = 1
-          aris.hidden = 1
+          aris.hidden = 2
         end
 
         if hideid == "0"
@@ -711,7 +715,7 @@ class LoginController < ApplicationController
       preview = 0
       if params['preview'] && params['preview']['preview'].to_i == 1
         preview = 1
-        aris1.hidden = 1
+        aris1.hidden = 2
       end
 
       if params['hideid'] && params['hideid']['hidden'].to_i == 1

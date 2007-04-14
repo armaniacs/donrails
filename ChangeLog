@@ -1,3 +1,14 @@
+2007-04-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/new_article.rhtml: Change to include 'login/form_article' view.
+	* donrails/app/views/login/form_article.rhtml: Change to apply it.
+
+	* Change to delete article when you submit 'delete' button at 'login/preview_article'.
+	* donrails/app/controllers/login_controller.rb 
+	(LoginController::preview_article_confirm): likewise.
+	(LoginController::fix_article): Change to use article.hidden = 2 for preview.
+	* donrails/app/views/login/preview_article.rhtml: likewise.
+
 2007-04-12  Akira TAGOH  <at@gclab.org>
 
 	* donrails/app/models/don_attachment.rb (filesave_internal):

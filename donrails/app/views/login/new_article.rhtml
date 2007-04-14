@@ -1,5 +1,6 @@
 <% @heading = "記事追加" %>
 
+<%= render('login/form_article') %>
 <hr>
 ファイルのアップロード
 <% form_tag({:action => "picture_save"},:multipart => 'true')  do hidden_field_tag("session_id_validation", security_token) -%>
@@ -7,39 +8,6 @@
 <input name="commit" type="submit" value="Upload file" />
 <% end %>
 
-<hr>
-
-<% form_tag :action => "add_article" do hidden_field_tag("session_id_validation", security_token) -%>
-<%= submit_tag "save" %>
-<%= check_box "hideid", 'hidden' %>記事を隱す
-<%= check_box "preview", 'preview', :checked => 'checked' %>記事をプレビューする
-<br>
-<%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
-<br>
-カテゴリ:<%= text_field_with_auto_complete :category, :name %>
-フォーマット形式:
-<select name="format">
-<% don_supported_formats.each do |fmt| %>
-  <option value="<%= fmt %><%= '" selected="selected' if fmt == @defaultformat %>"><%= fmt %></option>
-<% end %>
-</select>
-著者名:<%= text_field_with_auto_complete :author, :name, 'value' => @dgc.admin_user %><br>
-タイトル:<%= text_field "article", "title", "size" => 80 %><br>
-トラックバック先:<%= text_field "article", "tburl", "size" => 80 %><br>
-本文:
-<br>
-<% if @b_title && @b_url && @b_text %>
-<%= text_area "article", "body", "rows" => 40, "cols" => 80, 'value' => @b_title + "\n" + @b_url + "\n\n" + @b_text %>
-<% elsif @b_title && @b_url %>
-<%= text_area "article", "body", "rows" => 40, "cols" => 80, 'value' => @b_title + "\n" + @b_url %>
-<% else %>
-<%= text_area "article", "body", "rows" => 40, "cols" => 80 %>
-<% end %>
-<br>
-<%= submit_tag "save" %>
-<%= check_box "hideid", 'hidden' %>記事を隱す
-<%= check_box "preview", 'prevew' %>記事をプレビューする
-<% end %>
 
 <hr>
 <a href="http://www.h14m.org/docs/hnf-j.html">hnf の記述方法</a>

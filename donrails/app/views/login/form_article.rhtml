@@ -1,12 +1,19 @@
 <% @heading = "form_article" unless @heading %>
 
 <% kiji = @article %>
-<% form_tag :action => "fix_article" do -%>
-<%= hidden_field "article", "id", "value" => kiji.id %>
-<%= hidden_field("article", "author_id", "value" => kiji.author_id) if kiji.author_id %>
+<% if kiji
+formaction = 'fix_article'
+else
+formaction = 'add_article'
+end %>
+
+<% form_tag :action => formaction do -%>
+<%= hidden_field("article", "id", "value" => kiji.id) if kiji %>
+<%= hidden_field("article", "author_id", "value" => kiji.author_id) if kiji && kiji.author_id %>
+
 <p>
 
-<% if kiji.enrollment %>
+<% if kiji && kiji.enrollment %>
 Enrollmented history:
 <ul>
   <% kiji.enrollment.articles.each do |ea| %>
@@ -17,10 +24,14 @@ Enrollmented history:
   </li>
   <% end %>
 </ul>
+<% end %>
 
 <%= submit_tag "save" %>
+<%= check_box "hideid", 'hidden' %>記事を隱す
 <%= check_box "preview", 'preview', :checked => 'checked' %>記事をプレビューする
 <br>
+<% if kiji %>
+<% if kiji.enrollment %>
 <%= check_box "newid", kiji.id, :checked => 'checked' %>(enrollmented)
 <% else %>
 <%= check_box "newid", kiji.id %>
@@ -32,37 +43,55 @@ Enrollmented history:
 <% else %>
 <%= check_box "hideid", kiji.id %>
 <% end %>
-記事を隱す
-<br>
-Author:
-<% if kiji.author %>
-<%= text_field("article", "author_name", "size" => 12, "value" => kiji.author.name) %>
-<% else %>
-<%= text_field("article", "author_name", "size" => 12, "value" => '') %>
 <% end %>
-Date:
-<%= text_field "article", "article_date", "size" => 12, "value" => kiji.article_date.to_date %>
-フォーマット形式:
-<select name="format">
-<% don_supported_formats.each do |fmt| %>
-  <option value="<%= fmt %><%= '" selected="selected' if fmt == kiji.format %>"><%= fmt %></option>
-<% end %>
-</select>
-<br>
-タイトル:<%= text_field "article", "title", "size" => 80, "value" => kiji.title %><br>
-トラックバック先:<%= text_field "article", "tburl", "size" => 80, "value" => '' %><br>
 
-本文:
 <br>
-<%= text_area "article", "body", "rows" => 10, "cols" => 80, "value" => kiji.body %>
+Date:
+<% if kiji %>
+<%= text_field "article", "article_date", "size" => 12, "value" => kiji.article_date.to_date %>
+<% else %>
+<%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
+<% end %>
+
+著者名:
+<% if kiji && kiji.author %>
+<%= text_field_with_auto_complete :author, :name, 'value' => kiji.author.name %>
+<% else %>
+<%= text_field_with_auto_complete :author, :name, 'value' => @dgc.admin_user %>
+<% end %>
 <br>
+<% if kiji %>
+タイトル:<%= text_field "article", "title", "size" => 80, "value" => kiji.title %>
+<% else %>
+タイトル:<%= text_field "article", "title", "size" => 80, "value" => '' %>
+<% end %>
+<br>
+<% if kiji %>
 <% kiji.categories.each do |cat| %>
 <%= check_box "catname", cat.id, "checked" => "checked" %>
 <%=h cat.name %>
+<% end %>
 <br>
 <% end %>
-
 さらにカテゴリを追加する⇒カテゴリ:<%= text_field_with_auto_complete :category, :name %>(スペースで区切ると複数カテゴリの追加ができます)
+<br>
+
+トラックバック先:<%= text_field "article", "tburl", "size" => 80, "value" => '' %><br>
+
+本文:
+(フォーマット形式:
+<select name="format">
+<% don_supported_formats.each do |fmt| %>
+  <option value="<%= fmt %><%= '" selected="selected' if kiji && fmt == kiji.format %>"><%= fmt %></option>
+<% end %>
+</select>
+)
+<br>
+<% if kiji %>
+<%= text_area "article", "body", "rows" => 10, "cols" => 80, "value" => kiji.body %>
+<% else %>
+<%= text_area "article", "body", "rows" => 10, "cols" => 80, "value" => '' %>
+<% end %>
 <br>
 <% if request.env['HTTP_REFERER'] =~ /manage_enrollment$/ %>
 <%= hidden_field "article", "referer", "value" => 'manage_enrollment' %>
