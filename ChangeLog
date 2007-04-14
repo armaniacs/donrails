@@ -1,5 +1,33 @@
-2007-04-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
+2007-04-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/views/login/shared/table_trackback.rhtml: move file.
+	* donrails/app/views/login/manage_trackback.rhtml: Change to use it.
+
+	* donrails/app/views/login/shared/edit_don_rbl.rhtml: move file.
+	* donrails/app/views/login/manage_don_rbl.rhtml: Change to use it.
+	
+	* donrails/app/views/login/manage_comment.rhtml: Change to use it.
+	* donrails/app/views/login/shared/table_comment.rhtml: move file.
+
+	* donrails/app/views/login/shared/edit_don_env.rhtml: move file.
+	* donrails/app/views/login/manage_don_env.rhtml: Change to use it.
+
+	* donrails/app/views/login/shared/edit_category.rhtml: move file.
+	* donrails/app/views/login/manage_category.rhtml: Change to use it.
+	
+	* donrails/app/views/login/shared/add_banlist.rhtml: move file.
+	* donrails/app/views/login/manage_comment.rhtml: Change to use it.
+	* donrails/app/views/login/manage_trackback.rhtml: Change to use it.
+	* donrails/app/views/login/manage_banlist.rhtml: Change to use it.
+
+	* donrails/app/views/login/shared/edit_author.rhtml: move file.
+	* donrails/app/views/login/manage_author.rhtml: Chage to use it.
+
+	* donrails/app/views/login/shared/upload_picture.rhtml: New file.
+	* donrails/app/views/login/new_article.rhtml: Change to use it.
+
+2007-04-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
+	
 	* donrails/app/views/login/new_article.rhtml: Change to include 'login/form_article' view.
 	* donrails/app/views/login/form_article.rhtml: Change to apply it.
 

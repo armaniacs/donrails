@@ -7,7 +7,7 @@
 <% end %>
 
 <h1><%= @heading %></h1>
-<%= render('shared/add_banlist') %>
+<%= render('login/shared/add_banlist') %>
 <hr>
 <% form_tag :action => "delete_comment" do hidden_field_tag("session_id_validation", security_token) -%>
 <div class="kakomi">
@@ -16,7 +16,7 @@
 </div>
 </div>
 <%= submit_tag %>
-<%= render('shared/table_comment') %>
+<%= render('login/shared/table_comment') %>
 <%= submit_tag %>
 <% end %>
 <% end %>

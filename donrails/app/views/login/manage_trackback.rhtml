@@ -3,7 +3,7 @@
   <h1><%= @heading %></h1>  
 <% if @trackbacks %>
 
-<%= render('shared/add_banlist') %>
+<%= render('login/shared/add_banlist') %>
 <hr>
   <% if @trackbacks_pages %>
 <%= pagination_links @trackbacks_pages %>
@@ -18,7 +18,7 @@
 
 <hr>
 <%= submit_tag %>
-<%= render('shared/table_trackback') %>
+<%= render('login/shared/table_trackback') %>
 <%= submit_tag %>
 <% end %>
 <% end %>
