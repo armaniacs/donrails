@@ -74,14 +74,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect "archives/tendays/:ymd2", :controller => "notes", 
   :action => "tendays", :ymd2 => /\d\d\d\d-\d\d-\d\d/
 
-  map.connect "archives/category/:category", 
-  :controller => "notes", 
-  :action => "show_category", :category => /\w+(\.html)?/, :page => '1'
-  map.connect "archives/category/:category/page/:page", 
-  :controller => "notes", 
-  :action => "show_category", :category => /\w+/, :page => /\d+/
 
-  map.connect "archives/show_category/:id", :controller => "notes", 
+  map.connect "archives/show_category/:id", 
+  :controller => "notes", 
   :action => "show_category", :page => '1',
   :requirements => { 
     :id => /\d+/
@@ -91,6 +86,13 @@ ActionController::Routing::Routes.draw do |map|
   :requirements => { 
     :id => /\d+/, :page => /\d+/
   }
+
+  map.connect "archives/category/:category", 
+  :controller => "notes", 
+  :action => "show_category", :category => /\w+(\.html)?/, :page => '1'
+  map.connect "archives/category/:category/page/:page", 
+  :controller => "notes", 
+  :action => "show_category", :category => /\w+/, :page => /\d+/
 
   map.connect "archives/:nums", :controller => "notes", 
   :action => "parse_nums",

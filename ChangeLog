@@ -1,5 +1,7 @@
 2007-04-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/config/routes.rb: Order change to use '/archives/show_category'.
+
 	* donrails/app/views/login/shared/table_trackback.rhtml: move file.
 	* donrails/app/views/login/manage_trackback.rhtml: Change to use it.
 
