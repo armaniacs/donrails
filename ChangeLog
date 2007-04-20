@@ -1,9 +1,18 @@
+2007-04-20  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/form_article.rhtml: modify in tagoh's fix in r215.
+	
 2007-04-20  Akira TAGOH  <at@gclab.org>
 
 	* donrails/app/views/login/form_article.rhtml: Fix to select the
 	format recently used at new_article.
 
 2007-04-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/shared/table_article.rhtml: New file. It spins off from 'login/manage_article'.
+	* donrails/app/views/login/manage_article.rhtml: Change to use it.
+
+	* donrails/app/views/login/form_article.rhtml: Small fix to use default article format.
 
 	* donrails/config/routes.rb: Order change to use '/archives/show_category'.
 

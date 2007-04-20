@@ -1,6 +1,26 @@
 <% @heading = "form_article" unless @heading %>
 
 <% kiji = @article %>
+
+<% if kiji && kiji.enrollment %>
+<% form_tag :action => "delete_article" do hidden_field_tag("session_id_validation", security_token) -%>
+
+<div class="kakomi">
+<div id="ca">
+[記事]を押すと記事が表示されます
+</div>
+</div>
+<div class="notice">
+  <%= flash[:note] %>
+  <%= flash[:note2] %>
+</div>
+<%= submit_tag "テーブルを保存" %>Enrollmented history:
+<% @articles = kiji.enrollment.articles %>
+<%= render('login/shared/table_article') %>
+<% end %>
+<% end %>
+
+
 <% if kiji
 formaction = 'fix_article'
 else
@@ -10,26 +30,17 @@ end %>
 <% form_tag :action => formaction do -%>
 <%= hidden_field("article", "id", "value" => kiji.id) if kiji %>
 <%= hidden_field("article", "author_id", "value" => kiji.author_id) if kiji && kiji.author_id %>
-
-<p>
-
-<% if kiji && kiji.enrollment %>
-Enrollmented history:
-<ul>
-  <% kiji.enrollment.articles.each do |ea| %>
-  <li>
-  (<%= link_to ea.id, {:action => 'show_title', :id => ea.id} %>)
-  at <%= time_ago_in_words ea.article_mtime %> ago /
-  <%= ea.article_mtime %>
-  </li>
-  <% end %>
-</ul>
-<% end %>
-
 <%= submit_tag "save" %>
-<%= check_box "hideid", 'hidden' %>記事を隱す
+
+<% if kiji %>
+<% if kiji.hidden == 1 %>
+<%= check_box "hideid", kiji.id, :checked => 'checked' %>
+<% else %>
+<%= check_box "hideid", kiji.id %>
+<% end %>
+記事を隱す
+<% end %>
 <%= check_box "preview", 'preview', :checked => 'checked' %>記事をプレビューする
-<br>
 <% if kiji %>
 <% if kiji.enrollment %>
 <%= check_box "newid", kiji.id, :checked => 'checked' %>(enrollmented)
@@ -37,14 +48,7 @@ Enrollmented history:
 <%= check_box "newid", kiji.id %>
 <% end %>
 新規記事として作成する
-<br>
-<% if kiji.hidden == 1 %>
-<%= check_box "hideid", kiji.id, :checked => 'checked' %>
-<% else %>
-<%= check_box "hideid", kiji.id %>
 <% end %>
-<% end %>
-
 <br>
 Date:
 <% if kiji %>
@@ -82,7 +86,14 @@ Date:
 (フォーマット形式:
 <select name="format">
 <% don_supported_formats.each do |fmt| %>
-  <option value="<%= fmt %><%= '" selected="selected' if kiji && fmt == kiji.format || fmt == @defaultformat %>"><%= fmt %></option>
+
+  <% if kiji %>
+  <option value="<%= fmt %><%= '" selected="selected' if fmt == kiji.format %>"><%= fmt %></option>
+  <% else %>
+  <option value="<%= fmt %><%= '" selected="selected' if fmt == @defaultformat %>"><%= fmt %></option>
+	
+  <% end %>
+
 <% end %>
 </select>
 )
