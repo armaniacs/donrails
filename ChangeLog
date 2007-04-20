@@ -1,3 +1,8 @@
+2007-04-20  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/views/login/form_article.rhtml: Fix to select the
+	format recently used at new_article.
+
 2007-04-15  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/config/routes.rb: Order change to use '/archives/show_category'.
