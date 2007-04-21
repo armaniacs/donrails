@@ -1,3 +1,4 @@
+<!-- 亰 -->
 <table  border="1" cellspacing="0">
   <tr>
     <td>Hide?</td>
@@ -29,8 +30,8 @@
       (hidden)
       <% else %>normal
       <% end %>
-      <%= link_to_remote("[記事]", :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.id }) %>
-      <%= link_to "[修正]", :action => "form_article", :pickid => co.id %>
+      [<%= link_to_remote("記事", :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.id }) %>]
+      [<%= link_to "修正", :action => "form_article", :pickid => co.id %>]
     </td>
     <td><%= co.id %></td>
     <td><%= co.enrollment_id %></td>
@@ -43,7 +44,7 @@
     <td><%= co.format if co.format %></td>
     <td>
       <% co.categories.each do |cat| %>
-      <%= link_to cat.name, {:controller => "notes", :action => "show_category", :category => cat.name} %>
+      <%= link_to cat.name, {:controller => "notes", :action => "show_category", :id => cat.id} %>
       <% end %>
     </td>
     <td><%= don_mb_truncate(co.body) if co.body %></td>

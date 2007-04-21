@@ -1,3 +1,4 @@
+<!-- 亰 -->
 <% @heading = "form_article" unless @heading %>
 
 <% kiji = @article %>
@@ -17,6 +18,7 @@
 <%= submit_tag "テーブルを保存" %>Enrollmented history:
 <% @articles = kiji.enrollment.articles %>
 <%= render('login/shared/table_article') %>
+<hr>
 <% end %>
 <% end %>
 

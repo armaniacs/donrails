@@ -1,11 +1,11 @@
+<!-- 亰 -->
 <% article = don_get_object(@article, 'html') %>
 <% @heading = '[preview] ' + article.title_to_html unless @heading %>
 
-<p>以下の内容で作成します。よろしいですか？</p>
+<p>以下の内容で作成します。よろしいですか？ / <a href="#reedit">修正する</a></p>
 <% form_tag :action => "preview_article_confirm" do -%>
 <%= hidden_field "article", "id", "value" => article.id %>
-<%= submit_tag "create" %>
-<%= submit_tag "delete" %>
+<%= submit_tag "create" %><%= submit_tag "delete" %>
 
 <div class="preview">
 <div class="nnenhead">
@@ -21,6 +21,8 @@
   <br clear='all'>
 </div>
 </div>
-<%= submit_tag "作成", :previewok => 'ok' %>  
 <% end %>
 
+<hr>
+<a name="reedit"></a>
+<%= render('login/form_article') %>

@@ -1,4 +1,12 @@
+2007-04-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/preview_article.rhtml: Add "reedit" function.
+
 2007-04-20  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/login/form_article.rhtml: Add <hr>.
+
+	* donrails/app/views/login/shared/table_{article,comment}.rhtml: added magic character for recognize utf-8.
 
 	* donrails/app/views/login/form_article.rhtml: modify in tagoh's fix in r215.
 	
