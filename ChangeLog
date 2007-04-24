@@ -1,3 +1,7 @@
+2007-04-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Small fix.
+
 2007-04-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/login/preview_article.rhtml: Add "reedit" function.

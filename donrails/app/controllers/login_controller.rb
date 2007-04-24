@@ -620,6 +620,8 @@ class LoginController < ApplicationController
         if c["author_name"] and c["author_name"].length > 0
           au = Author.find(:first, :conditions => ["name = ?", c["author_name"]])
           aris.author_id = au.id
+        elsif c['author_id']
+          aris.author_id = c['author_id']
         end
 
         if newcategory
