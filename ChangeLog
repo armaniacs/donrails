@@ -1,3 +1,7 @@
+2007-05-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/application.rb (ApplicationController::authorize): Move from LoginController.
+
 2007-04-24  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/login_controller.rb (LoginController::fix_article): Small fix.

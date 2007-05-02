@@ -32,23 +32,6 @@ class LoginController < ApplicationController
     render :action => "index"
   end
 
-  protected
-  def authorize
-    if request.env['PATH_INFO'] 
-      flash[:op] = request.env['PATH_INFO'] 
-    elsif request.env['REQUEST_URI']
-      flash[:op] = request.env['REQUEST_URI']
-    end
-
-    unless session["person"] == "ok"
-      flash[:pbp] = params
-      session = request.session
-      redirect_to :action => "login_index"
-    end
-    response.headers["X-donrails"] = "login"
-  end
-  
-  public
   def authenticate
     flash.keep(:op)
     flash.keep(:pbp)

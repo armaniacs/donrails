@@ -196,5 +196,21 @@ class ApplicationController < ActionController::Base
       return false
     end
   end
+
+  protected
+  def authorize
+    if request.env['PATH_INFO'] 
+      flash[:op] = request.env['PATH_INFO'] 
+    elsif request.env['REQUEST_URI']
+      flash[:op] = request.env['REQUEST_URI']
+    end
+
+    unless session["person"] == "ok"
+      flash[:pbp] = params
+      session = request.session
+      redirect_to :controller => 'login', :action => "login_index"
+    end
+    response.headers["X-donrails"] = "login"
+  end
   
 end
