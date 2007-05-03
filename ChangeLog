@@ -1,3 +1,14 @@
+2007-05-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** New controller
+	* donrails/app/controllers/admin/system_controller.rb (Admin)
+	(Admin::manage_don_ping, Admin::manage_blogping)
+	(Admin::delete_blogping, Admin::add_blogping)
+	(Admin::manage_author, Admin::delete_unwrite_author)
+	(Admin::add_author): move from login_controller.rb.
+	* donrails/app/views/admin/system/manage_{author,cache,don_ping,blogping}.rhtml: move under app/views/login.
+	* donrails/app/views/layouts/login.rhtml: Change to apply these.
+
 2007-05-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/application.rb (ApplicationController::authorize): Move from LoginController.
