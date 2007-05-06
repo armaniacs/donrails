@@ -1,4 +1,0 @@
-<% form_tag({:action => "picture_save"},:multipart => 'true')  do hidden_field_tag("session_id_validation", security_token) -%>
-<input id="picture_picture" name="picture[picture]" size="30" type="file" />
-<input name="commit" type="submit" value="Upload file" />
-<% end %>
