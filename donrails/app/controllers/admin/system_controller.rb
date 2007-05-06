@@ -1,21 +1,4 @@
-require 'kconv'
-class Admin::SystemController < ApplicationController
-
-  include Akismet
-
-  class << self
-    include ApplicationHelper
-  end
-  @@dgc = don_get_config
-
-  before_filter :authorize
-  after_filter :compress
-  after_filter :clean_memory
-
-  auto_complete_for :author, :name
-  auto_complete_for :category, :name
-
-  layout "login", :except => [:login_index, :index]
+class Admin::SystemController < AdminController
 
   ## ping
   def manage_don_ping
@@ -118,6 +101,170 @@ class Admin::SystemController < ApplicationController
       aris1.save
     end
     redirect_to :action => "manage_author"
+  end
+
+  def delete_cache
+    begin
+      don_delete_cache_all
+      flash[:note2] = 'cache files and sub-directories are deleted.'
+    rescue
+      flash[:note2] = $!
+    end
+    redirect_to :action => "manage_cache"
+  end
+
+
+  def bm
+    @dgc = @@dgc
+    if params['f'] == 'add' && params['url'] && params['title']
+      @b_url = params['url']
+      @b_title = params['title']
+      @b_text = params['text'] if params['text']
+      render :controller => 'admin/article', :action => 'new_article'
+    else
+      render :text => 'Please check your bookmarklet setting'
+      return
+    end
+  end
+
+  def manage_don_env
+    if params['id']
+      @donenv = DonEnv.find(params['id'])
+    end
+    @don_envs = DonEnv.find(:all)
+  end
+
+  def add_don_env
+    if c = params["donenv"]
+      if c['id'] && c['id'].size > 0
+        aris1 = DonEnv.find(c['id'].to_i)
+      else
+        aris1 = DonEnv.new
+      end
+      aris1.image_dump_path = c["image_dump_path"]
+      aris1.admin_user = c["admin_user"]
+      aris1.admin_password = c["admin_password"]
+      aris1.admin_mailadd = c["admin_mailadd"]
+      aris1.rdf_title = c["rdf_title"]
+      aris1.rdf_description = c["rdf_description"]
+      aris1.rdf_copyright = c["rdf_copyright"]
+      aris1.rdf_managingeditor = c["rdf_managingeditor"]
+      aris1.rdf_webmaster = c["rdf_webmaster"]
+      aris1.baseurl = c["baseurl"]
+      aris1.url_limit = c["url_limit"]
+      aris1.default_theme = c["default_theme"]
+      aris1.trackback_enable_time = c["trackback_enable_time"].to_i
+      aris1.akismet_key = c["akismet_key"]
+      aris1.notify_level = c["notify_level"].to_i
+
+      aris1.save
+    end
+    begin
+      don_delete_cache_all
+      flash[:note2] = 'cache files and sub-directories are deleted.'
+    rescue
+      flash[:note2] = $!
+    end
+    redirect_to :action => "manage_don_env"
+  end
+
+  def delete_don_env
+    flash[:note] = ''
+    flash[:note2] = ''
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
+    c.each do |k, v|
+      if v.to_i == 1
+        if DonEnv.exists?(k.to_i)
+          b = DonEnv.find(k.to_i)
+          flash[:note2] += '<br>Delete:' + k
+          b.destroy
+        else
+          flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+    if c = params["hideid"]
+      c.each do |k, v|
+        if DonEnv.exists?(k.to_i)
+          pf = DonEnv.find(k.to_i)
+          stmp = pf.hidden
+          if v.to_i == 1 and pf.hidden != 1
+            pf.update_attribute('hidden', 1)
+          elsif v.to_i == 0 and pf.hidden != 0
+            pf.update_attribute('hidden', 0)
+          end
+          unless stmp == pf.hidden
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+          end
+        else
+          flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+
+    begin
+      don_delete_cache_all
+      flash[:note2] = 'cache files and sub-directories are deleted.'
+    rescue
+      flash[:note2] = $!
+    end
+
+    redirect_to :action => "manage_don_env"
+  end
+
+  # RBL
+  def manage_don_rbl
+    @don_rbls = DonRbl.find(:all)
+  end
+
+  def add_don_rbl
+    if c = params["donrbl"]
+      if c['id'] && c['id'].size > 0
+        aris1 = DonRbl.find(c['id'].to_i)
+      else
+        aris1 = DonRbl.new
+      end
+      aris1.rbl_type = params["format"]
+      aris1.hostname = c["hostname"]
+      aris1.save
+    end
+    redirect_to :action => "manage_don_rbl"
+  end
+
+  def delete_don_rbl
+    flash[:note] = ''
+    flash[:note2] = ''
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
+    c.each do |k, v|
+      if v.to_i == 1
+        if DonRbl.exists?(k.to_i)
+          b = DonRbl.find(k.to_i)
+          flash[:note2] += '<br>Delete:' + k
+          b.destroy
+        else
+          flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+    if c = params["hideid"]
+      c.each do |k, v|
+        if DonRbl.exists?(k.to_i)
+          pf = DonRbl.find(k.to_i)
+          stmp = pf.hidden
+          if v.to_i == 1 and pf.hidden != 1
+            pf.update_attribute('hidden', 1)
+          elsif v.to_i == 0 and pf.hidden != 0
+            pf.update_attribute('hidden', 0)
+          end
+          unless stmp == pf.hidden
+            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+          end
+        else
+          flash[:note2] += '<br>Not exists:' + k
+        end
+      end
+    end
+    redirect_to :action => "manage_don_rbl"
   end
 
 end

@@ -1,6 +1,6 @@
 require 'kconv'
-class LoginController < ApplicationController
 
+class AdminController < ApplicationController
   include Akismet
 
   class << self
@@ -17,12 +17,5 @@ class LoginController < ApplicationController
 
   layout "login", :except => [:login_index, :index]
 
-
-  def login_index
-    redirect_to :controller => 'admin/login', :action => 'login_index'
-  end
-
-
-
-
 end
+

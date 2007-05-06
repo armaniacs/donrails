@@ -1,0 +1,74 @@
+<% @heading = "グローバル設定" %>
+<h1>don_env management</h1>
+<div class="notice">
+  <%=h flash[:note] %>
+  <%=h flash[:note2] %>
+</div>
+<hr>
+新規設定の追加
+<p>
+<%= render('admin/shared/edit_don_env') %>
+<hr>
+設定の管理
+<% if @don_envs %>
+<% form_tag :action => "delete_don_env" do hidden_field_tag("session_id_validation", security_token) -%>
+<table border="1" cellspacing="0">
+  <tr>
+    <td>Hide?</td>
+    <td>Delete?</td>
+    <td>id</td>
+    <td>image_dump_path</td>
+    <td>admin_user</td>
+    <td>admin_password</td>
+    <td>admin_mailadd</td>
+    <td>rdf_title</td>
+    <td>rdf_description</td>
+    <td>rdf_copyright</td>
+    <td>rdf_managingeditor</td>
+    <td>rdf_webmaster</td>
+    <td>baseurl</td>
+    <td>url_limit</td>
+
+    <td>default_theme</td>
+    <td>trackback_enable_time</td>
+    <td>akismet_key</td>
+    <td>notify_level</td>
+  </tr>
+  <% @don_envs.each do |co| %>
+  <tr>
+    <td>
+      <% if co.hidden == 1 %>
+      <%= check_box "hideid", co.id, :checked => 'checked' %>
+      <% else %>
+      <%= check_box "hideid", co.id %>
+      <% end %>
+    </td>
+    <td>
+      <%= link_to 'Edit', {:action => :manage_don_env, :id => co.id} %>
+      <%= check_box "deleteid", co.id %>
+    </td>
+    <td><%= co.id %></td>
+    
+    <td><%=h co.image_dump_path %></td>
+    <td><%=h co.admin_user %></td>
+    <td><%=h co.admin_password %></td>
+    <td><%=h co.admin_mailadd %></td>
+    <td><%=h co.rdf_title %></td>
+    <td><%=h co.rdf_description %></td>
+    <td><%=h co.rdf_copyright %></td>
+    <td><%=h co.rdf_managingeditor %></td>
+    <td><%=h co.rdf_webmaster %></td>
+    <td><%=h co.baseurl %></td>
+    <td><%=h co.url_limit %></td>
+
+    <td><%=h co.default_theme %></td>
+    <td><%=h co.trackback_enable_time %></td>
+    <td><%=h co.akismet_key %></td>
+    <td><%=h co.notify_level %></td>
+
+  </tr>
+  <% end %>
+</table>
+<%= submit_tag "send" %>
+<% end %>
+<% end %>

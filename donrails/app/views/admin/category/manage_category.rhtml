@@ -1,0 +1,61 @@
+<% @heading = 'category management' %>
+
+<div id="navigation">
+<%= display_categories_roots_ul(@roots, true) %>
+</div> <!-- end of class:menu -->
+
+<div id="content">
+<h1>category management</h1>
+<h2>カテゴリの追加またはカテゴリ情報の更新</h2>
+<%= render('admin/shared/edit_category') %>
+<hr>
+<h2>カテゴリの管理</h2>
+<div class="notice">
+  <%= flash[:note] %>
+</div>
+<ul>
+  <li>Delete?ボックスをチェックすると、categoryがdb上から削除されます</li>
+  <li>カテゴリ名をクリックするとcategoryと記事を関連づけたり、より詳細な情報を見ることができます</li>
+</ul>
+
+全<%= @size %>個のカテゴリ:
+<%= @roots.size if @roots %>個のrootカテゴリ
+
+<% if @categories %>
+<% if @categories_pages %>
+<p>
+ページ番号
+<%= pagination_links @categories_pages %>
+<% end %>
+
+<% form_tag :action => "delete_category" do hidden_field_tag("session_id_validation", security_token) -%>
+<%= submit_tag %>
+<table  border="1" cellspacing="0">
+   <tr>
+     <td>name</td>     
+     <td>Delete?</td>     
+     <td>parent</td>
+     <td>description</td>
+   </tr>
+   <% @categories.each do |category| %>
+   <tr>
+     <td><%= link_to category.name, {:action => :manage_category, :id => category.id} %></td>
+     <td><%= check_box "deleteid", category.id %></td>
+     <td>
+       <% if category.parent_id %>
+       <%=h Category.find(category.parent_id).name %>
+       <% end %>
+     </td>
+     <td><%=h category.description %></td>
+   </tr>
+   <% end %>
+ </table>
+ <%= submit_tag %>
+ <% end %>
+ <% end %>
+
+ <% if @categories_pages %>
+ <%= pagination_links @categories_pages %>
+ <% end %>
+ 
+</div>

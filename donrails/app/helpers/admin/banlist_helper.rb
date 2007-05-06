@@ -1,0 +1,2 @@
+module Admin::BanlistHelper
+end

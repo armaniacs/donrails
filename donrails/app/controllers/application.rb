@@ -208,7 +208,7 @@ class ApplicationController < ActionController::Base
     unless session["person"] == "ok"
       flash[:pbp] = params
       session = request.session
-      redirect_to :controller => 'login', :action => "login_index"
+      redirect_to :controller => 'admin/login', :action => "login_index"
     end
     response.headers["X-donrails"] = "login"
   end

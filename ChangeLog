@@ -1,3 +1,121 @@
+2007-05-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/admin/login_controller_test.rb (Admin::test_logout)
+	(Admin::test_authenticate__fail, Admin::test_authenticate)
+	(Admin::test_login_index): move from login_controller_test.
+
+	* donrails/test/functional/admin/comment_controller_test.rb (Admin::test_delete_comment)
+	(Admin::test_manage_comment): move from login_controller_test.
+
+	* donrails/test/functional/admin/trackback_controller_test.rb (Admin::test_delete_trackback)
+	(Admin::test_manage_trackback): move from login_controller_test.
+
+	* donrails/test/functional/admin/picture_controller_test.rb (Admin::test_picture_save)
+	(Admin::test_delete_picture_2, Admin::test_delete_picture_1)
+	(Admin::test_delete_picture, Admin::test_edit_picture_4)
+	(Admin::test_edit_picture_3, Admin::test_edit_picture_2)
+	(Admin::test_edit_picture_1, Admin::test_edit_picture)
+	(Admin::test_manage_picture_detail_1)
+	(Admin::test_manage_picture_detail)
+	(Admin::test_manage_picture_1, Admin::test_manage_picture): move from login_controller_test.
+
+	* donrails/test/functional/admin/category_controller_test.rb (Admin::test_delete_category_1)
+	(Admin::test_delete_category, Admin::test_add_category_1)
+	(Admin::test_add_category, Admin::test_manage_category_1)
+	(Admin::test_manage_category): move from login_controller_test.
+
+	* donrails/test/functional/admin/article_controller_test.rb (Admin::test_form_article)
+	(Admin::test_fix_article, Admin::test_fix_article__1)
+	(Admin::test_add_article, Admin::test_manage_article)
+	(Admin::test_delete_article)
+	(Admin::test_delete_article__issue33, Admin::test_new_article)
+	(Admin::test_new_article_1): move from login_controller_test.
+
+	* donrails/test/functional/admin/enrollment_controller_test.rb (Admin::test_manage_enrollment)
+	(Admin::test_delete_enrollment): move from login_controller_test.
+
+	* donrails/test/functional/admin/banlist_controller_test.rb (Admin::test_test_banlist)
+	(Admin::test_test_banlist, Admin::test_add_banlist_ipaddr)
+	(Admin::test_add_banlist, Admin::test_delete_banlist)
+	(Admin::test_manage_banlist): move from login_controller_test.
+
+	* donrails/app/controllers/admin/comment_controller.rb (Admin)
+	(Admin::manage_comment, Admin::delete_hidden_comment_all)
+	(Admin::delete_comment): move from 'login controller'.
+
+	* donrails/admin/shared/*: move from donrails/login/shared.
+	* donrails/app/views/admin/article/manage_article.rhtml: Fix to apply it.
+	* donrails/app/views/admin/article/form_article.rhtml: Fix to apply it.
+	* donrails/app/views/admin/article/new_article.rhtml: Fix to apply it.
+	* donrails/app/views/admin/category/manage_category.rhtml: Fix to apply it.
+	* donrails/app/views/admin/trackback/manage_trackback.rhtml: Fix to apply it.
+	* donrails/app/views/admin/system/manage_author.rhtml: Fix to apply it.
+	* donrails/app/views/admin/system/manage_don_rbl.rhtml: Fix to apply it.
+	* donrails/app/views/admin/system/manage_don_env.rhtml: Fix to apply it.
+
+	* donrails/app/controllers/admin/system_controller.rb (Admin::bm)
+	(Admin::manage_don_env, Admin::add_don_env)
+	(Admin::delete_don_env, Admin::manage_don_rbl)
+	(Admin::add_don_rbl, Admin::delete_don_rbl): move from 'login controller'.
+
+	* donrails/app/controllers/admin/trackback_controller.rb (Admin)
+	(Admin::manage_trackback, Admin::table_trackback_a)
+	(Admin::akismet_report, Admin::delete_trackback)
+	(Admin::delete_hidden_trackback_all): move from 'login controller'.
+
+	* donrails/app/views/admin/banlist/manage_banlist.rhtml: move from under views/login.
+
+	* donrails/app/controllers/admin/banlist_controller.rb (Admin::manage_banlist)
+	(Admin::delete_banlist, Admin::add_banlist)
+	(Admin::banlist_test_by_ar_ipaddr)
+	(Admin::banlist_test_by_ar_hostname)
+	(Admin::banlist_test_by_ar_regexp)
+	(Admin::banlist_test_by_ar_string, Admin::banlist_test_by_ar)
+	(Admin::test_banlist, Admin::banlist_test_by_valid): move from 'login controller'.
+
+	* donrails/app/views/admin/enrollment/*.rhtml: move from under views/login.	
+
+	* donrails/app/controllers/admin/enrollment_controller.rb (Admin)
+	(Admin::manage_enrollment, Admin::delete_enrollment): move from 'login controller'.
+
+	* donrails/app/views/admin/picture/*.rhtml: move from under views/login.
+
+	* donrails/app/controllers/admin/picture_controller.rb (Admin)
+	(Admin::manage_picture, Admin::manage_picture_detail)
+	(Admin::edit_picture, Admin::delete_picture)
+	(Admin::picture_save): move from 'login controller'.
+
+	* donrails/app/views/admin/attachment/*.rhtml: move from under views/login.
+
+	* donrails/app/controllers/admin/attachment_controller.rb (Admin::manage_don_attachment)
+	(Admin::manage_don_attachment_detail)
+	(Admin::edit_don_attachment, Admin::don_attachment_save): move from 'login controller'.
+
+	* donrails/app/views/admin/category/manage_category.rhtml: move from under views/login.
+
+	* donrails/app/controllers/admin/category_controller.rb (Admin::manage_category)
+	(Admin::add_category, Admin::delete_category): move from 'login controller'.
+
+	* donrails/app/views/admin/login/index.rhtml: move from under views/login.
+
+	* donrails/app/controllers/admin/login_controller.rb 
+	(Admin::login_index)
+	(Admin::authenticate, Admin::logout): move from 'login controller'.
+
+	* donrails/app/views/admin/article/*.rhtml: move from under views/login.
+
+	* donrails/app/controllers/admin/article_controller.rb (Admin::new_article)
+	(Admin::form_article, Admin::preview_article_confirm)
+	(Admin::fix_article, Admin::add_article, Admin::manage_article)
+	(Admin::delete_article): move from 'login controller'.
+
+	* donrails/app/controllers/admin/hnf_controller.rb 
+	(Admin::hnf_save_all)
+	(Admin::hnf_save_date, Admin::hnf_save_date_inner_all)
+	(Admin::hnf_save_date_inner): move from 'login controller'.
+
+	* donrails/app/controllers/admin/system_controller.rb (Admin::delete_cache): FIX: move from 'login controller'.
+
 2007-05-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	** New controller

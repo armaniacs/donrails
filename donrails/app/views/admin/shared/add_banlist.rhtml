@@ -1,0 +1,84 @@
+以下ブラックリストformatをサポートしています。formatを指定して追加してください。また、「登録する」にチェックを入れない場合は登録されません。
+<dl>
+  <dt>string</dt>
+  <dd>コメントに含まれてほしくない文字列を記述します。</dd>
+  <dt>regexp</dt>
+  <dd>コメントに含まれてほしくない文字列をRubyの正規表現で記述します。</dd>
+  <dt>ipaddr(whitelistにチェックするとこのIPアドレスからのコメントを有効にします)</dt>
+  <dd>コメントを禁止するIPアドレスをRubyの正規表現で記述します。</dd>
+  <dt>hostname</dt>
+  <dd>コメントを禁止するホスト名をRubyの正規表現で記述します。</dd>
+</dl>
+
+<div class="banlist">
+<div class="notice">
+  <%= flash[:note2] %>
+  <br>
+  pattern:<%=h flash[:pattern] %> /
+  teststring:<%=h flash[:teststring] %> /
+  format:<%=h flash[:format] %>
+
+  <% if flash[:hit_tbs] and flash[:hit_tbs].size > 0 %>
+  <% form_tag :action => "delete_trackback" do hidden_field_tag("session_id_validation", security_token) -%>
+  <%= flash[:hit_tbs].size %>件のトラックバックがマッチします。
+  <% @trackbacks = flash[:hit_tbs] %>
+  <%= submit_tag "チェックしたトラックバックを削除する" %>
+  <%= render('shared/table_trackback') %>
+  <%= submit_tag "チェックしたトラックバックを削除する" %>
+  <% end %>
+  <% end %>
+
+  <% if flash[:hit_comments] and flash[:hit_comments].size > 0 %>
+  <% form_tag :action => "delete_comment" do hidden_field_tag("session_id_validation", security_token) -%>
+  <%= flash[:hit_comments].size %>件のコメントがマッチします。
+  <% @comments = flash[:hit_comments] %>
+  <%= submit_tag "チェックしたコメントを削除する" %>  
+  <%= render('shared/table_comment') %>
+  <%= submit_tag "チェックしたコメントを削除する" %>  
+  <% end %>
+  <% end %>
+</div>
+
+<div id="trackback_ajax">
+</div>
+
+<% form_tag :action => "add_banlist" do hidden_field_tag("session_id_validation", security_token) -%>
+format:
+<select name="format">
+  <option value="regexp">regexp</option>
+  <option value="string">string</option>
+  <option value="ipaddr">ipaddr</option>
+  <option value="hostname">hostname</option>
+</select>
+<br>
+登録するpattern:
+<%= text_field "banlist", "pattern" %>(例: credit\s*card)
+<br>
+テスト対象:
+<%= text_field "banlist", "teststring" %>(例: Free CREDITcard)(直近10エントリの既トラックバック と既コメント もテスト対象となります)
+<br><%= check_box "banlist", "white" %>whitelist
+<br><%= check_box "banlist", "add" %>登録する(登録時はチェックする)
+<%= submit_tag "テスト" %>
+<% end %>
+</div>
+
+<div class="bantest">
+登録済みのbanlistを試す: テストしたいパターンを入力すると、そのパターンがフィルタされるかどうかがわかります。
+<% if flash[:note] %>
+<% unless flash[:note2] %>
+<div class="notice">
+  <% if flash[:ban] %>
+  <%= flash[:note] %>はフィルタされます。(<%= flash[:ban_message] %>)
+  <% else %>
+  <%= flash[:note] %>は未登録です。(フィルタされません)
+  <% end %>
+</div>
+<% end %>
+<% end %>
+
+<% form_tag :action => "test_banlist" do hidden_field_tag("session_id_validation", security_token) -%>
+test pattern:
+<%= text_field "banlist", "pattern" %>
+<%= submit_tag "テスト" %>
+<% end %>
+</div>

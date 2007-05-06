@@ -25,29 +25,29 @@
 <body>
 <div id="page">
 <div class="head">
-  <%= link_to "トップ", {:controller => 'login', :action => "index", :controller => "notes"} %>/
-  <%= link_to "日記", {:controller => 'login', :action => "noteslist", :controller => "notes"} %>/ 
-  <%= link_to "ログアウト", {:controller => 'login', :action => "logout"} %>/
-  <%= link_to "ログイン", {:controller => 'login', :action => "index"} %>/
-  <%= link_to "記事追加", {:controller => 'login', :action => "new_article"} %>/
+  <%= link_to "トップ", {:controller => '/notes', :action => 'index'} %>/
+  <%= link_to "日記", {:controller => '/notes', :action => 'noteslist'} %>/ 
+  <%= link_to "ログアウト", {:controller => 'admin/login', :action => "logout"} %>/
+  <%= link_to "ログイン", {:controller => 'admin/login', :action => "index"} %>/
+  <%= link_to "記事追加", {:controller => 'admin/article', :action => "new_article"} %>/
   <br>
-  <%= link_to "バージョン管理", {:controller => 'login', :action => "manage_enrollment"} %>/
-  <%= link_to "記事管理", {:controller => 'login', :action => "manage_article"} %>/
-  <%= link_to "画像ファイル管理", {:controller => 'login', :action => "manage_picture"} %>/
-  <%= link_to "添付データ管理", {:controller => 'login', :action => "manage_don_attachment"} %>/
-  <%= link_to "カテゴリ管理", {:controller => 'login', :action => "manage_category"} %>
+  <%= link_to "バージョン管理", {:controller => 'admin/enrollment', :action => "manage_enrollment"} %>/
+  <%= link_to "記事管理", {:controller => 'admin/article', :action => "manage_article"} %>/
+  <%= link_to "画像ファイル管理", {:controller => 'admin/picture', :action => "manage_picture"} %>/
+  <%= link_to "添付データ管理", {:controller => 'admin/attachment', :action => "manage_don_attachment"} %>/
+  <%= link_to "カテゴリ管理", {:controller => 'admin/category', :action => "manage_category"} %>
   <br>
-  <%= link_to "コメント管理", {:controller => 'login', :action => "manage_comment"} %>/
-  <%= link_to "トラックバック管理", {:controller => 'login', :action => "manage_trackback"} %>/
-  <%= link_to "ブラックリスト管理", {:controller => 'login', :action => "manage_banlist"} %>/
-  <%= link_to "RBL設定", {:controller => 'login', :action => "manage_don_rbl"} %>
+  <%= link_to "コメント管理", {:controller => 'admin/comment', :action => "manage_comment"} %>/
+  <%= link_to "トラックバック管理", {:controller => 'admin/trackback', :action => "manage_trackback"} %>/
+  <%= link_to "ブラックリスト管理", {:controller => 'admin/banlist', :action => "manage_banlist"} %>/
+  <%= link_to "RBL設定", {:controller => 'admin/system', :action => "manage_don_rbl"} %>
   <br>
   <%= link_to "基本設定", {:controller => 'admin/system', :action => "manage_don_env"} %>/  
   <%= link_to "投稿者管理", {:controller => 'admin/system', :action => "manage_author"} %>/
   <%= link_to "Ping先管理", {:controller => 'admin/system', :action => "manage_blogping"} %>/
   <%= link_to "Ping履歴", {:controller => 'admin/system', :action => "manage_don_ping"} %>/
   <%= link_to "キャッシュ消去", {:controller => 'admin/system', :action => "manage_cache"} %>/
-  <%= link_to "(hnf保存)", {:controller => 'login', :action => "hnf_save_all"}, :confirm => "Really login for save hnf files?" %>/
+  <%= link_to "(hnf保存)", {:controller => 'admin/hnf', :action => "hnf_save_all"}, :confirm => "Really login for save hnf files?" %>/
   <br>
   <a href="javascript:location.href='<%= request.protocol + request.host_with_port + url_for(:controller => 'login', :action => 'bm', :f => 'add') %>&text='+encodeURIComponent(document.getSelection())+'&url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title)">donrails bookmarklet</a>
   
