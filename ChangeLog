@@ -1,3 +1,7 @@
+2007-05-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/config/routes.rb: Add for parameter interpretaion miss for fcgi?
+
 2007-05-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/functional/admin/login_controller_test.rb (Admin::test_logout)

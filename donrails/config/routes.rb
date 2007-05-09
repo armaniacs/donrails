@@ -149,6 +149,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'archives/:action/:id', :controller => 'notes'
 
+  map.connect ':controller/:action',
+  :requirements => {
+    :controller => /admin\/\w+/
+  }
+
   # Here's a sample route:
   # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
