@@ -3,12 +3,6 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 class LoginStoryTest < ActionController::IntegrationTest
   fixtures :articles, :blogpings, :comments, :don_pings, :authors, :categories, :plugins, :banlists, :don_attachments, :trackbacks, :don_envs, :don_rbls, :enrollments, :don_attachments_articles
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
-    reset!
-  end
-
   def test_login__fail
     reset!
     get '/admin/article/manage_article'
@@ -26,7 +20,6 @@ class LoginStoryTest < ActionController::IntegrationTest
 
   def test_login
     reset!
-#    get '/login/manage_article'
     get '/admin/article/manage_article'
     assert_equal 302, status
     follow_redirect!
@@ -38,22 +31,18 @@ class LoginStoryTest < ActionController::IntegrationTest
     follow_redirect!
     assert_equal '/admin/article/manage_article', path
 
-#    post '/login/delete_article',
     post '/admin/article/delete_article',
     :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
     assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
-#    post '/login/delete_article', :hideid => {'4' => '0'},
     post '/admin/article/delete_article', :hideid => {'4' => '0'},
     :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
     assert_redirected_to :action => 'manage_article'
 
-#    post '/login/delete_article', :hideid => {'4' => '1'},
     post '/admin/article/delete_article', :hideid => {'4' => '1'},
     :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
     assert_redirected_to :action => 'manage_article'
 
-#    post '/login/delete_article', :deleteid => {'1' => '1'},
     post '/admin/article/delete_article', :deleteid => {'1' => '1'},
     :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
     assert_redirected_to :action => 'manage_article'

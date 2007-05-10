@@ -1,4 +1,18 @@
+2007-05-10  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/integration/cache_test.rb (CacheTest::test_caching_fix_article): New test.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper): Fix to use for clear cache function.
+	
+	* donrails/lib/akismet.rb (Akismet::call_akismet): When Akismet host down or name resolution error, all messages are not blocked.
+
 2007-05-09  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/admin/article_controller.rb (Admin): Fix to run cache_sweeper when use preview_article_confirm.
+
+	* donrails/lib/akismet.rb (Akismet::call_akismet): Add timeout (5 seconds)
+
+	* donrails/test/integration/login_story_test.rb (LoginStoryTest::test_login): Cleanup.
 
 	* donrails/config/routes.rb: Add for parameter interpretaion miss for fcgi?
 

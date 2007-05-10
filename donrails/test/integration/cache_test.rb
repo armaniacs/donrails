@@ -3,9 +3,57 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 class CacheTest < ActionController::IntegrationTest
   fixtures :articles, :blogpings, :comments, :don_pings, :authors, :categories, :plugins, :banlists, :don_attachments, :trackbacks, :don_envs, :don_rbls, :enrollments
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_caching_fix_article
+    reset!
+    get '/admin/article/manage_article'
+    assert_equal 302, status
+    follow_redirect!
+    assert_equal '/admin/login/login_index', path
+
+    post '/admin/login/authenticate',
+    :nz => {"n" => 'testuser', "p" => 'testpass'},
+    :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
+    follow_redirect!
+    assert_equal '/admin/article/manage_article', path
+
+    post '/admin/article/fix_article',
+    :article => {
+      :title => 'test fix article title', 
+      :body => 'body and soul',
+      :id => 1
+    },
+    :newid => {:id => 1},
+    :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
+    follow_redirect!
+    assert_equal '/admin/article/manage_article', path    
+
+    assert_expire_pages(
+                        '/archives/pick_article/1',
+                        '/archives'
+                        ) do |*urls|
+      post '/admin/article/fix_article',
+      :article =>{
+        "article_date"=>"2026-09-26", "title"=>"fixtest", 
+        "body"=>"this is a test body. (fixtest)\r\nfix at 5/10\r\nひるめしひるめし\r\n電子レンジ\r\nどうよ\r\nnanidana\r\n", 
+        "tburl"=>"", "id"=>"1", "author_id"=>"1"
+      },
+      "format"=>"plain", "commit"=>"save", "category"=>{"name"=>""}, 
+      "author"=>{"name"=>"araki"}, "action"=>"fix_article", 
+      "controller"=>"admin/article", 
+      "hideid"=>{"1"=>"0"}, 
+      "preview"=>{"preview"=>"0"}, 
+      :article => {
+        :title => 'test fix article title', 
+        :body => 'body and soul2.1',
+        :id => 1
+      },
+      :newid => {"1" => 0},
+      :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
+
+    end
+    follow_redirect!
+    assert_equal '/admin/article/manage_article', path    
+
   end
 
 
@@ -24,7 +72,7 @@ class CacheTest < ActionController::IntegrationTest
 #    assert_cache_pages('/archives/show_category_noteslist/misc')
 #    assert_cache_pages('/archives/category_articles/1')
 
-    assert_expire_pages('/archives','/archives/id/1', 
+    assert_expire_pages('/archives/id/1', 
                         '/archives/pick_article/1',
 
                         '/archives/noteslist',
@@ -48,6 +96,7 @@ class CacheTest < ActionController::IntegrationTest
                         '/rdf/rdf_enrollment/1/feed.xml',
                         '/archives/1999/1',
                         '/archives/1999/1/1',
+
                         '/archives/every_year/1/1',
                         '/archives'
                         ) do |*urls|
@@ -57,13 +106,9 @@ class CacheTest < ActionController::IntegrationTest
         "body" => "testbody in cache_test", "article_id" => 1}
       post '/archives/add_comment2', :comment => c, :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
     end
-
-    assert_cache_pages('/rdf/rdf_category/misc/feed.xml')
-#    assert_cache_pages('/archives/1999/01/01')
-
+    follow_redirect!
+    assert_equal '/archives/id/1', path    
+#    assert_cache_pages('/rdf/rdf_category/misc/feed.xml')
   end
 
-
-  def test_login
-  end
 end

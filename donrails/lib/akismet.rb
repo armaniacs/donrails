@@ -121,7 +121,7 @@ module Akismet
   # akismet_function: The Akismet function that should be called
   
   def call_akismet(akismet_function, args)
-    
+    begin
     args[:blog] ||= @akismetBlog
     args[:user_ip] ||= request.remote_ip
     args[:user_agent] ||= request.env['HTTP_USER_AGENT']
@@ -135,11 +135,17 @@ module Akismet
       args['other'].each_pair {|key, value| data.concat("&#{key}=#{value}")}
     end
 
+    http.open_timeout = 5
+    http.read_timeout = 5
     resp, data = http.post(path, data, STANDARD_HEADERS)
     logger.debug resp
     logger.debug data
 
     return (data != "false")
+    rescue
+      logger.info '[Akismet]' + $!
+      return false
+    end
   end
   
   protected :call_akismet

@@ -11,7 +11,6 @@ require_dependency 'don_env'
 require_dependency 'don_rbl'
 
 class AntiSpam
-
   def initialize
     @IP_RBL = don_get_ip_rbl if defined?(don_get_ip_rbl)
     @IP_RBL = [ 'niku.2ch.net', 'opm.blitzed.us', 'bsb.empty.us' ] unless defined?(@IP_RBL)
