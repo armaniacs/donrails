@@ -175,12 +175,14 @@ class ApplicationController < ActionController::Base
   end
 
   def don_is_spam?(args)
+
     ip = args[:ip] || request.remote_ip
     if AntiSpam.new.scan_ipaddr_white(ip)
       @message = '[Whitelist]: ' + ip
       return false
     end
 
+    begin
     if request.env['skip_akismet'] != true && don_get_config.akismet_key && is_spam_by_akismet?(args)
       logger.info "[Akismet] blocking."
       @catched = false
@@ -193,6 +195,10 @@ class ApplicationController < ActionController::Base
    if @catched == false
       return true
     else
+      return false
+    end
+    rescue Timeout::Error
+      logger.info "[Akismet] skipping. (reason: timeout)"
       return false
     end
   end

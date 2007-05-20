@@ -1,3 +1,7 @@
+2007-05-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/application.rb (ApplicationController::don_is_spam): Add 'Akismet' timeout error handling.
+
 2007-05-10  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/integration/cache_test.rb (CacheTest::test_caching_fix_article): New test.

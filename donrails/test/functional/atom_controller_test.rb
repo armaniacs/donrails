@@ -25,6 +25,12 @@ class AtomControllerTest < Test::Unit::TestCase
     @request.env['REMOTE_ADDR'] = '127.0.0.1'
 #    post :post
 #    assert_response :success
+
+    # XXX 2007/05/19
+    # before check atom_update_article2 in ./helpers/application_helper.rb
+#    @user = 'araki'
+#    post :post
+#    assert_response :success
   end
 
   def test_feed
