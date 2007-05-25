@@ -26,6 +26,7 @@ module Akismet
   }
   
   attr_accessor :verifiedKey, :proxyPort, :proxyHost
+  attr_accessor :reasonString
   
   def self.included(controller)
     controller.helper_method(:is_spam_by_akismet?, :submit_spam_to_akismet, :submit_ham_to_akismet)
@@ -38,6 +39,8 @@ module Akismet
 
     @akismetBlog = don_get_config.baseurl
     @akismetKey = don_get_config.akismet_key
+
+    @reasonString = String.new
     super
   end
 
@@ -122,27 +125,28 @@ module Akismet
   
   def call_akismet(akismet_function, args)
     begin
-    args[:blog] ||= @akismetBlog
-    args[:user_ip] ||= request.remote_ip
-    args[:user_agent] ||= request.env['HTTP_USER_AGENT']
-    args[:referrer] ||= request.env['HTTP_REFERER']
-    
-    http = Net::HTTP.new("#{@akismetKey}.rest.akismet.com", 80, @proxyHost, @proxyPort)
-    path = "/1.1/#{akismet_function}"        
+      args[:blog] ||= @akismetBlog
+      args[:user_ip] ||= request.remote_ip
+      args[:user_agent] ||= request.env['HTTP_USER_AGENT']
+      args[:referrer] ||= request.env['HTTP_REFERER']
+      
+      http = Net::HTTP.new("#{@akismetKey}.rest.akismet.com", 80, @proxyHost, @proxyPort)
+      path = "/1.1/#{akismet_function}"        
 
-    data = args.map { |key,value| "#{key}=#{value}" }.join('&')
-    if (args['other'] != nil) 
-      args['other'].each_pair {|key, value| data.concat("&#{key}=#{value}")}
-    end
+      data = args.map { |key,value| "#{key}=#{value}" }.join('&')
+      if (args['other'] != nil) 
+        args['other'].each_pair {|key, value| data.concat("&#{key}=#{value}")}
+      end
 
-    http.open_timeout = 5
-    http.read_timeout = 5
-    resp, data = http.post(path, data, STANDARD_HEADERS)
-    logger.debug resp
-    logger.debug data
+      http.open_timeout = 5
+      http.read_timeout = 5
+      resp, data = http.post(path, data, STANDARD_HEADERS)
+      logger.debug resp
+      logger.debug data
 
-    return (data != "false")
+      return (data != "false")
     rescue
+      @reasonString = $!.to_s
       logger.info '[Akismet]' + $!
       return false
     end

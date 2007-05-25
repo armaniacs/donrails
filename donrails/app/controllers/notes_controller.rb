@@ -616,8 +616,8 @@ class NotesController < ApplicationController
           end
         end
       rescue
-        @catched = false
         @message = $!
+        @catched = false
       end
     else
       @catched = false

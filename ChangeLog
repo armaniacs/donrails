@@ -1,3 +1,9 @@
+2007-05-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Now we can 'rake test' at off-line.
+	* donrails/lib/akismet.rb (Akismet::call_akismet): When donrails does not use Akismet, return @reasonString.
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest): Change to test this.
+
 2007-05-19  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/application.rb (ApplicationController::don_is_spam): Add 'Akismet' timeout error handling.

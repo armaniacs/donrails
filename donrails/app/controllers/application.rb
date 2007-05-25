@@ -191,7 +191,12 @@ class ApplicationController < ActionController::Base
       @catched = false
       @message = 'blocked by AntiSpam'
     end
- 
+
+      if @reasonString != ''
+        @message = @reasonString 
+        @catched = false
+      end
+
    if @catched == false
       return true
     else
