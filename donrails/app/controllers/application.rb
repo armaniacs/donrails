@@ -8,8 +8,6 @@ require 'stringio'
 require 'zlib' 
 
 class ApplicationController < ActionController::Base
-#  before_filter :set_charset
-#  after_filter :compress
 
   # http://blog.craz8.com/articles/2005/12/07/rails-output-compression
   def compress

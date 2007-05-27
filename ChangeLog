@@ -1,3 +1,13 @@
+2007-05-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/pingger/pingger.rb: New file. It is Proxy ping module.
+
+	* upgrade_1_7.mysql.sql: New file.
+
+	* donrails/app/controllers/admin/system_controller.rb (Admin::add_don_env): Add ping_async entry.
+	* donrails/app/views/admin/shared/edit_don_env.rhtml: likewise.
+	* donrails/app/models/article.rb (Article::send_pings2): Add for don_get_config.ping_async.
+
 2007-05-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* Now we can 'rake test' at off-line.

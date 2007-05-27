@@ -1,5 +1,4 @@
 class Admin::ArticleController < AdminController
-
   cache_sweeper :article_sweeper, :only => [:preview_article_confirm, :delete_article, :fix_article, :add_article]
 
   def new_article

@@ -116,6 +116,8 @@ id		SERIAL UNIQUE,
 article_id	INTEGER,
 url		TEXT DEFAULT NULL,
 created_at	DATETIME DEFAULT NULL,
+-- added 2007-05-27
+send_at		DATETIME DEFAULT NULL,
 primary key (id)
 );
 
@@ -164,6 +166,8 @@ trackback_enable_time INTEGER,
 -- add 2006-11-19
 akismet_key	TEXT,
 notify_level    INTEGER DEFAULT 1,
+-- add 2007-05-27
+ping_async	INTEGER DEFAULT 0,
 
 primary key (id)
 );

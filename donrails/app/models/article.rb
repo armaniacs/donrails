@@ -57,7 +57,12 @@ class Article < ActiveRecord::Base
     urllist.each do |url|
       begin
         ping = don_pings.build("url" => url)
-        ping.send_ping2(url)
+        if don_get_config.ping_async == 1
+          logger.info "Async ping queue in"
+        else
+          ping.send_ping2(url)
+          ping.send_at = Time.now
+        end
         ping.save
       rescue Exception
         p $!
@@ -72,7 +77,6 @@ class Article < ActiveRecord::Base
     urllist.each do |url|
       if url && url.size > 1 
         begin
-#          ping = pings.build("url" => url)
           ping = don_pings.build("url" => url)
           ar2 = don_get_object(self, 'html')
           title = "#{URI.escape(ar2.title_to_html)}"

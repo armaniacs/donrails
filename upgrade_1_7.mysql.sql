@@ -1,0 +1,9 @@
+SET CHARACTER SET UTF8;
+START TRANSACTION;
+
+-- added 2007-05-27
+ALTER TABLE don_pings add column send_at DATETIME DEFAULT NULL;
+ALTER TABLE don_envs add column ping_async INTEGER DEFAULT 0;
+
+COMMIT;
+

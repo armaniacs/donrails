@@ -156,6 +156,7 @@ class Admin::SystemController < AdminController
       aris1.trackback_enable_time = c["trackback_enable_time"].to_i
       aris1.akismet_key = c["akismet_key"]
       aris1.notify_level = c["notify_level"].to_i
+      aris1.ping_async = c["ping_async"].to_i
 
       aris1.save
     end

@@ -23,8 +23,13 @@ class DonPing < ActiveRecord::Base
     end 
   end
 
+  def send_ping2a
+    send_ping2(self.url)
+  end
+
   def send_ping2(pingurl) 
     rbody0 = send_ping_xmlrpc_extended(pingurl)
+
     if rbody0 == true || rbody0['flerror'] == true
       rbody = send_ping_xmlrpc(pingurl)
       if rbody == true || rbody['flerror'] == true
@@ -124,7 +129,7 @@ class DonPing < ActiveRecord::Base
         logger.error(e)
       end
     rescue Exception => e
-      logger.error(e)
+      p e
     end
   end
 
