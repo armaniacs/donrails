@@ -1,3 +1,9 @@
+2007-05-29  Akira TAGOH  <at@gclab.org>
+
+	* upgrade_1_7.postgresql.sql: New.
+
+	* donrails/tool/tables-postgresql.sql: Updated.
+
 2007-05-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/tool/pingger/pingger.rb: New option. -n, -u, --force
