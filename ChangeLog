@@ -1,3 +1,10 @@
+2007-05-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/pingger/pingger.rb: New option. -n, -u, --force
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::catch_ping): Fix for wrong content-type return.
+	(NotesController::catch_trackback): likewise.
+
 2007-05-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/tool/pingger/pingger.rb: New file. It is Proxy ping module.

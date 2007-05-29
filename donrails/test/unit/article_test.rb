@@ -49,7 +49,7 @@ class ArticleTest < Test::Unit::TestCase
     @a1.send_trackback(articleurl, urllist)
   end
 
-  def test_send_ping2
+  def test_send_pings2
     articleurl = ['http://localhost:3000/archives/id/1']
     urllist = ['http://localhost:3000/archives/catch_ping']
     @a1.send_pings2(articleurl, urllist)

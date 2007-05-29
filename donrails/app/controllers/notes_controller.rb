@@ -631,6 +631,7 @@ class NotesController < ApplicationController
   end
 
   def catch_trackback
+    headers["Content-Type"] = "text/xml; charset=utf-8"
     if request.method == :post
       category = params['category'] if params['category'] 
       blog_name = params['blog_name'] if params['blog_name']
@@ -647,6 +648,7 @@ class NotesController < ApplicationController
   end
 
   def catch_ping
+    headers["Content-Type"] = "text/xml; charset=utf-8"
     if request.method == :post
       @catched = true
     else

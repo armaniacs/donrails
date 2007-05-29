@@ -17,7 +17,8 @@ first:
   trackback_enable_time: 315360000
   akismet_key: 64c061aa654f
   notify_level: 2
-  ping_async: 1
+  ping_async: 0
+##  ping_async: 1
 #  env_name: test
 another:
   id: 2
