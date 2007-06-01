@@ -17,9 +17,9 @@
 <div class="notice">
   <%= flash[:note2] %>
   <br>
-  pattern:<%=h flash[:pattern] %> /
-  teststring:<%=h flash[:teststring] %> /
-  format:<%=h flash[:format] %>
+  <% if flash[:pattern] %>pattern:<%=h flash[:pattern] %> /<% end %>
+  <% if flash[:teststring] %>teststring:<%=h flash[:teststring] %> /<% end %>
+  <% if flash[:format] %>format:<%=h flash[:format] %> /<% end %>
 
   <% if flash[:hit_tbs] and flash[:hit_tbs].size > 0 %>
   <% form_tag :action => "delete_trackback" do hidden_field_tag("session_id_validation", security_token) -%>
@@ -42,7 +42,12 @@
   <% end %>
 </div>
 
+<a class="msc-toggle" href="#" onclick="toggleCode('boli2');return false;">[+/-]
+</a>
+
+<div style="display: block;" id="boli2">
 <div id="trackback_ajax">
+</div>
 </div>
 
 <% form_tag :action => "add_banlist" do hidden_field_tag("session_id_validation", security_token) -%>

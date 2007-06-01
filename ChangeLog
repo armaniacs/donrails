@@ -1,3 +1,7 @@
+2007-06-02  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/don_attachment.rb (DonAttachment::filesave): Typo fixed. It had caused failure for image upload by XMLRPC.
+
 2007-06-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/admin/shared/add_banlist.rhtml: Change to hide help message (default). It can toggle hide/show.

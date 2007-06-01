@@ -31,7 +31,7 @@ class DonAttachment < ActiveRecord::Base
   end
 
   def filesave(data)
-    if data && !date.empty?
+    if data && !data.empty?
       filesave_internal(data)
     end
   end
