@@ -15,6 +15,8 @@ ping record
     <td>id</td>
     <td>article_id</td>
     <td>url</td>
+    <td>queued time</td>
+    <td>sent time</td>
   </tr>
 
   <% @don_pings.each do |co| %>
@@ -22,6 +24,8 @@ ping record
     <td><%= co.id %></td>
     <td><%= co.article_id %></td>
     <td><%= co.url %></td>
+    <td><%= co.created_at %></td>
+    <td><%= co.send_at %></td>
   </tr>
   <% end %>
 </table>

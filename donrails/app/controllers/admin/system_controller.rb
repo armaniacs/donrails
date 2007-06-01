@@ -130,6 +130,8 @@ class Admin::SystemController < AdminController
   def manage_don_env
     if params['id']
       @donenv = DonEnv.find(params['id'])
+    else
+      @donenv = DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
     end
     @don_envs = DonEnv.find(:all)
   end

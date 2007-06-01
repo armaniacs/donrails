@@ -1,3 +1,11 @@
+2007-06-01  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/admin/shared/add_banlist.rhtml: Change to hide help message (default). It can toggle hide/show.
+
+	* donrails/app/controllers/admin/system_controller.rb (Admin::manage_don_env): Change to show current configuration when no ID is inputted.
+
+	* donrails/app/views/admin/system/manage_don_ping.rhtml: Add to show ping queuing time and sending time.
+
 2007-05-29  Akira TAGOH  <at@gclab.org>
 
 	* upgrade_1_7.postgresql.sql: New.
