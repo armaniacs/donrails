@@ -30,25 +30,27 @@ class Article < ActiveRecord::Base
   end
 
   def sendping
-    if bu = don_get_config.baseurl
-      blogping = Blogping.find(:all, :conditions => ["active = 1"])
-      baseurl = bu.split('/')
-      baseurl << 'notes'
-      baseurl << 'id'
+    if self.hidden == nil || self.hidden == 0
+      if bu = don_get_config.baseurl
+        blogping = Blogping.find(:all, :conditions => ["active = 1"])
+        baseurl = bu.split('/')
+        baseurl << 'notes'
+        baseurl << 'id'
 
-      if self.enrollment_id then
-	baseurl << self.enrollment_id.to_s
-      else
-        baseurl << self.id.to_s
-      end
-      articleurl = baseurl.join('/')
-      
-      urllist = Array.new
-      blogping.each do |ba|
-        urllist.push(ba.server_url)
-      end
-      if urllist.size > 0
-        send_pings2(articleurl, urllist)
+        if self.enrollment_id then
+          baseurl << self.enrollment_id.to_s
+        else
+          baseurl << self.id.to_s
+        end
+        articleurl = baseurl.join('/')
+        
+        urllist = Array.new
+        blogping.each do |ba|
+          urllist.push(ba.server_url)
+        end
+        if urllist.size > 0
+          send_pings2(articleurl, urllist)
+        end
       end
     end
   end
