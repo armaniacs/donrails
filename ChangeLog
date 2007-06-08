@@ -1,3 +1,9 @@
+2007-06-09  Akira TAGOH  <at@gclab.org>
+
+	* donrails/tool/pingger/pingger.rb: Load environment.rb instead of
+	loading active_recoard directly to make it comfortable for RoR
+	installation from gem.
+
 2007-06-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/article.rb (Article::sendping): Fix for sending ping of hidden article.

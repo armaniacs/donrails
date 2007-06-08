@@ -86,7 +86,7 @@ parser.each_option do |name, arg|
 end
 
 require 'xmlrpc/client'
-require File.dirname(__FILE__) + '/../../../rails/vendor/activerecord/lib/active_record'
+require File.dirname(__FILE__) + '/../../../rails/config/environment'
 
 if config != ''
   fconf = open(config, "r")
