@@ -10,6 +10,7 @@ require 'syslog'
 require 'getoptlong'
 parser = GetoptLong.new
 mode = 'production'
+type = nil
 config = ''
 verbose = nil
 unsave = nil
@@ -39,6 +40,8 @@ Available options:
 
  -n numbers\t: set number of ping article (default:10)
 
+ --type pingtype\t: set ping type (extended/xmlrpc/rest). For debug.
+
  -u\t: unsave. When use this option, you do not run DonPing.save.
 
  --force\t: force. When use this option, force send ping even for already sent.
@@ -49,6 +52,7 @@ end
 parser.set_options(
                    ['--numbers', '-n', GetoptLong::REQUIRED_ARGUMENT],
                    ['--mode', '-m', GetoptLong::REQUIRED_ARGUMENT],
+                   ['--type', GetoptLong::REQUIRED_ARGUMENT],
                    ['--config', '-f', GetoptLong::REQUIRED_ARGUMENT],
                    ['--help', '--usage', '-h', GetoptLong::NO_ARGUMENT],
                    ['--development', '-d', GetoptLong::NO_ARGUMENT],
@@ -66,6 +70,8 @@ parser.each_option do |name, arg|
     unsave = true
   when "--numbers"
     numbers = arg.to_i
+  when "--type"
+    type = arg.to_s
   when "--mode"
     mode = arg.to_s
   when "--development"
@@ -120,11 +126,13 @@ class Pingger
   attr :numbers, true
   attr :unsave, true
   attr :force, true
+  attr :type, true
 
   def initialize
     @verbose = nil
     @unsave = nil
     @force = nil
+    @type = nil
     @numbers = 10
     @slog = Syslog.open(__FILE__,
                         Syslog::Constants::LOG_PID |
@@ -143,8 +151,11 @@ class Pingger
     end
     puts 'Number of ping(s) is ' + pings.length.to_s if @verbose
     pings.each do |ping|
-      ping.send_ping2a
-      ping.send_at = Time.now
+      if ping.send_ping2a(type)
+        ping.send_at = Time.now
+      else
+        puts 'ping error'
+      end
       @slog.info ping.url
       puts ping.url if @verbose
       if @unsave
@@ -162,4 +173,5 @@ pg.verbose = true if verbose
 pg.unsave = true if unsave
 pg.force = true if force
 pg.numbers = numbers
+pg.type = type
 pg.async_send

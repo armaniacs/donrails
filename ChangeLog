@@ -1,5 +1,9 @@
 2007-06-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/tool/pingger/pingger.rb (Pingger::async_send): Change: Check response of ping servers. When response is false, ping time is not recorded.
+
+	* donrails/app/models/don_ping.rb (DonPing::send_ping2a): Change: Check response of ping servers.
+
 	* donrails/app/helpers/application_helper.rb (ApplicationHelper::don_get_theme): Small fix.
 
 2007-06-09  Akira TAGOH  <at@gclab.org>

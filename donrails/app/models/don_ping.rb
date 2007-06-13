@@ -23,13 +23,40 @@ class DonPing < ActiveRecord::Base
     end 
   end
 
-  def send_ping2a
-    send_ping2(self.url)
+  def send_ping2a(type=nil)
+    case type
+    when 'extended'
+      rbody = send_ping_xmlrpc_extended(self.url)
+    when 'xmlrpc'
+      rbody = send_ping_xmlrpc(self.url)
+    when 'rest'
+      rbody_rest = send_ping_rest(self.url)
+    else
+      rbody = send_ping_xmlrpc_extended(self.url)
+      if rbody == true || rbody['flerror'] == true
+        rbody = send_ping_xmlrpc(self.url)
+        if rbody == true || rbody['flerror'] == true
+          rbody_rest = send_ping_rest(self.url)
+        end
+      end
+    end
+
+    if rbody && rbody['flerror'] == false
+      return true
+    elsif rbody && (rbody == true || rbody['flerror'] == true)
+      return false
+    end
+
+    if rbody_rest && rbody_rest =~ /Thanks for the ping\./i
+      return true
+    end
+
+    return false
+
   end
 
   def send_ping2(pingurl) 
     rbody0 = send_ping_xmlrpc_extended(pingurl)
-
     if rbody0 == true || rbody0['flerror'] == true
       rbody = send_ping_xmlrpc(pingurl)
       if rbody == true || rbody['flerror'] == true
@@ -73,6 +100,7 @@ class DonPing < ActiveRecord::Base
       else
         response = http.post("#{uri.path}", post)
       end
+      p response
       return response.body
     end 
   end
@@ -99,6 +127,7 @@ class DonPing < ActiveRecord::Base
       end
     rescue Exception => e
       logger.error(e)
+#      return true
     end
   end
 
@@ -129,7 +158,7 @@ class DonPing < ActiveRecord::Base
         logger.error(e)
       end
     rescue Exception => e
-      p e
+      return true
     end
   end
 
