@@ -9,6 +9,12 @@ require 'zlib'
 
 class ApplicationController < ActionController::Base
 
+  # magic for initilization 
+  class << self
+    include ApplicationHelper
+  end
+  @@dgc = don_get_config 
+
   # http://blog.craz8.com/articles/2005/12/07/rails-output-compression
   def compress
     if self.request.env['HTTP_ACCEPT_ENCODING'] and self.request.env['HTTP_ACCEPT_ENCODING'].match(/gzip/)

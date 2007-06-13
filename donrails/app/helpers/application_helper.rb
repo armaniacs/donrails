@@ -88,7 +88,10 @@ module ApplicationHelper
 
   def don_get_theme(name)
     theme = don_get_config.default_theme
-    theme = "default" if theme.empty?
+    if theme == nil || theme.empty?
+      theme = "default"
+    end
+
     path = File.dirname(name)
     filename = File.basename(name)
 
@@ -382,6 +385,7 @@ module ApplicationHelper
     end
     return content
   end
+
 
   def don_get_config
     begin

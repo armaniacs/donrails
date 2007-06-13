@@ -28,6 +28,7 @@ class DonPingTest < Test::Unit::TestCase
     pingurl = "http://localhost:3000/notes/catch_ping/"
     rbody = @ping1.send_ping_rest(pingurl)
     xml = HTree.parse(rbody).to_rexml
+
     assert_equal('0', xml.elements['methodResponse/params/param/value/struct/member/value/boolean'].text)
   end
 
