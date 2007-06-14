@@ -4,28 +4,38 @@
 <div class="notice">
   <%= flash[:note2] %>
 </div>
-ping record  
+
 <% if @don_pings %>
 <% if @don_pings_pages %>
 <%= pagination_links @don_pings_pages %>
 <% end %>
 
+<div class="kakomi">
+<div id="ca">
+id を押すとPing message information が表示されます
+</div>
+</div>
+
 <table  border="1" cellspacing="0">
   <tr>
     <td>id</td>
     <td>article_id</td>
+    <td>status</td>
     <td>url</td>
     <td>queued time</td>
     <td>sent time</td>
+    <td>response body</td>
   </tr>
 
   <% @don_pings.each do |co| %>
   <tr>
-    <td><%= co.id %></td>
+    <td><%= link_to_remote(co.id, :update => 'ca', :url => {:action => 'pick_donping_a', :id => co.id}) %></td>
     <td><%= co.article_id %></td>
+    <td><%= co.status %></td>
     <td><%= co.url %></td>
     <td><%= co.created_at %></td>
     <td><%= co.send_at %></td>
+    <td><%= truncate(co.response_body, 30) %></td>
   </tr>
   <% end %>
 </table>
@@ -34,5 +44,3 @@ ping record
 <% if @don_pings_pages %>
 <%= pagination_links @don_pings_pages %>
 <% end %>
-
- 

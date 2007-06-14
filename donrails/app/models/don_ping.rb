@@ -42,16 +42,18 @@ class DonPing < ActiveRecord::Base
     end
 
     if rbody && rbody['flerror'] == false
-      return true
+      return true, rbody
     elsif rbody && (rbody == true || rbody['flerror'] == true)
-      return false
+      return false, rbody
     end
 
     if rbody_rest && rbody_rest =~ /Thanks for the ping\./i
-      return true
+      return true, rbody_rest
+    else
+      return false, rbody_rest
     end
 
-    return false
+    return false, nil
 
   end
 

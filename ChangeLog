@@ -1,5 +1,15 @@
 2007-06-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/views/admin/system/pick_donping_a.rhtml: New file.
+	* donrails/app/views/admin/system/manage_don_ping.rhtml: Change to use this.
+
+	* upgrade_1_7.postgresql.sql: add new column in don_pings table.
+	* donrails/tool/tables-postgresql.sql: likewise.
+	* donrails/tool/tables-mysql.sql: likewise.
+	* upgrade_1_7.mysql.sql: likewise.
+	* donrails/tool/pingger/pingger.rb (Pingger::async_send): Change for it.
+	* donrails/app/models/don_ping.rb (DonPing::send_ping2a): Change for it.
+
 	* donrails/tool/pingger/pingger.rb (Pingger::async_send): Change: Check response of ping servers. When response is false, ping time is not recorded.
 
 	* donrails/app/models/don_ping.rb (DonPing::send_ping2a): Change: Check response of ping servers.

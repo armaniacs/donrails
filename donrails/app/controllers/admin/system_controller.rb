@@ -1,10 +1,15 @@
 class Admin::SystemController < AdminController
+  layout 'login', :except => [:pick_donping_a]
 
   ## ping
   def manage_don_ping
     @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30,:order_by => 'id DESC')
   end
   alias manage_ping manage_don_ping
+
+  def pick_donping_a
+    @don_ping = DonPing.find(params[:id])
+  end
 
   ## blogping
   def manage_blogping

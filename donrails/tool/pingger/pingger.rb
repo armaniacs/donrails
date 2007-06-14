@@ -144,17 +144,24 @@ class Pingger
     if @force
       pings = DonPing.find(:all, :limit => @numbers,:order => "id DESC")
     else
-      pings = DonPing.find(:all, :conditions => ["send_at IS NULL"],
+      pings = DonPing.find(:all, :conditions => ["send_at IS NULL OR NOT status = 'success'"],
                            :limit => @numbers,
                            :order => "id DESC"
                            )
     end
     puts 'Number of ping(s) is ' + pings.length.to_s if @verbose
     pings.each do |ping|
-      if ping.send_ping2a(type)
+      pingok, rbody = ping.send_ping2a(type)
+
+      if pingok
         ping.send_at = Time.now
+        ping.status = 'success'
       else
+        ping.status = 'error'
         puts 'ping error'
+      end
+      if rbody
+        ping.response_body = rbody
       end
       @slog.info ping.url
       puts ping.url if @verbose

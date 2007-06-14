@@ -118,6 +118,9 @@ url		TEXT DEFAULT NULL,
 created_at	DATETIME DEFAULT NULL,
 -- added 2007-05-27
 send_at		DATETIME DEFAULT NULL,
+-- added 2007-06
+status          VARCHAR(100) DEFAULT NULL,
+response_body   TEXT DEFAULT NULL,
 primary key (id)
 );
 

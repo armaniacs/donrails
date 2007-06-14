@@ -1,0 +1,32 @@
+
+Selected ping message is here:
+
+<% co = @don_ping %>
+<table  border="1" cellspacing="0">
+  <tr>
+    <td>id</td>
+    <td>article_id</td>
+    <td>status</td>
+    <td>url</td>
+    <td>queued time</td>
+    <td>sent time</td>
+    <td>response body</td>
+  </tr>
+  <tr>
+    <td><%= co.id %></td>
+    <td><%= co.article_id %></td>
+    <td><%= co.status %></td>
+    <td><%= co.url %></td>
+    <td><%= co.created_at %></td>
+    <td><%= co.send_at %></td>
+    <td><%= truncate(co.response_body, 30) %></td>
+  </tr>
+
+</table>
+
+<p>
+response body:
+<pre>
+<%= co.response_body %>
+</pre>
+</p>

@@ -99,7 +99,10 @@ id		SERIAL PRIMARY KEY,
 article_id	INTEGER,
 url		VARCHAR DEFAULT NULL,
 created_at	TIMESTAMP DEFAULT NULL,
-send_at		TIMESTAMP DEFAULT NULL
+send_at		TIMESTAMP DEFAULT NULL,
+-- added 2007-06
+status          VARCHAR DEFAULT NULL,
+response_body   VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE trackbacks (
