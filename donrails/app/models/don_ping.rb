@@ -58,13 +58,14 @@ class DonPing < ActiveRecord::Base
   end
 
   def send_ping2(pingurl) 
-    rbody0 = send_ping_xmlrpc_extended(pingurl)
-    if rbody0 == true || rbody0['flerror'] == true
-      rbody = send_ping_xmlrpc(pingurl)
-      if rbody == true || rbody['flerror'] == true
-        send_ping_rest(pingurl)
+    result = send_ping_xmlrpc_extended(pingurl)
+    if result == true || result['flerror'] == true
+      result = send_ping_xmlrpc(pingurl)
+      if result == true || result['flerror'] == true
+        result = send_ping_rest(pingurl)
       end
     end
+    return result
   end
 
   # http://www.weblogs.com/api.html#7
@@ -109,6 +110,7 @@ class DonPing < ActiveRecord::Base
 
   # require 'xmlrpc/client'
   def send_ping_xmlrpc(pingurl)
+    result = {}
     begin
       baseurl = don_get_config.baseurl.split('/')
       baseurl << 'archives'
@@ -131,10 +133,12 @@ class DonPing < ActiveRecord::Base
       logger.error(e)
 #      return true
     end
+    return result
   end
 
   # http://www.google.com/help/blogsearch/pinging_API.html
   def send_ping_xmlrpc_extended(pingurl)
+    result = {}
     begin
       baseurl = don_get_config.baseurl.split('/')
       baseurl << 'archives'
@@ -162,6 +166,7 @@ class DonPing < ActiveRecord::Base
     rescue Exception => e
       return true
     end
+    return result
   end
 
 end

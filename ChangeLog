@@ -1,3 +1,8 @@
+2007-06-16  Akira TAGOH  <at@gclab.org>
+
+	* donrails/app/models/don_ping.rb (send_ping2, send_ping_xmlrpc)
+	(send_ping_xmlrpc_extended): return a value explicitly. (Issue #53)
+
 2007-06-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/admin/system/pick_donping_a.rhtml: New file.
