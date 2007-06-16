@@ -11,6 +11,17 @@ class Admin::SystemController < AdminController
     @don_ping = DonPing.find(params[:id])
   end
 
+  def delete_ping_queue
+    c = params["deleteid"].nil? ? [] : params["deleteid"]
+    c.each do |k, v|
+      if v.to_i == 1
+        flash[:note2] = 'Ping Queue ' + k.to_s + ' is deleted. <br>'
+        DonPing.destroy(k.to_i)
+      end
+    end
+    redirect_to :back
+  end
+
   ## blogping
   def manage_blogping
     if defined?(don_get_config.baseurl)

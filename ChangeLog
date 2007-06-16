@@ -1,5 +1,8 @@
 2007-06-16  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/views/admin/system/manage_don_ping.rhtml: Add to force dequeing ping.
+	* donrails/app/controllers/admin/system_controller.rb (Admin::delete_ping_queue): New method for force dequing.
+
 	* donrails/tool/tables-mysql.sql: Add to set character_set_database = utf8.
 
 2007-06-16  Akira TAGOH  <at@gclab.org>

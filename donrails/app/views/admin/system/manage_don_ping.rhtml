@@ -16,11 +16,14 @@ id を押すとPing message information が表示されます
 </div>
 </div>
 
+<% form_tag :action => "delete_ping_queue" do hidden_field_tag("session_id_validation", security_token) -%>
+<%= submit_tag %>
 <table  border="1" cellspacing="0">
   <tr>
+    <td>Delete?</td>
+    <td>status</td>
     <td>id</td>
     <td>article_id</td>
-    <td>status</td>
     <td>url</td>
     <td>queued time</td>
     <td>sent time</td>
@@ -29,9 +32,10 @@ id を押すとPing message information が表示されます
 
   <% @don_pings.each do |co| %>
   <tr>
+    <td><%= check_box "deleteid", co.id %></td>
+    <td><%= co.status %></td>
     <td><%= link_to_remote(co.id, :update => 'ca', :url => {:action => 'pick_donping_a', :id => co.id}) %></td>
     <td><%= co.article_id %></td>
-    <td><%= co.status %></td>
     <td><%= co.url %></td>
     <td><%= co.created_at %></td>
     <td><%= co.send_at %></td>
@@ -39,6 +43,8 @@ id を押すとPing message information が表示されます
   </tr>
   <% end %>
 </table>
+<% end %>
+<%= submit_tag %>
 <% end %>
 
 <% if @don_pings_pages %>
