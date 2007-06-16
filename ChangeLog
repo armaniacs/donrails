@@ -1,3 +1,7 @@
+2007-06-16  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/tables-mysql.sql: Add to set character_set_database = utf8.
+
 2007-06-16  Akira TAGOH  <at@gclab.org>
 
 	* donrails/app/models/don_ping.rb (send_ping2, send_ping_xmlrpc)

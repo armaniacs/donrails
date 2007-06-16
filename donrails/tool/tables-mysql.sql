@@ -1,3 +1,6 @@
+SET CHARACTER SET UTF8;
+START TRANSACTION;
+
 -- -- rename at 1.6
 -- CREATE TABLE pictures 
 CREATE TABLE don_attachments
@@ -182,3 +185,6 @@ rbl_type	VARCHAR(100),
 hostname	TEXT,
 primary key (id)
 );
+
+COMMIT;
+
