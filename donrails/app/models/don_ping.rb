@@ -103,7 +103,6 @@ class DonPing < ActiveRecord::Base
       else
         response = http.post("#{uri.path}", post)
       end
-      p response
       return response.body
     end 
   end
