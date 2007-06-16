@@ -1,3 +1,7 @@
+2007-06-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/controllers/admin/article_controller.rb (Admin::fix_article): Fix to stop ping for non-published article. (issue #49)
+
 2007-06-16  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/views/admin/system/manage_don_ping.rhtml: Add to force dequeing ping.

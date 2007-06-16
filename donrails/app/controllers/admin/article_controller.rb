@@ -110,9 +110,7 @@ class Admin::ArticleController < AdminController
         if params['preview'] && params['preview']['preview'].to_i == 1
           preview = 1
           aris.hidden = 2
-        end
-
-        if hideid == "0"
+        elsif hideid == "0"
           aris.hidden = 0
         elsif hideid == "1"
           aris.hidden = 1
