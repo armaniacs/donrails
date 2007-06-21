@@ -1,3 +1,9 @@
+2007-06-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Version 1.6.9.2
+	* Makefile (fulldist): New rule to package for donrails-full-VERSION.tar.gz which includes rails and extensions (experimental).
+	* Makefile (dist): Small change.
+
 2007-06-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/don_ping.rb (DonPing::send_ping_rest): Cleanup.

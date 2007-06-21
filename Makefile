@@ -1,8 +1,10 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.6.9.1
+VERSION = 1.6.9.2
 TESTDIR = '/tmp/.donrails'
+TARDIR = '/tmp/.donrails-tar'
+FULLDIR = '/tmp/.donrails-full'
 
 all: link
 
@@ -47,14 +49,41 @@ clean:
 	rm -f *~ */*~ */*/*~ */*/*/*~ */*/*/*/*~ *.orig */*.orig */*/*.orig
 	-rm -f $(NAME)-*.tar.gz
 
-dist:	clean
-	cd .. ; tar czvf $(NAME)-$(VERSION).tar.gz \
+distclean: clean
+	-rm -rf $(TESTDIR) $(TARDIR)
+
+dist:	distclean
+	install -d $(TARDIR)/donrails
+	cp -a . $(TARDIR)/donrails
+	cd $(TARDIR) ; tar czf $(NAME)-$(VERSION).tar.gz \
 		--exclude .svn \
 		--exclude rails \
+		--exclude patch_kouho \
 		--exclude $(PWD)/donrails/app/views/notes/index.rhtml \
 		--exclude $(PWD)/donrails/app/views/layouts/custom \
-		$(PWD) ; \
+		donrails ; \
 		mv $(NAME)-$(VERSION).tar.gz $(PWD)
+
+fullclean: distclean
+	-rm -rf $(FULLDIR)
+
+fulldist: fullclean dist
+	install -d $(FULLDIR)
+	tar zxf $(PWD)/$(NAME)-$(VERSION).tar.gz -C $(FULLDIR)
+	cd $(FULLDIR)/donrails ; rails -C rails
+	cd $(FULLDIR)/donrails/rails ; rm -rf app ; cp -r ../donrails/app .
+	cd $(FULLDIR)/donrails/rails ; rm -rf lib ; cp -r ../donrails/lib .
+	cd $(FULLDIR)/donrails/rails ; rm -rf test ; cp -r ../donrails/test .
+	cd $(FULLDIR)/donrails/rails/config ; rm routes.rb ; cp ../../donrails/config/routes.rb .
+	cd $(FULLDIR)/donrails/rails/app/views/layouts ; cp ../../../../donrails/example/notes.rhtml .
+	cd $(FULLDIR)/donrails/rails/app/views/notes ; cp ../../../../donrails/example/index.rhtml .
+	cd $(FULLDIR)/donrails/rails/public/stylesheets ; cp ../../../donrails/public/stylesheets/*.css .
+	cd $(FULLDIR)/donrails/rails/public/javascripts ; cp ../../../donrails/public/javascripts/*.js .
+	install -d $(FULLDIR)/donrails/rails/vendor/plugins/
+	cp -r $(PWD)/rails/vendor/plugins/* $(FULLDIR)/donrails/rails/vendor/plugins/
+	install -m 0777 -d $(FULLDIR)/donrails/rails/public/images/dump
+	cd $(FULLDIR) ; tar czf $(NAME)-full-$(VERSION).tar.gz donrails ; \
+		mv $(NAME)-full-$(VERSION).tar.gz $(PWD)
 
 installertest: dist
 	-rm -rf $(TESTDIR) && mkdir $(TESTDIR) && cp $(NAME)-$(VERSION).tar.gz $(TESTDIR)
