@@ -1,3 +1,15 @@
+2007-06-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Version 1.6.9.3
+	* New testing futre. (make mysqltestnew)
+
+	* donrails/app/views/help/first_setup.rhtml: New file.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::noteslist): Small fix for initial user.
+	* donrails/example/database-mysqltest.yml: Change: database user is login user. (former user is 'test'.)
+	* donrails/app/controllers/admin/login_controller.rb (Admin::authenticate): Fix for initial user. (mainly use for 'make mysqltestnew'.
+	* donrails/app/controllers/application.rb (ApplicationController::authorize): Small fix to keep flash.
+	
 2007-06-21  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* Version 1.6.9.2

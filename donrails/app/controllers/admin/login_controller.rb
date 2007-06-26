@@ -8,6 +8,7 @@ class Admin::LoginController < AdminController
   def authenticate
     flash.keep(:op)
     flash.keep(:pbp)
+
     name = String.new
     password = String.new
     case request.method
@@ -23,6 +24,9 @@ class Admin::LoginController < AdminController
 
         if flash[:op] =~ /^\/admin\/?$/
           redirect_to :controller => 'admin/article', :action => "new_article"
+          return
+        elsif flash[:pbp] && flash[:pbp]["action"] == "manage_don_env"
+          redirect_to :controller => 'admin/system', :action => "manage_don_env"
           return
         elsif flash[:pbp]
           redirect_to flash[:pbp] 
@@ -48,7 +52,6 @@ class Admin::LoginController < AdminController
     else
       flash[:notice] = "Wrong method."
       redirect_to :action => "login_index"
-##      redirect_to :controller => 'login', :action => "login_index"
       return
     end
   end

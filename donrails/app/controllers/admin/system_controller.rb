@@ -185,6 +185,7 @@ class Admin::SystemController < AdminController
       flash[:note2] = $!
     end
     redirect_to :action => "manage_don_env"
+##    redirect_to :controller => 'admin/system', :action => 'manage_don_env' 
   end
 
   def delete_don_env
@@ -229,6 +230,7 @@ class Admin::SystemController < AdminController
     end
 
     redirect_to :action => "manage_don_env"
+##    redirect_to :controller => 'admin/system', :action => 'manage_don_env'
   end
 
   # RBL

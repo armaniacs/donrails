@@ -1,10 +1,11 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.6.9.2
+VERSION = 1.6.9.3
 TESTDIR = '/tmp/.donrails'
 TARDIR = '/tmp/.donrails-tar'
 FULLDIR = '/tmp/.donrails-full'
+FULLDIRTEST = '/tmp/.donrails-full-test'
 
 all: link
 
@@ -100,6 +101,7 @@ installertest: dist
 ###
 mysqltest: dist mysqltest00 mysqltest10
 
+
 mysqltest00:
 	-rm -rf $(TESTDIR) && mkdir $(TESTDIR) && cp $(NAME)-$(VERSION).tar.gz $(TESTDIR)
 	cd $(TESTDIR) && tar zxvf $(NAME)-$(VERSION).tar.gz
@@ -130,4 +132,21 @@ mysqltest10:
 	cd $(TESTDIR)/donrails-trunk/rails && ./script/server -d -p 13001
 	curl -I http://localhost:13001/archives/noteslist
 	curl -u foo:bar http://localhost:13001/login
-	
+
+mysqltestnew: fulldist
+	-mv -f $(FULLDIRTEST) $(FULLDIRTEST).old
+	mkdir $(FULLDIRTEST)
+	tar zxf $(NAME)-full-$(VERSION).tar.gz -C $(FULLDIRTEST)
+
+	-mysqladmin -f drop test
+	mysqladmin create test
+
+	cd $(FULLDIRTEST)/donrails/rails/db && mysql test < ../../donrails/tool/tables-mysql.sql
+	cp $(FULLDIRTEST)/donrails/donrails/example/database-mysqltest.yml $(FULLDIRTEST)/donrails/rails/config/database.yml
+
+	cp $(FULLDIRTEST)/donrails/donrails/example/donrails_env.rb $(FULLDIRTEST)/donrails/rails/config/environments/
+
+	cat $(FULLDIRTEST)/donrails/donrails/example/.environment.rb >> $(FULLDIRTEST)/donrails/rails/config/environment.rb
+	cd $(FULLDIRTEST)/donrails/rails && ./script/server -d -p 13001
+	curl -I http://localhost:13001/archives/noteslist
+#	curl -u foo:bar http://localhost:13001/login

@@ -1,4 +1,7 @@
 <%= flash[:notice] %>
+<% if flash[:notice] == 'first setup' %>
+<%= render('help/first_setup') %>
+<% end %>
 <h1>login</h1>
 <!-- % secure_form_tag :action => 'authenticate' do % -->
 <% form_tag :action => 'authenticate' do hidden_field_tag("session_id_validation", security_token) -%>

@@ -1,14 +1,12 @@
 development:
   adapter: mysql
   database: test
-  username: test
   host: localhost
   encoding: utf8
 
 test:
   adapter: mysql
   database: test
-  username: test
   host: localhost
   encoding: utf8
 

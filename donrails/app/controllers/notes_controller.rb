@@ -160,7 +160,8 @@ class NotesController < ApplicationController
     else
       de = DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
       if de == nil
-        redirect_to :controller => 'login', :action => 'manage_don_env'
+        flash[:notice] = 'first setup'
+        redirect_to :controller => 'admin/system', :action => 'manage_don_env'
         return
       end
     end
