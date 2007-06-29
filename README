@@ -2,12 +2,16 @@ README for donrails.
 
 Diary ON Rails (donrails) is a content management system.  It can use various things. Mainly for diary, blog and memo.
 
-http://donrails.tigris.org/
-http://www.araki.net/wiki/donrails-wiliki.cgi?donrails
+Home and source code repository
+	http://code.google.com/p/donrails/
+
+Discussion 
+	http://groups.google.com/group/donrails
 
 * AUTHOR
 
-ARAKI Yasuhiro <yasu@debian.or.jp>
+ARAKI Yasuhiro <yasu@debian.or.jp> (Original Author)
+Akira TAGOH  <at@gclab.org> 
 
 * COPYRIGHT
 
