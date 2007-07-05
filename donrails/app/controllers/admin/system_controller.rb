@@ -35,7 +35,7 @@ class Admin::SystemController < AdminController
     else
       flash[:note2] = '現在Ping送信機能は無効です。baseurlを設定してください。'
     end
-    @blogpings_pages, @blogpings = paginate(:blogping,:per_page => 30,:order_by => 'id DESC')
+    @blogpings_pages, @blogpings = paginate(:blogping,:per_page => 30,:order => 'id DESC')
   end
 
   def delete_blogping
@@ -82,8 +82,7 @@ class Admin::SystemController < AdminController
       @author = Author.find(params['id'])
     end
     @authors_pages, @authors = paginate(:author, :per_page => 30,
-                                          :order_by => 'id DESC'
-                                          )
+                                          :order => 'id DESC')
   end
 
   def delete_unwrite_author

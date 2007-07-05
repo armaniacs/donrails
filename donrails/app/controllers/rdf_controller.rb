@@ -68,7 +68,7 @@ class RdfController < ApplicationController
     else
       @recent_articles_pages, 
       @recent_articles = paginate(:article, :per_page => 20,
-                                  :order_by => 'id DESC',
+                                  :order => 'id DESC',
                                   :join => "JOIN categories_articles on (categories_articles.article_id=articles.id and categories_articles.category_id=#{@category.id})",
                                   :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
                                   )

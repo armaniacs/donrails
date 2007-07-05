@@ -1,5 +1,15 @@
 2007-07-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/rdf_controller.rb : Change ':order_by' to ':order'. Because :order_by is deprecated.
+	* donrails/app/controllers/admin/comment_controller.rb : likewise.
+	* donrails/app/controllers/admin/picture_controller.rb : likewise.
+	* donrails/app/controllers/admin/category_controller.rb : likewise.
+	* donrails/app/controllers/admin/enrollment_controller.rb : likewise.
+	* donrails/app/controllers/admin/article_controller.rb : likewise.
+	* donrails/app/controllers/admin/trackback_controller.rb : likewise.
+	* donrails/app/controllers/atom_controller.rb : likewise.
+	* donrails/app/controllers/notes_controller.rb: likewise.
+
 	* donrails/app/views/admin/system/manage_don_ping.rhtml: 
 
 	* donrails/app/controllers/admin/system_controller.rb (Admin::manage_don_ping): Add function to sort.

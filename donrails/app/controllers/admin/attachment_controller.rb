@@ -1,7 +1,7 @@
 class Admin::AttachmentController < AdminController
 
   def manage_don_attachment
-    @don_attachments_pages, @don_attachments = paginate(:don_attachment,:per_page => 30,:order_by => 'id DESC')
+    @don_attachments_pages, @don_attachments = paginate(:don_attachment,:per_page => 30,:order => 'id DESC')
   end
 
   def manage_don_attachment_detail

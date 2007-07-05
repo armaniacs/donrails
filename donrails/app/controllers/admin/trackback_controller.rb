@@ -3,12 +3,12 @@ class Admin::TrackbackController < AdminController
 
   def manage_trackback
     @trackbacks_pages, @trackbacks = paginate(:trackback, :per_page => 30,
-                                              :order_by => 'id DESC')
+                                              :order => 'id DESC')
   end
   def table_trackback_a
     headers["Content-Type"] = "text/html; charset=utf-8"
     @trackbacks_pages, @trackbacks = paginate(:trackback, :per_page => 30,
-                                              :order_by => 'id DESC')
+                                              :order => 'id DESC')
     render :template => 'shared/table_trackback', :layout => false
   end
 

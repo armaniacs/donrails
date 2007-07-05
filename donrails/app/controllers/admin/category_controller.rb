@@ -9,7 +9,7 @@ class Admin::CategoryController < AdminController
       end
     end
 
-    @categories_pages, @categories = paginate(:category,:per_page => 30,:order_by => 'id DESC')
+    @categories_pages, @categories = paginate(:category,:per_page => 30,:order => 'id DESC')
 
     @roots = Category.find(:all, :conditions => ["parent_id IS NULL"])
     @size = Category.find(:all).size

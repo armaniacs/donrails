@@ -3,7 +3,7 @@ class Admin::CommentController < AdminController
 
   def manage_comment
     @comments_pages, @comments = paginate(:comment, :per_page => 30,
-                                          :order_by => 'id DESC')
+                                          :order => 'id DESC')
   end
 
 

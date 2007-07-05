@@ -290,12 +290,12 @@ class Admin::ArticleController < AdminController
   def manage_article
     if params[:nohidden] == '1'
       @articles_pages, @articles = paginate(:article, :per_page => 30,
-                                            :order_by => 'id DESC',
+                                            :order => 'id DESC',
                                             :conditions => ["hidden IS NULL OR hidden = 0"]
                                             )
     else
       @articles_pages, @articles = paginate(:article, :per_page => 30,
-                                            :order_by => 'id DESC'
+                                            :order => 'id DESC'
                                             )
     end
   end

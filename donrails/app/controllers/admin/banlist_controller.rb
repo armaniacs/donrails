@@ -2,7 +2,7 @@ class Admin::BanlistController < AdminController
 
   def manage_banlist
     @banlists_pages, @banlists = paginate(:banlist, :per_page => 30,
-                                          :order_by => 'id DESC'
+                                          :order => 'id DESC'
                                           )
   end
 
