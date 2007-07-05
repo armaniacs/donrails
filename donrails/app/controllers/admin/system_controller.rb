@@ -3,7 +3,13 @@ class Admin::SystemController < AdminController
 
   ## ping
   def manage_don_ping
-    @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30,:order_by => 'id DESC')
+    if params[:on] && params[:on] =~ /^(counter|id|article_id|url|created_at|send_at|status|response_body)$/
+      @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30, :order => "#{params[:on]}, id DESC")
+    elsif params[:od] && params[:od] =~ /^(counter|id|article_id|url|created_at|send_at|status|response_body)$/
+      @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30, :order => "#{params[:od]} DESC, id DESC")
+    else
+      @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30,:order => 'id DESC')
+    end
   end
   alias manage_ping manage_don_ping
 

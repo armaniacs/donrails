@@ -16,6 +16,7 @@ verbose = nil
 unsave = nil
 force = nil
 numbers = 10
+defer_seconds = 600
 
 def usage
     puts "
@@ -40,6 +41,8 @@ Available options:
 
  -n numbers\t: set number of ping article (default:10)
 
+ --defer numbers\t: set number (seconds) of ping (default:600 seconds)
+
  --type pingtype\t: set ping type (extended/xmlrpc/rest). For debug.
 
  -u\t: unsave. When use this option, you do not run DonPing.save.
@@ -51,6 +54,7 @@ end
 
 parser.set_options(
                    ['--numbers', '-n', GetoptLong::REQUIRED_ARGUMENT],
+                   ['--defer_seconds', '--defer', GetoptLong::REQUIRED_ARGUMENT],
                    ['--mode', '-m', GetoptLong::REQUIRED_ARGUMENT],
                    ['--type', GetoptLong::REQUIRED_ARGUMENT],
                    ['--config', '-f', GetoptLong::REQUIRED_ARGUMENT],
@@ -68,6 +72,8 @@ parser.each_option do |name, arg|
     force = true
   when "--unsave"
     unsave = true
+  when "--defer_seconds"
+    defer_seconds = arg.to_i
   when "--numbers"
     numbers = arg.to_i
   when "--type"
@@ -124,6 +130,7 @@ end
 class Pingger
   attr :verbose, true
   attr :numbers, true
+  attr :defer_seconds, true
   attr :unsave, true
   attr :force, true
   attr :type, true
@@ -143,6 +150,11 @@ class Pingger
   def async_send
     if @force
       pings = DonPing.find(:all, :limit => @numbers,:order => "id DESC")
+    elsif @defer_seconds
+      pings = DonPing.find(:all, :conditions => ["counter = 0 OR (counter < 10 AND created_at + ? * POW(2, counter) < NOW() AND ( send_at IS NULL OR NOT status = 'success' ))", @defer_seconds],
+                           :limit => @numbers,
+                           :order => "id DESC"
+                           )
     else
       pings = DonPing.find(:all, :conditions => ["send_at IS NULL OR NOT status = 'success'"],
                            :limit => @numbers,
@@ -152,6 +164,7 @@ class Pingger
     puts 'Number of ping(s) is ' + pings.length.to_s if @verbose
     pings.each do |ping|
       pingok, rbody = ping.send_ping2a(type)
+      ping.counter += 1
 
       if pingok
         ping.send_at = Time.now
@@ -180,5 +193,6 @@ pg.verbose = true if verbose
 pg.unsave = true if unsave
 pg.force = true if force
 pg.numbers = numbers
+pg.defer_seconds = defer_seconds
 pg.type = type
 pg.async_send

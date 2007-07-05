@@ -102,7 +102,8 @@ created_at	TIMESTAMP DEFAULT NULL,
 send_at		TIMESTAMP DEFAULT NULL,
 -- added 2007-06
 status          VARCHAR DEFAULT NULL,
-response_body   VARCHAR DEFAULT NULL
+response_body   VARCHAR DEFAULT NULL,
+counter		INTEGER DEFAULT
 );
 
 CREATE TABLE trackbacks (

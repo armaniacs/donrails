@@ -21,12 +21,31 @@ id を押すとPing message information が表示されます
 <table  border="1" cellspacing="0">
   <tr>
     <td>Delete?</td>
-    <td>status</td>
+    <td nowrap>status
+    <%= link_to '↑', {:action => 'manage_don_ping', :od => 'status'} %>
+    <%= link_to '↓', {:action => 'manage_don_ping', :on => 'status'} %>
+    </td>
     <td>id</td>
-    <td>article_id</td>
-    <td>url</td>
-    <td>queued time</td>
-    <td>sent time</td>
+    <td nowrap>article_id
+    <%= link_to '↑', {:action => 'manage_don_ping', :od => 'article_id'} %>
+    <%= link_to '↓', {:action => 'manage_don_ping', :on => 'article_id'} %>
+    </td>	
+    <td nowrap>url
+    <%= link_to '↑', {:action => 'manage_don_ping', :od => 'status'} %>
+    <%= link_to '↓', {:action => 'manage_don_ping', :on => 'status'} %>
+    </td>
+    <td nowrap>queued time
+    <%= link_to '↑', {:action => 'manage_don_ping', :od => 'created_at'} %>
+    <%= link_to '↓', {:action => 'manage_don_ping', :on => 'created_at'} %>
+    </td>
+    <td nowrap>counter
+    <%= link_to '↑', {:action => 'manage_don_ping', :od => 'counter'} %>
+    <%= link_to '↓', {:action => 'manage_don_ping', :on => 'counter'} %>
+    </td>
+    <td nowrap>sent time
+    <%= link_to '↑', {:action => 'manage_don_ping', :od => 'send_at'} %>
+    <%= link_to '↓', {:action => 'manage_don_ping', :on => 'send_at'} %>
+    </td>
     <td>response body</td>
   </tr>
 
@@ -38,6 +57,7 @@ id を押すとPing message information が表示されます
     <td><%= co.article_id %></td>
     <td><%= co.url %></td>
     <td><%= co.created_at %></td>
+    <td><%= co.counter %></td>
     <td><%= co.send_at %></td>
     <td><%= truncate(co.response_body, 30) %></td>
   </tr>

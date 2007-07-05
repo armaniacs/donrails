@@ -124,6 +124,7 @@ send_at		DATETIME DEFAULT NULL,
 -- added 2007-06
 status          VARCHAR(100) DEFAULT NULL,
 response_body   TEXT DEFAULT NULL,
+counter		INTEGER DEFAULT 0,
 primary key (id)
 );
 

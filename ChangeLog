@@ -1,3 +1,20 @@
+2007-07-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/admin/system/manage_don_ping.rhtml: 
+
+	* donrails/app/controllers/admin/system_controller.rb (Admin::manage_don_ping): Add function to sort.
+
+2007-07-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* 1.6.9.4.
+	** Plase update DB entry.
+	* donrails/app/views/admin/system/manage_don_ping.rhtml: Add to show counter number.
+	* donrails/tool/pingger/pingger.rb (Pingger::async_send): add new option (--defer_seconds=600). It controls ping re-send time.
+	* upgrade_1_7.postgresql.sql: likewise.
+	* upgrade_1_7.mysql.sql: likewise.
+	* donrails/tool/tables-postgresql.sql: likewise.
+	* donrails/tool/tables-mysql.sql: Add don_pings.counter.
+
 2007-06-29  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* README: Change URL.

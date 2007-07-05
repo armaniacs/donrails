@@ -9,5 +9,9 @@ ALTER TABLE don_envs add column ping_async INTEGER DEFAULT 0;
 ALTER TABLE don_pings add column status VARCHAR(100) DEFAULT NULL;
 ALTER TABLE don_pings add column response_body TEXT DEFAULT NULL;
 
+-- added 2007-07-04
+ALTER TABLE don_pings add column counter INTEGER DEFAULT 0;
+
+
 COMMIT;
 
