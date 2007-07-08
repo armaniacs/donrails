@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.6.9.5
+VERSION = 1.6.9.6
 TESTDIR = '/tmp/.donrails'
 TARDIR = '/tmp/.donrails-tar'
 FULLDIR = '/tmp/.donrails-full'
@@ -25,6 +25,7 @@ copyrails:
 
 linkinit:
 	cd rails; rm -rf app; ln -s ../donrails/app .
+	cd rails; rm -rf db; ln -s ../donrails/db .
 	cd rails; rm -rf lib; ln -s ../donrails/lib .
 	cd rails; rm -rf test; ln -s ../donrails/test .
 	cd rails/config; rm routes.rb; ln -s ../../donrails/config/routes.rb .
@@ -37,7 +38,7 @@ linkj:
 	cd rails/public/javascripts ; ln -s ../../../donrails/public/javascripts/*.js .
 
 copyinit:
-	cd rails; rm -rf app; cp -r ../donrails/app .
+	cd rails; rm -rf {app,db,lib,test}; cp -r ../donrails/{app,db,lib,test} .
 	cd rails/config; rm routes.rb; cp ../../donrails/config/routes.rb .
 
 imagedumpdir:
@@ -73,6 +74,7 @@ fulldist: fullclean dist
 	tar zxf $(PWD)/$(NAME)-$(VERSION).tar.gz -C $(FULLDIR)
 	cd $(FULLDIR)/donrails ; rails -C rails
 	cd $(FULLDIR)/donrails/rails ; rm -rf app ; cp -r ../donrails/app .
+	cd $(FULLDIR)/donrails/rails ; rm -rf db ; cp -r ../donrails/db .
 	cd $(FULLDIR)/donrails/rails ; rm -rf lib ; cp -r ../donrails/lib .
 	cd $(FULLDIR)/donrails/rails ; rm -rf test ; cp -r ../donrails/test .
 	cd $(FULLDIR)/donrails/rails/config ; rm routes.rb ; cp ../../donrails/config/routes.rb .
@@ -108,6 +110,7 @@ mysqltest00:
 	cd $(TESTDIR)/donrails-trunk && rails rails
 
 	cd $(TESTDIR)/donrails-trunk/rails; rm -rf app; ln -s ../donrails/app .
+	cd $(TESTDIR)/donrails-trunk/rails; rm -rf db; ln -s ../donrails/db .
 	cd $(TESTDIR)/donrails-trunk/rails; rm -rf lib; ln -s ../donrails/lib .
 	cd $(TESTDIR)/donrails-trunk/rails; rm -rf test; ln -s ../donrails/test .
 	cd $(TESTDIR)/donrails-trunk/rails/config; rm routes.rb; ln -s ../../donrails/config/routes.rb .

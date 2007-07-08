@@ -96,7 +96,7 @@ rails/public/images/dump
 	
 7. Webプラウザを使って設定をする
 
-http://127.0.0.1/login/manage_don_env にアクセスし、必要な設定をします。
+http://127.0.0.1/admin/system/manage_don_env にアクセスし、必要な設定をします。
 ユーザとパスワードの設定は、
 「3. ruby donrails/tool/donrails-setup.rb を実行する。」
 で、終了しているはずです。

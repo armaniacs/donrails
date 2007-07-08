@@ -1,3 +1,15 @@
+2007-07-08  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** 1.6.9.6
+	* Makefile: Chage to link rails/db to donrails/db.
+	* donrails/db: new entry. These are used at 'rake db:migrate'.
+
+2007-07-06  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/donrails-setup.rb: fix installer using dirctory. (Thanks ay.)
+
+	* INSTALL.ja : fix manage_don_env URL. (Thanks ay.)
+
 2007-07-05  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/controllers/rdf_controller.rb : Change ':order_by' to ':order'. Because :order_by is deprecated.

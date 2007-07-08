@@ -6,15 +6,17 @@ require 'yaml'
 
 adapter = nil
 
-rundir = Pathname.pwd
+basedir = Pathname.new($0).dirname.parent.parent
+
 
 print "setup script for donrails\n\n"
-print "running directory path: " + rundir + "\n"
-print "Where is donrails's top directory? (default:" + rundir.parent.parent + ")\n"
+print "base directory path: " + basedir.expand_path + "\n"
+print "Where is donrails's top directory? (default:" + basedir.expand_path + ")\n"
+
 
 buf = Readline.readline("> ", true)
 if buf == ""
-  buf = rundir.parent.parent
+  buf = basedir
 end
 topdir = Pathname.new(buf)
 unless topdir.directory?
