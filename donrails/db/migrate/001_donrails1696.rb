@@ -34,7 +34,6 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "writable", :integer,                                :null => false
     end
 
-    add_index "authors", ["id"], :name => "id", :unique => true
     add_index "authors", ["name"], :name => "name", :unique => true
 
     create_table "banlists", :force => true do |t|
@@ -43,14 +42,11 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "white",   :integer
     end
 
-    add_index "banlists", ["id"], :name => "id", :unique => true
-
     create_table "blogpings", :force => true do |t|
       t.column "server_url", :string,  :default => "", :null => false
       t.column "active",     :integer
     end
 
-    add_index "blogpings", ["id"], :name => "id", :unique => true
     add_index "blogpings", ["server_url"], :name => "server_url", :unique => true
 
     create_table "categories", :force => true do |t|
@@ -59,8 +55,6 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "description", :text
     end
 
-    add_index "categories", ["id"], :name => "id", :unique => true
-    add_index "categories", ["name"], :name => "name", :unique => true
     add_index "categories", ["parent_id"], :name => "fk_category"
 
     create_table "categories_articles", :id => false, :force => true do |t|
@@ -83,8 +77,6 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "article_id", :integer
     end
 
-    add_index "comments", ["id"], :name => "id", :unique => true
-
     create_table "don_attachments", :force => true do |t|
       t.column "title",        :text
       t.column "path",         :text
@@ -95,14 +87,10 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "format",       :string,  :limit => 100
     end
 
-    add_index "don_attachments", ["id"], :name => "id", :unique => true
-
     create_table "don_attachments_articles", :id => false, :force => true do |t|
       t.column "don_attachment_id", :integer, :null => false
       t.column "article_id",        :integer, :null => false
     end
-
-    add_index "don_attachments_articles", ["article_id"], :name => "fk_cp_article"
 
     create_table "don_envs", :force => true do |t|
       t.column "hidden",                :integer
@@ -124,8 +112,6 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "ping_async",            :integer,                :default => 0
     end
 
-    add_index "don_envs", ["id"], :name => "id", :unique => true
-
     create_table "don_pings", :force => true do |t|
       t.column "article_id",    :integer
       t.column "url",           :text
@@ -136,14 +122,10 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "counter",       :integer,                 :default => 0
     end
 
-    add_index "don_pings", ["id"], :name => "id", :unique => true
-
     create_table "don_rbls", :force => true do |t|
       t.column "rbl_type", :string, :limit => 100
       t.column "hostname", :text
     end
-
-    add_index "don_rbls", ["id"], :name => "id", :unique => true
 
     create_table "enrollments", :force => true do |t|
       t.column "title",      :text
@@ -152,17 +134,12 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "updated_at", :datetime
     end
 
-    add_index "enrollments", ["id"], :name => "id", :unique => true
-
     create_table "plugins", :force => true do |t|
       t.column "name",        :string,  :limit => 100, :default => "", :null => false
       t.column "description", :text,                   :default => "", :null => false
       t.column "manifest",    :string,  :limit => 100, :default => "", :null => false
       t.column "activation",  :boolean
     end
-
-    add_index "plugins", ["id"], :name => "id", :unique => true
-    add_index "plugins", ["name"], :name => "name", :unique => true
 
     create_table "trackbacks", :force => true do |t|
       t.column "article_id",  :integer
@@ -176,8 +153,6 @@ class Donrails1696 < ActiveRecord::Migration
       t.column "hidden",      :integer
       t.column "spam",        :integer
     end
-
-    add_index "trackbacks", ["id"], :name => "id", :unique => true
 
   end
 
