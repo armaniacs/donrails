@@ -310,7 +310,7 @@ module ApplicationHelper
       categories.each do |category|
         content += '<li><a href="/archives/show_category/' +  category.id.to_s + '">' + category.name + '</a>' 
         if manage
-          content += '[' + link_to('管理', {:controller => 'login', :action => :manage_category, :id => category.id}) + ']'
+          content += '[' + link_to('管理', {:controller => 'admin/category', :action => :manage_category, :id => category.id}) + ']'
         end
         content += '(' + category.articles.size.to_s + ')'
         content += display_categories_roots_ul(category.direct_children, manage)
