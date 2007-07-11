@@ -64,7 +64,7 @@ class ChangeHabtmToHmt < ActiveRecord::Migration
 
     Article.find(:all).each do |article|
       # Copy data from "categories_articles" table to dona_ca
-      article.old_categories each do |category|
+      article.old_categories.each do |category|
         dona_ca = DonaCa.new
         dona_ca.article = article
         dona_ca.category = category
@@ -72,7 +72,7 @@ class ChangeHabtmToHmt < ActiveRecord::Migration
       end
 
       # Copy data from "don_attachments_articles" table to dona_daa
-      article.old_don_attachments each do |don_attachment|
+      article.old_don_attachments.each do |don_attachment|
         dona_daa = DonaDaa.new
         dona_daa.article = article
         dona_daa.don_attachment = don_attachment
