@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.6.9.6
+VERSION = 1.6.9.8
 TESTDIR = '/tmp/.donrails'
 TARDIR = '/tmp/.donrails-tar'
 FULLDIR = '/tmp/.donrails-full'
@@ -85,7 +85,11 @@ fulldist: fullclean dist
 	install -d $(FULLDIR)/donrails/rails/vendor/plugins/
 	cp -r $(PWD)/rails/vendor/plugins/* $(FULLDIR)/donrails/rails/vendor/plugins/
 	install -m 0777 -d $(FULLDIR)/donrails/rails/public/images/dump
-	cd $(FULLDIR) ; tar czf $(NAME)-full-$(VERSION).tar.gz donrails ; \
+	cd $(FULLDIR) ; tar czf $(NAME)-full-$(VERSION).tar.gz \
+		--exclude .svn \
+		--exclude patch_kouho \
+		--exclude Makefile \
+		donrails ; \
 		mv $(NAME)-full-$(VERSION).tar.gz $(PWD)
 
 installertest: dist

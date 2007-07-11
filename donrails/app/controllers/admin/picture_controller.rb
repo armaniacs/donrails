@@ -19,7 +19,7 @@ class Admin::PictureController < AdminController
       if p2['aid']
         p2['aid'].split(/\s+/).each do |pe|
           na = Article.find(pe)
-          @picture.articles.push_with_attributes(na)
+          DonaDaa.create(:article => na, :don_attachment => @picture)
         end
       end
       @picture.body = p2['body'] if p2['body']

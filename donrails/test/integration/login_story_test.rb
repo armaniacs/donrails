@@ -1,7 +1,7 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
 class LoginStoryTest < ActionController::IntegrationTest
-  fixtures :articles, :blogpings, :comments, :don_pings, :authors, :categories, :plugins, :banlists, :don_attachments, :trackbacks, :don_envs, :don_rbls, :enrollments, :don_attachments_articles
+  fixtures :articles, :blogpings, :comments, :don_pings, :authors, :categories, :plugins, :banlists, :don_attachments, :trackbacks, :don_envs, :don_rbls, :enrollments, :dona_daas
 
   def test_login__fail
     reset!

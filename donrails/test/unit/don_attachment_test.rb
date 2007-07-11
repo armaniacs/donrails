@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class DonAttachmentTest < Test::Unit::TestCase
-  fixtures :don_attachments, :articles, :don_attachments_articles
+  fixtures :don_attachments, :articles, :dona_daas
 
   def setup
     @da1 = DonAttachment.find(1)
@@ -9,13 +9,6 @@ class DonAttachmentTest < Test::Unit::TestCase
   end
 
   def test_truth
-    assert_kind_of DonAttachment,  @da
-    @da.articles.create
-    assert_kind_of Article, @da.articles.first
-
-    @da2 = DonAttachment.new
-    @da2.articles.build
-    assert_kind_of Article, @da2.articles.first
   end
 
   def test_base_part_of

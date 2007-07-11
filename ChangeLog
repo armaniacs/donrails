@@ -1,3 +1,27 @@
+2007-07-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	** uncompatible change ** in 1.6.9.8 
+	* *** CHANGE *** to use from habtm to has_many :through. Please 'rake db:migrate'
+	* donrails/test/unit/don_attachment_test.rb (DonAttachmentTest): Change for it.
+	* donrails/test/unit/don_ping_test.rb (DonPingTest): Chaange for it.
+	* donrails/test/integration/login_story_test.rb (LoginStoryTest): Change for it.
+	* donrails/test/fixtures/dona_cas.yml: Rename from categories_articles.yml.
+	* donrails/test/fixtures/dona_daas.yml: Rename from don_attachments_articles.yml.
+	* donrails/app/models/category.rb (Category): Change for it.
+	* donrails/app/models/article.rb 
+	(DonaCa): New class.
+	(DonaDaa): New class.
+	(Article): Change for it.
+	* donrails/app/models/don_attachment.rb (DonAttachment): Change for it.
+	* donrails/app/controllers/rdf_controller.rb (RdfController::rdf_category): Change for it. (Change in JOIN statement.)
+	* donrails/app/controllers/admin/picture_controller.rb (Admin::edit_picture): Change for it.
+	* donrails/app/controllers/admin/article_controller.rb (Admin::delete_article): Change for it.
+	* donrails/app/controllers/notes_controller.rb (NotesController::show_category): Change for it.
+	
+2007-07-10  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* Makefile (fulldist): Change to exclude "Makefile" in full-dist.
+
 2007-07-10  Akira TAGOH  <at@gclab.org>
 
 	* donrails/db/migrate/001_donrails1696.rb: Update to get this working

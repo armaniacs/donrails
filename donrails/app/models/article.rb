@@ -2,12 +2,30 @@ require 'uri'
 require 'net/http'
 include ApplicationHelper
 
+class DonaCa < ActiveRecord::Base
+  belongs_to :article
+  belongs_to :category
+end
+
+class DonaDaa < ActiveRecord::Base
+  belongs_to :article
+  belongs_to :don_attachment
+end
+
 class Article < ActiveRecord::Base
   validates_presence_of :author_id, :title, :format, :enrollment_id
 
-  has_and_belongs_to_many :categories, :join_table => "categories_articles"
-  has_and_belongs_to_many :don_attachments, :join_table => "don_attachments_articles"
-  has_and_belongs_to_many :pictures, :join_table => "don_attachments_articles", :class_name => "DonAttachment", :conditions => "format = 'picture'"
+#  has_and_belongs_to_many :categories, :join_table => "categories_articles"
+  has_many :dona_cas
+  has_many :categories, :through => :dona_cas
+
+#  has_and_belongs_to_many :don_attachments, :join_table => "don_attachments_articles"
+  has_many :dona_daas
+  has_many :don_attachments, :through => :dona_daas
+
+
+#  has_and_belongs_to_many :pictures, :join_table => "don_attachments_articles", :class_name => "DonAttachment", :conditions => "format = 'picture'"
+  has_many :pictures, :through => :dona_daas, :class_name => "DonAttachment", :conditions => "format = 'picture'", :source => :don_attachment
 
   has_many :don_pings, :order => "id ASC"
   has_many :trackbacks, :order => "id ASC"

@@ -155,11 +155,13 @@ class Admin::ArticleController < AdminController
           nca.each do |ca|
             nb = Category.find(:first, :conditions => ["name = ?", ca])
             if nb
-              aris.categories.push_with_attributes(nb)
+              # aris.categories.push_with_attributes(nb) # XXX
+              DonaCa.create(:article => aris, :category => nb)
             else
               nb = Category.new("name" => ca)
               nb.save
-              aris.categories.push_with_attributes(nb)
+              # aris.categories.push_with_attributes(nb) # XXX
+              DonaCa.create(:article => aris, :category => nb)
             end
           end
         end
@@ -169,7 +171,8 @@ class Admin::ArticleController < AdminController
             begin
               if v.to_i == 1
                 b = Category.find(k.to_i)
-                aris.categories.push_with_attributes(b)
+                # aris.categories.push_with_attributes(b)
+                DonaCa.create(:article => aris, :category => b)
               else
               end
             rescue
@@ -178,7 +181,8 @@ class Admin::ArticleController < AdminController
         end
 
         oa.don_attachments.each do |atta|
-          aris.don_attachments.push_with_attributes(atta)
+          # aris.don_attachments.push_with_attributes(atta)
+          DonaDaa.create(:article => aris, :don_attachment => atta)
         end
 
         aris.save
@@ -249,7 +253,8 @@ class Admin::ArticleController < AdminController
           b = Category.new("name" => ca0)
           b.save
         end
-        aris1.categories.push_with_attributes(b)
+        # aris1.categories.push_with_attributes(b) # XXX
+        DonaCa.create(:article => aris1, :category => b)
       end
 
       if aris1.errors.empty?
@@ -318,7 +323,7 @@ class Admin::ArticleController < AdminController
           b.comments.delete(b_comment)
           
           b.pictures.each do |bp|
-            bp.article_id = nil
+            bp.articles.clear
             bp.save
           end
           flash[:note2] += '<br>Delete:' + k

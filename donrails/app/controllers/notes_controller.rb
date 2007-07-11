@@ -232,7 +232,6 @@ class NotesController < ApplicationController
     elsif params['trigger'] == 'trackbacks'
       @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN trackbacks on (trackbacks.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     elsif params['trigger'] == 'comments'
-#      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN comments_articles on (comments_articles.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
       @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN comments on (comments.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     elsif params['trigger'] == 'long'
       @articles = Article.find(:all, :order => "size DESC", :limit => 10, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
@@ -425,7 +424,7 @@ class NotesController < ApplicationController
           paginate(:article, 
                    :order => 'articles.article_date DESC',
                    :per_page => 30, 
-                   :join => "JOIN categories_articles on (categories_articles.article_id=articles.id and categories_articles.category_id=#{@category.id})",
+                   :join => "JOIN dona_cas on (dona_cas.article_id=articles.id AND dona_cas.category_id=#{@category.id})",
                    :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
                    )
         @heading = "カテゴリ:#{params['category']}"

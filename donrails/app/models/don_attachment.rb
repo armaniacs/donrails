@@ -4,7 +4,8 @@ require 'fileutils'
 class DonAttachment < ActiveRecord::Base
   include ApplicationHelper
 
-  has_and_belongs_to_many :articles, :join_table => "don_attachments_articles"
+  has_many :dona_daas
+  has_many :articles, :through => :dona_daas
 
   def base_part_of(file_name)
     name = File.basename(file_name)

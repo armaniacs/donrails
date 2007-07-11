@@ -4,7 +4,7 @@ require 'rexml/document'
 require 'htree'
 
 class DonPingTest < Test::Unit::TestCase
-  fixtures :don_pings, :articles, :categories, :categories_articles 
+  fixtures :don_pings, :articles, :categories, :dona_cas 
 
   def setup
     @ping = DonPing.new
