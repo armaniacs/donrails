@@ -1,3 +1,25 @@
+2007-07-12  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/views/rdf/rdf_enrollment.rxml: likewise.
+
+	* donrails/app/views/rdf/rdf_category.rxml: likewise.
+
+	* donrails/app/views/rdf/rdf_search.rxml: likewise.
+
+	* donrails/app/views/rdf/rdf_article.rxml: likewise.
+
+	* donrails/app/views/rdf/rdf_recent.rxml: Remove <copyright> and <trackback>. Change <category> to <dc:subject>.
+
+	* donrails/app/views/rdf/rss2_search.rxml: likewise.
+
+	* donrails/app/views/rdf/rss2_enrollment.rxml: likewise.
+
+	* donrails/app/views/rdf/rss2_category.rxml: likewise.
+
+	* donrails/app/views/rdf/rss2_article.rxml: likewise.
+
+	* donrails/app/views/rdf/rss2_recent.rxml: Add <guid>.
+
 2007-07-11  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	** uncompatible change ** in 1.6.9.8 

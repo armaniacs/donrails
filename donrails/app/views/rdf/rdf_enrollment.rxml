@@ -14,7 +14,6 @@ xml.tag!("rdf:RDF",
     xml.title don_get_config.rdf_title
     xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_enrollment", :id => @enrollment.id))
     xml.description don_get_config.rdf_description
-    xml.copyright don_get_config.rdf_copyright
 
     xml.items do    
       xml.tag!("rdf:Seq") do
@@ -29,9 +28,10 @@ xml.tag!("rdf:RDF",
     xml.title(item.title_to_xml)
     xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_enrollment", :id => @enrollment.id))
     item.categories.each do |cat|
-      xml.category cat.name
+      xml.tag!("dc:subject") do
+        xml.text! cat.name
+      end      
     end
-    xml.trackback request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => 'trackback', :id => item.id)
 
 
     begin

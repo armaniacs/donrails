@@ -17,6 +17,7 @@ xml.rss("version"=>"2.0") do
         xml.item do
           xml.title(item.title_to_xml)
           xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_enrollment", :id => item.enrollment_id))
+          xml.guid(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_enrollment", :id => item.enrollment_id))
           item.categories.each do |cat|
             xml.category cat.name
           end
