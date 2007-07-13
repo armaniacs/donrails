@@ -45,7 +45,7 @@ class DonAttachment < ActiveRecord::Base
     if params['join_article_ids']
       params['join_article_ids'].split(/\s+/).each do |article_id|
         join_article = Article.find(article_id)
-        self.articles.push_with_attributes(join_article)
+        DonaDaa.create(:article => join_article, :don_attachment => self)
       end
     end
 

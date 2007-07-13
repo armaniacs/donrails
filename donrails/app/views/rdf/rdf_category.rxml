@@ -1,5 +1,4 @@
-xml.instruct! :xml, :version=>"1.0", :encoding => "utf-8"
-xml.instruct! :rss, :version=>"1.0"
+rdf_parts10(xml)
 
 xml.tag!("rdf:RDF",
          "xmlns" => "http://purl.org/rss/1.0/",
@@ -10,15 +9,12 @@ xml.tag!("rdf:RDF",
          "xml:lang" => "ja") do
   xml.channel("rdf:about" => request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => 'show_category_noteslist', :id => @category.id)) do
 
-    xml.title don_get_config.rdf_title
-    xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_category_noteslist", :id => @category.id))
-    xml.description don_get_config.rdf_description
+    rdf_parts21(xml, @category, "show_category_noteslist")
 
     xml.items do    
       xml.tag!("rdf:Seq") do
         for item in @recent_articles
-          xml.rdf(:li, "rdf:resource"=> "#{request.protocol}#{request.host_with_port}#{url_for(:controller => 'notes', :action => "show_title", :id => item.id)}")
-
+          rdf_parts23(xml, item, "show_title")
         end
       end
     end
@@ -26,43 +22,9 @@ xml.tag!("rdf:RDF",
 
   for i in @recent_articles
     item = don_get_object(i, 'xml')
+    xml.comment!(item.format)
     xml.item("rdf:about" => request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_title", :id => item.id)) do
-      xml.title(item.title_to_xml)
-      xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_title", :id => item.id))
-      item.categories.each do |cat|
-        xml.tag!("dc:subject") do
-          xml.text! cat.name
-        end
-      end
-
-      begin
-        ce = item.body_to_xml
-        if ce =~ (/^<html xmlns='http:\/\/www.w3.org\/1999\/xhtml'><body>(.*)<\/body><\/html>$/m)
-          ce = $1
-        end    
-        if ce =~ (/<content>(.*)<\/content>/m)
-          ce = $1
-        end    
-        xml.tag!("description") do
-          xml << ce.gsub(/<\/?\w+(?:\s+[^>]*)*>/m, '')
-        end    
-        xml.tag!("content:encoded") do
-          xml.cdata! ce
-        end    
-      rescue
-        print "Error: #{$!} in #{item.id}\n"
-      end
-      if item.article_mtime
-        xml.tag!("dc:date") do
-          xml.text! "#{pub_date(item.article_mtime)}"
-        end
-      end
-
-      item.pictures.each do |pic|
-        tmpurl1 = request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_image", :id => pic.id)
-        xml.image(:item, "rdf:about"=> tmpurl1)
-      end
-
+      rdf_parts31(xml, item, "show_title")
     end
   end
 end

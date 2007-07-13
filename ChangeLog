@@ -1,4 +1,17 @@
+2007-07-13  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/rdf_helper.rb (RdfHelper::{rdf,rss2}_parts*): New method to share for rdf and rss.
+	* donrails/app/views/rdf/*.rxml: Change to use these.
+
 2007-07-12  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/models/don_attachment.rb (DonAttachment::update_attachment_attributes): Remove push_with_attributes. 
+
+	* donrails/app/controllers/admin/article_controller.rb: Cleanup.
+
+	* donrails/app/apis/movable_type_service.rb (MovableTypeService::setPostCategories): Remove push_with_attributes. 
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::bind_article_category): Remove push_with_attributes.
 
 	* donrails/app/views/rdf/rdf_enrollment.rxml: likewise.
 

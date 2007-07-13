@@ -112,7 +112,7 @@ class MovableTypeService < DonWebService
     for c in categories
       begin
         category = Category.find(c['categoryId'])
-        article.categories.push_with_attributes(category)
+        DonaCa.create(:article => article, :category => category)
       rescue
       end
     end

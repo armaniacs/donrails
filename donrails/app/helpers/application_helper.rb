@@ -149,11 +149,11 @@ module ApplicationHelper
     cat1.each do |cat|
       aris3 = Category.find(:first, :conditions => ["name = ?", cat])
       if aris3
-        article.categories.push_with_attributes(aris3)
+        DonaCa.create(:article => article, :category => aris3)
       else
         aris2 = Category.new("name" => cat)
         aris2.save
-        article.categories.push_with_attributes(aris2)
+        DonaCa.create(:article => article, :category => aris2)
       end
     end
   end
