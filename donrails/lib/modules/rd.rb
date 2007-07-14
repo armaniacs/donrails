@@ -11,6 +11,19 @@
 require 'rd/rdfmt'
 require 'rd/rd2html-lib'
 
+pt = nil
+begin
+  require 'hpricot'
+  pt = 'hpricot'
+rescue Exception
+  begin
+    require 'htree'
+    pt = 'htree'
+  rescue Exception
+    raise 
+  end
+end
+raise unless pt 
 
 module DonRails
 
@@ -79,8 +92,12 @@ module DonRails
     def body_to_xml
       begin
         bth = '<html><body>' + self.body_to_html + '</body></html>'
-        xml = HTree.parse(bth).to_rexml
-        return xml.to_s
+        if pt == 'hpricot'
+          return Hpricot.XML(bth)
+        elsif pt == 'htree'
+          xml = HTree.parse(bth).to_rexml
+          return xml.to_s
+        end
       rescue
         p $!
         return self.body_to_html

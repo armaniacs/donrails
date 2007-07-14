@@ -1,3 +1,12 @@
+2007-07-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/unit/don_ping_test.rb: Add to use Hpricot not to depend Htree.
+	* donrails/lib/modules/moinmoin.rb (DonRails::Moinmoin::body_to_xml): likewise.
+	* donrails/lib/modules/html.rb (DonRails::HTML::body_to_xml): likewise.
+	* donrails/lib/modules/rd.rb (DonRails::RD::body_to_xml): likewise.
+	* donrails/lib/modules/wiliki.rb (DonRails::Wiliki::body_to_xml): likewise.
+	* donrails/lib/modules/hnf.rb (DonRails::HNF::body_to_xml): likewise.
+
 2007-07-13  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/helpers/rdf_helper.rb (RdfHelper::{rdf,rss2}_parts*): New method to share for rdf and rss.

@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 require 'rexml/document'
 require 'htree'
+require 'hpricot'
 
 class DonPingTest < Test::Unit::TestCase
   fixtures :don_pings, :articles, :categories, :dona_cas 
@@ -30,6 +31,9 @@ class DonPingTest < Test::Unit::TestCase
     xml = HTree.parse(rbody).to_rexml
 
     assert_equal('0', xml.elements['methodResponse/params/param/value/struct/member/value/boolean'].text)
+
+    doc = Hpricot(rbody)
+    assert_equal('0', (doc/"methodresponse/params/value/struct/member/value/boolean").inner_text)
   end
 
   def test_send_ping_xmlrpc
