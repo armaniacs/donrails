@@ -87,7 +87,11 @@ class BloggerService < DonWebService
     article.save
     if categories
       categories.split(",").each do |c|
-        article.categories << Category.find_by_name(c.strip) rescue nil
+        begin
+          category = Category.find_by_name(c.strip)
+          DonaCa.create(:article => article, :category => category)
+        rescue
+        end
       end
     end
     article.id

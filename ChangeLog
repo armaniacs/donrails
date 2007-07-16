@@ -1,3 +1,9 @@
+2007-07-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/apis/meta_weblog_service.rb (MetaWeblogService::editPost): Fix to apply has_many :through.
+	(MetaWeblogService::newPost): likewise.
+	* donrails/app/apis/blogger_service.rb (BloggerService::newPost): likewise.
+
 2007-07-14  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/unit/don_ping_test.rb: Add to use Hpricot not to depend Htree.

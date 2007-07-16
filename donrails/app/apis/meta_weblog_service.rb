@@ -110,7 +110,9 @@ class MetaWeblogService < DonWebService
     if struct['categories']
       article.categories.clear
       Category.find(:all).each do |c|
-        article.categories << c if struct['categories'].include?(c.name)
+        if struct['categories'].include?(c.name)
+          DonaCa.create(:article => article, :category => c)
+        end
       end
     end
 
@@ -143,7 +145,9 @@ class MetaWeblogService < DonWebService
     if struct['categories']
       article.categories.clear
       Category.find(:all).each do |c|
-        article.categories << c if struct['categories'].include?(c.name)
+        if struct['categories'].include?(c.name)
+          DonaCa.create(:article => article, :category => c)
+        end
       end
     end
     article.save
