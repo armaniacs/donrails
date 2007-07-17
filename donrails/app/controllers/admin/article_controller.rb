@@ -18,6 +18,7 @@ class Admin::ArticleController < AdminController
 
 
   def form_article
+    @dgc = @@dgc
     if params['pickid'] 
       begin
         @article = Article.find(params['pickid'].to_i)

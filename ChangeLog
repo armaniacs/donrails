@@ -1,5 +1,7 @@
 2007-07-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/controllers/admin/article_controller.rb (Admin::form_article): Small fix. (issue #57)
+
 	* donrails/app/apis/meta_weblog_service.rb (MetaWeblogService::editPost): Fix to apply has_many :through.
 	(MetaWeblogService::newPost): likewise.
 	* donrails/app/apis/blogger_service.rb (BloggerService::newPost): likewise.
