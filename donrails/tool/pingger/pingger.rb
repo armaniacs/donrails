@@ -151,7 +151,7 @@ class Pingger
     if @force
       pings = DonPing.find(:all, :limit => @numbers,:order => "id DESC")
     elsif @defer_seconds
-      pings = DonPing.find(:all, :conditions => ["counter = 0 OR (counter < 10 AND created_at + ? * POW(2, counter) < NOW() AND ( send_at IS NULL OR NOT status = 'success' ))", @defer_seconds],
+      pings = DonPing.find(:all, :conditions => ["counter = 0 OR (counter < 10 AND created_at + INTERVAL '?' * POW(2, counter) SECOND < NOW() AND ( send_at IS NULL OR NOT status = 'success' ))", @defer_seconds],
                            :limit => @numbers,
                            :order => "id DESC"
                            )

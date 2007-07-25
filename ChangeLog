@@ -1,5 +1,9 @@
 2007-07-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/tool/pingger/pingger.rb (Pingger::async_send): Fix to use with both PostgreSQL and MySQL. (issue #60)
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_categories_roots_ul): remove entry number of article in category. 
+
 	* donrails/app/controllers/application.rb (ApplicationController): Prevent passord to write in log.(issue #59)
 
 2007-07-17  ARAKI Yasuhiro  <yasu@debian.or.jp>
