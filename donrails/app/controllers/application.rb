@@ -8,6 +8,7 @@ require 'stringio'
 require 'zlib' 
 
 class ApplicationController < ActionController::Base
+  filter_parameter_logging :nz
 
   # magic for initilization 
   class << self
