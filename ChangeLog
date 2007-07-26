@@ -1,3 +1,9 @@
+2007-07-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_categories): Fix: link url.
+
+	* donrails/app/models/article.rb (DonaCa): Fix: dupluicate category and article association. (issue #58)
+
 2007-07-25  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/tool/pingger/pingger.rb (Pingger::async_send): Fix to use with both PostgreSQL and MySQL. (issue #60)
