@@ -1,5 +1,13 @@
 2007-07-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
+	* donrails/app/models/dona_daa.rb (DonaDaa): New file. (port from article.rb)
+	* donrails/app/models/dona_ca.rb (DonaCa): New file. (port from article.rb)
+	* donrails/app/models/article.rb: change for this.
+
+	* donrails/app/controllers/application.rb (ApplicationController::authorize): Fix to show old notice message.
+
+	* donrails/app/models/article.rb (DonaDaa): Add validates_uniqueness_of to prepend duplicate entry. And cleanup.
+
 	* donrails/test/integration/browse_story_test.rb (BrowseStoryTest::test_fromtop): Small fix.
 
 	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_notes): Fix for cleaning wrong path.

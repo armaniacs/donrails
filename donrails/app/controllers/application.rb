@@ -216,6 +216,8 @@ class ApplicationController < ActionController::Base
   protected
   def authorize
     flash.keep
+    flash[:note] = ''
+    flash[:note2] = ''
     if request.env['PATH_INFO'] 
       flash[:op] = request.env['PATH_INFO'] 
     elsif request.env['REQUEST_URI']
