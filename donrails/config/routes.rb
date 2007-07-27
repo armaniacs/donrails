@@ -89,10 +89,15 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect "archives/category/:category", 
   :controller => "notes", 
-  :action => "show_category", :category => /\w+(\.html)?/, :page => '1'
+  :action => "show_category", 
+  :requirements => {:category => /\w+/}, 
+  :page => '1'
+#  :action => "show_category", :category => /\w+(\.html)?/, :page => '1'
+
   map.connect "archives/category/:category/page/:page", 
   :controller => "notes", 
-  :action => "show_category", :category => /\w+/, :page => /\d+/
+  :action => "show_category", :requirements => {:category => /\w+/}, 
+  :page => /\d+/
 
   map.connect "archives/:nums", :controller => "notes", 
   :action => "parse_nums",

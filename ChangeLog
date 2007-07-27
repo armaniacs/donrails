@@ -1,3 +1,15 @@
+2007-07-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/integration/browse_story_test.rb (BrowseStoryTest::test_fromtop): Small fix.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_notes): Fix for cleaning wrong path.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::recent_trigger_title_a): Fix error for no articles.
+
+	* donrails/app/models/article_sweeper.rb (ArticleSweeper::ep_atom): Fix for cleaning wrong path.
+	(ArticleSweeper::ep_trigger_title_a): likewise.
+	* donrails/test/integration/cache_test.rb (CacheTest::test_caching_notes): Add test for it.
+
 2007-07-26  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_article_categories): Fix: link url.

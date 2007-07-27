@@ -69,8 +69,14 @@ class CacheTest < ActionController::IntegrationTest
     assert_cache_pages('/archives/1999/1', '/archives/1999/1/1')
     assert_cache_pages('/archives/every_year/1/1')
 
-#    assert_cache_pages('/archives/show_category_noteslist/misc')
-#    assert_cache_pages('/archives/category_articles/1')
+    assert_cache_pages('/archives/show_category_noteslist/misc')
+    assert_cache_pages('/archives/category_articles/1')
+
+    assert_cache_pages('/archives/recent_trigger_title_a',
+                       '/archives/recent_trigger_title_a/recents',
+                       '/archives/recent_trigger_title_a/trackbacks',
+                       '/archives/recent_trigger_title_a/comments',
+                       '/archives/recent_trigger_title_a/long')
 
     assert_expire_pages('/archives/id/1', 
                         '/archives/pick_article/1',
@@ -78,13 +84,11 @@ class CacheTest < ActionController::IntegrationTest
                         '/archives/noteslist',
                         '/archives/recent_category_title_a',
 
-                        # /archives/rdf_category?category=misc.html
-                        # /archives/show_category?category=misc.html
-                        # /archives/show_category_noteslist?category=misc.html
-                        #'/archives/show_category_noteslist/misc',
-                        # /archives/rdf_category?category=misc2.html
-                        # /archives/show_category?category=misc2.html
-                        # /archives/show_category_noteslist?category=misc2.html
+                        '/archives/recent_trigger_title_a',
+                        '/archives/recent_trigger_title_a/recents',
+                        '/archives/recent_trigger_title_a/trackbacks',
+                        '/archives/recent_trigger_title_a/comments',
+                        '/archives/recent_trigger_title_a/long',
 
                         '/rdf/rdf_recent/feed.xml',
                         '/archives/articles_long',
@@ -109,6 +113,25 @@ class CacheTest < ActionController::IntegrationTest
     follow_redirect!
     assert_equal '/archives/id/1', path    
 #    assert_cache_pages('/rdf/rdf_category/misc/feed.xml')
+  end
+
+
+  def test_caching_notes_scn
+    assert_cache_pages('/archives/show_category_noteslist/misc')
+    assert_cache_pages('/archives/category_articles/1')
+
+    assert_expire_pages(
+                        '/archives/category_articles/1',
+                        '/archives/show_category_noteslist/misc/page/1'
+                        ) do |*urls|
+      c = {"author" => "testauthor", "password" => "hoge5", 
+        "url" => "http://localhost/test.html", 
+        "title" => "testtitle", 
+        "body" => "testbody in cache_test", "article_id" => 1}
+      post '/archives/add_comment2', :comment => c, :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
+    end
+    follow_redirect!
+    assert_equal '/archives/id/1', path    
   end
 
 end

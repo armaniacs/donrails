@@ -236,8 +236,10 @@ class NotesController < ApplicationController
     elsif params['trigger'] == 'long'
       @articles = Article.find(:all, :order => "size DESC", :limit => 10, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     end
-    unless @articles.empty? then
-      @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
+    if @articles
+      unless @articles.empty? then
+        @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
+      end
     end
   end
 

@@ -129,101 +129,25 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
     clall = Category.find(:all)
     clall.each do |rc|
-      expire_page(:controller => '/notes', :action => %w(show_category show_category_noteslist) , :category => rc.name)
-      expire_page(:controller => '/notes', :action => %w(show_category show_category_noteslist) , :id => rc.id)
-      expire_page(:controller => '/rdf', :action => %w(rdf_category rss2_category) , :category => rc.name)
-
-      begin
-        ppdir = RAILS_ROOT + "/public/rdf/rdf_category/#{rc.name}/page"
-        ppdir2 = Dir.entries(ppdir)
-        ppdir2.each do |x|
-          if x =~ /(\d+)/
-            expire_page(:controller => '/rdf', :action => 'rdf_category', :page => $1, :category => rc.name)
-          end
-        end
-      rescue Errno::ENOENT
-      rescue
-        p $!
+      pagemaxnum = rc.articles.size / 30 + 1
+      for i in 1..pagemaxnum
+        expire_page(:controller => '/notes', :action => %w(show_category show_category_noteslist) , :category => rc.name, :page => i)
+        expire_page(:controller => '/notes', :action => %w(show_category show_category_noteslist) , :id => rc.id, :page => i)
+        expire_page(:controller => '/rdf', :action => %w(rdf_category rss2_category) , :category => rc.name, :page => i)
       end
-
-      begin
-        ppdir = RAILS_ROOT + "/public/rdf/rss2_category/#{rc.name}/page"
-        ppdir2 = Dir.entries(ppdir)
-        ppdir2.each do |x|
-          if x =~ /(\d+)/
-            expire_page(:controller => '/notes', :action => 'rss2_category', :page => $1, :category => rc.name)
-          end
-        end
-      rescue Errno::ENOENT
-      rescue
-        p $!
-      end
-
-      begin
-        ppdir = RAILS_ROOT + "/public/archives/category/#{rc.name}/page"
-        ppdir2 = Dir.entries(ppdir)
-        ppdir2.each do |x|
-          if x =~ /(\d+)/
-            expire_page(:controller => 'notes', :action => 'category', :page => $1, :category => rc.name)
-          end
-        end
-      rescue Errno::ENOENT
-      rescue 
-        p $!
-      end
-
-      begin
-        ppdir = RAILS_ROOT + "/public/archives/show_category/#{rc.id}/page"
-        ppdir2 = Dir.entries(ppdir)
-        ppdir2.each do |x|
-          if x =~ /(\d+)/
-            expire_page(:controller => 'notes', :action => 'show_category', :page => $1, :id => rc.id)
-          end
-        end
-      rescue Errno::ENOENT
-      rescue 
-        p $!
-      end
-
-      begin
-        ppdir = RAILS_ROOT + "/public/archives/show_category_noteslist/#{rc.name}/page"
-        ppdir2 = Dir.entries(ppdir)
-        ppdir2.each do |x|
-          if x =~ /(\d+)/
-            expire_page(:controller => 'notes', :action => 'show_category_noteslist', :page => $1, :category => rc.name)
-          end
-        end
-      rescue Errno::ENOENT
-      rescue 
-        p $!
-      end
-
-      begin
-        ppdir = RAILS_ROOT + "/public/archives/category_articles/#{rc.id}/page"
-        ppdir2 = Dir.entries(ppdir)
-        ppdir2.each do |x|
-          if x =~ /(\d+)/
-            expire_page(:controller => 'notes', :action => 'show_category_noteslist', :page => $1, :id => rc.id)
-          end
-        end
-      rescue Errno::ENOENT
-      rescue 
-        p $!
-      end
-
     end
 
   end
 
   def ep_atom(record)
-    expire_page(:controller => 'atom', :action => 'feed', :page => 1)
-    expire_page(:controller => 'atom', :action => 'feed', :aid => record.id)
+    expire_page(:controller => '/atom', :action => 'feed', :page => 1)
+    expire_page(:controller => '/atom', :action => 'feed', :aid => record.id)
     begin
       ppdir = RAILS_ROOT + "/public/atom/feed/page"
       ppdir2 = Dir.entries(ppdir)
       ppdir2.each do |x|
         if x =~ /^(\d+)/
-          expire_page(:controller => 'atom', :action => 'feed', :page => $1)
+          expire_page(:controller => '/atom', :action => 'feed', :page => $1)
         end
       end
     rescue Errno::ENOENT
@@ -233,13 +157,18 @@ class ArticleSweeper < ActionController::Caching::Sweeper
   end
 
   def ep_trigger_title_a
-    expire_page(:controller => 'notes', :action => 'recent_trigger_title_a')
+    expire_page(:controller => '/notes', :action => 'recent_trigger_title_a')
+    expire_page(:controller => '/notes', :action => 'recent_trigger_title_a', :trigger => 'recents')
+    expire_page(:controller => '/notes', :action => 'recent_trigger_title_a', :trigger => 'trackbacks')
+    expire_page(:controller => '/notes', :action => 'recent_trigger_title_a', :trigger => 'comments')
+    expire_page(:controller => '/notes', :action => 'recent_trigger_title_a', :trigger => 'long')
+
     begin
       ppdir = RAILS_ROOT + "/public/archives/recent_trigger_title_a"
       ppdir2 = Dir.entries(ppdir)
       ppdir2.each do |x|
         if x =~ /(\w+).html/
-          expire_page(:controller => 'notes', :action => 'recent_trigger_title_a', :trigger => $1)
+          expire_page(:controller => '/notes', :action => 'recent_trigger_title_a', :trigger => $1)
         end
       end
     rescue Errno::ENOENT

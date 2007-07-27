@@ -47,7 +47,7 @@ class BrowseStoryTest < ActionController::IntegrationTest
     get '/archives/category/misc'
     assert_equal 200, status
     get '/archives/category/misc.html'
-    assert_equal 200, status
+    assert_equal 302, status
 
     # GET /archives/category/misc/page/108?article_date=.html    
   end
