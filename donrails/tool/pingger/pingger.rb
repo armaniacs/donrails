@@ -114,12 +114,16 @@ conf = YAML::load(fconf)
 ActiveRecord::Base.establish_connection(conf["#{mode}"])
 
 class Article < ActiveRecord::Base
-  has_and_belongs_to_many :categories, :join_table => "categories_articles"
   belongs_to :enrollment
+  has_many :dona_cas
+  has_many :categories, :through => :dona_cas
 end
 class Category < ActiveRecord::Base
-  has_and_belongs_to_many :articles, :join_table => "categories_articles"
+  has_many :dona_cas
+  has_many :articles, :through => :dona_cas
 end
+require File.dirname(__FILE__) + '/../../../rails/app/models/dona_ca.rb'
+require File.dirname(__FILE__) + '/../../../rails/app/models/dona_daa.rb'
 require File.dirname(__FILE__) + '/../../../rails/app/models/don_ping.rb'
 require File.dirname(__FILE__) + '/../../../rails/app/models/don_env.rb'
 require File.dirname(__FILE__) + '/../../../rails/app/models/enrollment.rb'
@@ -172,6 +176,7 @@ class Pingger
       else
         ping.status = 'error'
         puts 'ping error'
+        puts rbody if @verbose
       end
       if rbody
         ping.response_body = rbody

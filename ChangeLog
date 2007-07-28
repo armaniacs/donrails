@@ -1,3 +1,9 @@
+2007-07-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/tool/pingger/pingger.rb 
+	(Article): Change to use dona_cas. (issue #61)
+	(Category): likewise.
+
 2007-07-27  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/app/models/dona_daa.rb (DonaDaa): New file. (port from article.rb)
