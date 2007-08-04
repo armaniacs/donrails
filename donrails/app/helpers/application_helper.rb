@@ -313,7 +313,7 @@ module ApplicationHelper
           content += '[' + link_to('管理', {:controller => 'admin/category', :action => :manage_category, :id => category.id}) + ']'
         end
 
-        # content += '(' + category.articles.size.to_s + ')'
+        content += '(' + category.articles.size.to_s + ')'
         content += display_categories_roots_ul(category.direct_children, manage)
         content += '</li>'
       end

@@ -82,8 +82,14 @@ class NotesController < ApplicationController
 
   def pick_article_a2
     headers["Content-Type"] = "text/html; charset=utf-8"
-    @article = Article.find(params['pickid'].to_i)
-    @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
+    if params[:pickid]
+      @article = Article.find(params['pickid'].to_i)
+      @lm = @article.article_mtime.gmtime if @article and @article.article_mtime
+    elsif params[:eid]
+      enrollment = Enrollment.find(params[:eid], :conditions => ["hidden IS NULL OR hidden = 0"])
+      @article = enrollment.articles.first
+    end
+
   end
 
   def comment_form_a

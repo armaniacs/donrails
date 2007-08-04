@@ -31,7 +31,7 @@ class Admin::CategoryControllerTest < Test::Unit::TestCase
     @request.session['person'] = 'ok'
     post :add_category
     assert_redirected_to :action => 'manage_category'
-    assert_nil flash[:note] 
+    assert_equal "", flash[:note] 
 
     post :add_category, :category => {:parent_name => 'misc', :name => 'misc child'}
     assert_redirected_to :action => 'manage_category'

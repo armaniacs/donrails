@@ -108,7 +108,11 @@ class NotesControllerTest < Test::Unit::TestCase
   def test_pick_article_a2
     get :pick_article_a2, :pickid => 1
     assert_response :success
+
+    get :pick_article_a2, :eid => 1
+    assert_response :success
   end
+
   def test_comment_form_a
     get :comment_form_a, :id => 1
     assert_response :success

@@ -1,3 +1,13 @@
+2007-08-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
+
+	* donrails/test/functional/admin/category_controller_test.rb (Admin::test_add_category): Small fix.
+
+	* donrails/app/controllers/notes_controller.rb (NotesController::pick_article_a2): Add feature to pick enrommented article by params[:eid].
+	* donrails/app/views/notes/show_category.rhtml: Change to use it. (fix issue #62).
+	* donrails/test/functional/notes_controller_test.rb (NotesControllerTest::test_pick_article_a2): Add test for it.
+
+	* donrails/app/helpers/application_helper.rb (ApplicationHelper::display_categories_roots_ul): Change to show article count.
+
 2007-07-28  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/tool/pingger/pingger.rb 

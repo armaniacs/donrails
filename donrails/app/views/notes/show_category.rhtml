@@ -33,7 +33,8 @@
   <dd>
     <div id="sc_ai_<%= art.id %>">
     <%= don_mb_truncate(btmp, 150) %>
-    <%= link_to_remote("続き", :update => "sc_ai_#{art.id}", :url => {:action => "pick_article_a2", :pickid => art.id}) %>
+    <%= link_to_remote("続き", :update => "sc_ai_#{art.id}", :url => {:action => "pick_article_a2", :eid => art.enrollment_id}) %>
+
     </div>
   </dd>
 <% end %>
