@@ -30,7 +30,7 @@
       (hidden)
       <% else %>normal
       <% end %>
-      [<%= link_to_remote("記事", :update => "ca", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.id }) %>]
+      [<%= link_to_remote("記事", :update => "ca", :url => {:controller => "/notes", :action => "pick_article_a", :pickid => co.id }) %>]
       [<%= link_to "修正", :action => "form_article", :pickid => co.id %>]
     </td>
     <td><%= co.id %></td>

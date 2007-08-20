@@ -53,7 +53,7 @@
     </td>
     <td>
       <% if co.article %>
-      <%= link_to_remote(co.article.id, :update => "trackback_ajax", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.article.id }) %>
+      <%= link_to_remote(co.article.id, :update => "trackback_ajax", :url => {:controller => "/notes", :action => "pick_article_a", :pickid => co.article.id }) %>
       <% else %>
       ---
       <% end %>

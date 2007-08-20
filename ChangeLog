@@ -1,3 +1,11 @@
+2007-08-21  ARAKI Yasuhiro  <ar@debian.org>
+
+	* donrails/app/views/admin/shared/table_article.rhtml: Fix link (fix issue #63)
+	* donrails/app/views/admin/shared/table_trackback.rhtml: likewise.
+	* donrails/app/views/admin/shared/table_comment.rhtml: likewise.
+
+	* donrails/app/views/admin/shared/upload_picture.rhtml: Fix link (fix issue #65)
+
 2007-08-04  ARAKI Yasuhiro  <yasu@debian.or.jp>
 
 	* donrails/test/functional/admin/category_controller_test.rb (Admin::test_add_category): Small fix.

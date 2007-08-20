@@ -26,7 +26,7 @@ hiddenが1のものを<%= link_to 'まとめて消去', {:action => 'delete_hidd
     <td><%= check_box "deleteid", co.id %></td>
     <td><% if co.hidden == 1 %>(hidden)<% else %>normal<% end %></td>
     <td>
-      <%= link_to_remote(co.article.id, :update => "comment_ajax", :url => {:controller => "notes", :action => "pick_article_a", :pickid => co.article.id }) if co.article %>
+      <%= link_to_remote(co.article.id, :update => "comment_ajax", :url => {:controller => "/notes", :action => "pick_article_a", :pickid => co.article.id }) if co.article %>
      </td>
      <td><%= co.password %></td>
      <td><%= don_mb_truncate(co.title) %></td>
