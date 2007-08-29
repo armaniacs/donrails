@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 NAME = donrails
-VERSION = 1.6.9.9
+VERSION = 1.7.0
 TESTDIR = '/tmp/.donrails'
 TARDIR = '/tmp/.donrails-tar'
 FULLDIR = '/tmp/.donrails-full'

@@ -1,3 +1,7 @@
+2007-08-29  ARAKI Yasuhiro  <ar@debian.org>
+
+	* Makefile: Release as donrails 1.7.0.
+
 2007-08-21  ARAKI Yasuhiro  <ar@debian.org>
 
 	* donrails/app/views/admin/shared/table_article.rhtml: Fix link (fix issue #63)
