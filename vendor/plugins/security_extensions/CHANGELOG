@@ -1,0 +1,7 @@
+*SVN*
+
+* Changed the way the plugin injects itself into Rails so as to do things the “Rails way”
+
+* Refactored security token generation for DRY and made it available as a helper method
+
+* Initial release
