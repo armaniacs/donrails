@@ -98,7 +98,7 @@ parser.each_option do |name, arg|
 end
 
 require 'xmlrpc/client'
-require File.dirname(__FILE__) + '/../../../rails/config/environment'
+require File.dirname(__FILE__) + '/../../../config/environment'
 
 if config != ''
   fconf = open(config, "r")
@@ -106,7 +106,7 @@ else
   begin
     fconf = open("#{ENV['HOME']}/.donrails/pingger.yml", "r")
   rescue
-    fconf = open("#{File.dirname(__FILE__)}/../../../rails/config/database.yml", "r")
+    fconf = open("#{File.dirname(__FILE__)}/../../../config/database.yml", "r")
   end
 end
 conf = YAML::load(fconf)
@@ -122,11 +122,11 @@ class Category < ActiveRecord::Base
   has_many :dona_cas
   has_many :articles, :through => :dona_cas
 end
-require File.dirname(__FILE__) + '/../../../rails/app/models/dona_ca.rb'
-require File.dirname(__FILE__) + '/../../../rails/app/models/dona_daa.rb'
-require File.dirname(__FILE__) + '/../../../rails/app/models/don_ping.rb'
-require File.dirname(__FILE__) + '/../../../rails/app/models/don_env.rb'
-require File.dirname(__FILE__) + '/../../../rails/app/models/enrollment.rb'
+require File.dirname(__FILE__) + '/../../../app/models/dona_ca.rb'
+require File.dirname(__FILE__) + '/../../../app/models/dona_daa.rb'
+require File.dirname(__FILE__) + '/../../../app/models/don_ping.rb'
+require File.dirname(__FILE__) + '/../../../app/models/don_env.rb'
+require File.dirname(__FILE__) + '/../../../app/models/enrollment.rb'
 def don_get_config
   DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
 end

@@ -41,15 +41,15 @@ SCRIPTNAME=update-custom.sh
 
 case "$1" in
     deploy)
-	cd custom/views && cp -rvi * $DONRAILS_DIR/rails/app/views
-	cd $DONRAILS_DIR/rails/app/views/notes && mkdir custom && cp -viu $DERIVED/*.rhtml custom
-	cd $DONRAILS_DIR/rails/app/views/shared && mkdir custom && cp -viu $DERIVED/*.rhtml custom
+	cd custom/views && cp -rvi * $DONRAILS_DIR/app/views
+	cd $DONRAILS_DIR/app/views/notes && mkdir custom && cp -viu $DERIVED/*.rhtml custom
+	cd $DONRAILS_DIR/app/views/shared && mkdir custom && cp -viu $DERIVED/*.rhtml custom
 	;;
     clean)
-	rm -rvf $DONRAILS_DIR/rails/app/views/{layouts,notes,shared}/custom
+	rm -rvf $DONRAILS_DIR/app/views/{layouts,notes,shared}/custom
 	;;
     collect)
-	cd custom/views/layouts/custom && cp -rviub $DONRAILS_DIR/rails/app/views/layouts/custom/*.rhtml .
+	cd custom/views/layouts/custom && cp -rviub $DONRAILS_DIR/app/views/layouts/custom/*.rhtml .
 	;;
     dist)
 	tar zcvf update-custom.tar.gz custom $SCRIPTNAME
