@@ -1,3 +1,7 @@
+2007-09-05  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/views/layouts/login.rhtml: Change to use javascript_include_tag :defaults.
+
 2007-09-03  ARAKI Yasuhiro  <ar@debian.org>
 
 	* donrails/tool/hnf2db.rb : Fix to use DonaCa.

@@ -1,0 +1,180 @@
+Index: donrails/app/helpers/application_helper.rb
+===================================================================
+--- donrails/app/helpers/application_helper.rb	(revision 177)
++++ donrails/app/helpers/application_helper.rb	(working copy)
+@@ -89,16 +89,8 @@
+   def don_get_theme(name)
+     theme = don_get_config.default_theme
+     theme = "default" if theme.empty?
+-    path = File.dirname(name)
+-    filename = File.basename(name)
+-
+-    if path && theme && filename
+-      return File.join(path, theme, filename)
+-    elsif path && filename
+-      return File.join(path, filename)
+-    elsif filename
+-      return File.join(filename)
+-    end
++    dirname, basename = File.split(name)
++    File.join(dirname, theme, basename)
+   end # def don_get_theme
+ 
+   def article_url(article, only_path = true)
+@@ -362,14 +354,33 @@
+     return content
+   end
+ 
+-  def display_article_attachments(article)
++  def display_attachment(atta, imgopts = {:size => '100', :align => 'right'})
++    if atta.format
++      format = atta.format
++    else
++      format = "picture"
++    end
++    render(:file => "shared/attachments/#{format}",
++            :locals => {"atta" => atta, "imgopts" => imgopts})
++  end
++
++  def display_attachment_inline(atta, imgopts = {:size => '100', :align => 'right'})
++    if atta.format
++      format = atta.format
++    else
++      format = "picture"
++    end
++    render(:file => "shared/attachments/#{format}_inline",
++           :locals => {"atta" => atta, "imgopts" => imgopts})
++  end
++
++  def display_article_attachments(article, imgopts = {:size => '100', :align => 'right', :exclude => []})
+     content = ''
+     article.don_attachments.each do |atta|
+-      if atta.format
+-        content += render("shared/attachments/#{atta.format}", "atta" => atta)
+-      else
+-        content += render("shared/attachments/picture", "atta" => atta)
+-      end
++      next if imgopts[:exclude].include?(atta.id)
++      tmp = imgopts.dup
++      tmp.delete(:exclude)
++      content << display_attachment(atta, tmp)
+     end
+     return content
+   end
+@@ -383,6 +394,65 @@
+     return content
+   end
+ 
++  def filter_article_title(text, attachments_array)
++      filter_article0(text, attachments_array)
++  end
++  def filter_article_body(text, attachments_array)
++      filter_article0(text, attachments_array)
++  end
++  def filter_article0(text, attachments_array)
++    ret = text
++    used_attachments = []
++    attachments_map = {}
++    attachments_array.each do |atta|
++      attachments_map[atta.id] = atta
++    end
++
++    ret = text.gsub(%r!<span([^>]*)(?:>(.*?)</span>|/>)!m) do
++      span_attrs = $1
++      span_text = $2 || ''
++      orig_text = $&
++
++      imgopts = {:class => 'attachment'}
++      unless span_text.empty?
++        imgopts[:title] = imgopts[:alt] = span_text
++      end
++
++      replaced = nil
++      span_attrs.scan(%r!(\w+)=(?:'([^']*)'|"([^"]*)")!) do
++        if $1.upcase == 'HREF'
++          link_text = ($2 || $3).strip
++          if %r!^donrails:(/)?(\d+)! =~ link_text
++            if $1
++              tid = $2.to_i
++              if attachments_map.include?(tid)
++                replaced =
++                  display_attachment_inline(attachments_map[tid],
++                                            imgopts) rescue nil
++                used_attachments << tid if replaced
++                break
++              end
++            else
++              tid = $2.to_i - 1
++              if attachments_array.include?(tid)
++                replaced =
++                  display_attachment_inline(attachments_map[tid],
++                                            imgopts) rescue nil
++                used_attachments << attachments_array[tid].id if replaced
++                break
++              end
++            end
++          end
++        end
++      end
++
++      replaced ? replaced.strip : orig_text
++    end
++
++    [ret, used_attachments.uniq]
++  end
++  private :filter_article0
++
+   def don_get_config
+     begin
+       de = DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
+Index: donrails/app/views/layouts/default/notes.rhtml
+===================================================================
+--- donrails/app/views/layouts/default/notes.rhtml	(revision 177)
++++ donrails/app/views/layouts/default/notes.rhtml	(working copy)
+@@ -2,7 +2,7 @@
+ <head>
+ 
+ <% if @rdf_category %>
+-<%= auto_discovery_link_tag(:rss, :controller => 'rdf', :action => 'rdf_category', :category => @rdf_category, :title => 'カテゴリ: ' + @rdf_category + ' 関連' %>
++<%= auto_discovery_link_tag(:rss, :controller => 'rdf', :action => 'rdf_category', :category => @rdf_category, :title => 'カテゴリ: ' + @rdf_category + ' 関連') %>
+ <%= auto_discovery_link_tag(:rss, :controller => 'rdf', :action => 'rss2_category', :category => @rdf_category, :title => '(RSS2.0)カテゴリ: ' + @rdf_category + ' 関連') %>
+ <% end %>
+ <% if @rdf_article %>
+Index: donrails/app/views/shared/attachments/picture.rhtml
+===================================================================
+--- donrails/app/views/shared/attachments/picture.rhtml	(revision 177)
++++ donrails/app/views/shared/attachments/picture.rhtml	(working copy)
+@@ -1,7 +1,7 @@
+ <% if atta.path
+      hoi = atta.path.split(%r!(?:^|/)public/!).last
+      rpath = "/" + hoi %>
+-<%= link_to(image_tag(rpath, :size => '100', :align => 'right'), rpath) %>
++<%= link_to(image_tag(rpath, imgopts), rpath) %>
+ <% end %>
+ 
+ 
+Index: donrails/app/views/notes/default/noteslist.rhtml
+===================================================================
+--- donrails/app/views/notes/default/noteslist.rhtml	(revision 177)
++++ donrails/app/views/notes/default/noteslist.rhtml	(working copy)
+@@ -44,12 +44,17 @@
+   <%= link_to "\##{an}", {:action => "show_title", :id => article.id} %>
+   <% end %>
+   <%= display_article_categories article %>
+-  <%= article.title_to_html %>
++  <% filtered_title, title_links = 
++        filter_article_title(article.title_to_html, article.don_attachments)
++     filtered_body, body_links = 
++        filter_article_title(article.body_to_html, article.don_attachments)
++  %>
++  <%= filtered_title %>
+ </div> <!-- end nnenhead -->
+ 
+ <div class="section">
+-  <%= display_article_attachments(article) %>
+-  <%= article.body_to_html %>
++  <%= display_article_attachments(article, :exclude => title_links | body_links, :class => 'extattachment') %>
++  <%= filtered_body %>
+   <%= render(don_get_theme("shared/comment2"), "article" => article) %>
+   <div class="nndate">
+     <%= render(don_get_theme("shared/authorhead"), "article" => article) %>

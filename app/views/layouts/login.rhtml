@@ -9,17 +9,11 @@
 <% if defined?(don_get_config.rdf_managingeditor) then %>
   <meta name="author" content="<%= don_get_config.rdf_managingeditor %>">
 <% end %>
-<%= stylesheet_link_tag "login" %>
-
-<%= javascript_include_tag "code-toggle-popup.js" %>
-<%= javascript_include_tag "prototype.js" %>
-<%= javascript_include_tag "effects" %>
-<%= javascript_include_tag "controls" %>
-
-<meta name="robots" content="noindex,nofollows">
-
-<title>login <%=h @heading %></title>
-
+  <%= stylesheet_link_tag "login" %>
+  <%= javascript_include_tag "code-toggle-popup.js" %>
+  <%= javascript_include_tag :defaults %>
+  <meta name="robots" content="noindex,nofollows">
+  <title>login <%=h @heading %></title>
 </head>
 
 <body>

@@ -12,6 +12,7 @@ class Article < ActiveRecord::Base
   has_many :don_attachments, :through => :dona_daas
 
   has_many :pictures, :through => :dona_daas, :class_name => "DonAttachment", :conditions => "format = 'picture'", :source => :don_attachment
+#  has_many :pictures, :through => :dona_daas, :class_name => "DonAttachment", :conditions => "articles.format = 'picture'", :source => :don_attachment
 
   has_many :don_pings, :order => "id ASC"
   has_many :trackbacks, :order => "id ASC"
