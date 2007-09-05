@@ -1,0 +1,46 @@
+== Installation and Setup
+
+Once you have extracted the files into the directory where you would like to
+install donrails.
+
+1. Create the MySQL/PostgreSQL/SQLite databases for your Web site. You only
+   need to create the "production" database, but you may also want to create
+   the "development" and "test" databases if you are developing extensions
+   or running tests.
+
+   for example:
+
+   % mysqladmin create donrails-trunk_production
+
+2. Edit config/database.yml to taste.
+   Please refer to config/database.example.yml
+
+3. Make database tables by rake task:
+
+   % rake db:migrate
+
+4. Start it like a normal Rails application. To test execute:
+
+   % script/server -e production
+
+5. Access to 'http://localhost:3000/admin/'.
+   At first, admin_user and admin_password are not set.
+   YOU MUST SET YOUR ADMIN_USER and ADMIN_PASSWORD.
+
+   These admin_user and admin_password are used for SYSTEM-WIDE
+   administaration.
+
+6. Access to 'http://localhost:3000/admin/system/manage_author' in order to
+   set for author's name, nickname and password.
+
+   These name, nickname and password are used at adding article.
+
+7. Access to 'http://localhost:3000/admin/article/new_article' in order to
+   add your article.
+
+8. Access to 'http://localhost:3000/archives/id/1'. 
+   Do you show your added article?
+
+9. Edit 'app/views/layouts/defaults/notes.rhtml'.
+
+
