@@ -1,3 +1,9 @@
+2007-09-06  ARAKI Yasuhiro  <ar@debian.org>
+
+	* donrails/README.cache.ja: add info of cache test plugin.
+	* donrails/INSTALL.ja: remove.
+	* donrails/README.3rdparty: remove.
+
 2007-09-05  ARAKI Yasuhiro  <ar@debian.org>
 
 	* INSTALL: New file.

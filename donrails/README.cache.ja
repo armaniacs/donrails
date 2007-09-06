@@ -23,9 +23,15 @@ webrickのlogのほうだけにアクセスlogが残ることで確認できま�
 
 のような設定をします。
 
-* apacheの場合
+* Cache Test Plugin でのテスト
 
-(未)
-
-* Cache Test Plugin
 http://www.cosinux.org/~dam/projects/page-cache-test/cache_test-0.2.tar.bz2
+で公開されているcache test pluginでcacheのテストを行っています。
+問題を発見した場合はおしえてください。
+
+なお、
+	$ rake
+もしくは
+	$ ruby test/integration/cache_test.rb 
+
+で、いつでもテストを行うことが可能です。
