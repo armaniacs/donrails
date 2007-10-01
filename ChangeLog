@@ -1,3 +1,7 @@
+2007-09-20  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/helpers/application_helper.rb (ApplicationHelper::don_get_config): Change dafault theme from 'default' to 'MT'.
+
 2007-09-06  ARAKI Yasuhiro  <ar@debian.org>
 
 	* donrails/README.cache.ja: add info of cache test plugin.

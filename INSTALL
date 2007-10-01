@@ -41,6 +41,6 @@ install donrails.
 8. Access to 'http://localhost:3000/archives/id/1'. 
    Do you show your added article?
 
-9. Edit 'app/views/layouts/defaults/notes.rhtml'.
+9. Change MT compatible theme.
 
 

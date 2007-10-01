@@ -89,7 +89,8 @@ module ApplicationHelper
   def don_get_theme(name)
     theme = don_get_config.default_theme
     if theme == nil || theme.empty?
-      theme = "default"
+#      theme = "default"
+      theme = "MT"
     end
 
     path = File.dirname(name)
@@ -412,7 +413,8 @@ module ApplicationHelper
     de.rdf_webmaster = RDF_WEBMASTER if defined?(RDF_WEBMASTER)
     de.baseurl = defined?(BASEURL) ? BASEURL : ''
     de.admin_mailadd = ADMIN_MAILADD if defined?(ADMIN_MAILADD)
-    de.default_theme = defined?(DEFAULT_THEME) ? DEFAULT_THEME : 'default'
+#    de.default_theme = defined?(DEFAULT_THEME) ? DEFAULT_THEME : 'default'
+    de.default_theme = defined?(DEFAULT_THEME) ? DEFAULT_THEME : 'MT'
     de.trackback_enable_time = TRACKBACK_ENABLE_TIME if defined?(TRACKBACK_ENABLE_TIME)
     return de
   end
