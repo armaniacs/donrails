@@ -42,8 +42,8 @@ SCRIPTNAME=update-custom.sh
 case "$1" in
     deploy)
 	cd custom/views && cp -rvi * $DONRAILS_DIR/app/views
-	cd $DONRAILS_DIR/app/views/notes && mkdir custom && cp -viu $DERIVED/*.rhtml custom
-	cd $DONRAILS_DIR/app/views/shared && mkdir custom && cp -viu $DERIVED/*.rhtml custom
+	cd $DONRAILS_DIR/app/views/notes && install -d custom && cp -viu $DERIVED/*.rhtml custom
+	cd $DONRAILS_DIR/app/views/shared && install -d custom && cp -viu $DERIVED/*.rhtml custom
 	;;
     clean)
 	rm -rvf $DONRAILS_DIR/app/views/{layouts,notes,shared}/custom
