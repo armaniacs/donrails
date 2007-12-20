@@ -13,9 +13,11 @@ class BrowseStoryTest < ActionController::IntegrationTest
     else
       get "/archives/index"
       assert_equal 200, status
+
+      get "/notes"
+      assert_equal 200, status
     end
-    get "/notes"
-    assert_equal 200, status
+
 
     get "/archives/search", :q => 'first body'
     assert_equal 200, status

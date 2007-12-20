@@ -59,6 +59,8 @@ end
 
 # Include your application configuration below
 require_dependency 'antispam'
+ADMIN_USER = 'testuser'
+ADMIN_PASSWORD = 'testpass'
 
 $KCODE = 'u'
 

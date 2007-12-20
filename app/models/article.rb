@@ -60,6 +60,7 @@ class Article < ActiveRecord::Base
     end
   end
 
+
   def send_pings2(articleurl, urllist)
     urllist.each do |url|
       begin

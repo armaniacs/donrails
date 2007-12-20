@@ -12,8 +12,15 @@ install donrails.
 
    % mysqladmin create donrails-trunk_production
 
-2. Edit config/database.yml to taste.
-   Please refer to config/database.example.yml
+2. Edit config/database.yml and environment.rb to fit your taste.
+   Please refer to config/database.example.yml and config/environment.example.rb.
+
+   ** IMPORTANT NOTICE **
+    You can set SYSTEM-WIDE password setting for donrails in config/environment.rb. Such as,
+
+    ADMIN_USER = 'testuser'
+    ADMIN_PASSWORD = 'testpass'
+
 
 3. Make database tables by rake task:
 

@@ -1,0 +1,9 @@
+--- 
+:backgroundrb: 
+  :ip: localhost
+  :port: 11006
+
+:schedules:
+  :pingger_worker:
+    :async_send:
+      :trigger_args: * */10 * * * * *

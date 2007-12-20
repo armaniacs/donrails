@@ -1,3 +1,20 @@
+2007-12-20  ARAKI Yasuhiro  <araki@araki.us>
+	
+	* doc/PinggerIntroduction.wiki: updated for BackgrounDRb Pinnger.
+	* INSTALL: add initial password setting in config/environment.rb
+	* config/environment.example.rb: add example of 'config/environment.rb'.
+
+2007-12-19  ARAKI Yasuhiro  <ar@debian.org>
+
+	* test/functional/notes_controller_test.rb (NotesControllerTest::test_index): Fix to use don_get_config.default_theme.
+	* test/integration/browse_story_test.rb (BrowseStoryTest::test_fromtop): 
+	* test/fixtures/don_envs.yml (first): Change default_theme to 'MT'.
+
+	* doc/HowToPrepare.wiki: add description for librd-ruby.
+
+	* vendor/plugins/backgroundrb: New svn:external entry to use backgroundrb.
+	* test/bdrb_test_helper.rb, script/backgroundrb, config/backgroundrb.yml, lib/workers: New file to use BackgounDRb for Pingger.
+
 2007-11-27  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/models/author.rb (Author::self.authenticate): Change for apply DEPRICATION on rails2.0

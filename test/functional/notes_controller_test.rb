@@ -83,7 +83,7 @@ class NotesControllerTest < Test::Unit::TestCase
 
 
   def test_index
-    if defined?(DEFAULT_THEME) and DEFAULT_THEME == 'MT'
+    if don_get_config.default_theme.to_s == 'MT' || (defined?(DEFAULT_THEME) && DEFAULT_THEME == 'MT')
     else
       get :index
       assert_response :success
