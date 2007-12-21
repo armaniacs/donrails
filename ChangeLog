@@ -1,5 +1,11 @@
 2007-12-22  ARAKI Yasuhiro  <ar@debian.org>
 
+	* doc/HowToRakeTest.wiki: New file.
+
+	* app/controllers/admin/article_controller.rb (Admin::add_article): Cleanup.
+
+	* test/functional/admin/article_controller_test.rb (Admin::test_add_article): Fix.
+
 	* app/views/shared/default/comment-enrollment.rhtml: add <br clear="all">
 	* app/views/shared/default/comment2.rhtml: add <br clear="all">
 

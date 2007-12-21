@@ -74,8 +74,8 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     :format => 'plain',
     :category => {:name => 'test misc'},
     :author => {:name => 'test author'}
-    assert_response 404
-#    assert_redirected_to :action => 'manage_article'
+
+    assert_redirected_to :action => 'manage_author'
 
     post :add_article, 
     :article => {:title => 'test add article title', :body => 'body and soul', :tburl => 'http://localhost:3000/notes/trackback/1'}, 
