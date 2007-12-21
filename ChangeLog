@@ -1,3 +1,8 @@
+2007-12-22  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/views/shared/default/comment-enrollment.rhtml: add <br clear="all">
+	* app/views/shared/default/comment2.rhtml: add <br clear="all">
+
 2007-12-21  ARAKI Yasuhiro  <araki@araki.us>
 
 	* doc/Ping.wiki: add example ping receiver URL.
