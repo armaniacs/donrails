@@ -1,3 +1,15 @@
+2007-12-21  ARAKI Yasuhiro  <araki@araki.us>
+
+	* doc/Ping.wiki: add example ping receiver URL.
+
+	* app/controllers/admin/article_controller.rb (Admin::add_article): When no author is defined, and redirect to manag_aurhor.
+	* app/views/layouts/login.rhtml: likewise.
+	* app/controllers/admin/system_controller.rb (Admin::manage_author): Fix to show flash['notice'].
+
+	* app/views/admin/shared/edit_don_env.rhtml: Add information to help initial-setup.
+
+	* app/views/help/first_setup.rhtml: Add information.
+
 2007-12-20  ARAKI Yasuhiro  <araki@araki.us>
 	
 	* doc/PinggerIntroduction.wiki: updated for BackgrounDRb Pinnger.

@@ -30,10 +30,10 @@ class Admin::SystemController < AdminController
 
   ## blogping
   def manage_blogping
-    if defined?(don_get_config.baseurl)
+    if defined?(don_get_config.baseurl) && don_get_config.baseurl.size >= 10
       flash[:note2] = 'BASEURL is ' + don_get_config.baseurl
     else
-      flash[:note2] = '現在Ping送信機能は無効です。baseurlを設定してください。'
+      flash[:note2] = '現在Ping送信機能は無効です。<a href="/admin/system/manage_don_env/">baseurlを設定</a>してください。'
     end
     @blogpings_pages, @blogpings = paginate(:blogping,:per_page => 30,:order => 'id DESC')
   end
@@ -83,6 +83,9 @@ class Admin::SystemController < AdminController
     end
     @authors_pages, @authors = paginate(:author, :per_page => 30,
                                           :order => 'id DESC')
+    if params[:notice]
+      flash["notice"] = params[:notice]
+    end
   end
 
   def delete_unwrite_author

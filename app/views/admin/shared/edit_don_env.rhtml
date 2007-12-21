@@ -2,21 +2,21 @@
 <%= hidden_field "donenv", "id" %><br>
 
 image_dump_path:<%= text_field "donenv", "image_dump_path" %> (例: public/images/dump/)<br>
-admin_user:<%= text_field "donenv", "admin_user" %><br>
-admin_password:<%= text_field "donenv", "admin_password" %><br>
-admin_mailadd:<%= text_field "donenv", "admin_mailadd" %><br>
-rdf_title:<%= text_field "donenv", "rdf_title" %><br>
-rdf_description:<%= text_field "donenv", "rdf_description" %><br>
-rdf_copyright:<%= text_field "donenv", "rdf_copyright" %><br>
-rdf_managingeditor:<%= text_field "donenv", "rdf_managingeditor" %><br>
-rdf_webmaster:<%= text_field "donenv", "rdf_webmaster" %><br>
-baseurl:<%= text_field "donenv", "baseurl" %><br>
-url_limit:<%= text_field "donenv", "url_limit" %><br>
+admin_user:<%= text_field "donenv", "admin_user" %>(例: testuser)<br>
+admin_password:<%= password_field "donenv", "admin_password" %>(例: testpass)<br>
+admin_mailadd:<%= text_field "donenv", "admin_mailadd" %>(例: donrails@example.com)<br>
+rdf_title:<%= text_field "donenv", "rdf_title" %>(RDFにつけるタイトル 例: へのへのもへじの日記<br>
+rdf_description:<%= text_field "donenv", "rdf_description" %>(RDFにつける詳細 例: へのへのもへじの日記は日々気づいたことを書いています<br>
+rdf_copyright:<%= text_field "donenv", "rdf_copyright" %>(RDFにつけるCopyright文 例: Copyright 2007 Henoheno moheji)<br>
+rdf_managingeditor:<%= text_field "donenv", "rdf_managingeditor" %>(日記の責任編集者の名前、メールアドレスなど 例: henoheno moheji donrails@example.com)<br>
+rdf_webmaster:<%= text_field "donenv", "rdf_webmaster" %>(日記のwebmaster 例: henoheno moheji donrails@example.com)<br>
+baseurl:<%= text_field "donenv", "baseurl" %>(donrailsのtop urlを指定。例: http://donrails.example.com/ )<br>
+url_limit:<%= text_field "donenv", "url_limit" %>(コメントに大量のurlリンクが記述されている時はspamと判断します。ここで指定した数字以上の場合にはspamとします)<br>
 
-default_theme:<%= text_field "donenv", "default_theme" %><br>
-trackback_enable_time:<%= text_field "donenv", "trackback_enable_time" %><br>
-akismet_key:<%= text_field "donenv", "akismet_key" %><br>
-notify_level:<%= text_field "donenv", "notify_level" %><br>
-ping_async:<%= text_field "donenv", "ping_async" %><br>
+default_theme:<%= text_field "donenv", "default_theme" %>(MovableType互換のテーマを使用するときは、MT を指定します)<br>
+trackback_enable_time:<%= text_field "donenv", "trackback_enable_time" %>(ここで指定された秒数よりも古い記事へのトラックバックを許可しません。 例: 864000)<br>
+akismet_key:<%= text_field "donenv", "akismet_key" %>(akismetによるspam退治に使用します)<br>
+notify_level:<%= text_field "donenv", "notify_level" %>(1にすると、コメントやトラックバックがあったときにメールします)<br>
+ping_async:<%= text_field "donenv", "ping_async" %>(1にすると、pingをバックグラウンドで創出します: <a href="http://code.google.com/p/donrails/wiki/PinggerIntroduction">詳細</a><br>
 <%= submit_tag "save" %>
 <% end %>

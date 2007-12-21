@@ -211,7 +211,8 @@ class Admin::ArticleController < AdminController
         author_name = params["author"]['name']
         author = Author.find(:first, :conditions => ["name = ?", author_name])
         if author == nil
-          render :text => 'Non-registered Author Name. Please submit this article after author registration.', :status => 404
+#          render :text => 'Non-registered Author Name. Please submit this article after author registration.', :status => 404
+          redirect_to :controller => '/admin/system', :action => :manage_author, :notice =>  'Non-registered Author Name. Please submit this article after author registration.'
           return
         end
       else

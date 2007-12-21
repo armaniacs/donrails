@@ -6,7 +6,7 @@
 <div class="notice">
   <%= flash[:note] %>
 </div>
-新規pingする先の追加
+新規pingする先の追加 (<a href="http://code.google.com/p/donrails/wiki/Ping">解説 </a>)
 <p>
 <% form_tag :action => "add_blogping" do hidden_field_tag("session_id_validation", security_token) -%>
 server_url:
@@ -14,7 +14,7 @@ server_url:
 <%= submit_tag "pingする先を追加する" %>
 <% end %>
 <p>
-(cf: http://feeds.feedburner.com/yourblogname)
+(cf: http://blogsearch.google.com/ping/RPC2)
 
 <hr>
 pingする先の管理(active=1の先は有効)

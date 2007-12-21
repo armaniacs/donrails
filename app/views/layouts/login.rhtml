@@ -48,6 +48,12 @@
 </div> <!-- end of class:head -->
 
 <div id="content">
+  <% if flash["notice"] %>
+  <span class="notice" %>
+  <%= flash["notice"] %>
+  </span>
+  <% end %>
+  
   <%= @content_for_layout %>
 </div> <!-- id:content -->
 </div> <!-- id:page -->

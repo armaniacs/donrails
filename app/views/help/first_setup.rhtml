@@ -11,4 +11,12 @@ ADMIN_USER = 'testuser'
 ADMIN_PASSWORD = 'testpass'
 </pre>
 
-などのように追加します。
+などのように追加します。追加が終了したら、そのuserとpassの組みを下のformに
+入れて初期設定(don_env management)に進んでください。
+</p>
+<p>
+初期設定では、ADMIN_USERおよびADMIN_PASSWORDとは別のuserおよびpasswordを指定します。安全のためこれらば別のものにすることをおすすめします。
+<br>
+一度初期設定が終了すれば
+config/environment.rb に設定した
+ADMIN_USER と ADMIN_PASSWORD は消してかまいません。
