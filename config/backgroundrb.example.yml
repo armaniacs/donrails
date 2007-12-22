@@ -2,6 +2,7 @@
 :backgroundrb: 
   :ip: localhost
   :port: 11006
+  :environment: production
 
 :schedules:
   :pingger_worker:
