@@ -4,6 +4,13 @@
 class PinggerWorker < BackgrounDRb::MetaWorker
   set_worker_name :pingger_worker
 
+  attr :verbose, true
+  attr :numbers, true
+  attr :defer_seconds, true
+  attr :unsave, true
+  attr :force, true
+  attr :type, true
+
   def create(args = nil)
     # this method is called, when worker is loaded for the first time
     @verbose = nil
@@ -30,7 +37,7 @@ class PinggerWorker < BackgrounDRb::MetaWorker
     end
     puts 'Number of ping(s) is ' + pings.length.to_s if @verbose
     pings.each do |ping|
-      pingok, rbody = ping.send_ping2a(type)
+      pingok, rbody = ping.send_ping2a(@type)
       ping.counter += 1
 
       if pingok

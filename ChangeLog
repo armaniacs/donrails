@@ -1,5 +1,7 @@
 2007-12-22  ARAKI Yasuhiro  <ar@debian.org>
 
+	* lib/workers/pingger_worker.rb (PinggerWorker::async_send): fix.
+
 	* doc/HowToRakeTest.wiki: New file.
 
 	* app/controllers/admin/article_controller.rb (Admin::add_article): Cleanup.
