@@ -1,3 +1,8 @@
+2007-12-23  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/models/author.rb (Author::self.authenticate): Fix error. Back to revision 305.		
+	- I know it causes "DEPRECATION WARNING: find_first is deprecated and will be removed from Rails 2.0".
+
 2007-12-22  ARAKI Yasuhiro  <ar@debian.org>
 
 	* lib/workers/pingger_worker.rb (PinggerWorker::async_send): fix.
