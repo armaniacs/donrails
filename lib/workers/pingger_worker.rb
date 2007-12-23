@@ -1,6 +1,3 @@
-#require 'xmlrpc/client'
-##require File.dirname(__FILE__) + '/../../app/models/don_ping'
-
 class PinggerWorker < BackgrounDRb::MetaWorker
   set_worker_name :pingger_worker
 
@@ -18,6 +15,7 @@ class PinggerWorker < BackgrounDRb::MetaWorker
     @force = nil
     @type = nil
     @numbers = 10
+    @defer_seconds = 600
     puts "Starting pingger_worker"
   end
 

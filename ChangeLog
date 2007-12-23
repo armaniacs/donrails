@@ -1,5 +1,7 @@
 2007-12-23  ARAKI Yasuhiro  <ar@debian.org>
 
+	* lib/workers/pingger_worker.rb (PinggerWorker::create): Fix to use defer_seconds
+
 	* app/models/author.rb (Author::self.authenticate): Fix error. Back to revision 305.		
 	- I know it causes "DEPRECATION WARNING: find_first is deprecated and will be removed from Rails 2.0".
 
