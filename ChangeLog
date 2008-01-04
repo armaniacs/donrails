@@ -1,3 +1,7 @@
+2008-01-04  ARAKI Yasuhiro  <ar@debian.org>
+
+	* doc/InstallByFulldist.wiki: Copy from ../INSTALL.
+
 2007-12-25  ARAKI Yasuhiro  <ar@debian.org>
 
 	* test/unit/author_test.rb (AuthorTest::test_authenticate): New test method.
