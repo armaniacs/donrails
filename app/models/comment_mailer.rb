@@ -9,6 +9,7 @@ class CommentMailer < ActionMailer::Base
       article = ct.article
       cort = 'Comment'
       manage_action = 'manage_comment'
+      login_url_controller = 'admin/comment'
       hidden = ct.hidden
     when 'Trackback'
       comment = ct.excerpt
@@ -16,6 +17,7 @@ class CommentMailer < ActionMailer::Base
       article = ct.article
       cort = 'Trackback'
       manage_action = 'manage_trackback'
+      login_url_controller = 'admin/trackback'
       hidden = ct.hidden
     else
       return
@@ -51,12 +53,12 @@ class CommentMailer < ActionMailer::Base
       enrollment_url << 'show_enrollment'
       enrollment_url << article.enrollment_id.to_s
       login_url = baseurl.dup
-      login_url << 'login'
+      login_url << login_url_controller
       login_url << manage_action
     else
       url = ['(Please set BASEURL)', 'archives', 'show_title', article.id.to_s]
       enrollment_url = ['(Please set BASEURL)', 'archives', 'show_enrollment', article.id.to_s]
-      login_url = ['(Please set BASEURL)', 'login', 'manage_article']
+      login_url = ['(Please set BASEURL)', 'admin/article', 'manage_article']
     end
 
     recipients recipient

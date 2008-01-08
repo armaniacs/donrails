@@ -1,5 +1,7 @@
 2008-01-08  ARAKI Yasuhiro  <ar@debian.org>
 
+	* app/models/comment_mailer.rb (CommentMailer::notify): Fix to link HTML URL. (fix issue #66)
+
 	* app/views/atom/feed.rxml: Fix to link HTML URL.(fix issue #67)
 
 2008-01-04  ARAKI Yasuhiro  <ar@debian.org>
