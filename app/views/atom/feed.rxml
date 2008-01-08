@@ -17,6 +17,7 @@ xml.feed("xmlns" => "http://www.w3.org/2005/Atom") do
   else
     xml.link("type" => "text/html", "rel" => "alternate", "href" => request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "noteslist"), "title" => don_get_config.rdf_title)
   end
+
   xml.link("type" => "application/atom+xml", "rel" => "service.post", "href" => request.protocol + request.host_with_port + url_for(:action => "post"), "title" => don_get_config.rdf_title)
 
   xml.link("type" => "application/atom+xml", "rel" => "start", "href" => request.protocol + request.host_with_port + url_for(:action => "feed", :aid => @articles.first.id.to_s), "title" => don_get_config.rdf_title)
@@ -35,7 +36,7 @@ xml.feed("xmlns" => "http://www.w3.org/2005/Atom") do
       xml.title article.title_to_html
       xml.link("type" => "text/html",
                "rel" => "alternate", 
-               "href" => request.protocol + request.host_with_port + url_for(:action => "feed", :aid => article.id))
+               "href" => request.protocol + request.host_with_port + url_for(:action => :show_title, :controller => :notes, :id => article.id))
       xml.link("type" => "application/atom+xml",
                "rel" => "service.edit",
                "href" => request.protocol + request.host_with_port + url_for(:action => "edit", :id => article.id),

@@ -1,3 +1,7 @@
+2008-01-08  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/views/atom/feed.rxml: Fix to link HTML URL.(fix issue #67)
+
 2008-01-04  ARAKI Yasuhiro  <ar@debian.org>
 
 	* doc/InstallByFulldist.wiki: Copy from ../INSTALL.
