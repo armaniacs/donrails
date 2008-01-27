@@ -1,3 +1,19 @@
+2008-01-27  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/views/admin/system/manage_don_env.rhtml: Add 'add_clips_id' and 'default_format'.
+	* app/views/shared/default/comment2.rhtml: likewise.
+	* app/views/shared/default/comment-enrollment.rhtml: likewise. 
+	* app/controllers/admin/system_controller.rb (Admin::add_don_env): likewise.
+	* app/views/admin/shared/edit_don_env.rhtml (default_format): likewise.
+
+	* db/migrate/003_add_clips_id.rb (AddClipsId): new file.
+
+	* app/controllers/admin/article_controller.rb (Admin::new_article): Change to set default format by DonEnv.default_format.
+
+2008-01-26  ARAKI Yasuhiro  <ar@debian.org>
+
+	* doc/HowToLogrotate.wiki: New file.
+
 2008-01-08  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/models/comment_mailer.rb (CommentMailer::notify): Fix to link HTML URL. (fix issue #66)

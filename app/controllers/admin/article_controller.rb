@@ -9,7 +9,9 @@ class Admin::ArticleController < AdminController
       retval = []
     end
     @dgc = @@dgc
-    if retval.nil? || retval.empty? then
+    if @dgc.default_format
+      @defaultformat = @dgc.default_format
+    elsif retval.nil? || retval.empty? then
       @defaultformat = 'plain'
     else
       @defaultformat = retval[0].format
