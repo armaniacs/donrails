@@ -37,9 +37,15 @@
         <div id="pagebody-inner" class="pkg">
 	  <div id="alpha">
 	    <div id="alpha-inner" class="pkg">
-	      <%= render(don_get_theme("shared/pagelink"), {"pages" => @articles_pages,
+	      <!-- %= render(don_get_theme("shared/pagelink"), {"pages" => @articles_pages,
 	                                                    "lastarticle" => ((defined?(@enrollment_l) && !@enrollment_l.nil?) ? don_get_object(@enrollment_l.articles.first, 'html') : nil),
-	                                                    "nextarticle" => ((defined?(@enrollment_r) && !@enrollment_r.nil?) ? don_get_object(@enrollment_r.articles.first, 'html') : nil)}) %>
+	                                                    "nextarticle" => ((defined?(@enrollment_r) && !@enrollment_r.nil?) ? don_get_object(@enrollment_r.articles.first, 'html') : nil)}) % -->
+	      <% begin %>
+	      <%= will_paginate @articles %>
+	      <% rescue %>
+	      <!-- only one page -->
+	      <% end %>
+
 	      <%= @content_for_layout %>
 	    </div><!-- the end of 'alpha-inner' -->
 	  </div><!-- the end of 'alpha' -->

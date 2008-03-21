@@ -1,3 +1,5 @@
+## TODO: migrate classic_pagination to will_pagenate
+
 require 'kconv'
 class NotesController < ApplicationController
 
@@ -55,7 +57,7 @@ class NotesController < ApplicationController
     search
     @rdf_category = params['q']
     @heading = "検索結果:#{params['q']}"
-    render_action(don_get_theme('noteslist'))
+    render :action => don_get_theme('noteslist')
   end
 
   def pick_trackback_a
@@ -105,21 +107,30 @@ class NotesController < ApplicationController
   end
 
   def articles_long
-    @articles_pages, @articles = paginate(:article, :per_page => 10,
+#    @articles_pages, @articles = paginate(:article, :per_page => 10,
+#                                          :order => 'size DESC, id DESC',
+#					  :conditions => ["hidden IS NULL OR hidden = 0"]
+#                                          )
+    @articles = Article.paginate(:page => params[:page], :per_page => 10,
                                           :order => 'size DESC, id DESC',
 					  :conditions => ["hidden IS NULL OR hidden = 0"]
                                           )
+
     @heading = "記事サイズ順の表示"
     @noindex = true
     unless @articles.empty? then
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
     end
-    render_action(don_get_theme('noteslist'))
+    render :action => don_get_theme('noteslist')
   end
 
   def articles_author
     begin
-      @articles_pages, @articles = paginate(:article, :per_page => 10,
+#       @articles_pages, @articles = paginate(:article, :per_page => 10,
+#                                             :order => 'id DESC',
+#                                             :conditions => ["author_id = ? AND ( hidden IS NULL OR hidden = 0 )", params['id']]
+#                                             )
+      @articles = Article.paginate(:page => params[:page], :per_page => 10,
                                             :order => 'id DESC',
                                             :conditions => ["author_id = ? AND ( hidden IS NULL OR hidden = 0 )", params['id']]
                                             )
@@ -133,7 +144,7 @@ class NotesController < ApplicationController
         unless @articles.empty? then
           @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
         end
-        render_action(don_get_theme('noteslist'))
+        render :action => don_get_theme('noteslist')
       end
     rescue
       render :text => 'no entry', :status => 404
@@ -155,11 +166,10 @@ class NotesController < ApplicationController
 
   def noteslist
     minTime = nil
-    @articles_pages, 
-    @articles = paginate(:article, :per_page => 30,
-                         :order => 'article_date DESC, id DESC',
-			 :conditions => ["hidden IS NULL OR hidden = 0"]
-                         )
+#    @articles_pages, 
+#    @articles = paginate(:article, :per_page => 30,:order => 'article_date DESC, id DESC', :conditions => ["hidden IS NULL OR hidden = 0"])
+    @articles = Article.paginate(:page => params[:page], :order => 'article_date DESC, id DESC', :conditions => ["hidden IS NULL OR hidden = 0"])
+
 
     unless @articles.empty?
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
@@ -174,7 +184,7 @@ class NotesController < ApplicationController
 
     if minTime and @lm <= minTime
       # use cached version
-      render_text '', '304 Not Modified'
+      render :text => '304 Not Modified', :status => 304
     else
       if @articles.empty? then
         @heading = ""
@@ -184,7 +194,7 @@ class NotesController < ApplicationController
       end
       @notice = params['notice'] unless @notice
     end
-    render_action(don_get_theme('noteslist'))
+    render :action => don_get_theme('noteslist')
   end
 
 
@@ -279,21 +289,24 @@ class NotesController < ApplicationController
       get_ymd
       if @ymd and @ymd31a
         @articles =  Article.find(:all, :conditions => ["article_date >= ? AND article_date < ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @ymd, @ymd31a])
-      else
-        render_text "no article", 404
-      end
-      if @articles and @articles.empty? then
-        render_text "no article", 404
-      else
-        @heading = "#{@articles.first.article_date.to_date} - #{@articles.last.article_date.to_date}"
-        @noindex = true
-        unless @articles.empty?
-          @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
+
+        if @articles and @articles.empty? then
+          render :text => "no article", :status => 404
+        else
+          @heading = "#{@articles.first.article_date.to_date} - #{@articles.last.article_date.to_date}"
+          @noindex = true
+          unless @articles.empty?
+            @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
+          end
+          render :action => don_get_theme('noteslist')
         end
-        render_action(don_get_theme('noteslist'))
+      else
+        render :text => "no article", :status => 404
       end
+      
     rescue
-      render_text "no article", 404
+      logger.info $!
+      render :text => "no article", :status => 404
     end
   end
 
@@ -301,13 +314,14 @@ class NotesController < ApplicationController
     if (params["day"] and params["month"])
       ymdnow = convert_ymd("#{Time.now.year}-#{params["month"]}-#{params["day"]}")
     else
-      render_text "no article", 404
+      render :text => "no article", :status => 404
     end
     if ymdnow =~ /(\d\d\d\d)-(\d\d)-(\d\d)/
       t2 = Time.local($1,$2,$3)
     end
     t3 = t2
     @articles = Article.find(:all, :order => "id DESC", :conditions => ["article_date >= ? AND article_date < ? AND (articles.hidden IS NULL OR articles.hidden = 0)", t2, t2.tomorrow])
+
     for i in 1..10
       t2 = t2.last_year
       i += 1
@@ -318,11 +332,12 @@ class NotesController < ApplicationController
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
     end
     @noindex = true
+
     if @articles.empty?
-      render_text "no article", 404
+      render :text => "no article", :status => 404
     else
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
-      render_action(don_get_theme('noteslist'))
+      render :action => don_get_theme('noteslist')
     end
   end
 
@@ -341,8 +356,9 @@ class NotesController < ApplicationController
       unless @articles.empty?
         @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
       end
-      render_action(don_get_theme('noteslist'))
+      render :action => don_get_theme('noteslist')
     rescue
+      logger.info $!
       @notice = "正しく日付を指定してください" unless @notice
       redirect_to :action => 'noteslist', :notice => @notice
     end
@@ -390,11 +406,11 @@ class NotesController < ApplicationController
         redirect_to :action => 'show_enrollment', :id => a1.enrollment_id
         return
       rescue
-        render_text "no article", 404
+        render :text => "no article", :status => 404
         return
       end
     end
-    render_action(don_get_theme("show_title"))
+    render :action => don_get_theme("show_title")
   end
 
   def show_enrollment
@@ -413,10 +429,10 @@ class NotesController < ApplicationController
         @enrollment_r = nil
       end
     end
-    render_action(don_get_theme("show_enrollment"))
+    render :action => don_get_theme("show_enrollment")
   end
 
-  def show_category
+  def show_category_core
     begin
       if params[:id]
         @category = Category.find(params[:id])
@@ -428,33 +444,44 @@ class NotesController < ApplicationController
       end
 
       if @category and @category.id
-        @articles_pages, @articles = 
-          paginate(:article, 
-                   :order => 'articles.article_date DESC',
-                   :per_page => 30, 
-                   :join => "JOIN dona_cas on (dona_cas.article_id=articles.id AND dona_cas.category_id=#{@category.id})",
-                   :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
-                   )
+        @articles = Article.paginate(:page => params[:page],
+                                     :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"],
+                                     :joins => "JOIN dona_cas on (dona_cas.article_id=articles.id AND dona_cas.category_id=#{@category.id})",
+                                     :order => 'articles.article_date DESC'
+                                     )
+
         @heading = "カテゴリ:#{params['category']}"
         @heading += '(' + @category.articles.size.to_s + ')'
 
         unless @articles.empty? then
           @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
         end
-      else
-        render_text "no article", 404
       end
     rescue
-      render_text "no article", 404
+      logger.info $!
+    end
+  end
+
+  def show_category
+    show_category_core
+    if @articles && @category && @category.name
+      render :action => "show_category"
+    else
+      render :text => "no article", :status => 404
     end
   end
 
   def show_category_noteslist
     begin
-      show_category
-      render_action(don_get_theme('noteslist'))
+      show_category_core
+      if @articles
+        render :action => don_get_theme('noteslist')
+      else
+        render :text => "no article", :status => 404
+      end
     rescue
-      render_text "no article", 404
+      logger.info $!
+      render :text => "no article", :status => 404
     end
   end
 
@@ -471,12 +498,12 @@ class NotesController < ApplicationController
         unless @articles.empty?
           @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
         end
-        render_action(don_get_theme('noteslist'))
+        render :action => don_get_theme('noteslist')
       else
-        render_text "#{@ymd}以降に該当する記事はありません", 404
+        render :text => "#{@ymd}以降に該当する記事はありません", :status => 404
       end
     else
-      render_text "please select only one day", 404
+      render :text => "please select only one day", :status => 404
     end
   end
 
@@ -492,10 +519,10 @@ class NotesController < ApplicationController
       @heading = don_chomp_tags(a.title_to_html)
     
       @notice = "#{@articles.first.article_date.to_date} 以降の10日間の記事を表示します。"
-      render_action(don_get_theme('noteslist'))
+      render :action => don_get_theme('noteslist')
     else
       @notice = "正しく日付を指定してください" unless @notice
-      render_text "#{@ymd}以降に該当する記事はありません", 404
+      render :text => "#{@ymd}以降に該当する記事はありません", :status => 404
     end
   end
 
@@ -548,11 +575,11 @@ class NotesController < ApplicationController
           redirect_to :action => "noteslist"
         end
       else
-        emg = ''
-        aris1.errors.each_full do |msg|
-          emg += msg + "\n"
-        end
-        render :text => emg, :status => 403
+         emg = ''
+         aris1.errors.each_full do |msg|
+           emg += msg + "\n"
+         end
+         render :text => emg, :status => 403
       end
     else
       redirect_to :action => "noteslist"

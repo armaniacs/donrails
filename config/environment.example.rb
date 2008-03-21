@@ -5,16 +5,24 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '1.2.3' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+
+class Rails::Configuration
+  attr_accessor :action_web_service
+end
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)
   # config.frameworks -= [ :action_web_service, :action_mailer ]
+
+  config.frameworks += [ :action_web_service, :action_mailer ]
+  config.action_web_service = Rails::OrderedOptions.new
+  config.load_paths += %W( #{RAILS_ROOT}/app/apis )
 
   # Only load the plugins named here, by default all plugins in vendor/plugins are loaded
   # config.plugins = %W( exception_notification ssl_requirement )
@@ -40,6 +48,11 @@ Rails::Initializer.run do |config|
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
+  config.action_controller.session = {
+    :session_key => '_hoetest_session',
+    :secret      => 'b336c91a16492d1daf3f723bb934ebcad317a85097f647e1b49181889b430c2a593d180638d87470f80448600c971a97db447caf188aa28a00d3e5b3b347ca4a'
+  }
+
   
   # See Rails::Configuration for more options
 end
@@ -59,8 +72,7 @@ end
 
 # Include your application configuration below
 require_dependency 'antispam'
-ADMIN_USER = 'testuser'
-ADMIN_PASSWORD = 'testpass'
 
 $KCODE = 'u'
 
+require 'will_paginate'

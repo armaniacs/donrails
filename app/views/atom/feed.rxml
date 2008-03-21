@@ -12,8 +12,8 @@ xml.feed("xmlns" => "http://www.w3.org/2005/Atom") do
 
   if @one
     xml.link("type" => "text/html", "rel" => "alternate", "href" => request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "show_title"), "title" => don_get_config.rdf_title)
-  elsif @articles_pages
-    xml.link("type" => "text/html", "rel" => "alternate", "href" => request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "noteslist", :page => @articles_pages.current), "title" => don_get_config.rdf_title)
+  elsif @articles.current_page
+    xml.link("type" => "text/html", "rel" => "alternate", "href" => request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "noteslist", :page => @articles.current_page), "title" => don_get_config.rdf_title)
   else
     xml.link("type" => "text/html", "rel" => "alternate", "href" => request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => "noteslist"), "title" => don_get_config.rdf_title)
   end

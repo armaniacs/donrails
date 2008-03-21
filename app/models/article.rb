@@ -5,6 +5,9 @@ include ApplicationHelper
 class Article < ActiveRecord::Base
   validates_presence_of :author_id, :title, :format, :enrollment_id
 
+  cattr_reader :per_page
+  @@per_page = 15
+
   has_many :dona_cas
   has_many :categories, :through => :dona_cas
 

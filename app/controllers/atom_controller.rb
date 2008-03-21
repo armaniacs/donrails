@@ -34,7 +34,7 @@ class AtomController < ApplicationController
   # atom feed
   def feed
     if params['aid'] == nil
-      @articles_pages, @articles = paginate(:article, :per_page => 20, :order => 'id DESC', :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+      @articles = Article.paginate(:page => params[:page], :per_page => 20, :order => 'id DESC', :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     else
       begin
         @article = Article.find(params['aid'], :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])

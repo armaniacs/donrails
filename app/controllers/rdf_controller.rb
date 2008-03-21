@@ -24,6 +24,7 @@ class RdfController < ApplicationController
         render :text => "no entry", :status => 404
       end
     rescue
+      p $!
       render :text => "no entry", :status => 404
     end
   end
@@ -50,7 +51,7 @@ class RdfController < ApplicationController
     @recent_articles = Article.search(params["q"])
     @rdf_search = params["q"]
     if @recent_articles == nil
-      render_text "no entry"
+      render :text => "no entry"
     end
   end
   alias :rss2_search :rdf_search

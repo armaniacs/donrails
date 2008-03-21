@@ -1,5 +1,6 @@
 require 'uri'
 require 'net/http'
+require 'xmlrpc/client'
 
 class DonPing < ActiveRecord::Base
   belongs_to :article
@@ -107,7 +108,6 @@ class DonPing < ActiveRecord::Base
     end 
   end
 
-  # require 'xmlrpc/client'
   def send_ping_xmlrpc(pingurl)
     result = {}
     begin
@@ -123,14 +123,18 @@ class DonPing < ActiveRecord::Base
       changeurl = baseurl.join('/')
 
       server = XMLRPC::Client.new2(pingurl)
+      p server
       begin
         result = server.call('weblogUpdates.ping', don_get_config.rdf_title, don_get_config.baseurl, changeurl)
+
+      rescue RuntimeError => e
+        logger.error(e)
+        return false
       rescue XMLRPC::FaultException => e
         logger.error(e)
       end
     rescue Exception => e
       logger.error(e)
-#      return true
     end
     return result
   end

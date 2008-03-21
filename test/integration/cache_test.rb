@@ -118,10 +118,10 @@ class CacheTest < ActionController::IntegrationTest
 
   def test_caching_notes_scn
     assert_cache_pages('/archives/show_category_noteslist/misc')
-    assert_cache_pages('/archives/category_articles/1')
+    assert_cache_pages('/archives/category_articles/1/page/1')
 
     assert_expire_pages(
-                        '/archives/category_articles/1',
+                        '/archives/category_articles/1/page/1',
                         '/archives/show_category_noteslist/misc/page/1'
                         ) do |*urls|
       c = {"author" => "testauthor", "password" => "hoge5", 

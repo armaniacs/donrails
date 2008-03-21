@@ -12,7 +12,7 @@ class Admin::HnfController < AdminController
     if @ymd
       @articles = Article.find(:all, :conditions => ["article_date = ?", @ymd])
     else
-      render_text = "please input date w/valid format."
+      render :text => "please input date w/valid format."
     end
     inner, hnf_file = hnf_save_date_inner
     send_data(inner, :filename => hnf_file) ## send file OK

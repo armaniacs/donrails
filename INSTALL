@@ -1,1 +1,10 @@
 Please see doc/InstallByFulldist.wiki
+
+** To apply for rails-2.0.2. 
+
+1. INSTALL 'actionwebservice'. Get from http://rubyforge.org/projects/actionservice , and expand, and 'sudo ruby setup.rb '.
+
+## svn propedit svn:externals .
+
+2. gem install packet libxml-xmlrpc
+3. gem install will_paginate --no-ri

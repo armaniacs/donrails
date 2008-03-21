@@ -2,10 +2,10 @@
 <% if @ymd3 && @ymd4 %><div class="ymd34">From <%= @ymd3 %> to <%= @ymd4 %></div><% end %>
 
 <p>
-<% if @articles_pages and @articles_pages.length > 1 %>
-<div class="pagelink">
-ページ選択: <%= render(don_get_theme("shared/pagelink"), "pages" => @articles_pages) %>
-</div>
+<% begin %>
+<%= will_paginate @articles %>
+<% rescue %>
+<!-- only one page -->
 <% end %>
 </p>
 
@@ -46,9 +46,10 @@ day0 = Time.new; day1 = day0
 </div> <!-- end pagelink -->
 <% end %>
 
-<% if @articles_pages %>
-<div class="pagelink">
-  <%= render(don_get_theme("shared/pagelink-j"), "pages" => @articles_pages) %>
-</div> <!-- end pagelink -->
+<% begin %>
+<%= will_paginate @articles %>
+<% rescue %>
+<!-- only one page -->
 <% end %>
+
 

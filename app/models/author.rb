@@ -3,8 +3,7 @@ class Author < ActiveRecord::Base
   has_many :articles
 
   def self.authenticate(name, pass)
-#    a = find(:first, :condition => ["name = ? AND pass = ?", name, pass]) ## for rails2.0? XXX
-    a = find_first(["name = ? AND pass = ?", name, pass])
+    a = find(:first, :conditions => ["name = ? AND pass = ?", name, pass])
     return a
   end
 

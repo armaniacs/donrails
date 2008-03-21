@@ -1,3 +1,21 @@
+2008-03-21  ARAKI Yasuhiro  <ar@debian.org>
+
+	** CHANGE to apply for rails-2.0.2. Various files, directories and svn external repositories are changed.
+
+	* db/migrate/004_modify_categories_lft.rb: New for vendor/plugin/apply acts_as_nested_set.
+
+2008-03-20  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/controllers/notes_controller.rb: change render_text to render :text.
+
+2008-03-19  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/models/don_ping.rb (DonPing): add to load 'xmlrpc'.
+
+2008-03-18  ARAKI Yasuhiro  <ar@debian.org>
+
+	* Updated backgroundrb. Please INSTALL packet by 'gem install packet'.
+
 2008-01-27  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/views/admin/system/manage_don_env.rhtml: Add 'add_clips_id' and 'default_format'.

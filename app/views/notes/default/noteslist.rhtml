@@ -20,10 +20,11 @@
 </div>
 <% end %>
 
-<% if @articles_pages and @articles_pages.length > 1 %>
-<div class="pagelink">
-  ページ選択: <%= render(don_get_theme("shared/pagelink"), "pages" => @articles_pages) %>
-</div>
+
+<% begin %>
+<%= will_paginate @articles %>
+<% rescue %>
+<!-- no paginate -->
 <% end %>
 
 <% if @articles %>
@@ -66,8 +67,8 @@ article = don_get_object(a, 'html'); day0 = article.article_date.to_date %>
 </div> <!-- end pagelink -->
 <% end %>
 
-<% if @articles_pages %>
-<div class="pagelink">
-  <%= render(don_get_theme("shared/pagelink-j"), "pages" => @articles_pages) %>
-</div> <!-- end pagelink -->
+<% begin %>
+<%= will_paginate @articles %>
+<% rescue %>
+<!-- no paginate -->
 <% end %>
