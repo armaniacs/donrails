@@ -2,7 +2,11 @@ Please see doc/InstallByFulldist.wiki
 
 ** To apply for rails-2.0.2. 
 
-1. INSTALL 'actionwebservice'. Get from http://rubyforge.org/projects/actionservice , and expand, and 'sudo ruby setup.rb '.
+1. INSTALL 'actionservice'. Get from http://rubyforge.org/projects/actionservice , and expand, and 'sudo ruby setup.rb '.
+
+or 
+
+gem install actionservice
 
 ## svn propedit svn:externals .
 
