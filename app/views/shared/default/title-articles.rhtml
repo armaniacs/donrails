@@ -1,0 +1,29 @@
+
+<%
+if @articles
+i = 0
+@articles.each do |a|
+article = don_get_object(a, 'html')
+btmp = strip_links article.title_to_html
+i += 1
+%>
+
+<% if ((i % 2) == 0) %>
+<div class="even">
+<% else %>
+<div class="odd">
+<% end %>
+
+<%= don_mb_truncate(btmp, 60) %>
+(<%= link_to article.article_date.to_date,
+{:action => "show_date",
+:year => article.article_date.year,
+:month => article.article_date.month,
+:day => article.article_date.day
+} %>)
+</div>
+<%
+end
+end
+%>
+

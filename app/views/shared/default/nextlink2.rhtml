@@ -1,0 +1,18 @@
+<%
+# n年日記に対応
+firstart = articles.last
+lastart = articles.first
+%>
+<% if params['action'] =~ /(show_date)/ %>
+<%= link_to "<< 前年 ",{:action => "show_date",:year => lastart.article_date.last_year.year, :month => lastart.article_date.month,:day => lastart.article_date.day} %>
+<%= link_to "< 前日 ",{:action => "show_date",:year => lastart.article_date.yesterday.year,:month => lastart.article_date.yesterday.month,:day => lastart.article_date.yesterday.day} %>
+<%= link_to "#{lastart.article_date.month}/#{lastart.article_date.day}",{:action => "show_nnen", :month => lastart.article_date.month,:day => lastart.article_date.day} %>
+<%= link_to " 翌日 >",{:action => "show_date",:year => firstart.article_date.tomorrow.year,:month => firstart.article_date.tomorrow.month,:day => firstart.article_date.tomorrow.day} %>
+<%= link_to " 翌年 >>",{:action => "show_date",:year => firstart.article_date.next_year.year,:month => firstart.article_date.month,:day => firstart.article_date.day} %>
+<% elsif params['action'] =~ /(show_nnen)/ %>
+
+<%= link_to "#{lastart.article_date.yesterday.month}/#{lastart.article_date.yesterday.day}",{:action => "show_nnen", :month => lastart.article_date.yesterday.month,:day => lastart.article_date.yesterday.day} %>
+<%= link_to "#{lastart.article_date.month}/#{lastart.article_date.day}",{:action => "show_nnen", :month => lastart.article_date.month,:day => lastart.article_date.day} %>
+<%= link_to "#{lastart.article_date.tomorrow.month}/#{lastart.article_date.tomorrow.day}",{:action => "show_nnen", :month => lastart.article_date.tomorrow.month,:day => lastart.article_date.tomorrow.day} %>
+
+<% end %>

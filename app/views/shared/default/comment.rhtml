@@ -1,0 +1,30 @@
+<% if article.comments %>
+<% article.comments.each do |x| %>
+<div class="tsukkomi" >
+<dl class="comments">
+<dt><span class="poster">この記事へのコメント: by <%=h x.author %> / <%= x.date %></span></dt>
+<dd><%= x.body %></dd>
+</dl>
+</div>
+<% end %>
+<% end %>
+
+<% if article.trackbacks %>
+<% article.trackbacks.each do |x| %>
+<div class="trackback" >
+<dl class="comments">
+<dt><span class="poster">この記事へのトラックバック: by <%=h x.blog_name %><%= auto_link x.url %></span></dt>
+<dd>Title: <%= x.title %><%= x.excerpt %></dd>
+</dl>
+</div>
+<% end %>
+<% end %>
+
+<div class="boardlink">
+<a class="msc-toggle" href="#" onclick="toggleCode('dx_boardlink_<%= article.id %>');return false;">[コメントする]</a>
+[TrackBack URL:
+<%= auto_link request.protocol + request.host_with_port + url_for(:action => 'trackback', :id => article.id) %>]
+<div style="display: none;" class="msc" id="dx_boardlink_<%= article.id %>">
+<%= render("shared/comment-form", "article" => article) %>
+</div> <!-- end of msc-toggle as comment form -->
+</div> <!-- end of boadlink -->

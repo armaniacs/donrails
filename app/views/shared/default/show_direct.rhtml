@@ -1,0 +1,7 @@
+<div class="show_direct">
+<% form_tag :controller => 'notes', :action => 'afterday' do -%>
+<%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day], :use_month_numbers => true) %>
+以降の記事を見る
+<%= submit_tag "Go!" %>
+<% end %>
+</div>
