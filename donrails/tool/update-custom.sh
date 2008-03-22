@@ -35,24 +35,36 @@
 #
 # distは必要なファイルの tar ballを作成します。
 # distを展開したらDONRAILS_DIRを設定し、 clean して deployします。
-DONRAILS_DIR=/home/yaar/donrails-trunk
+DONRAILS_DIR=$HOME/playground/donrails-trunk
 DERIVED=default
 SCRIPTNAME=update-custom.sh
+DOTDONRAILS=$HOME/.donrails
 
 case "$1" in
     deploy)
+	cd $DOTDONRAILS
 	cd custom/views && cp -rvi * $DONRAILS_DIR/app/views
+	cd $DOTDONRAILS
+	cd custom/stylesheets && cp -rvi * $DONRAILS_DIR/public/stylesheets
 	cd $DONRAILS_DIR/app/views/notes && install -d custom && cp -viu $DERIVED/*.rhtml custom
 	cd $DONRAILS_DIR/app/views/shared && install -d custom && cp -viu $DERIVED/*.rhtml custom
+
 	;;
     clean)
+	mv $DOTDONRAILS/custom $DOTDONRAILS/custom.`date +%s`
 	rm -rvf $DONRAILS_DIR/app/views/{layouts,notes,shared}/custom
 	;;
     collect)
+	mv $DOTDONRAILS/custom $DOTDONRAILS/custom.`date +%s`
+	cd $DOTDONRAILS
+	install -d custom/views/layouts/custom
 	cd custom/views/layouts/custom && cp -rviub $DONRAILS_DIR/app/views/layouts/custom/*.rhtml .
+	cd $DOTDONRAILS
+	install -d custom/stylesheets/custom
+	cd custom/stylesheets/custom && cp -rviub $DONRAILS_DIR/public/stylesheets/custom/* .
 	;;
     dist)
-	tar zcvf update-custom.tar.gz custom $SCRIPTNAME
+	tar zcvf $DOTDONRAILS/update-custom-`date +%s`.tar.gz $DOTDONRAILS/custom $SCRIPTNAME
 	;;
     *)
 	echo "Usage: sh ./$SCRIPTNAME {deploy|clean|collect|dist}" >&2

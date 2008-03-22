@@ -1,3 +1,7 @@
+2008-03-22  ARAKI Yasuhiro  <ar@debian.org>
+
+	* donrails/tool/update-custom.sh (DOTDONRAILS): Change to use DOTDONRAILS.
+
 2008-03-21  ARAKI Yasuhiro  <ar@debian.org>
 
 	** CHANGE to apply for rails-2.0.2. Various files, directories and svn external repositories are changed.
