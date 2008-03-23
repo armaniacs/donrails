@@ -1,5 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
   # Add your own custom routes here.
+
+  # If you want to locate donrails to subdirectory, please set following line.
+  # ActionController::AbstractRequest.relative_url_root = "/blog"
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   map.connect '', :controller => "notes", :action => "noteslist", :page => '1'
