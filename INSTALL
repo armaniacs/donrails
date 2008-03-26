@@ -2,13 +2,19 @@ Please see doc/InstallByFulldist.wiki
 
 ** To apply for rails-2.0.2. 
 
-1. INSTALL 'actionservice'. Get from http://rubyforge.org/projects/actionservice , and expand, and 'sudo ruby setup.rb '.
+1. INSTALL Action Web Service
 
-or 
-
-gem install actionservice
+Get from svn.
+ svn co http://dev.rubyonrails.com/svn/rails/ousted/actionwebservice
+ cd actionwebservice
+ sudo ruby setup.rb
 
 ## svn propedit svn:externals .
 
-2. gem install packet libxml-xmlrpc
+2. gem install packet libxml-xmlrpc rake
 3. gem install will_paginate --no-ri
+4. gem install activesupport --no-ri
+5. gem install hpricot --no-ri
+
+6. apt-get install rdtool
+
