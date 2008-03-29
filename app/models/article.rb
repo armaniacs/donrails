@@ -31,7 +31,11 @@ class Article < ActiveRecord::Base
   def self.search(query)
     if !query.to_s.strip.empty?
       tokens = query.split.collect {|c| "%#{c.downcase}%"}
-      find_by_sql(["SELECT * from articles WHERE #{ (["LOWER(body) like ?"] * tokens.size).join(" AND ") } AND (hidden IS NULL or hidden = 0) ORDER by article_date DESC", *tokens])
+      a1 = find_by_sql(["SELECT * from articles WHERE #{ (["LOWER(body) like ?"] * tokens.size).join(" AND ") } AND (hidden IS NULL or hidden = 0) ORDER by article_date DESC", *tokens])
+      a2 = find_by_sql(["SELECT * from articles WHERE #{ (["LOWER(title) like ?"] * tokens.size).join(" AND ") } AND (hidden IS NULL or hidden = 0) ORDER by article_date DESC", *tokens])
+      a3 = a1 + a2
+      a3.uniq!
+      return a3
     else
       []
     end
