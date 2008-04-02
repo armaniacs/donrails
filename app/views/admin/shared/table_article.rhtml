@@ -43,10 +43,12 @@
     </td>
     <td><%= co.format if co.format %></td>
     <td>
-      <%= check_box "catid", co.id %></td>
+      <%= check_box "catid", co.id %>
       <% co.categories.each do |cat| %>
       <%= link_to cat.name, {:controller => "notes", :action => "show_category", :id => cat.id} %>
       <% end %>
+
+      
     </td>
     <td><%= don_mb_truncate(co.body) if co.body %></td>
     <td>
