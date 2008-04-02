@@ -346,6 +346,40 @@ class Admin::ArticleController < AdminController
           end
         end
       end
+    end # end of hideid
+
+    @tmp_k = Array.new
+    if c = params["catid"]
+      c.each do |k, v|
+        if v.to_i == 1
+          @tmp_k.push(k)
+        end
+      end
+    end
+    if @tmp_k && @tmp_k.size > 0
+      @articles = Article.find(@tmp_k)
+    else
+      redirect_to :controller => 'admin/article', :action => "manage_article"
+    end
+  end
+
+  def group_categorize
+    as = params[:article][:target].split('-')
+    nca = params[:category][:name].split(/\s+/)
+
+    nca.each do |ca|
+      nb = Category.find(:first, :conditions => ["name = ?", ca])
+      if nb
+        Article.find(as).each do |aris|
+          DonaCa.create(:article => aris, :category => nb)
+        end
+      else
+        nb = Category.new("name" => ca)
+        nb.save
+        Article.find(as).each do |aris|
+          DonaCa.create(:article => aris, :category => nb)
+        end
+      end
     end
     redirect_to :controller => 'admin/article', :action => "manage_article"
   end

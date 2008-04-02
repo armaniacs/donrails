@@ -43,6 +43,7 @@
     </td>
     <td><%= co.format if co.format %></td>
     <td>
+      <%= check_box "catid", co.id %></td>
       <% co.categories.each do |cat| %>
       <%= link_to cat.name, {:controller => "notes", :action => "show_category", :id => cat.id} %>
       <% end %>

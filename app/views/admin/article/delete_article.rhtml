@@ -1,0 +1,22 @@
+<!-- 亰 -->
+<% @heading = "group categorize" unless @heading %>
+
+<div class="kakomi">
+<div id="ca">
+[記事]を押すと記事が表示されます
+</div>
+</div>
+<div class="notice">
+  <%= flash[:note] %>
+  <%= flash[:note2] %>
+</div>
+<p>
+<% tk = @tmp_k.join("-") %>
+<% form_tag :action => :group_categorize do -%>
+これらにカテゴリを追加する⇒カテゴリ:<%= text_field_with_auto_complete :category, :name %>(スペースで区切ると複数カテゴリの追加ができます)
+<%= hidden_field :article, :target, :value => tk %>
+
+<%= submit_tag "save" %>
+<% end %>
+</p>
+<%= render('admin/shared/table_article') %>
