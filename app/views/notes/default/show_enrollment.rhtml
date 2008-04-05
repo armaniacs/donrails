@@ -2,23 +2,26 @@
 <% if @ymd3 && @ymd4 %><div class="ymd34">From <%= @ymd3 %> to <%= @ymd4 %></div><% end %>
 
 <% article = don_get_object(@enrollment.articles.first, 'html') %>
-<div class="nnenhead">
+<div class="numsection">
+<div class="dayheadnum">
 <p>
    <%= link_to "\#", {:action => "show_enrollment", :id => @enrollment.id} %>
    <%= display_article_categories article %>
    <%= article.title_to_html if article.title %>
 </p>
-</div> <!-- end nnenhead -->
+</div> <!-- end dayheadnum -->
 
 <div class="section">
+  <div class="sectionbody">
   <%= display_enrollment_images(@enrollment) %>
   <%= article.body_to_html if article.body %>
+  </div>
   <%= render(don_get_theme("shared/comment-enrollment"), "enrollment" => @enrollment, "article" => article) %>
   <div class="nndate">
     <%= render(don_get_theme("shared/authorhead"), "article" => article) %>
-    <br clear='all'>
   </div>
 </div> <!-- end section -->
+</div> <!-- end numsection -->
 
 <div class="linktitle">
 <% if (@enrollment_l && @enrollment_l.articles.first && @enrollment_r && @enrollment_r.articles.first) %>

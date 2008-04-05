@@ -32,13 +32,14 @@
 @articles.each do |a|
 article = don_get_object(a, 'html'); day0 = article.article_date.to_date %>
 <% if day1 != day0 %>
-<div class="nnenhead">
+<div class="dayhead">
   <h3><%= display_article_date(article) %></h3>
 </div> <!-- end nnenhead -->
 <% day1 = article.article_date.to_date; an = 0 %>
 <% end %>
 <% an += 1 %>
-<div class="nnenhead">
+<div class='numsection'>
+<div class="dayheadnum">
   <% if article.enrollment_id %>
   <%= link_to "\##{an}", {:action => "show_enrollment", :id => article.enrollment_id} %>
   <% else %>
@@ -49,14 +50,16 @@ article = don_get_object(a, 'html'); day0 = article.article_date.to_date %>
 </div> <!-- end nnenhead -->
 
 <div class="section">
+  <div class="sectionbody">
   <%= display_article_attachments(article) %>
   <%= article.body_to_html %>
+  </div>
   <%= render(don_get_theme("shared/comment2"), "article" => article) %>
   <div class="nndate">
     <%= render(don_get_theme("shared/authorhead"), "article" => article) %>
-    <br clear='all'>
   </div>
 </div> <!-- end section -->
+</div> <!-- end numsection -->
 
 <% end %>
 <% end %>

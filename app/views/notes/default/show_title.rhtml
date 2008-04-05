@@ -15,23 +15,27 @@ day0 = Time.new; day1 = day0
   article = don_get_object(a, 'html')
   day0 = article.article_date.to_date
 %>
-<div class="nnenhead">
+<div class="numsection">
+<div class="dayheadnum">
 <p>
    <%= link_to "\#", {:action => "show_title", :id => article.id} %>
    <%= display_article_categories article %>
    <%= article.title_to_html %>
 </p>
-</div> <!-- end nnenhead -->
+</div> <!-- end dayheadnum -->
 
 <div class="section">
+  <div class="sectionbody">
   <%= display_article_attachments(article) %>
   <%= article.body_to_html %>
+  </div>
   <%= render(don_get_theme("shared/comment2"), "article" => article) %>
   <div class="nndate">
     <%= render(don_get_theme("shared/authorhead"), "article" => article) %>
     <br clear='all'>
   </div>
 </div> <!-- end section -->
+</div> <!-- end numsection -->
 
 <div class="linktitle">
 <% if (@lastarticle and @nextarticle) %>
