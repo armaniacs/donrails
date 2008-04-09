@@ -3,8 +3,9 @@
   :ip: localhost
   :port: 11006
   :environment: production
+  :lazy_load: true
 
 :schedules:
   :pingger_worker:
     :async_send:
-      :trigger_args: * */10 * * * * *
+      :trigger_args: * */2 * * * * *
