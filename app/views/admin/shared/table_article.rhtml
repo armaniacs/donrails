@@ -45,7 +45,7 @@
     <td>
       <%= check_box "catid", co.id %>
       <% co.categories.each do |cat| %>
-      <%= link_to cat.name, {:controller => "notes", :action => "show_category", :id => cat.id} %>
+      <%= link_to cat.name, {:controller => "/notes", :action => "show_category", :id => cat.id} %>
       <% end %>
 
       

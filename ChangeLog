@@ -1,5 +1,7 @@
 2008-04-19  ARAKI Yasuhiro  <ar@debian.org>
 
+	* app/views/admin/shared/table_article.rhtml: Fix. Link URL does not exist.
+
 	* app/views/shared/default/comment-enrollment.rhtml: Change trackback URL protocol. Always use 'http'.(fix issue 68.)
 	* app/views/shared/default/comment.rhtml: likewise.
 	* app/views/shared/default/comment2.rhtml: likewise.
