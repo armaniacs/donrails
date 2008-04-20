@@ -1,5 +1,11 @@
 2008-04-20  ARAKI Yasuhiro  <ar@debian.org>
 
+	* app/controllers/rdf_controller.rb (RdfController::rdf_category): Fix SQL syntax.
+
+	* vender/plugins/classic_pagination: Remove.
+
+	* app/controllers/rdf_controller.rb (RdfController::rdf_category): Change to use will_paginate.
+
 	* app/controllers/admin/trackback_controller.rb (Admin::manage_trackback): Change to use will_paginate.
 
 	* app/controllers/admin/article_controller.rb (Admin::manage_article): likewise.

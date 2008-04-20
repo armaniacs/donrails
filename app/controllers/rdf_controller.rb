@@ -67,10 +67,9 @@ class RdfController < ApplicationController
       params["q"] = params["category"]
       redirect_to :action => 'rdf_search', :q => params["category"]
     else
-      @recent_articles_pages, 
-      @recent_articles = paginate(:article, :per_page => 20,
+      @recent_articles = Article.paginate(:page => params[:page], :per_page => 20,
                                   :order => 'articles.id DESC',
-                                  :join => "JOIN dona_cas on (dona_cas.article_id=articles.id and dona_cas.category_id=#{@category.id})",
+                                  :joins => "JOIN dona_cas on (dona_cas.article_id=articles.id and dona_cas.category_id=#{@category.id})",
                                   :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
                                   )
       @rdf_category = @category.name
