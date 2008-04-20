@@ -1,9 +1,7 @@
 class Admin::BanlistController < AdminController
 
   def manage_banlist
-    @banlists_pages, @banlists = paginate(:banlist, :per_page => 30,
-                                          :order => 'id DESC'
-                                          )
+    @banlists = Banlist.paginate(:page => params[:page], :per_page => 30,:order => 'id DESC')
   end
 
   def delete_banlist

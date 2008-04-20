@@ -8,10 +8,7 @@
 <% end %>
 
 <% if @pictures %>
-
-<% if @pictures_pages %>
-<%= pagination_links @pictures_pages %>
-<% end %>
+<%= will_paginate @pictures %>
 
 <% form_tag :action => "delete_picture" do hidden_field_tag("session_id_validation", security_token) -%>
 <div class="kakomi">
@@ -82,8 +79,6 @@
  </table>
  <%= submit_tag %>
  <% end %>
+ <%= will_paginate @pictures %>
  <% end %>
 
- <% if @pictures_pages %>
- <%= pagination_links @pictures_pages %>
- <% end %>

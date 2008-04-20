@@ -2,7 +2,7 @@ class Admin::PictureController < AdminController
   cache_sweeper :article_sweeper, :only => [ :delete_picture, :picture_save ]
 
   def manage_picture
-    @pictures_pages, @pictures = paginate(:picture,:conditions => ['format = \'picture\''], :per_page => 30,:order => 'id DESC')
+    @pictures = Picture.paginate(:page => params[:page],:conditions => ['format = \'picture\''], :per_page => 30,:order => 'id DESC')
   end
   def manage_picture_detail
     if params["id"]

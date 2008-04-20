@@ -1,3 +1,46 @@
+2008-04-20  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/controllers/admin/trackback_controller.rb (Admin::manage_trackback): Change to use will_paginate.
+
+	* app/controllers/admin/article_controller.rb (Admin::manage_article): likewise.
+
+	* app/views/admin/article/manage_article.rhtml: likewise.
+
+	* app/controllers/admin/attachment_controller.rb (Admin::manage_don_attachment): likewise.
+
+	* app/views/admin/attachment/manage_don_attachment.rhtml: likewise.
+
+	* app/views/admin/banlist/manage_banlist.rhtml: likewise.
+
+	* app/controllers/admin/banlist_controller.rb (Admin::manage_banlist): likewise.
+
+	* app/controllers/admin/category_controller.rb (Admin::manage_category): likewise.
+
+	* app/views/admin/category/manage_category.rhtml: likewise.
+
+	* app/controllers/admin/comment_controller.rb (Admin::manage_comment): likewise.
+
+	* app/views/admin/comment/manage_comment.rhtml: likewise.
+
+	* app/views/admin/enrollment/manage_enrollment.rhtml: likewise.
+
+	* app/controllers/admin/enrollment_controller.rb (Admin::manage_enrollment): likewise.
+	(Admin::manage_enrollment): likewise.
+
+	* app/views/admin/picture/manage_picture.rhtml: likewise.
+
+	* app/controllers/admin/picture_controller.rb (Admin::manage_picture_detail): likewise.
+
+	* app/views/admin/system/manage_author.rhtml: likewise.
+
+	* app/controllers/admin/system_controller.rb (Admin::manage_don_ping): likewise.
+	(Admin::manage_blogping): likewise.
+	(Admin::manage_author): likewise.
+
+	* app/views/admin/system/manage_don_ping.rhtml: likewise.
+
+	* app/views/admin/trackback/manage_trackback.rhtml: likewise.
+
 2008-04-19  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/views/admin/shared/table_article.rhtml: Fix. Link URL does not exist.

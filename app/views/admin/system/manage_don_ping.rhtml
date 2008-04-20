@@ -6,9 +6,7 @@
 </div>
 
 <% if @don_pings %>
-<% if @don_pings_pages %>
-<%= pagination_links @don_pings_pages %>
-<% end %>
+<%= will_paginate @don_pings %>
 
 <div class="kakomi">
 <div id="ca">
@@ -65,8 +63,7 @@ id を押すとPing message information が表示されます
 </table>
 <% end %>
 <%= submit_tag %>
+<%= will_paginate @don_pings %>
 <% end %>
 
-<% if @don_pings_pages %>
-<%= pagination_links @don_pings_pages %>
-<% end %>
+

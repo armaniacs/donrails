@@ -2,12 +2,11 @@
 
 <% if @articles %>
 
-<% if @articles_pages %>
+
 <% if params['nohidden'] == '1' %>
-<%= pagination_links @articles_pages, :params => { :nohidden => 1 } %>
+<%= will_paginate @articles, :params => { :nohidden => 1 } %>
 <% else %>
-<%= pagination_links @articles_pages %>
-<% end %>
+<%= will_paginate @articles %>
 <% end %>
 /
 <% if params['nohidden'] == '1' %>
@@ -31,8 +30,5 @@
 <%= render('admin/shared/table_article') %>
 <%= submit_tag %>
  <% end %>
- <% end %>
-
- <% if @articles_pages %>
- <%= pagination_links @articles_pages %>
+<%= will_paginate @articles %>
  <% end %>

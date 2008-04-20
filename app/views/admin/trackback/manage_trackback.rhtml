@@ -5,10 +5,7 @@
   
   <%= render('admin/shared/add_banlist') %>
   <hr>
-  <% if @trackbacks_pages %>
-  <%= pagination_links @trackbacks_pages %>
-  <% end %>
-
+  <%= will_paginate @trackbacks %>
   <% form_tag :action => "delete_trackback" do hidden_field_tag("session_id_validation", security_token) -%>
 
   <%= submit_tag %>
@@ -16,8 +13,5 @@
   <%= submit_tag %>
   <% end %>
   <% end %>
-
-  <% if @trackbacks_pages %>
-  <%= pagination_links @trackbacks_pages %>
-  <% end %>
+  <%= will_paginate @trackbacks %>
 </div>

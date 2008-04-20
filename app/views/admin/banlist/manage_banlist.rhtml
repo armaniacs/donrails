@@ -4,9 +4,7 @@
 <hr>
 ブラックリストの管理
 <% if @banlists %>
-<% if @banlists_pages %>
-<%= pagination_links @banlists_pages %>
-<% end %>
+<%= will_paginate @banlists %>
 
 <% form_tag :action => "delete_banlist" do hidden_field_tag("session_id_validation", security_token) -%>
 <table  border="1" cellspacing="0">
@@ -30,10 +28,7 @@
 </table>
 <%= submit_tag "send" %>
 <% end %>
-<% end %>
-
-<% if @banlists_pages %>
-<%= pagination_links @banlists_pages %>
+<%= will_paginate @banlists %>
 <% end %>
 
  

@@ -22,11 +22,7 @@
 <%= @roots.size if @roots %>個のrootカテゴリ
 
 <% if @categories %>
-<% if @categories_pages %>
-<p>
-ページ番号
-<%= pagination_links @categories_pages %>
-<% end %>
+<%= will_paginate @categories %>
 
 <% form_tag :action => "delete_category" do hidden_field_tag("session_id_validation", security_token) -%>
 <%= submit_tag %>
@@ -52,10 +48,7 @@
  </table>
  <%= submit_tag %>
  <% end %>
- <% end %>
-
- <% if @categories_pages %>
- <%= pagination_links @categories_pages %>
+ <%= will_paginate @categories %>
  <% end %>
  
 </div>

@@ -11,10 +11,7 @@
 <% end %>
 
 <% if @don_attachments %>
-
-<% if @don_attachments_pages %>
-<%= pagination_links @don_attachments_pages %>
-<% end %>
+<%= will_paginate @don_attachments %>
 
 <% form_tag :action => "delete_don_attachment" do hidden_field_tag("session_id_validation", security_token) -%>
 <div class="kakomi">
@@ -88,8 +85,6 @@
  </table>
  <%= submit_tag %>
  <% end %>
+ <%= will_paginate @don_attachments %>
  <% end %>
 
- <% if @don_attachments_pages %>
- <%= pagination_links @don_attachments_pages %>
- <% end %>

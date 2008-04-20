@@ -4,11 +4,11 @@ class Admin::SystemController < AdminController
   ## ping
   def manage_don_ping
     if params[:on] && params[:on] =~ /^(counter|id|article_id|url|created_at|send_at|status|response_body)$/
-      @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30, :order => "#{params[:on]}, id DESC")
+      @don_pings = DonPing.paginate(:page => params[:page],:per_page => 30, :order => "#{params[:on]}, id DESC")
     elsif params[:od] && params[:od] =~ /^(counter|id|article_id|url|created_at|send_at|status|response_body)$/
-      @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30, :order => "#{params[:od]} DESC, id DESC")
+      @don_pings = DonPing.paginate(:page => params[:page],:per_page => 30, :order => "#{params[:od]} DESC, id DESC")
     else
-      @don_pings_pages, @don_pings = paginate(:don_ping,:per_page => 30,:order => 'id DESC')
+      @don_pings = DonPing.paginate(:page => params[:page],:per_page => 30,:order => 'id DESC')
     end
   end
   alias manage_ping manage_don_ping
@@ -35,7 +35,7 @@ class Admin::SystemController < AdminController
     else
       flash[:note2] = '現在Ping送信機能は無効です。<a href="/admin/system/manage_don_env/">baseurlを設定</a>してください。'
     end
-    @blogpings_pages, @blogpings = paginate(:blogping,:per_page => 30,:order => 'id DESC')
+    @blogpings = Blogping.paginate(:page => params[:page],:per_page => 30,:order => 'id DESC')
   end
 
   def delete_blogping
@@ -81,7 +81,7 @@ class Admin::SystemController < AdminController
     if params['id']
       @author = Author.find(params['id'])
     end
-    @authors_pages, @authors = paginate(:author, :per_page => 30,
+    @authors = Author.paginate(:page => params[:page], :per_page => 30,
                                           :order => 'id DESC')
     if params[:notice]
       flash["notice"] = params[:notice]

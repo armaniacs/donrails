@@ -3,12 +3,12 @@ class Admin::EnrollmentController < AdminController
 
   def manage_enrollment
     if params[:nohidden] == '1'
-      @enrollments_pages, @enrollments = paginate(:enrollment, :per_page => 30,
+      @enrollments = Enrollment.paginate(:page => params[:page], :per_page => 30,
                                                   :order => 'id DESC',
                                                   :conditions => ["hidden IS NULL OR hidden = 0"]
                                                   )
     else
-      @enrollments_pages, @enrollments = paginate(:enrollment, :per_page => 30,
+      @enrollments = Enrollment.paginate(:page => params[:page], :per_page => 30,
                                                   :order => 'id DESC'
                                                   )
     end

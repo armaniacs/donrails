@@ -1,10 +1,7 @@
 <% @heading = "comment management" %>
 
 <% if @comments %>
-
-<% if @comments_pages %>
-<%= pagination_links @comments_pages %>
-<% end %>
+<%= will_paginate @comments %>
 
 <h1><%= @heading %></h1>
 <%= render('admin/shared/add_banlist') %>
@@ -19,8 +16,5 @@
 <%= render('admin/shared/table_comment') %>
 <%= submit_tag %>
 <% end %>
-<% end %>
-
-<% if @comments_pages %>
-<%= pagination_links @comments_pages %>
+<%= will_paginate @comments %>
 <% end %>

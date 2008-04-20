@@ -2,12 +2,12 @@ class Admin::TrackbackController < AdminController
   cache_sweeper :article_sweeper, :only => [ :delete_trackback ]
 
   def manage_trackback
-    @trackbacks_pages, @trackbacks = paginate(:trackback, :per_page => 30,
+    @trackbacks = Trackback.paginate(:page => params[:page], :per_page => 30,
                                               :order => 'id DESC')
   end
   def table_trackback_a
     headers["Content-Type"] = "text/html; charset=utf-8"
-    @trackbacks_pages, @trackbacks = paginate(:trackback, :per_page => 30,
+    @trackbacks = Trackback.paginate(:page => params[:page], :per_page => 30,
                                               :order => 'id DESC')
     render :template => 'shared/table_trackback', :layout => false
   end

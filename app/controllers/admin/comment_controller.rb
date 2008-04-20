@@ -2,7 +2,7 @@ class Admin::CommentController < AdminController
   cache_sweeper :article_sweeper, :only => [ :delete_comment ]
 
   def manage_comment
-    @comments_pages, @comments = paginate(:comment, :per_page => 30,
+    @comments = Comment.paginate(:page => params[:page], :per_page => 30,
                                           :order => 'id DESC')
   end
 

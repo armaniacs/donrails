@@ -19,9 +19,7 @@ server_url:
 <hr>
 pingする先の管理(active=1の先は有効)
 <% if @blogpings %>
-<% if @blogpings_pages %>
-<%= pagination_links @blogpings_pages %>
-<% end %>
+<%= will_paginate @blogpings %>
 
 <% form_tag :action => "delete_blogping" do hidden_field_tag("session_id_validation", security_token) -%>
 <table  border="1" cellspacing="0">
@@ -49,10 +47,8 @@ pingする先の管理(active=1の先は有効)
 </table>
 <%= submit_tag "send" %>
 <% end %>
+<%= will_paginate @blogpings %>
 <% end %>
 
-<% if @blogpings_pages %>
-<%= pagination_links @blogpings_pages %>
-<% end %>
 
  

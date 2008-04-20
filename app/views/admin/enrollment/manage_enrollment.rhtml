@@ -2,13 +2,13 @@
 
 <% if @enrollments %>
 
-<% if @enrollments_pages %>
+
 <% if params['nohidden'] == '1' %>
-<%= pagination_links @enrollments_pages, :params => { :nohidden => 1 } %>
+<%= will_paginate @enrollments, :params => { :nohidden => 1 } %>
 <% else %>
-<%= pagination_links @enrollments_pages %>
+<%= will_paginate @enrollments %>
 <% end %>
-<% end %>
+
 /
 <% if params['nohidden'] == '1' %>
 <%= link_to '隱されている記事も表示する', {:action => 'manage_enrollment'} %>
@@ -68,8 +68,7 @@
  </table>
  <%= submit_tag %>
  <% end %>
+ <%= will_paginate @enrollments %>
  <% end %>
 
- <% if @enrollments_pages %>
- <%= pagination_links @enrollments_pages %>
- <% end %>
+
