@@ -1,5 +1,7 @@
 2008-04-25  ARAKI Yasuhiro  <ar@debian.org>
 
+	* app/models/article.rb (Article::renew_mtime): Chage to use UTC time. Please set environment.rb "config.active_record.default_timezone = :utc".
+
 	* app/models/article_sweeper.rb 
 	(ArticleSweeper::ep_category): Fix.
 	(ArticleSweeper::ep_atom): Fix to remove /atom/feed.xml.

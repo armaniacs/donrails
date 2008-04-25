@@ -114,7 +114,7 @@ class Article < ActiveRecord::Base
   def renew_mtime
     self.article_mtime = Time.now
     if self.article_date == nil
-      self.article_date = Time.now
+      self.article_date = Time.now.utc
     end
   end
 
