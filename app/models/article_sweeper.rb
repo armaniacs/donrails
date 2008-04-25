@@ -129,6 +129,9 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
     clall = Category.find(:all)
     clall.each do |rc|
+      expire_page "/rdf/rdf_category/#{rc.name}/feed.xml"
+      expire_page "/rdf/rss2_category/#{rc.name}/feed.xml"
+
       pagemaxnum = rc.articles.size / 30 + 1
       for i in 1..pagemaxnum
         expire_page(:controller => '/notes', :action => %w(show_category show_category_noteslist) , :category => rc.name, :page => i)
@@ -140,6 +143,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
   end
 
   def ep_atom(record)
+    expire_page "/atom/feed.xml"
     expire_page(:controller => '/atom', :action => 'feed', :page => 1)
     expire_page(:controller => '/atom', :action => 'feed', :aid => record.id)
     begin

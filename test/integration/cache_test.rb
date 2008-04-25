@@ -95,11 +95,17 @@ class CacheTest < ActionController::IntegrationTest
                         '/archives/category_tree_list_a',
                         '/archives/sitemap.xml',
                         '/rdf/rdf_article/1/feed.xml',
+                        '/rdf/rdf_category/misc/page/1/feed.xml',
+                        '/rdf/rdf_category/misc/feed.xml',
+                        '/rdf/rss2_category/misc/page/1/feed.xml',
+                        '/rdf/rss2_category/misc/feed.xml',
                         '/archives/pick_article/1',
                         '/archives/id/1',
                         '/rdf/rdf_enrollment/1/feed.xml',
                         '/archives/1999/1',
                         '/archives/1999/1/1',
+                        '/atom/feed.xml',
+                        '/atom/feed/page/1/feed.xml',
 
                         '/archives/every_year/1/1',
                         '/archives'

@@ -1,3 +1,14 @@
+2008-04-25  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/models/article_sweeper.rb 
+	(ArticleSweeper::ep_category): Fix.
+	(ArticleSweeper::ep_atom): Fix to remove /atom/feed.xml.
+
+	* test/integration/cache_test.rb (CacheTest::test_caching_notes): Add to check it.
+
+	* lib/antispam.rb (AntiSpam::scan_uri_format): Fix to accept trackback from "https" URL.
+	* test/functional/notes_controller_test.rb (NotesControllerTest::test_trackback_1a): Add to check it.
+
 2008-04-20  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/controllers/rdf_controller.rb (RdfController::rdf_category): Fix SQL syntax.

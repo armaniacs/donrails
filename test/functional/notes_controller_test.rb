@@ -27,6 +27,21 @@ class NotesControllerTest < Test::Unit::TestCase
     assert_match require_response_body, @response.body
   end
 
+  def test_trackback_1a
+    @request.env['skip_akismet'] = true
+
+    post :trackback,
+    :id => 1,
+    :title => 'title test util',
+    :excerpt => 'excerpt text excerpt text',
+    :url => "https://test.example.com/blog/",
+    :blog_name => 'test of donrails'
+    
+    require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>0</error>\n  <message>success</message>\n</response>\n"
+    assert_response :success
+    assert_match require_response_body, @response.body
+  end
+
   def test_trackback__2
     @request.env['skip_akismet'] = true
     post :trackback,

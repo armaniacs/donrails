@@ -90,7 +90,7 @@ class AntiSpam
   protected :scan_ipaddr
 
   def scan_uri_format(string)
-    string_uri = string.scan(/(http:\/\/[^\s"]+)/m).flatten.to_s
+    string_uri = string.scan(/(https?:\/\/[^\s"]+)/m).flatten.to_s
     if string_uri
       linkuri = URI.parse(string_uri)
       if linkuri.path and linkuri.path.length <= 1
