@@ -95,7 +95,7 @@ class MetaWeblogService < DonWebService
     article = Article.new
     article.body        = struct['description'] || ''
     article.title       = struct['title'] || ''
-    article.article_date = struct['dateCreated'].to_time.getlocal rescue Time.now
+    article.article_date = struct['dateCreated'].to_time.utc rescue Time.now.utc
     article.format = 'html'
     article.create_enrollment
     article.enrollment.title = article.title

@@ -73,7 +73,7 @@ class BloggerService < DonWebService
     article = Article.new
     article.body           = body || content || ''
     article.title          = title || content.split.slice(0..5).join(' ') || ''
-    article.article_date   = Time.now
+    article.article_date   = Time.now.utc
     article.format = 'html'
     article.create_enrollment
     article.enrollment.title = article.title
