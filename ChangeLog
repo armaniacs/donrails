@@ -1,5 +1,10 @@
 2008-04-25  ARAKI Yasuhiro  <ar@debian.org>
 
+	* app/apis/meta_weblog_service.rb (MetaWeblogService::article_dto_from): Fix to modify by BlogEditor for non-HTML article.
+	(MetaWeblogService::editPost): likewise.
+
+	* app/apis/blogger_service.rb (BloggerService::newPost): Change to use UTC.
+
 	* app/models/article.rb (Article::renew_mtime): Chage to use UTC time. Please set environment.rb "config.active_record.default_timezone = :utc".
 
 	* app/models/article_sweeper.rb 

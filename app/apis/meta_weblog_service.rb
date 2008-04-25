@@ -133,6 +133,7 @@ class MetaWeblogService < DonWebService
     article = Article.find(postid)
     article.body        = struct['description'] || ''
     article.title       = struct['title'] || ''
+    article.format = 'html'
     if publish == false
       article.hidden   = 1
     else
@@ -164,8 +165,9 @@ class MetaWeblogService < DonWebService
    end
 
   def article_dto_from(article)
+    article = don_get_object(article, 'html')
     MetaWeblogStructs::Article.new(
-      :description       => article.body,
+      :description       => article.body_to_html,
       :title             => article.title,
       :postid            => article.id.to_s,
       :url               => article_url(article).to_s,
