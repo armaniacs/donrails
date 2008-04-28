@@ -63,7 +63,7 @@ class AtomController < ApplicationController
         @article = aris1
         render :status => 201 # 201 Created @ Location
       rescue
-        p $!
+        logger.info $!
         render :status => 400
       end
     else
@@ -83,7 +83,7 @@ class AtomController < ApplicationController
         @article = aris1
         render :action => "post", :status => 200
       rescue
-        p $!
+        logger.info $!
         render :status => 400
       end
     elsif request.method == :delete

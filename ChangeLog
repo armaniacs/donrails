@@ -1,3 +1,7 @@
+2008-04-28  ARAKI Yasuhiro  <ar@debian.org>
+
+	* Added article controller.
+
 2008-04-25  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/apis/meta_weblog_service.rb (MetaWeblogService::article_dto_from): Fix to modify by BlogEditor for non-HTML article.

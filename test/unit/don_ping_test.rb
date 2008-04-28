@@ -52,7 +52,7 @@ class DonPingTest < Test::Unit::TestCase
     pingurl = "http://localhost:3000/backend/api"
     rbody = @ping1.send_ping_xmlrpc_extended(pingurl)
 #    assert_equal(false, rbody['flerror'])
-    p rbody
+   # p rbody
     if rbody == false
       assert_equal(false, rbody)
     else

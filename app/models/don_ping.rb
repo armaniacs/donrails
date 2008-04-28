@@ -123,7 +123,7 @@ class DonPing < ActiveRecord::Base
       changeurl = baseurl.join('/')
 
       server = XMLRPC::Client.new2(pingurl)
-      p server
+     # p server
       begin
         result = server.call('weblogUpdates.ping', don_get_config.rdf_title, don_get_config.baseurl, changeurl)
 

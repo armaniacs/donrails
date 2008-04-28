@@ -24,7 +24,7 @@ class RdfController < ApplicationController
         render :text => "no entry", :status => 404
       end
     rescue
-      p $!
+      logger.info $!
       render :text => "no entry", :status => 404
     end
   end

@@ -76,7 +76,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       end
     rescue Errno::ENOENT
     rescue
-      p $!
+      logger.info $!
     end
   end
 
@@ -92,7 +92,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       end
     rescue Errno::ENOENT
     rescue
-      p $!
+      logger.info $!
     end
   end
 
@@ -108,7 +108,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       end
     rescue Errno::ENOENT
     rescue
-      p $!
+      logger.info $!
     end
   end
 
@@ -124,7 +124,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       end
     rescue Errno::ENOENT
     rescue
-      p $!
+      logger.info $!
     end
 
     clall = Category.find(:all)
@@ -156,7 +156,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       end
     rescue Errno::ENOENT
     rescue
-      p $!
+      logger.info $!
     end
   end
 
@@ -177,7 +177,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
       end
     rescue Errno::ENOENT
     rescue
-      p $!
+      logger.info $!
     end
   end
 

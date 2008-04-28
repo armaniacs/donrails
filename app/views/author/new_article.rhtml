@@ -1,0 +1,116 @@
+<% @heading = "記事追加" %>
+
+<% kiji = @article %>
+
+<% if kiji && kiji.enrollment %>
+<% form_tag :action => "delete_article" do hidden_field_tag("session_id_validation", security_token) -%>
+
+<div class="kakomi">
+<div id="ca">
+[記事]を押すと記事が表示されます
+</div>
+</div>
+<div class="notice">
+  <%= flash[:note] %>
+  <%= flash[:note2] %>
+</div>
+<%= submit_tag "テーブルを保存" %>Enrollmented history:
+<% @articles = kiji.enrollment.articles %>
+<%= render('admin/shared/table_article') %>
+<hr>
+<% end %>
+<% end %>
+
+
+<% if kiji
+formaction = 'fix_article'
+else
+formaction = 'add_article'
+end %>
+
+<% form_tag :action => formaction do -%>
+<%= hidden_field("article", "id", "value" => kiji.id) if kiji %>
+<%= hidden_field("article", "author_id", "value" => kiji.author_id) if kiji && kiji.author_id %>
+<%= submit_tag "save" %>
+
+<% if kiji %>
+<% if kiji.hidden == 1 %>
+<%= check_box "hideid", kiji.id, :checked => 'checked' %>
+<% else %>
+<%= check_box "hideid", kiji.id %>
+<% end %>
+記事を隱す
+<% end %>
+<%= check_box "preview", 'preview', :checked => 'checked' %>記事をプレビューする
+<% if kiji %>
+<% if kiji.enrollment %>
+<%= check_box "newid", kiji.id, :checked => 'checked' %>(enrollmented)
+<% else %>
+<%= check_box "newid", kiji.id %>
+<% end %>
+新規記事として作成する
+<% end %>
+<br>
+Date:
+<% if kiji %>
+<%= text_field "article", "article_date", "size" => 12, "value" => kiji.article_date.to_date %>
+<% else %>
+<%= date_select(:ymd2, :created_on, :start_year => 1997, :end_year => Date.today.year, :order => [:year, :month, :day]) %>
+<% end %>
+
+著者名:
+<%= text_field_with_auto_complete :author, :name, 'value' => flash[:author_name] %>
+
+<br>
+<% if kiji %>
+タイトル:<%= text_field "article", "title", "size" => 80, "value" => kiji.title %>
+<% else %>
+タイトル:<%= text_field "article", "title", "size" => 80, "value" => '' %>
+<% end %>
+<br>
+<% if kiji %>
+<% kiji.categories.each do |cat| %>
+<%= check_box "catname", cat.id, "checked" => "checked" %>
+<%=h cat.name %>
+<% end %>
+<br>
+<% end %>
+さらにカテゴリを追加する⇒カテゴリ:<%= text_field_with_auto_complete :category, :name %>(スペースで区切ると複数カテゴリの追加ができます)
+<br>
+
+トラックバック先:<%= text_field "article", "tburl", "size" => 80, "value" => '' %><br>
+
+本文:
+(フォーマット形式:
+<select name="format">
+<% don_supported_formats.each do |fmt| %>
+
+  <% if kiji %>
+  <option value="<%= fmt %><%= '" selected="selected' if fmt == kiji.format %>"><%= fmt %></option>
+  <% else %>
+  <option value="<%= fmt %><%= '" selected="selected' if fmt == @defaultformat %>"><%= fmt %></option>
+	
+  <% end %>
+
+<% end %>
+</select>
+)
+<br>
+<% if kiji %>
+<%= text_area "article", "body", "rows" => 10, "cols" => 80, "value" => kiji.body %>
+<% else %>
+<%= text_area "article", "body", "rows" => 10, "cols" => 80, "value" => '' %>
+<% end %>
+<br>
+<% if request.env['HTTP_REFERER'] =~ /manage_enrollment$/ %>
+<%= hidden_field "article", "referer", "value" => 'manage_enrollment' %>
+<% end %>
+<%= submit_tag "save" %>
+<% end %>
+
+<hr>
+<a href="http://www.h14m.org/docs/hnf-j.html">hnf の記述方法</a>
+/
+<a href="http://www.shiro.dreamhost.com/scheme/wiliki/wiliki.cgi?WiLiKi%3a%e3%83%aa%e3%83%95%e3%82%a1%e3%83%ac%e3%83%b3%e3%82%b9%e3%83%9e%e3%83%8b%e3%83%a5%e3%82%a2%e3%83%ab%3a%e6%9b%b8%e5%bc%8f">WiLiKi:リファレンスマニュアル:書式</a>
+
+<hr>

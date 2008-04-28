@@ -1,0 +1,43 @@
+<!-- 亰 -->
+<html lang="ja">
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<% if defined?(don_get_config.rdf_webmaster) then %>
+  <link rev="made" href="mailto:<%= don_get_config.rdf_webmaster %>">
+<% end %>
+<% if defined?(don_get_config.rdf_managingeditor) then %>
+  <meta name="author" content="<%= don_get_config.rdf_managingeditor %>">
+<% end %>
+  <%= stylesheet_link_tag "login" %>
+  <%= javascript_include_tag "code-toggle-popup.js" %>
+  <%= javascript_include_tag :defaults %>
+  <meta name="robots" content="noindex,nofollows">
+  <title>login <%=h @heading %></title>
+</head>
+
+<body>
+<div id="page">
+<div class="head">
+  <%= flash[:author_name] %> ||
+  <%= link_to "トップ", {:controller => '/notes', :action => 'index'} %>/
+  <%= link_to "日記", {:controller => '/notes', :action => 'noteslist'} %>/ 
+  <%= link_to "ログアウト", {:action => "logout"} %>/
+  <%= link_to "記事追加", {:action => :new_article} %>/
+    <%= link_to "記事管理", {:action => :manage_article} %>/
+  <br>
+</div> <!-- end of class:head -->
+
+<div id="content">
+  <% if flash["notice"] %>
+  <span class="notice" %>
+  <%= flash["notice"] %>
+  </span>
+  <% end %>
+  
+  <%= @content_for_layout %>
+</div> <!-- id:content -->
+</div> <!-- id:page -->
+
+</body>
+</html>
