@@ -209,6 +209,10 @@ class AuthorController < ApplicationController
   def manage_article
     flash.keep
     author = Author.find_by_name(flash[:author_name])
+    unless author
+      render :text => "no for your entry", :status => 404
+      return
+    end
 
     if params[:nohidden] == '1'
       @articles = Article.paginate(:page => params[:page], :per_page => 30,
@@ -399,10 +403,10 @@ class AuthorController < ApplicationController
             flash[:note2] += '<br>Delete:' + k
             b.destroy
           else
-            flash[:note2] += '<br>Not exists (no delete):' + k
+            flash[:note2] += '<br>Not exists (no delete):' + k.to_s
           end
         else
-          flash[:note2] += '<br>Not exists (no delete):' + k
+          flash[:note2] += '<br>Not exists (no delete):' + k.to_s
         end
       end
     end
@@ -419,10 +423,10 @@ class AuthorController < ApplicationController
               pf.update_attribute('hidden', 0)
             end
           else
-            flash[:note2] += '<br>Hyde status:' + k + ' is not ' + flash[:author_name] + '\'s article.'
+            flash[:note2] += '<br>Hyde status:' + k.to_s + ' is not ' + flash[:author_name] + '\'s article.'
           end
           unless stmp == pf.hidden
-            flash[:note2] += '<br>Hyde status:' + k + ' is ' + pf.hidden.to_s
+            flash[:note2] += '<br>Hyde status:' + k.to_s + ' is ' + pf.hidden.to_s
           end
         end
       end
