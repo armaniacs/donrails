@@ -1,3 +1,9 @@
+2008-05-01  ARAKI Yasuhiro  <ar@debian.org>
+
+	* config/routes.example.rb: Change sitemap.xml and feed.xml URLs. (close issue #69)
+	* test/integration/cache_test.rb (CacheTest::test_caching_notes): Test for these.
+
+
 2008-04-28  ARAKI Yasuhiro  <ar@debian.org>
 
 	* Added article controller.

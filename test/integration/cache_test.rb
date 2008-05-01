@@ -64,8 +64,9 @@ class CacheTest < ActionController::IntegrationTest
     assert_cache_pages("/")
     assert_cache_pages("/archives/id/1","/archives/id/2","/archives/id/4","/archives/id/10","/archives/id/11")
     assert_cache_pages("/rdf/rdf_enrollment/1/feed.xml", 
-                       '/rdf/rdf_recent/feed.xml',
                        '/rdf/rdf_article/1/feed.xml')
+    assert_cache_pages('/feed.xml')
+
     assert_cache_pages('/archives/1999/1', '/archives/1999/1/1')
     assert_cache_pages('/archives/every_year/1/1')
 
@@ -90,10 +91,13 @@ class CacheTest < ActionController::IntegrationTest
                         '/archives/recent_trigger_title_a/comments',
                         '/archives/recent_trigger_title_a/long',
 
-                        '/rdf/rdf_recent/feed.xml',
+                        # '/rdf/rdf_recent/feed.xml',
+                        '/feed.xml',
+
                         '/archives/articles_long',
                         '/archives/category_tree_list_a',
-                        '/archives/sitemap.xml',
+                        # '/archives/sitemap.xml',
+                        '/sitemap.xml',
                         '/rdf/rdf_article/1/feed.xml',
                         '/rdf/rdf_category/misc/page/1/feed.xml',
                         '/rdf/rdf_category/misc/feed.xml',

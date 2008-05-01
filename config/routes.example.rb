@@ -128,7 +128,7 @@ ActionController::Routing::Routes.draw do |map|
     :day => /[0-3]?\d/
   }
 
-  map.xml 'rdf/rdf_recent/feed.xml', :controller => 'rdf', :action => "rdf_recent"
+  map.xml 'feed.xml', :controller => 'rdf', :action => "rdf_recent"
   map.xml 'rdf/rdf_article/:id/feed.xml', :controller => 'rdf', :action => "rdf_article", :id => /\d+/
   map.xml 'rdf/rdf_enrollment/:id/feed.xml', :controller => 'rdf', :action => "rdf_enrollment", :id => /\d+/
   map.xml 'rdf/rdf_search/:q/feed.xml', :controller => 'rdf', :action => "rdf_search", :q => /.+/
@@ -154,7 +154,7 @@ ActionController::Routing::Routes.draw do |map|
   :action => "feed", :page => /\d+/
   map.xml 'atom/feed/:aid/feed.xml', :controller => 'atom', :action => "feed", :aid => /\d+/
 
-  map.xml 'archives/sitemap.xml', :controller => 'notes', :action => "sitemap"
+  map.xml 'sitemap.xml', :controller => 'notes', :action => "sitemap"
 
   map.connect 'archives/:action/:id', :controller => 'notes'
 
