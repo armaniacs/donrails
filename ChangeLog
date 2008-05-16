@@ -1,3 +1,12 @@
+2008-05-16  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/controllers/notes_controller.rb (NotesController::indexabc): Change to use for wrong URI redirect ?notice to ?ct=Time.now.to_i.
+	* test/functional/notes_controller_test.rb (NotesControllerTest::test_parse_nums__1): Change to apply this.
+	* app/views/notes/index.rhtml: 
+	* app/views/notes/default/show_title.rhtml: 
+	* app/views/notes/default/show_enrollment.rhtml: 
+	* app/views/notes/default/noteslist.rhtml: 
+
 2008-05-01  ARAKI Yasuhiro  <ar@debian.org>
 
 	* config/routes.example.rb: Change sitemap.xml and feed.xml URLs. (close issue #69)

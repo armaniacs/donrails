@@ -166,8 +166,8 @@ class NotesController < ApplicationController
 
   def noteslist
     minTime = nil
-#    @articles_pages, 
-#    @articles = paginate(:article, :per_page => 30,:order => 'article_date DESC, id DESC', :conditions => ["hidden IS NULL OR hidden = 0"])
+    flash.keep if flash[:notice]
+
     @articles = Article.paginate(:page => params[:page], :order => 'article_date DESC, id DESC', :conditions => ["hidden IS NULL OR hidden = 0"])
 
 
@@ -192,7 +192,7 @@ class NotesController < ApplicationController
         a = don_get_object(@articles.first, 'html')
         @heading = "#{don_chomp_tags(a.title_to_html)} at #{@articles.first.article_date.to_date}"
       end
-      @notice = params['notice'] unless @notice
+      flash[:notice] = params['notice'] unless flash[:notice]
     end
     render :action => don_get_theme('noteslist')
   end
@@ -201,7 +201,7 @@ class NotesController < ApplicationController
   def parse_nums
     nums = params['nums'] if params['nums'] 
 
-    @notice = nums
+    flash[:notice] = nums
     if nums =~ /^(\d\d\d\d)(\d\d)(\d\d)$/
       redirect_to :action => "show_date", :year => $1, :month => $2, :day => $3
     elsif nums =~ /^(\d+)-(\d+)-(\d+)$/
@@ -209,8 +209,9 @@ class NotesController < ApplicationController
     elsif nums =~  /^(\d\d\d\d)-?(\d\d)-?(\d\d)\.html?$/
       redirect_to :action => "show_date", :year => $1, :month => $2, :day => $3
     else
-      @notice = "正しく日付を指定してください" unless @notice
-      redirect_to :action => 'noteslist', :notice => @notice
+      flash[:notice] = "正しく日付を指定してください" unless flash[:notice]
+#      redirect_to :action => 'noteslist'#, :notice => flash[:notice]
+      redirect_to :action => 'noteslist', :ct => Time.now.to_i
     end
   end
 
@@ -328,7 +329,7 @@ class NotesController < ApplicationController
       @articles += Article.find(:all, :order => "id DESC", :conditions => ["article_date >= ? AND article_date < ? AND (articles.hidden IS NULL OR articles.hidden = 0)", t2, t2.tomorrow])
     end
     unless @articles.empty? then
-      @notice = "#{t2.month}月 #{t2.day}日の記事(#{@articles.first.article_date.year}年から#{@articles.last.article_date.year}年まで)"
+      flash[:notice] = "#{t2.month}月 #{t2.day}日の記事(#{@articles.first.article_date.year}年から#{@articles.last.article_date.year}年まで)"
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
     end
     @noindex = true
@@ -346,8 +347,9 @@ class NotesController < ApplicationController
     if @ymd
       @articles = Article.find(:all, :conditions => ["article_date >= ? AND article_date < ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @ymd, @ymd1a])
     else
-      @notice = "正しく日付を指定してください" unless @notice
-      redirect_to :action => 'noteslist', :notice => @notice
+      flash[:notice] = "正しく日付を指定してください" unless flash[:notice]
+#      redirect_to :action => 'noteslist' #, :notice => flash[:notice]
+      redirect_to :action => 'noteslist', :ct => Time.now.to_i
     end
 
     begin
@@ -359,8 +361,9 @@ class NotesController < ApplicationController
       render :action => don_get_theme('noteslist')
     rescue
       logger.info $!
-      @notice = "正しく日付を指定してください" unless @notice
-      redirect_to :action => 'noteslist', :notice => @notice
+      flash[:notice] = "正しく日付を指定してください" unless flash[:notice]
+ #     redirect_to :action => 'noteslist' #, :notice => flash[:notice]
+      redirect_to :action => 'noteslist', :ct => Time.now.to_i
     end
   end
 
@@ -494,7 +497,7 @@ class NotesController < ApplicationController
       if @articles.first
         a = don_get_object(@articles.first, 'html')
         @heading = don_chomp_tags(a.title_to_html)
-        @notice = "#{@articles.first.article_date.to_date} 以降 30件の記事を表示します。"
+        flash[:notice] = "#{@articles.first.article_date.to_date} 以降 30件の記事を表示します。"
         unless @articles.empty?
           @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
         end
@@ -518,10 +521,10 @@ class NotesController < ApplicationController
       a = don_get_object(@articles.first, 'html')
       @heading = don_chomp_tags(a.title_to_html)
     
-      @notice = "#{@articles.first.article_date.to_date} 以降の10日間の記事を表示します。"
+      flash[:notice] = "#{@articles.first.article_date.to_date} 以降の10日間の記事を表示します。"
       render :action => don_get_theme('noteslist')
     else
-      @notice = "正しく日付を指定してください" unless @notice
+      flash[:notice] = "正しく日付を指定してください" unless flash[:notice]
       render :text => "#{@ymd}以降に該当する記事はありません", :status => 404
     end
   end
