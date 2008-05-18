@@ -9,7 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '', :controller => "notes", :action => "noteslist", :page => '1'
   map.connect "archives/", :controller => "notes",  :action => "noteslist" , :page => '1'
   map.connect "archives/index", :controller => "notes",  :action => "noteslist" , :page => '1'
-
+  map.connect "archives/noteslist/notice/:notice", :controller => "notes", :action => "noteslist" # r378
   map.connect "archives/noteslist", :controller => "notes",  :action => "noteslist" , :page => '1'
   map.connect "archives/noteslist/page/:page", :controller => "notes", :action => "noteslist", :page => /\d+/
 

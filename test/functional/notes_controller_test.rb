@@ -164,7 +164,7 @@ class NotesControllerTest < Test::Unit::TestCase
   def test_parse_nums__1
     get :parse_nums, :nums => '200403051'
     assert_response 302
-    assert_match(/ct=/, @response.headers['Location'])
+    assert_match(/noteslist\/notice\/200403051$/, @response.headers['Location'])
   end
   def test_parse_nums__2
     get :parse_nums, :nums => '20040305'

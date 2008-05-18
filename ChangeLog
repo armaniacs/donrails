@@ -1,3 +1,11 @@
+2008-05-17  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/controllers/notes_controller.rb (NotesController::noteslist): Back to use for wrong URI redirect from ?ct=Time.now to ?notice.
+
+	* config/routes.example.rb: Change to generate file/URL with flash[:notice]
+	* test/functional/notes_controller_test.rb (NotesControllerTest::test_parse_nums__1): Apply for these change.
+
+
 2008-05-16  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/controllers/notes_controller.rb (NotesController::indexabc): Change to use for wrong URI redirect ?notice to ?ct=Time.now.to_i.

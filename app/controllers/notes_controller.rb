@@ -210,8 +210,7 @@ class NotesController < ApplicationController
       redirect_to :action => "show_date", :year => $1, :month => $2, :day => $3
     else
       flash[:notice] = "正しく日付を指定してください" unless flash[:notice]
-#      redirect_to :action => 'noteslist'#, :notice => flash[:notice]
-      redirect_to :action => 'noteslist', :ct => Time.now.to_i
+      redirect_to :action => 'noteslist', :notice => flash[:notice]
     end
   end
 
@@ -348,8 +347,7 @@ class NotesController < ApplicationController
       @articles = Article.find(:all, :conditions => ["article_date >= ? AND article_date < ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @ymd, @ymd1a])
     else
       flash[:notice] = "正しく日付を指定してください" unless flash[:notice]
-#      redirect_to :action => 'noteslist' #, :notice => flash[:notice]
-      redirect_to :action => 'noteslist', :ct => Time.now.to_i
+      redirect_to :action => 'noteslist', :notice => flash[:notice]
     end
 
     begin
@@ -362,8 +360,7 @@ class NotesController < ApplicationController
     rescue
       logger.info $!
       flash[:notice] = "正しく日付を指定してください" unless flash[:notice]
- #     redirect_to :action => 'noteslist' #, :notice => flash[:notice]
-      redirect_to :action => 'noteslist', :ct => Time.now.to_i
+      redirect_to :action => 'noteslist', :notice => flash[:notice]
     end
   end
 
