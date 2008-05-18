@@ -138,8 +138,21 @@ class ApplicationController < ActionController::Base
   
   def don_delete_cache_all
     logger.info 'Expireing: all page'
+
     begin
       ppfile = RAILS_ROOT + '/public/index.html'
+      File.delete ppfile
+      logger.info "Expired page: #{ppfile}"
+    rescue
+    end
+    begin
+      ppfile = RAILS_ROOT + '/public/feed.xml'
+      File.delete ppfile
+      logger.info "Expired page: #{ppfile}"
+    rescue
+    end
+    begin
+      ppfile = RAILS_ROOT + '/public/archives.html'
       File.delete ppfile
       logger.info "Expired page: #{ppfile}"
     rescue

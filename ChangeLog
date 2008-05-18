@@ -1,3 +1,10 @@
+2008-05-19  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/controllers/application.rb (ApplicationController::don_delete_cache_all): Add to delete feed.xml. (Apply to change routes.rb.)
+	* test/integration/cache_test.rb (CacheTest::test_delete_cache): Add new method.
+
+	* app/views/notes/default/*.rhtml: Fix to use flash[:notice]. I'm sorry, I lacked to change them at May.16.
+
 2008-05-17  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/controllers/notes_controller.rb (NotesController::noteslist): Back to use for wrong URI redirect from ?ct=Time.now to ?notice.

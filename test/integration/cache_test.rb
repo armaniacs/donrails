@@ -144,4 +144,28 @@ class CacheTest < ActionController::IntegrationTest
     assert_equal '/archives/id/1', path    
   end
 
+  def test_delete_cache
+    assert_cache_pages('/archives/show_category_noteslist/misc')
+    assert_cache_pages('/archives/category_articles/1/page/1')
+    assert_cache_pages('/feed.xml')
+
+    reset!
+    get '/admin/article/manage_article'
+    assert_equal 302, status
+    follow_redirect!
+    assert_equal '/admin/login/login_index', path
+
+    post '/admin/login/authenticate',
+    :nz => {"n" => 'testuser', "p" => 'testpass'},
+    :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
+    follow_redirect!
+    assert_equal '/admin/article/manage_article', path
+
+    post '/admin/system/delete_cache',
+      :session_id_validation => Digest::MD5.hexdigest(request.session.session_id)
+    follow_redirect!
+    assert_equal '/admin/system/manage_cache', path    
+    
+  end
+
 end
