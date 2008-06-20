@@ -1,3 +1,8 @@
+2008-06-20  ARAKI Yasuhiro  <ar@debian.org>
+
+	* config/initializers/fix_multibyte_chars_respond_to.rb: Add new file for run with rails2.0.2 + ruby1.8.7. Thanks ay!
+	* config/initializers/remove_string_chars.rb: likewise.
+
 2008-05-19  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/controllers/application.rb (ApplicationController::don_delete_cache_all): Add to delete feed.xml. (Apply to change routes.rb.)
