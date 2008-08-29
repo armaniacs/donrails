@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Admin::SystemController < AdminController
   layout 'login', :except => [:pick_donping_a]
 

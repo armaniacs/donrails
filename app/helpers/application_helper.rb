@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # The methods added to this helper will be available to all templates in the application.
 
 require 'delegator'
@@ -388,7 +389,6 @@ module ApplicationHelper
     return content
   end
 
-
   def don_get_config
     begin
       de = DonEnv.find(:first, :conditions => ["hidden IS NULL OR hidden = 0"])
@@ -402,6 +402,7 @@ module ApplicationHelper
   end
 
   def don_get_oldconfig
+    if DonEnv.table_exists?
     de = DonEnv.new
     de.image_dump_path = IMAGE_DUMP_PATH if defined?(IMAGE_DUMP_PATH)
     de.admin_user = ADMIN_USER if defined?(ADMIN_USER)
@@ -417,6 +418,10 @@ module ApplicationHelper
     de.default_theme = defined?(DEFAULT_THEME) ? DEFAULT_THEME : 'MT'
     de.trackback_enable_time = TRACKBACK_ENABLE_TIME if defined?(TRACKBACK_ENABLE_TIME)
     return de
+    else
+      puts "don_env table is not found. Please ignore when you want to initialize database for setup."
+      de = Hash.new
+    end
   end
   
   def don_get_ip_rbl

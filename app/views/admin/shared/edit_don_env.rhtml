@@ -1,16 +1,24 @@
 <% form_tag :action => "add_don_env" do hidden_field_tag("session_id_validation", security_token) -%>
-<%= hidden_field "donenv", "id" %><br>
+<%= hidden_field "donenv", "id" %>
+<p>
+<font color="red">(*):必須事項</font><br>
 
-image_dump_path:<%= text_field "donenv", "image_dump_path" %> (例: public/images/dump/)<br>
-admin_user:<%= text_field "donenv", "admin_user" %>(例: testuser)<br>
-admin_password:<%= password_field "donenv", "admin_password" %>(例: testpass)<br>
+image_dump_path:<font color="red">(*)</font><%= text_field "donenv", "image_dump_path", :value => "public/images/dump/" %> (例: public/images/dump/)<br>
+admin_user:<font color="red">(*)</font><%= text_field "donenv", "admin_user" %>(例: testuser)<br>
+admin_password:<font color="red">(*)</font><%= password_field "donenv", "admin_password" %>(例: testpass)<br>
+baseurl:<font color="red">(*)</font><%= text_field "donenv", "baseurl", :value => request.protocol + request.host_with_port + '/' %>(donrailsのtop urlを指定。例: http://donrails.example.com/ )
+</p>
+<hr>
+<p>
+Optional:
+<br>
 admin_mailadd:<%= text_field "donenv", "admin_mailadd" %>(例: donrails@example.com)<br>
 rdf_title:<%= text_field "donenv", "rdf_title" %>(RDFにつけるタイトル 例: へのへのもへじの日記<br>
 rdf_description:<%= text_field "donenv", "rdf_description" %>(RDFにつける詳細 例: へのへのもへじの日記は日々気づいたことを書いています<br>
 rdf_copyright:<%= text_field "donenv", "rdf_copyright" %>(RDFにつけるCopyright文 例: Copyright 2007 Henoheno moheji)<br>
 rdf_managingeditor:<%= text_field "donenv", "rdf_managingeditor" %>(日記の責任編集者の名前、メールアドレスなど 例: henoheno moheji donrails@example.com)<br>
 rdf_webmaster:<%= text_field "donenv", "rdf_webmaster" %>(日記のwebmaster 例: henoheno moheji donrails@example.com)<br>
-baseurl:<%= text_field "donenv", "baseurl" %>(donrailsのtop urlを指定。例: http://donrails.example.com/ )<br>
+
 url_limit:<%= text_field "donenv", "url_limit" %>(コメントに大量のurlリンクが記述されている時はspamと判断します。ここで指定した数字以上の場合にはspamとします)<br>
 
 default_theme:<%= text_field "donenv", "default_theme" %>(MovableType互換のテーマを使用するときは、MT を指定します)<br>
