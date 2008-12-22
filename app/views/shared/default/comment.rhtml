@@ -25,6 +25,7 @@
 [TrackBack URL:http://
 <%= request.host_with_port + url_for(:action => 'trackback', :id => article.id) %>]
 <div style="display: none;" class="msc" id="dx_boardlink_<%= article.id %>">
-<%= render("shared/comment-form", "article" => article) %>
+<%= render :template => "shared/comment-form", :locals => {:article => article}
+ %>
 </div> <!-- end of msc-toggle as comment form -->
 </div> <!-- end of boadlink -->

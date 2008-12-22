@@ -1,3 +1,13 @@
+2008-12-22  ARAKI Yasuhiro  <ar@debian.org>
+
+	* This version is running with rails2.2.2. (checked by rake test). However, following feature is disabled.
+	- cache expiring test.
+	- spam filter by antispam.rb for model/comment.rb. (Akismet bloking is alive.)
+
+2008-12-19  ARAKI Yasuhiro  <ar@debian.org>
+
+	* This version is running with rails2.1.2. (checked by rake test).
+
 2008-08-29  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/views/admin/shared/edit_don_env.rhtml (baseurl): Change to split "mandatory" and "optional" parameters.

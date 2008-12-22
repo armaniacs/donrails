@@ -29,9 +29,11 @@ day0 = Time.new; day1 = day0
   <%= display_article_attachments(article) %>
   <%= article.body_to_html %>
   </div>
-  <%= render(don_get_theme("shared/comment2"), "article" => article) %>
+  <%= render :template => don_get_theme("shared/comment2"), :locals => {:article => article}
+ %>
   <div class="nndate">
-    <%= render(don_get_theme("shared/authorhead"), "article" => article) %>
+    <%= render :template => don_get_theme("shared/authorhead"), :locals => {:article => article}
+ %>
     <br clear='all'>
   </div>
 </div> <!-- end section -->
@@ -39,14 +41,15 @@ day0 = Time.new; day1 = day0
 
 <div class="linktitle">
 <% if (@lastarticle and @nextarticle) %>
-<%= render(don_get_theme("shared/linktitle"), "lastarticle" => don_get_object(@lastarticle, 'html'), "nextarticle" => don_get_object(@nextarticle, 'html')) %>
+<%= render :inline => don_get_theme("shared/linktitle"), :locals => {:lastarticle => don_get_object(@lastarticle, 'html'), :nextarticle => don_get_object(@nextarticle, 'html')} %>
 <% else %>
 (sorry, I can not link previous and next articles)
 <% end %>
 </div>
 
 <div class="pagelink">
-<%= render(don_get_theme("shared/nextlink3"), "article" => article) %>
+<%= render :template => don_get_theme("shared/nextlink3"), :locals => {:article => article}
+ %>
 </div> <!-- end pagelink -->
 <% end %>
 

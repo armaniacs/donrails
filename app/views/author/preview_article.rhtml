@@ -17,7 +17,8 @@
 <div class="section">
   <%= display_article_images article %>
   <%= article.body_to_html if article.body %>
-  <%= render(don_get_theme("shared/comment"), "article" => article) %>
+  <%= render :template => don_get_theme("shared/comment"), :locals => {:article => article}
+ %>
   <br clear='all'>
 </div>
 </div>
@@ -25,4 +26,4 @@
 
 <hr>
 <a name="reedit"></a>
-<%= render('admin/article/form_article') %>
+<%= render(:file => 'admin/article/form_article') %>

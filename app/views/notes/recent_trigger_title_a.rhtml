@@ -31,9 +31,9 @@ break if i > no.to_i
 <% end %>
 
   <% if article.enrollment_id %>
-  <%= link_to truncate(btmp, 76), {:action => "show_enrollment", :id => article.enrollment_id} %>
+  <%= link_to truncate(btmp, :length => 76), {:action => "show_enrollment", :id => article.enrollment_id} %>
   <% else %>
-  <%= link_to truncate(btmp, 76), {:action => "show_title", :id => article.id} %>
+  <%= link_to truncate(btmp, :length => 76), {:action => "show_title", :id => article.id} %>
   <% end %>
 </div>
 <%

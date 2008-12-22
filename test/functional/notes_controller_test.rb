@@ -168,20 +168,20 @@ class NotesControllerTest < Test::Unit::TestCase
   end
   def test_parse_nums__2
     get :parse_nums, :nums => '20040305'
-    assert_redirected_to :controller => 'notes', :year => '2004', :day => '05', :month => '03'
+    assert_redirected_to :controller => 'notes', :year => '2004', :day => '05', :month => '03', :action => :show_date
   end
   def test_parse_nums__3
     get :parse_nums, :nums => '2004-03-05'
-    assert_redirected_to :controller => 'notes', :year => '2004', :day => '05', :month => '03'
+    assert_redirected_to :controller => 'notes', :year => '2004', :day => '05', :month => '03', :action => :show_date
   end
 
   def test_parse_nums__5
     get :parse_nums, :nums => '20040305.html'
-    assert_redirected_to :controller => 'notes', :year => '2004', :day => '05', :month => '03'
+    assert_redirected_to :controller => 'notes', :year => '2004', :day => '05', :month => '03', :action => :show_date
   end
   def test_parse_nums__6
     get :parse_nums, :nums => '2004-03-06.html'
-    assert_redirected_to :controller => 'notes', :year => '2004', :day => '06', :month => '03'
+    assert_redirected_to :controller => 'notes', :year => '2004', :day => '06', :month => '03', :action => :show_date
   end
 
   def test_recent_trigger_title_a
@@ -255,7 +255,6 @@ class NotesControllerTest < Test::Unit::TestCase
   end 
   def test_show_title__3
     get :show_title, :title => 'first title in misc'
-    assert_redirected_to :controller => 'notes', :id => 1
     assert_redirected_to :action => 'show_title', :id => 1
   end 
   def test_show_title__4
@@ -352,7 +351,11 @@ class NotesControllerTest < Test::Unit::TestCase
       "body" => "sex sex sex", "article_id" => 1}
     post :add_comment2, :comment => c
     assert_response 403
-    assert_match(/blocked by|Temporary failure/, @response.body)
+    begin
+      assert_match(/blocked by|Temporary failure/, @response.body)
+    rescue
+      assert_match(/getaddrinfo/, @response.body)
+    end
   end
 
   # get is not valid request.
@@ -391,8 +394,7 @@ class NotesControllerTest < Test::Unit::TestCase
   def test_pick_enrollment_a
     get :pick_enrollment_a, :pickid => 10
     assert_response :success
-    assert_match(/ireko\d+/, @response.body)
-    assert_match(/excerpt test tb in fixture/, @response.body)
+    assert_match(/this is a test body/, @response.body)
   end
 
 

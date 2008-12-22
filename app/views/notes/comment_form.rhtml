@@ -15,5 +15,6 @@
 
 <hr>
 <h2>コメントをどうぞ</h2>
-<%= render("shared/comment-form", "article" => @article) %>
+<%= render :template => "shared/comment-form", :locals => {:article => @article}
+ %>
 <% end %>

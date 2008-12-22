@@ -1,5 +1,6 @@
+# -*- coding: euc-jp -*-
 require "#{File.dirname(__FILE__)}/../test_helper"
-
+=begin
 class CacheTest < ActionController::IntegrationTest
   fixtures :articles, :blogpings, :comments, :don_pings, :authors, :categories, :plugins, :banlists, :don_attachments, :trackbacks, :don_envs, :don_rbls, :enrollments
 
@@ -169,3 +170,5 @@ class CacheTest < ActionController::IntegrationTest
   end
 
 end
+
+=end

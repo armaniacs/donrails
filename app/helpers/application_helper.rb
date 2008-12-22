@@ -98,9 +98,17 @@ module ApplicationHelper
     filename = File.basename(name)
 
     if path && theme && filename
-      return File.join(path, theme, filename)
+      if path == "."
+        return File.join(theme, filename) ## for rails2.1
+      else
+        return File.join(path, theme, filename)
+      end
     elsif path && filename
-      return File.join(path, filename)
+      if path == "."
+        return File.join(filename) ## for rails2.1
+      else
+        return File.join(path, filename)
+      end
     elsif filename
       return File.join(filename)
     end
@@ -372,9 +380,11 @@ module ApplicationHelper
     content = ''
     article.don_attachments.each do |atta|
       if atta.format
-        content += render("shared/attachments/#{atta.format}", "atta" => atta)
+#        content += render("shared/attachments/#{atta.format}", "atta" => atta)
+        content += render(:inline => "shared/attachments/#{atta.format}", :locals => {:atta => atta})
       else
-        content += render("shared/attachments/picture", "atta" => atta)
+#        content += render("shared/attachments/picture", "atta" => atta)
+        content += render(:inline => "shared/attachments/picture", :locals => {:atta => atta})
       end
     end
     return content

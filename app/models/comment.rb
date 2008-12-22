@@ -6,11 +6,13 @@ class Comment < ActiveRecord::Base
   validates_length_of :password, :minimum => 4
   validates_length_of :body, :minimum => 5
 
+=begin
   validates_antispam :url
   validates_antispam :ipaddr
   validates_antispam :body
   validates_antispam :author
   validates_antispam :title
+=end
 
   protected
   before_save :kcode_convert, :correct_url, :strip_html_in_body

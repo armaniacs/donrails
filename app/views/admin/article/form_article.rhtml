@@ -17,7 +17,7 @@
 </div>
 <%= submit_tag "テーブルを保存" %>Enrollmented history:
 <% @articles = kiji.enrollment.articles %>
-<%= render('admin/shared/table_article') %>
+<%= render(:file => 'admin/shared/table_article') %>
 <hr>
 <% end %>
 <% end %>

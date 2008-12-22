@@ -1,6 +1,6 @@
 <%= flash[:notice] %>
 <% if flash[:notice] == 'first setup' %>
-<%= render('help/first_setup') %>
+<%= render(:file => 'help/first_setup') %>
 <% end %>
 <h1>login</h1>
 <!-- % secure_form_tag :action => 'authenticate' do % -->

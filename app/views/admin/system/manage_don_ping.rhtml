@@ -57,7 +57,7 @@ id を押すとPing message information が表示されます
     <td><%= co.created_at %></td>
     <td><%= co.counter %></td>
     <td><%= co.send_at %></td>
-    <td><%= truncate(co.response_body, 30) %></td>
+    <td><%= truncate(co.response_body, :length => 30) %></td>
   </tr>
   <% end %>
 </table>

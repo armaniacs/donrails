@@ -39,20 +39,22 @@
 <div class="sidebar">
 <div class="lefttitle">
 
-<%= render(don_get_theme("shared/search")) %>
+<%= render(:file => don_get_theme("shared/search")) %>
 [最近のdonrails関連]
-<%= render(don_get_theme("shared/category_title_list"), "category" => "donrails") %>
+<%= render :template => don_get_theme("shared/category_title_list"), :locals => {:category => "donrails"}
+ %>
 [最近のruby関連]
-<%= render(don_get_theme("shared/category_title_list"), "category" => "ruby") %>
+<%= render :template => don_get_theme("shared/category_title_list"), :locals => {:category => "ruby"}
+ %>
 
-<%= render(don_get_theme("shared/show_direct")) %>
+<%= render(:file => don_get_theme("shared/show_direct")) %>
 
 カテゴリ
 <% ["ruby","donrails"].each do |cat| %>
 /<%= link_to cat, {:action => "show_category", :category => cat} %>
 <% end %>
 
-<%= render(don_get_theme("shared/category_select")) %>
+<%= render(:file => don_get_theme("shared/category_select")) %>
 
 <address>my mail address</address>
 <p>

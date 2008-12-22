@@ -1,3 +1,4 @@
+# -*- coding: euc-jp -*-
 require File.dirname(__FILE__) + '/../../test_helper'
 require 'admin/article_controller'
 
@@ -75,7 +76,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     :category => {:name => 'test misc'},
     :author => {:name => 'test author'}
 
-    assert_redirected_to :action => 'manage_author'
+    assert_response :redirect
 
     post :add_article, 
     :article => {:title => 'test add article title', :body => 'body and soul', :tburl => 'http://localhost:3000/notes/trackback/1'}, 

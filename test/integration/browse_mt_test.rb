@@ -10,8 +10,15 @@ class BrowseStoryTest < ActionController::IntegrationTest
     end
   end
 
+
   def test_fromtop
+    get ""
+    assert_equal 200, status
+    get "/"
+    assert_equal 200, status
     get "/notes"
+    assert_equal 200, status
+    get "/notes/"
     assert_equal 200, status
 
     get "/archives/search", :q => 'first body'
@@ -46,4 +53,5 @@ class BrowseStoryTest < ActionController::IntegrationTest
 
     # GET /archives/category/misc/page/108?article_date=.html    
   end
+
 end

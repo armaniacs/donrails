@@ -87,9 +87,13 @@ module DonRails
       @__module__ = nil
       @__type__ = type
 
-      if DataFormatDelegator.formatlist.include?(obj.format) then
-        @__module__ = eval(DataFormatDelegator.formatmap[obj.format])
-      else
+      begin
+        if DataFormatDelegator.formatlist.include?(obj.format) then
+          @__module__ = eval(DataFormatDelegator.formatmap[obj.format])
+        else
+          @__module__ = eval(DataFormatDelegator.formatmap['plain'])
+        end
+      rescue
         @__module__ = eval(DataFormatDelegator.formatmap['plain'])
       end
     end # def initialize

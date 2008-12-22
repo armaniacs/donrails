@@ -26,7 +26,7 @@
   <%= flash[:hit_tbs].size %>件のトラックバックがマッチします。
   <% @trackbacks = flash[:hit_tbs] %>
   <%= submit_tag "チェックしたトラックバックを削除する" %>
-  <%= render('shared/table_trackback') %>
+  <%= render(:file => 'shared/table_trackback') %>
   <%= submit_tag "チェックしたトラックバックを削除する" %>
   <% end %>
   <% end %>
@@ -36,7 +36,7 @@
   <%= flash[:hit_comments].size %>件のコメントがマッチします。
   <% @comments = flash[:hit_comments] %>
   <%= submit_tag "チェックしたコメントを削除する" %>  
-  <%= render('shared/table_comment') %>
+  <%= render(:file => 'shared/table_comment') %>
   <%= submit_tag "チェックしたコメントを削除する" %>  
   <% end %>
   <% end %>

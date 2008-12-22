@@ -1,5 +1,5 @@
 class ArticleSweeper < ActionController::Caching::Sweeper
-  observe Article, Category, Comment, Trackback, Enrollment, Picture
+# XXX #  observe Article, Category, Comment, Trackback, Enrollment, Picture
 
   def after_save(record)
     expire_for(record)

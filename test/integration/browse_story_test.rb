@@ -8,6 +8,7 @@ class BrowseStoryTest < ActionController::IntegrationTest
     assert true
   end
 
+
   def test_fromtop
     if don_get_config.default_theme == 'MT'
     else
@@ -65,5 +66,6 @@ class BrowseStoryTest < ActionController::IntegrationTest
     get '/archives/show_category/1'
     assert_equal 200, status
   end
+
 
 end

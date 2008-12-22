@@ -1,1 +1,1 @@
-<%= render("shared/comment-form", "article" => @article) if @article %>
+<%= render(:template => "shared/comment-form", :locals => {:article => @article}) if @article %>

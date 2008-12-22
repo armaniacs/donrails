@@ -36,7 +36,8 @@
 <h3>表示例</h3>
 <div class="recenttitle">
 <a name="recent">[最近のtopics]</a>
-<%= render(don_get_theme("shared/title-articles2no"), "pages" => @recent_articles) %>
+<%= render :template => don_get_theme("shared/title-articles2no"), :locals => {:pages => @recent_articles}
+ %>
 </div>
 
 

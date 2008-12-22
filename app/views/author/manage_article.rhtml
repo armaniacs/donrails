@@ -27,7 +27,7 @@
 </div>
   
 <%= submit_tag %>
-<%= render('admin/shared/table_article') %>
+<%= render(:file => 'admin/shared/table_article') %>
 <%= submit_tag %>
  <% end %>
 <%= will_paginate @articles %>
