@@ -16,20 +16,20 @@
   <%= display_enrollment_images(@enrollment) %>
   <%= article.body_to_html if article.body %>
   </div>
-  <%= render :inline => don_get_theme("shared/comment-enrollment"), :locals => {:enrollment => @enrollment, :article => article} %>
+  <%= render :file => don_get_theme("shared/comment-enrollment"), :locals => {:enrollment => @enrollment, :article => article} %>
   <div class="nndate">
-    <%= render :inline => don_get_theme("shared/authorhead"), :locals => {:article => article} %>
+    <%= render :file => don_get_theme("shared/authorhead"), :locals => {:article => article} %>
   </div>
 </div> <!-- end section -->
 </div> <!-- end numsection -->
 
 <div class="linktitle">
 <% if (@enrollment_l && @enrollment_l.articles.first && @enrollment_r && @enrollment_r.articles.first) %>
-<%= render :inline => don_get_theme("shared/linktitle"), :locals => {:lastarticle => don_get_object(@enrollment_l.articles.first, 'html'), :nextarticle => don_get_object(@enrollment_r.articles.first, 'html')} %>
+<%= render :file => don_get_theme("shared/linktitle"), :locals => {:lastarticle => don_get_object(@enrollment_l.articles.first, 'html'), :nextarticle => don_get_object(@enrollment_r.articles.first, 'html')} %>
 <% elsif (@enrollment_l && @enrollment_l.articles.first && @enrollment_r == nil) %>
-<%= render :inline => don_get_theme("shared/linktitle"), :locals => {:lastarticle => don_get_object(@enrollment_l.articles.first, 'html')} %>
+<%= render :file => don_get_theme("shared/linktitle"), :locals => {:lastarticle => don_get_object(@enrollment_l.articles.first, 'html')} %>
 <% elsif (@enrollment_l == nil && @enrollment_r && @enrollment_r.articles.first) %>
-<%= render :inline => don_get_theme("shared/linktitle"), :locals => {:nextarticle => don_get_object(@enrollment_r.articles.first, 'html')} %>
+<%= render :file => don_get_theme("shared/linktitle"), :locals => {:nextarticle => don_get_object(@enrollment_r.articles.first, 'html')} %>
 <% else %>
 (sorry, I can not link previous and next articles)
 <% end %>

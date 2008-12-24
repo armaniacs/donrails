@@ -1,3 +1,8 @@
+2008-12-24  ARAKI Yasuhiro  <ar@debian.org>
+
+	* Change to include sub categories at viewing.
+	* Add rss link image.
+
 2008-12-22  ARAKI Yasuhiro  <ar@debian.org>
 
 	* This version is running with rails2.2.2. (checked by rake test). However, following feature is disabled.

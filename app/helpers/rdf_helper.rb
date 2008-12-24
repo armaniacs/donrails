@@ -45,18 +45,25 @@ module RdfHelper
   def rdf_parts31(xmlorig, item, action)
     xml = Builder::XmlMarkup.new(:target => xmlorig)
 
-    xml.title(item.title_to_xml)
     if action == "show_enrollment"
       xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => action, :id => item.enrollment_id))
     elsif action == "show_title"
       xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => action, :id => item.id))
     end
 
+    categories = Array.new
     item.categories.each do |cat|
+      categories.push cat.name
       xml.tag!("dc:subject") do
         xml.text! cat.name
       end
     end
+    title_line = ''
+    categories.each do |cn|
+      title_line += '[' + cn + ']'
+    end
+    title_line += ' ' + item.title_to_xml
+    xml.title(title_line)
 
     begin
       ce = item.body_to_xml
@@ -103,7 +110,6 @@ module RdfHelper
   def rss2_parts31(xmlorig, item, action)
     xml = Builder::XmlMarkup.new(:target => xmlorig)
 
-    xml.title(item.title_to_xml)
     if action == "show_enrollment"
       xml.link(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => action, :id => item.enrollment_id))
       xml.guid(request.protocol + request.host_with_port + url_for(:controller => 'notes', :action => action, :id => item.enrollment_id))
@@ -115,6 +121,20 @@ module RdfHelper
     item.categories.each do |cat|
       xml.category cat.name
     end
+
+    categories = Array.new
+    item.categories.each do |cat|
+      categories.push cat.name
+      xml.tag!("dc:subject") do
+        xml.text! cat.name
+      end
+    end
+    title_line = ''
+    categories.each do |cn|
+      title_line += '[' + cn + ']'
+    end
+    title_line += ' ' + item.title_to_xml
+    xml.title(title_line)
 
     begin
       ce = item.body_to_xml

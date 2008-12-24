@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 ## TODO: migrate classic_pagination to will_pagenate
 
 require 'kconv'
@@ -169,7 +170,6 @@ class NotesController < ApplicationController
     flash.keep if flash[:notice]
 
     @articles = Article.paginate(:page => params[:page], :order => 'article_date DESC, id DESC', :conditions => ["hidden IS NULL OR hidden = 0"])
-
 
     unless @articles.empty?
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
@@ -444,12 +444,15 @@ class NotesController < ApplicationController
       end
 
       if @category and @category.id
-        @articles = Article.paginate(:page => params[:page],
-                                     :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"],
-                                     :joins => "JOIN dona_cas on (dona_cas.article_id=articles.id AND dona_cas.category_id=#{@category.id})",
-                                     :order => 'articles.article_date DESC'
-                                     )
-
+        ccs = collect_category_ids(@category)
+        @articles = Array.new
+        ccs.each do |cid|
+          @articles = @articles | Article.paginate(:page => params[:page],
+                                       :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"],
+                                       :joins => "JOIN dona_cas on (dona_cas.article_id=articles.id AND dona_cas.category_id=#{cid})",
+                                       :order => 'articles.article_date DESC'
+                                       )
+        end
         @heading = "カテゴリ:#{params['category']}"
         @heading += '(' + @category.articles.size.to_s + ')'
 

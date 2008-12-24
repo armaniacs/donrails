@@ -244,5 +244,16 @@ class ApplicationController < ActionController::Base
     end
     response.headers["X-donrails"] = "login"
   end
+
+  private
+  def collect_category_ids(category, ccs = Array.new)
+    ccs.push category.id
+    category.direct_children.each do |cc|
+      if cc.direct_children
+        ccs = collect_category_ids(cc, ccs)
+      end
+    end
+    return ccs
+  end
   
 end

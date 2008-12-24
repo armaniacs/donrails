@@ -41,7 +41,7 @@ day0 = Time.new; day1 = day0
 
 <div class="linktitle">
 <% if (@lastarticle and @nextarticle) %>
-<%= render :inline => don_get_theme("shared/linktitle"), :locals => {:lastarticle => don_get_object(@lastarticle, 'html'), :nextarticle => don_get_object(@nextarticle, 'html')} %>
+<%= render :file => don_get_theme("shared/linktitle"), :locals => {:lastarticle => don_get_object(@lastarticle, 'html'), :nextarticle => don_get_object(@nextarticle, 'html')} %>
 <% else %>
 (sorry, I can not link previous and next articles)
 <% end %>
