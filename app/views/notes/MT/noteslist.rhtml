@@ -24,12 +24,12 @@ if @articles then
     </div><!-- the end of 'entry-body' -->
   </div><!-- the end of 'entry-content' -->
   <p class="entry-footer">
-    <%= render :template => don_get_theme("shared/simple-category"), :locals => {:article => article} %>
-    <%= render :template => don_get_theme("shared/post-footer"), :locals => {:article => article} %>
+    <%= render :file => don_get_theme("shared/simple-category"), :locals => {:article => article} %>
+    <%= render :file => don_get_theme("shared/post-footer"), :locals => {:article => article} %>
     <span class="separator">|</span> 
-    <%= render :template => don_get_theme("shared/permlink"), :locals => {:article => article} %> | 
-    <%= render :template => don_get_theme("shared/simple-comment"), :locals => {:article => article} %> |
-    <%= render :template => don_get_theme("shared/simple-trackback"), :locals => {:article => article}
+    <%= render :file => don_get_theme("shared/permlink"), :locals => {:article => article} %> | 
+    <%= render :file => don_get_theme("shared/simple-comment"), :locals => {:article => article} %> |
+    <%= render :file => don_get_theme("shared/simple-trackback"), :locals => {:article => article}
  %>
   </p><!-- the end of 'entry-footer' -->
 </div><!-- the end of 'entry' -->

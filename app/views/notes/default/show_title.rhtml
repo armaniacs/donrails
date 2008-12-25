@@ -29,10 +29,10 @@ day0 = Time.new; day1 = day0
   <%= display_article_attachments(article) %>
   <%= article.body_to_html %>
   </div>
-  <%= render :template => don_get_theme("shared/comment2"), :locals => {:article => article}
+  <%= render :file => don_get_theme("shared/comment2"), :locals => {:article => article}
  %>
   <div class="nndate">
-    <%= render :template => don_get_theme("shared/authorhead"), :locals => {:article => article}
+    <%= render :file => don_get_theme("shared/authorhead"), :locals => {:article => article}
  %>
     <br clear='all'>
   </div>
@@ -48,7 +48,7 @@ day0 = Time.new; day1 = day0
 </div>
 
 <div class="pagelink">
-<%= render :template => don_get_theme("shared/nextlink3"), :locals => {:article => article}
+<%= render :file => don_get_theme("shared/nextlink3"), :locals => {:article => article}
  %>
 </div> <!-- end pagelink -->
 <% end %>

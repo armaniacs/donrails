@@ -8,7 +8,7 @@
 <!--  display_article_images article % -->
 <%= display_enrollment_images @enrollment %>
 <%= article.body_to_html if article.body %>
-<%= render :template => "shared/comment-noadd-enrollment", :locals => {:enrollment => @enrollment} %>
+<%= render :file => "shared/comment-noadd-enrollment", :locals => {:enrollment => @enrollment} %>
 <br clear='all'>
 </div> <!-- end section -->
 

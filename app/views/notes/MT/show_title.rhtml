@@ -13,17 +13,17 @@ article = don_get_object(@articles.first, 'html')
     </div><!-- the end of 'entry-body' -->
   </div><!-- the end of 'entry-content' -->
   <p class="entry-footer">
-    <%= render :template => don_get_theme("shared/simple-category"), :locals => {:article => article}
+    <%= render :file => don_get_theme("shared/simple-category"), :locals => {:article => article}
  %>
-    <%= render :template => don_get_theme("shared/post-footer"), :locals => {:article => article}
+    <%= render :file => don_get_theme("shared/post-footer"), :locals => {:article => article}
  %>
     <span class="separator">|</span> 
-    <%= render :template => don_get_theme("shared/permlink"), :locals => {:article => article}
+    <%= render :file => don_get_theme("shared/permlink"), :locals => {:article => article}
  %>
   </p><!-- the end of 'entry-footer' -->
 </div><!-- the end of 'entry' -->
 
-<%= render :template => don_get_theme("shared/trackback"), "enrollment" => article.enrollment, :locals => {:article => article}
+<%= render :file => don_get_theme("shared/trackback"), :locals => {:enrollment => article.enrollment, :article => article}
  %>
-<%= render :template => don_get_theme("shared/comment"), :locals => {:enrollment => article.enrollment}
+<%= render :file => don_get_theme("shared/comment"), :locals => {:enrollment => article.enrollment}
  %>

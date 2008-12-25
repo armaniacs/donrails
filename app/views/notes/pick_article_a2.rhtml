@@ -2,7 +2,7 @@
 <div class="section">
 <%= display_article_images article %>
 <%= article.body_to_html if article.body %>
-<%= render :template => don_get_theme("shared/comment"), :locals => {:article => article}
+<%= render :file => don_get_theme("shared/comment"), :locals => {:article => article}
  %>
 <br clear='all'>
 </div>

@@ -51,10 +51,10 @@ article = don_get_object(a, 'html'); day0 = article.article_date.to_date %>
   <%= display_article_attachments(article) %>
   <%= article.body_to_html %>
   </div>
-  <%= render :template => don_get_theme("shared/comment2"), :locals => {:article => article}
+  <%= render :file => don_get_theme("shared/comment2"), :locals => {:article => article}
  %>
   <div class="nndate">
-    <%= render :template => don_get_theme("shared/authorhead"), :locals => {:article => article}
+    <%= render :file => don_get_theme("shared/authorhead"), :locals => {:article => article}
  %>
   </div>
 </div> <!-- end section -->
@@ -65,7 +65,7 @@ article = don_get_object(a, 'html'); day0 = article.article_date.to_date %>
 
 <% if params['action'] =~ /(show_date|show_nnen)/ %>
 <div class="pagelink">
-  <%= render :template => don_get_theme("shared/nextlink2"), :locals => {:articles => @articles}
+  <%= render :file => don_get_theme("shared/nextlink2"), :locals => {:articles => @articles}
  %>
 </div> <!-- end pagelink -->
 <% end %>
