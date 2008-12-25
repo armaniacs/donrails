@@ -108,10 +108,6 @@ class NotesController < ApplicationController
   end
 
   def articles_long
-#    @articles_pages, @articles = paginate(:article, :per_page => 10,
-#                                          :order => 'size DESC, id DESC',
-#					  :conditions => ["hidden IS NULL OR hidden = 0"]
-#                                          )
     @articles = Article.paginate(:page => params[:page], :per_page => 10,
                                           :order => 'size DESC, id DESC',
 					  :conditions => ["hidden IS NULL OR hidden = 0"]
@@ -127,10 +123,6 @@ class NotesController < ApplicationController
 
   def articles_author
     begin
-#       @articles_pages, @articles = paginate(:article, :per_page => 10,
-#                                             :order => 'id DESC',
-#                                             :conditions => ["author_id = ? AND ( hidden IS NULL OR hidden = 0 )", params['id']]
-#                                             )
       @articles = Article.paginate(:page => params[:page], :per_page => 10,
                                             :order => 'id DESC',
                                             :conditions => ["author_id = ? AND ( hidden IS NULL OR hidden = 0 )", params['id']]
@@ -453,6 +445,7 @@ class NotesController < ApplicationController
                                        :order => 'articles.article_date DESC'
                                        )
         end
+        @articles = @articles.sort.reverse
         @heading = "カテゴリ:#{params['category']}"
         @heading += '(' + @category.articles.size.to_s + ')'
 

@@ -77,6 +77,7 @@ class RdfController < ApplicationController
                            :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"]
                            )
       end
+      @recent_articles = @recent_articles.sort.reverse
       @rdf_category = @category.name
       unless @recent_articles.empty? then
         @lm = @recent_articles.first.article_mtime.gmtime if @recent_articles.first.article_mtime

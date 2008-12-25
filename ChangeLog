@@ -1,3 +1,7 @@
+2008-12-25  ARAKI Yasuhiro  <ar@debian.org>
+
+	* Change article order at showing category and subcategories. Now shows reverse id.
+
 2008-12-24  ARAKI Yasuhiro  <ar@debian.org>
 
 	* Change to include sub categories at viewing.

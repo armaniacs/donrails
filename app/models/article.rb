@@ -26,6 +26,10 @@ class Article < ActiveRecord::Base
   before_save :renew_mtime
   after_destroy :enrollclean
 
+  def <=>(other)
+    self.id <=> other.id
+  end
+
   # Fulltext searches the body of published articles
   # this function original from "typo" models/article.rb
   def self.search(query)
