@@ -6,7 +6,7 @@
 <div class="dayheadnum">
 <p>
    <%= link_to "\#", {:action => "show_enrollment", :id => @enrollment.id} %>
-   <%= display_article_categories article %>
+   <%= display_article_categories(article) %>
    <%= article.title_to_html if article.title %>
 </p>
 </div> <!-- end dayheadnum -->

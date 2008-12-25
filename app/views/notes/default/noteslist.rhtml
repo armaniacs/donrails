@@ -13,13 +13,10 @@
 <% if @category %>
 <h3>カテゴリ: <%=h @category.name %> の記事
 [<%= link_to "リスト", {:action => "show_category", :id => @category.id} %>]
+<%= link_to image_tag("feed-icon-14x14.png", :size =>"14x14", :border => 0, :style => "margin: 0px;", :alt => "#{@category.name}の登録"), {:controller => 'rdf', :action => 'rdf_category', :id => @category.id} %>
 </h3>
 <%=h @category.description %>
-<div id='roots_ul'>
-  <%= display_categories_roots_ul_description(@category.direct_children) %>
-</div>
 <% end %>
-
 
 <% begin %>
 <%= will_paginate @articles %>
