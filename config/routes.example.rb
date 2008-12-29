@@ -7,11 +7,11 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
 
   map.connect '', :controller => "notes", :action => "noteslist", :page => '1'
+  map.connect "archives/listpages/page/:page", :controller => "notes", :action => "noteslist", :requirements => { :page => /\d+/}
   map.connect "archives/", :controller => "notes",  :action => "noteslist" , :page => '1'
   map.connect "archives/index", :controller => "notes",  :action => "noteslist" , :page => '1'
   map.connect "archives/noteslist/notice/:notice", :controller => "notes", :action => "noteslist" # r378
   map.connect "archives/noteslist", :controller => "notes",  :action => "noteslist" , :page => '1'
-  map.connect "archives/noteslist/page/:page", :controller => "notes", :action => "noteslist", :page => /\d+/
 
   map.connect "archives/articles_author/:id", :controller => "notes", :action => "articles_author", :id => /\d+/, :page => '1'
   map.connect "archives/articles_author/:id/page/:page", :controller => "notes", :action => "articles_author",

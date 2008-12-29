@@ -15,7 +15,8 @@ first:
   url_limit: 1
 ##  default_theme: custom
   default_theme: MT
-  trackback_enable_time: 315360000
+  trackback_enable_time: 630720000
+##  trackback_enable_time: 
   akismet_key: 64c061aa654f
   notify_level: 2
   ping_async: 0

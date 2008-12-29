@@ -23,6 +23,7 @@ class NotesControllerTest < Test::Unit::TestCase
     :blog_name => 'test of donrails'
     
     require_response_body = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n  <error>0</error>\n  <message>success</message>\n</response>\n"
+
     assert_response :success
     assert_match require_response_body, @response.body
   end

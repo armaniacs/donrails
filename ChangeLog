@@ -1,3 +1,9 @@
+2008-12-29  ARAKI Yasuhiro  <ar@debian.org>
+
+	* Re-enable to observe models in app/models/article_sweeper.
+	* Change URL for noteslist pages. (map.connect "archives/listpages/page/:page").
+	* Change(Expand) trackback_enable_time (10years to 20years) in test/fixtures/don_envs.yml (first).
+
 2008-12-26  ARAKI Yasuhiro  <ar@debian.org>
 
 	* Change "render :template =>.." to "render :file =>.." for applying rails 2.2.2.

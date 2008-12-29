@@ -638,6 +638,7 @@ class NotesController < ApplicationController
           end
 
           tb.save
+
           if tb.errors.empty?
             @catched = true if @catched == nil
             @message = 'success' if @message == nil

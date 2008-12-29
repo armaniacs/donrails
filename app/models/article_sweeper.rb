@@ -1,5 +1,6 @@
 class ArticleSweeper < ActionController::Caching::Sweeper
 # XXX #  observe Article, Category, Comment, Trackback, Enrollment, Picture
+  observe Article, Category, Comment, Trackback, Enrollment, Picture
 
   def after_save(record)
     expire_for(record)
@@ -67,7 +68,7 @@ class ArticleSweeper < ActionController::Caching::Sweeper
 
     expire_page(:controller => '/notes', :action => 'noteslist')
     begin
-      ppdir = RAILS_ROOT + "/public/archives/noteslist/page"
+      ppdir = RAILS_ROOT + "/public/archives/listpages/page"
       ppdir2 = Dir.entries(ppdir)
       ppdir2.each do |x|
         if x =~ /(\d+).html/
