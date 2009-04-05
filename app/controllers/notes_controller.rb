@@ -437,9 +437,20 @@ class NotesController < ApplicationController
 
       if @category and @category.id
         ccs = collect_category_ids(@category)
+        ccs_count = ccs.length
+        ccs_i = 0
+        ccs_string = ''
+        ccs.each do |ccs1|
+          ccs_i += 1
+          ccs_string += "dona_cas.category_id=#{ccs1}" 
+          ccs_string += "OR" if ccs_i < ccs_count
+        end
 
         @articles = 
-          Article.paginate_by_sql(['SELECT articles.* FROM articles JOIN dona_cas ON (dona_cas.article_id=articles.id AND dona_cas.category_id="1") WHERE articles.hidden IS NULL OR articles.hidden = 0'],
+          Article.paginate_by_sql(["SELECT articles.* FROM articles 
+JOIN dona_cas 
+  ON (dona_cas.article_id=articles.id AND (#{ccs_string})) 
+WHERE articles.hidden IS NULL OR articles.hidden = 0"],
                                    :page => params[:page],
                                    :per_page => 10
                                    )
