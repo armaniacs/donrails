@@ -238,9 +238,9 @@ class NotesController < ApplicationController
     if params['trigger'] == 'recents'
       @articles = Article.find(:all, :order => "id DESC", :limit => 10, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     elsif params['trigger'] == 'trackbacks'
-      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN trackbacks on (trackbacks.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 10, :joins => "JOIN trackbacks on (trackbacks.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     elsif params['trigger'] == 'comments'
-      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 30, :joins => "JOIN comments on (comments.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
+      @articles = Article.find(:all, :order => "articles.article_date DESC", :limit => 10, :joins => "JOIN comments on (comments.article_id=articles.id)", :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     elsif params['trigger'] == 'long'
       @articles = Article.find(:all, :order => "size DESC", :limit => 10, :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"])
     end
@@ -485,12 +485,12 @@ class NotesController < ApplicationController
     @noindex = true
     get_ymd
     if @ymd
-      @articles =  Article.find(:all, :limit => 30,
+      @articles =  Article.find(:all, :limit => 10,
                                 :conditions => ["article_date >= ? AND (articles.hidden IS NULL OR articles.hidden = 0)", @ymd])
       if @articles.first
         a = don_get_object(@articles.first, 'html')
         @heading = don_chomp_tags(a.title_to_html)
-        flash[:notice] = "#{@articles.first.article_date.to_date} 以降 30件の記事を表示します。"
+        flash[:notice] = "#{@articles.first.article_date.to_date} 以降 10件の記事を表示します。"
         unless @articles.empty?
           @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
         end

@@ -313,6 +313,7 @@ module ApplicationHelper
     f.close
   end
 
+
   def display_categories_roots_ul(categories, manage=nil)
     content = ''
     if categories.size > 0
@@ -351,6 +352,45 @@ module ApplicationHelper
     end
     return content
   end
+
+  def display_categories_roots_description(categories)
+    content = ''
+    i = 0
+
+    if categories.size > 0
+      categories.each do |category|
+        i += 1
+        content += link_to(category.name, {:controller => 'notes', :action => :show_category, :id => category.id}) 
+        content += '(' + category.articles.size.to_s
+        content += ': ' + category.description if category.description.size > 1
+        content += ') '
+        if category.direct_children.size >= 1
+          content += ' &gt; '
+          content += display_categories_roots_description_sub(category.all_children)
+        end
+      end
+    end
+    return content
+  end
+
+  def display_categories_roots_description_sub(categories)
+    content = ''
+    i = 0
+    if categories.size > 0
+      
+      categories.each do |category|
+        i += 1
+        content += link_to(category.name, {:controller => 'notes', :action => :show_category, :id => category.id}) 
+        content += '(' + category.articles.size.to_s
+        content += ': ' + category.description if category.description.size > 1
+        content += ') '
+
+      end
+      content += '<br>'
+    end
+    return content
+  end
+
   
   def display_article_date(article)
     if article and article.article_date

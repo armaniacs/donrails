@@ -1,3 +1,10 @@
+2009-04-05  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/helpers/application_helper.rb (ApplicationHelper#display_categories_roots_description): New method.
+	(ApplicationHelper#display_categories_roots_description_sub): New method.
+
+	* app/controllers/notes_controller.rb (NotesController): Change to show 10 articles at once. (Change from 30 to 10.)
+
 2008-12-31  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/models/article_sweeper.rb: Small fix.

@@ -35,7 +35,7 @@
 #
 # distは必要なファイルの tar ballを作成します。
 # distを展開したらDONRAILS_DIRを設定し、 clean して deployします。
-DONRAILS_DIR=$HOME/playground/donrails-trunk
+DONRAILS_DIR=$HOME/playground/donrails
 DERIVED=default
 SCRIPTNAME=update-custom.sh
 DOTDONRAILS=$HOME/.donrails
@@ -46,8 +46,8 @@ case "$1" in
 	cd custom/views && cp -rvi * $DONRAILS_DIR/app/views
 	cd $DOTDONRAILS
 	cd custom/stylesheets && cp -rvi * $DONRAILS_DIR/public/stylesheets
-	cd $DONRAILS_DIR/app/views/notes && install -d custom && cp -viu $DERIVED/*.rhtml custom
-	cd $DONRAILS_DIR/app/views/shared && install -d custom && cp -viu $DERIVED/*.rhtml custom
+	cd $DONRAILS_DIR/app/views/notes && install -d custom && cp -vi $DERIVED/*.rhtml custom
+	cd $DONRAILS_DIR/app/views/shared && install -d custom && cp -vi $DERIVED/*.rhtml custom
 
 	;;
     clean)
@@ -58,10 +58,10 @@ case "$1" in
 	mv $DOTDONRAILS/custom $DOTDONRAILS/custom.`date +%s`
 	cd $DOTDONRAILS
 	install -d custom/views/layouts/custom
-	cd custom/views/layouts/custom && cp -rviub $DONRAILS_DIR/app/views/layouts/custom/*.rhtml .
+	cd custom/views/layouts/custom && cp -rvi $DONRAILS_DIR/app/views/layouts/custom/*.rhtml .
 	cd $DOTDONRAILS
 	install -d custom/stylesheets/custom
-	cd custom/stylesheets/custom && cp -rviub $DONRAILS_DIR/public/stylesheets/custom/* .
+	cd custom/stylesheets/custom && cp -rvi $DONRAILS_DIR/public/stylesheets/custom/* .
 	;;
     dist)
 	tar zcvf $DOTDONRAILS/update-custom-`date +%s`.tar.gz $DOTDONRAILS/custom $SCRIPTNAME
