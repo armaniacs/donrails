@@ -362,11 +362,11 @@ module ApplicationHelper
         i += 1
         content += link_to(category.name, {:controller => 'notes', :action => :show_category, :id => category.id}) 
         content += '(' + category.articles.size.to_s
-        content += ': ' + category.description if category.description.size > 1
+        content += ': ' + category.description if ( category.description && category.description.length > 1)
         content += ') '
         if category.direct_children.size >= 1
           content += ' &gt; '
-          content += display_categories_roots_description_sub(category.all_children)
+          content += display_categories_roots_description_sub(category.direct_children)
         end
       end
     end
