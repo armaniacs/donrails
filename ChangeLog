@@ -1,3 +1,7 @@
+2009-04-06  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/controllers/notes_controller.rb (NotesController#show_category_core): Fix to show paginate for articles of category.
+
 2009-04-05  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/helpers/application_helper.rb (ApplicationHelper#display_categories_roots_description): New method.

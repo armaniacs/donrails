@@ -161,7 +161,7 @@ class NotesController < ApplicationController
     minTime = nil
     flash.keep if flash[:notice]
 
-    @articles = Article.paginate(:page => params[:page], :order => 'article_date DESC, id DESC', :conditions => ["hidden IS NULL OR hidden = 0"])
+    @articles = Article.paginate(:page => params[:page], :order => 'article_date DESC, id DESC', :conditions => ["hidden IS NULL OR hidden = 0"], :per_page => 10)
 
     unless @articles.empty?
       @lm = @articles.first.article_mtime.gmtime if @articles.first.article_mtime
@@ -437,15 +437,13 @@ class NotesController < ApplicationController
 
       if @category and @category.id
         ccs = collect_category_ids(@category)
-        @articles = Array.new
-        ccs.each do |cid|
-          @articles = @articles | Article.paginate(:page => params[:page],
-                                       :conditions => ["articles.hidden IS NULL OR articles.hidden = 0"],
-                                       :joins => "JOIN dona_cas on (dona_cas.article_id=articles.id AND dona_cas.category_id=#{cid})",
-                                       :order => 'articles.article_date DESC'
-                                       )
-        end
-        @articles = @articles.sort.reverse
+
+        @articles = 
+          Article.paginate_by_sql(['SELECT articles.* FROM articles JOIN dona_cas ON (dona_cas.article_id=articles.id AND dona_cas.category_id="1") WHERE articles.hidden IS NULL OR articles.hidden = 0'],
+                                   :page => params[:page],
+                                   :per_page => 10
+                                   )
+
         @heading = "カテゴリ:#{params['category']}"
         @heading += '(' + @category.articles.size.to_s + ')'
 
