@@ -443,17 +443,16 @@ class NotesController < ApplicationController
         ccs.each do |ccs1|
           ccs_i += 1
           ccs_string += "dona_cas.category_id=#{ccs1}" 
-          ccs_string += "OR" if ccs_i < ccs_count
+          ccs_string += " OR " if ccs_i < ccs_count
         end
 
         @articles = 
           Article.paginate_by_sql(["SELECT articles.* FROM articles 
 JOIN dona_cas 
   ON (dona_cas.article_id=articles.id AND (#{ccs_string})) 
-WHERE articles.hidden IS NULL OR articles.hidden = 0"],
+WHERE articles.hidden IS NULL OR articles.hidden = 0 ORDER BY articles.id DESC"],
                                    :page => params[:page],
-                                   :per_page => 10
-                                   )
+                                   :per_page => 10                                   )
 
         @heading = "カテゴリ:#{params['category']}"
         @heading += '(' + @category.articles.size.to_s + ')'
