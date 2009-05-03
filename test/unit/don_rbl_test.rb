@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class DonRblTest < Test::Unit::TestCase
+class DonRblTest < ActiveSupport::TestCase
   fixtures :don_rbls
 
   # Replace this with your real tests.

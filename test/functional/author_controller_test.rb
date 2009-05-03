@@ -70,7 +70,8 @@ class AuthorControllerTest < ActionController::TestCase
 
     post :add_article, :article => c1
     assert_response :error
-    assert_match "invalid entry", @response.body
+    assert_match "Non-regist", @response.body
+#    assert_match "invalid entry", @response.body
   end
 
   def test_form_article
@@ -119,10 +120,10 @@ class AuthorControllerTest < ActionController::TestCase
     assert_redirected_to :action => :manage_article
 
     post :fix_article, {:article => c1, :newid => c2, :preview => c3}, nil, {:author_name => 'araki'}
-    assert_redirected_to :action => :preview_article
+    assert_response :redirect
 
     c1["referer"] = "/author/index"
-    post :fix_article, {:article => c1, :newid => c2}, nil, {:author_name => 'araki'}
+    post :fix_article, {:article => c1, :newid => c2, :preview => nil}, nil, {:author_name => 'araki'}
     assert_match /%2Fauthor%2Findex/, @response.headers["Location"]
 
   end

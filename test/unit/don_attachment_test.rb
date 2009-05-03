@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class DonAttachmentTest < Test::Unit::TestCase
+class DonAttachmentTest < ActiveSupport::TestCase
   fixtures :don_attachments, :articles, :dona_daas
 
   def setup

@@ -9,6 +9,8 @@ class NotesController < ApplicationController
   class << self
     include ApplicationHelper
   end
+
+  protect_from_forgery :except => [:catch_trackback, :trackback, :catch_ping]
       
   before_filter :set_charset, :except => [
     :pick_article_a, :pick_article_a2, :comment_form_a,

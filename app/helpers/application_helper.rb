@@ -14,6 +14,10 @@ require 'fileutils'
 
 module ApplicationHelper
 
+  def security_token # dummy for 2.3.2
+    return rand.to_s
+  end
+
 =begin rdoc
 
 === ApplicationHelper#don_supported_formats

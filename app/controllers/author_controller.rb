@@ -5,6 +5,8 @@ class AuthorController < ApplicationController
   end
   @@dgc = don_get_config
 
+  protect_from_forgery
+
   before_filter :author_authorize, :except => [:author_login_index, :authenticate]
   after_filter :compress
   after_filter :clean_memory

@@ -3,7 +3,7 @@ class RdfController < ApplicationController
   caches_page :rdf_recent, :rdf_article, :rdf_category, :rdf_enrollment, :rss2_recent, :rss2_article, :rss2_category, :rss2_enrollment
   after_filter :compress
   layout nil
-  session :off
+##  session :off ## comment out at 2.3.2
 
   def rdf_recent
     headers["Content-Type"] = "application/xml; charset=utf-8"

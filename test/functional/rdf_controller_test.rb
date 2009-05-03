@@ -4,7 +4,7 @@ require 'rdf_controller'
 # Re-raise errors caught by the controller.
 class RdfController; def rescue_action(e) raise e end; end
 
-class RdfControllerTest < Test::Unit::TestCase
+class RdfControllerTest < ActionController::TestCase
   def setup
     @controller = RdfController.new
     @request    = ActionController::TestRequest.new

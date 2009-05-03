@@ -4,7 +4,7 @@ require 'admin/comment_controller'
 # Re-raise errors caught by the controller.
 class Admin::CommentController; def rescue_action(e) raise e end; end
 
-class Admin::CommentControllerTest < Test::Unit::TestCase
+class Admin::CommentControllerTest < ActionController::TestCase
   def setup
     @controller = Admin::CommentController.new
     @request    = ActionController::TestRequest.new

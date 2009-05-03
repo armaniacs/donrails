@@ -4,7 +4,7 @@ require 'admin/attachment_controller'
 # Re-raise errors caught by the controller.
 class Admin::AttachmentController; def rescue_action(e) raise e end; end
 
-class Admin::AttachmentControllerTest < Test::Unit::TestCase
+class Admin::AttachmentControllerTest < ActionController::TestCase
   def setup
     @controller = Admin::AttachmentController.new
     @request    = ActionController::TestRequest.new

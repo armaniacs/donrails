@@ -5,7 +5,7 @@ require 'admin/article_controller'
 # Re-raise errors caught by the controller.
 class Admin::ArticleController; def rescue_action(e) raise e end; end
 
-class Admin::ArticleControllerTest < Test::Unit::TestCase
+class Admin::ArticleControllerTest < ActionController::TestCase
   def setup
     @controller = Admin::ArticleController.new
     @request    = ActionController::TestRequest.new
@@ -23,7 +23,7 @@ class Admin::ArticleControllerTest < Test::Unit::TestCase
     post :form_article, :pickid => 1
     assert_response :success 
 
-    post :form_article
+    post :form_article, :pickid => nil
     assert_response 404
 
     post :form_article, :pickid => 111
@@ -106,7 +106,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     assert_redirected_to :action => 'manage_article'
 
     post :delete_article,
-    :hideid => {'4' => '0'}
+    :hideid => {'4' => '0'}, :deleteid => nil
     assert_equal "<br>Hyde status:4 is 0", flash[:note2]
     assert_redirected_to :action => 'manage_article'
 

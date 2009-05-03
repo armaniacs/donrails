@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BlogpingTest < Test::Unit::TestCase
+class BlogpingTest < ActiveSupport::TestCase
   fixtures :blogpings
 
   def setup

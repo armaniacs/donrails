@@ -1,6 +1,6 @@
 class BackendController < ApplicationController
   cache_sweeper :article_sweeper
-  session :off
+##  session :off ## comment in 2.3.2
 
   web_service_dispatching_mode :layered
   web_service_exception_reporting false

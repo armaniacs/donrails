@@ -1,3 +1,10 @@
+2009-05-03  ARAKI Yasuhiro  <ar@debian.org>
+
+	* Update to apply rails 2.3.2.
+	- Require to install actionwebservice 2.3.2
+	- update config/environment.rb
+	- "rake rails:update && rake db:migrate" for updating db.
+
 2009-04-06  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/controllers/notes_controller.rb (NotesController#show_category_core): Fix to show paginate for articles of category.

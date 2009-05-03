@@ -4,7 +4,7 @@ require 'admin/category_controller'
 # Re-raise errors caught by the controller.
 class Admin::CategoryController; def rescue_action(e) raise e end; end
 
-class Admin::CategoryControllerTest < Test::Unit::TestCase
+class Admin::CategoryControllerTest < ActionController::TestCase
   def setup
     @controller = Admin::CategoryController.new
     @request    = ActionController::TestRequest.new

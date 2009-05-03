@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class DonEnvTest < Test::Unit::TestCase
+class DonEnvTest < ActiveSupport::TestCase
   fixtures :don_envs
 
   # Replace this with your real tests.

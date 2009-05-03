@@ -4,7 +4,7 @@ require 'admin/login_controller'
 # Re-raise errors caught by the controller.
 class Admin::LoginController; def rescue_action(e) raise e end; end
 
-class Admin::LoginControllerTest < Test::Unit::TestCase
+class Admin::LoginControllerTest < ActionController::TestCase
   def setup
     @controller = Admin::LoginController.new
     @request    = ActionController::TestRequest.new

@@ -42,6 +42,7 @@ class Admin::SystemController < AdminController
   def delete_blogping
     c = params["acid"].nil? ? [] : params["acid"]
     flash[:note] = ''
+    begin
     c.each do |k, v|
       b = Blogping.find(k.to_i)
       unless v.to_i == b.active
@@ -63,7 +64,11 @@ class Admin::SystemController < AdminController
         b.destroy
       end
     end
-    redirect_to :action => "manage_blogping"
+      redirect_to :action => "manage_blogping"
+    rescue
+      flash[:note] = $!
+      redirect_to :action => "manage_blogping"
+    end
   end
 
   def add_blogping

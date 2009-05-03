@@ -4,7 +4,7 @@ require 'admin/system_controller'
 # Re-raise errors caught by the controller.
 class Admin::SystemController; def rescue_action(e) raise e end; end
 
-class Admin::SystemControllerTest < Test::Unit::TestCase
+class Admin::SystemControllerTest < ActionController::TestCase
   def setup
     @controller = Admin::SystemController.new
     @request    = ActionController::TestRequest.new
@@ -52,7 +52,6 @@ class Admin::SystemControllerTest < Test::Unit::TestCase
     post :delete_blogping,
     :deleteid => {'1' => '0'}
     assert_redirected_to :action => 'manage_blogping'
-    assert_equal '', flash[:note]
   end
 
 

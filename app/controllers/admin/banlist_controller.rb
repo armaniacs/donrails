@@ -19,21 +19,21 @@ class Admin::BanlistController < AdminController
     if c = params["banlist"]
       flash[:pattern] = c['pattern']
       flash[:teststring] = c['teststring'] 
-      flash[:format] = params['format']
+      flash[:banformat] = params['banformat']
 
-      if c['add'] == '1' and c["pattern"].size > 0 and params["format"]
+      if c['add'] == '1' and c["pattern"].size > 0 and params["banformat"]
         aris1 = Banlist.new("pattern" => c["pattern"],
-                            "format" => params["format"],
+                            "banformat" => params["banformat"],
                             "white" => c["white"])
-        banlist_test_by_valid(c["pattern"], params["format"])
+        banlist_test_by_valid(c["pattern"], params["banformat"])
         unless flash[:ban]
           aris1.save 
-          flash[:note2] =  '"' + c["pattern"] + '" is saved as ' + params["format"]
+          flash[:note2] =  '"' + c["pattern"] + '" is saved as ' + params["banformat"]
         else
           aris1.destroy
         end
-      elsif c["pattern"] and c["pattern"].size > 0 and params["format"]
-        if banlist_test_by_ar(c["pattern"], c["teststring"], params["format"])
+      elsif c["pattern"] and c["pattern"].size > 0 and params["banformat"]
+        if banlist_test_by_ar(c["pattern"], c["teststring"], params["banformat"])
           flash[:note2] =  'teststring: "' + c["teststring"] + '" is matched pattern: "' + c["pattern"] + '"'
         end
       else
@@ -121,17 +121,17 @@ class Admin::BanlistController < AdminController
     end
   end
 
-  def banlist_test_by_ar(pattern, teststring, format)
+  def banlist_test_by_ar(pattern, teststring, banformat)
     unless teststring
       teststring = ''
     end
-    if format == 'ipaddr'
+    if banformat == 'ipaddr'
       banlist_test_by_ar_ipaddr(pattern, teststring)
-    elsif format == "string"
+    elsif banformat == "string"
       banlist_test_by_ar_string(pattern, teststring)
-    elsif format == "regexp"
+    elsif banformat == "regexp"
       banlist_test_by_ar_regexp(pattern, teststring)
-    elsif format == "hostname"
+    elsif banformat == "hostname"
       banlist_test_by_ar_hostname(pattern, teststring)
     end
   end
@@ -145,13 +145,13 @@ class Admin::BanlistController < AdminController
   end
 
   private
-  def banlist_test_by_valid(checktext, format=nil)
+  def banlist_test_by_valid(checktext, banformat=nil)
     flash[:ban] = nil
     flash[:ban_message] = String.new
 
-    if format == nil
+    if banformat == nil
       if checktext =~ /^(\d+)\.(\d+)\.(\d+)\.(\d+)$/
-        format = 'ipaddr'
+        banformat = 'ipaddr'
       end
     end
 
@@ -169,7 +169,7 @@ class Admin::BanlistController < AdminController
     end
 
     unless flash[:ban]
-      if format == 'ipaddr'
+      if banformat == 'ipaddr'
         tb = Trackback.new
         tb.ip = checktext
         tb.valid?

@@ -4,7 +4,7 @@ require 'admin/enrollment_controller'
 # Re-raise errors caught by the controller.
 class Admin::EnrollmentController; def rescue_action(e) raise e end; end
 
-class Admin::EnrollmentControllerTest < Test::Unit::TestCase
+class Admin::EnrollmentControllerTest < ActionController::TestCase
   def setup
     @controller = Admin::EnrollmentController.new
     @request    = ActionController::TestRequest.new

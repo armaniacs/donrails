@@ -2,6 +2,7 @@ require 'kconv'
 
 class AdminController < ApplicationController
   include Akismet
+  protect_from_forgery
 
   class << self
     include ApplicationHelper

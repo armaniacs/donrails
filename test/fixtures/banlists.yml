@@ -1,11 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 first:
   id: 1
-  format: regexp
+  banformat: regexp
   pattern: sex
 second:
   id: 2
-  format: ipaddr
+  banformat: ipaddr
   pattern: 127.0.0.100
   white: 1
 #another:
@@ -14,5 +14,5 @@ second:
 #  pattern: Vioxx
 from_143:
   id: 3
-  format: ipaddr
+  banformat: ipaddr
   pattern: 143.238.238.45

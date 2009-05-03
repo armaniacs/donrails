@@ -4,7 +4,7 @@ require 'admin/picture_controller'
 # Re-raise errors caught by the controller.
 class Admin::PictureController; def rescue_action(e) raise e end; end
 
-class Admin::PictureControllerTest < Test::Unit::TestCase
+class Admin::PictureControllerTest < ActionController::TestCase
   def setup
     @controller = Admin::PictureController.new
     @request    = ActionController::TestRequest.new
@@ -92,11 +92,14 @@ class Admin::PictureControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'manage_picture'
 
     post :delete_picture, 
+    :filedeleteid => nil,
     :deleteid => {'1' => '1'}
     assert_equal "<br>Delete:1", flash[:note2]
     assert_redirected_to :action => 'manage_picture'
 
     post :delete_picture, 
+    :filedeleteid => nil,
+    :deleteid => nil,
     :hideid => {'2' => '0'}
     assert_equal "<br>Hyde status:2 is 0", flash[:note2]
     assert_redirected_to :action => 'manage_picture'

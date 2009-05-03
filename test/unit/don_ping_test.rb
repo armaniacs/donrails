@@ -4,7 +4,7 @@ require 'rexml/document'
 require 'htree'
 require 'hpricot'
 
-class DonPingTest < Test::Unit::TestCase
+class DonPingTest < ActiveSupport::TestCase
   fixtures :don_pings, :articles, :categories, :dona_cas 
 
   def setup

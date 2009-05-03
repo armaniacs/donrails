@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TrackbackTest < Test::Unit::TestCase
+class TrackbackTest < ActiveSupport::TestCase
   fixtures :trackbacks, :articles, :categories, :don_envs
 
   def setup

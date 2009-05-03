@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
   class << self
     include ApplicationHelper
   end
+  helper :all # add for 2.3.2
+
   @@dgc = don_get_config 
 
   # http://blog.craz8.com/articles/2005/12/07/rails-output-compression
@@ -193,7 +195,6 @@ class ApplicationController < ActionController::Base
   end
 
   def don_is_spam?(args)
-
     ip = args[:ip] || request.remote_ip
     if AntiSpam.new.scan_ipaddr_white(ip)
       @message = '[Whitelist]: ' + ip

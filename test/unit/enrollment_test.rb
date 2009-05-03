@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EnrollmentTest < Test::Unit::TestCase
+class EnrollmentTest < ActiveSupport::TestCase
   fixtures :enrollments, :articles
 
   def setup
