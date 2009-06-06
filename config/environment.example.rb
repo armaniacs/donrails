@@ -18,8 +18,8 @@ Rails::Initializer.run do |config|
   config.gem "actionwebservice"
   config.gem "hpricot"
   config.gem "will_paginate"
-  config.gem "libxml-ruby"
-  config.gem "libxml-xmlrpc"
+  config.gem "libxml-ruby", :lib=>"xml/libxml"
+  config.gem "libxml-xmlrpc", :lib=>"xmlrpc/client"
   # Settings in config/environments/* take precedence over those specified here
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)

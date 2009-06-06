@@ -1,3 +1,7 @@
+2009-06-06  ARAKI Yasuhiro  <ar@debian.org>
+
+	* config/environment.example.rb (Rails::Configuration): Fix to use config.gem.
+
 2009-05-03  ARAKI Yasuhiro  <ar@debian.org>
 
 	* Update to apply rails 2.3.2.
