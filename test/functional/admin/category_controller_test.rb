@@ -30,35 +30,35 @@ class Admin::CategoryControllerTest < ActionController::TestCase
   def test_add_category
     @request.session['person'] = 'ok'
     post :add_category
-    assert_redirected_to :action => 'manage_category'
+        assert_redirected_to :controller => 'admin/category', :action => 'manage_category'
     assert_equal "", flash[:note] 
 
     post :add_category, :category => {:parent_name => 'misc', :name => 'misc child'}
-    assert_redirected_to :action => 'manage_category'
+        assert_redirected_to :controller => 'admin/category', :action => 'manage_category'
     assert_equal "Add new category:misc child. Her parent is misc.", flash[:note]
 
     post :add_category, :category => {:name => 'misc child2'}
-    assert_redirected_to :action => 'manage_category'
+        assert_redirected_to :controller => 'admin/category', :action => 'manage_category'
     assert_equal "Add new category:misc child2.", flash[:note]
 
     post :add_category, :category => {:parent_name => 'none', :name => 'orphan'}
-    assert_redirected_to :action => 'manage_category'
+        assert_redirected_to :controller => 'admin/category', :action => 'manage_category'
     assert_equal "Add new category:orphan.", flash[:note]
   end
 
   def test_add_category_1
     post :add_category
-    assert_redirected_to :action => 'login_index'
+    assert_redirected_to :controller => 'admin/login', :action => 'login_index'
   end
 
   def test_delete_category
     @request.session['person'] = 'ok'
     post :delete_category
-    assert_redirected_to :action => 'manage_category'
+        assert_redirected_to :controller => 'admin/category', :action => 'manage_category'
   end
   def test_delete_category_1
     post :delete_category
-    assert_redirected_to :action => 'login_index'
+    assert_redirected_to :controller => 'admin/login', :action => 'login_index'
   end
 
 end

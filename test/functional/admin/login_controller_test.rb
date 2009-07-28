@@ -34,7 +34,7 @@ class Admin::LoginControllerTest < ActionController::TestCase
   def test_logout
     @request.session['person'] = 'ok'
     post :logout
-    assert_redirected_to :action => 'login_index'
+    assert_redirected_to :controller => 'admin/login', :action => 'login_index'
   end
 
 end

@@ -23,7 +23,7 @@ class Admin::PictureControllerTest < ActionController::TestCase
   end
   def test_manage_picture_1
     post :manage_picture
-    assert_redirected_to :action => 'login_index'
+    assert_redirected_to :controller => 'admin/login', :action => 'login_index'
   end
 
   def test_manage_picture_detail
@@ -37,7 +37,7 @@ class Admin::PictureControllerTest < ActionController::TestCase
   end
   def test_manage_picture_detail_1
     post :manage_picture_detail
-    assert_redirected_to :action => 'login_index'
+    assert_redirected_to :controller => 'admin/login', :action => 'login_index'
   end
 
   def test_edit_picture
@@ -48,7 +48,7 @@ class Admin::PictureControllerTest < ActionController::TestCase
   end
   def test_edit_picture_1
     post :edit_picture
-    assert_redirected_to :action => 'login_index'
+    assert_redirected_to :controller => 'admin/login', :action => 'login_index'
   end
   def test_edit_picture_2
     @request.session['person'] = 'ok'
@@ -78,36 +78,36 @@ class Admin::PictureControllerTest < ActionController::TestCase
   def test_delete_picture
     @request.session['person'] = 'ok'
     post :delete_picture
-    assert_redirected_to :action => 'manage_picture'
+    assert_redirected_to :controller => 'admin/picture', :action => 'manage_picture'
   end
   def test_delete_picture_1
     post :delete_picture
-    assert_redirected_to :action => 'login_index'
+    assert_redirected_to :controller => 'admin/login', :action => 'login_index'
   end
   def test_delete_picture_2
     @request.session['person'] = 'ok'
     post :delete_picture, 
     :filedeleteid => {'1' => '1'}
     assert_equal "<br>Delete File:1", flash[:note2]
-    assert_redirected_to :action => 'manage_picture'
+    assert_redirected_to :controller => 'admin/picture', :action => 'manage_picture'
 
     post :delete_picture, 
     :filedeleteid => nil,
     :deleteid => {'1' => '1'}
     assert_equal "<br>Delete:1", flash[:note2]
-    assert_redirected_to :action => 'manage_picture'
+    assert_redirected_to :controller => 'admin/picture', :action => 'manage_picture'
 
     post :delete_picture, 
     :filedeleteid => nil,
     :deleteid => nil,
     :hideid => {'2' => '0'}
     assert_equal "<br>Hyde status:2 is 0", flash[:note2]
-    assert_redirected_to :action => 'manage_picture'
+    assert_redirected_to :controller => 'admin/picture', :action => 'manage_picture'
 
     post :delete_picture, 
     :hideid => {'2' => '1'}
     assert_equal "<br>Hyde status:2 is 1", flash[:note2]
-    assert_redirected_to :action => 'manage_picture'
+    assert_redirected_to :controller => 'admin/picture', :action => 'manage_picture'
   end
 
 

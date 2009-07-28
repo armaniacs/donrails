@@ -37,15 +37,15 @@ class AuthorStoryTest < ActionController::IntegrationTest
 
     post '/author/delete_article', :hideid => {'4' => '0'},
     :session_id_validation => Digest::MD5.hexdigest(request.session_options[:id])
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'author', :action => 'manage_article'
 
     post '/author/delete_article', :hideid => {'4' => '1'},
     :session_id_validation => Digest::MD5.hexdigest(request.session_options[:id])
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'author', :action => 'manage_article'
 
     post '/author/delete_article', :deleteid => {'1' => '1'},
     :session_id_validation => Digest::MD5.hexdigest(request.session_options[:id])
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'author', :action => 'manage_article'
     
   end
 

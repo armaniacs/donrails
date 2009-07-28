@@ -247,7 +247,7 @@ class NotesControllerTest < ActionController::TestCase
     get :show_title, :id => 1
     assert_response 200
     get :show_title, :pickid => 1
-    assert_redirected_to :action => 'show_title', :id => 1
+    assert_redirected_to :controller=> :notes, :action => 'show_title', :id => 1
   end 
 
 
@@ -256,7 +256,7 @@ class NotesControllerTest < ActionController::TestCase
   end 
   def test_show_title__3
     get :show_title, :title => 'first title in misc'
-    assert_redirected_to :action => 'show_title', :id => 1
+    assert_redirected_to :controller=> :notes, :action => 'show_title', :id => 1
   end 
   def test_show_title__4
     get :show_title, :id =>10000

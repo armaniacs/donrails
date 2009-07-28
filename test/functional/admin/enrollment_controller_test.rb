@@ -25,32 +25,17 @@ class Admin::EnrollmentControllerTest < ActionController::TestCase
   def test_delete_enrollment
     @request.session['person'] = 'ok'
     post :delete_enrollment
-    assert_redirected_to :action => 'manage_enrollment'
+    assert_redirected_to :controller => 'admin/enrollment', :action => 'manage_enrollment'
 
     post :delete_enrollment, :deleteid => {'1' => '1'}
     assert_equal "<br>Delete:1", flash[:note2]
-    assert_redirected_to :action => 'manage_enrollment'
+    assert_redirected_to :controller => 'admin/enrollment', :action => 'manage_enrollment'
 
     post :delete_enrollment, :deleteid => {'40000' => '1'}
     assert_equal "<br>Not exists:40000", flash[:note2]
-    assert_redirected_to :action => 'manage_enrollment'
+    assert_redirected_to :controller => 'admin/enrollment', :action => 'manage_enrollment'
 
-=begin
-    post :delete_enrollment,
-    :hideid => {'4' => '0'}
-    assert_equal "<br>Hyde status:4 is 0", flash[:note2]
-    assert_redirected_to :action => 'manage_enrollment'
-
-    post :delete_enrollment, 
-    :hideid => {'4' => '1'}
-    assert_equal "<br>Hyde status:4 is 1", flash[:note2]
-    assert_redirected_to :action => 'manage_enrollment'
-
-    post :delete_enrollment, 
-    :hideid => {'40000' => '1'}
-    assert_equal "<br>Not exists:40000", flash[:note2]
-    assert_redirected_to :action => 'manage_enrollment'
-=end
   end
 
 end
+ 

@@ -33,23 +33,23 @@ class Admin::ArticleControllerTest < ActionController::TestCase
   def test_fix_article
     @request.session['person'] = 'ok'
     post :fix_article
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :fix_article, :article => {:title => 'test fix article title'}
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :fix_article, :article => {:title => 'test fix article title', :id => 1}, :newid => {:id => 3}
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :fix_article, :article => {:title => 'test fix article title', :id => 1}, :newid => {:id => 0}
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :fix_article, :article => {:title => 'test fix article title', :id => 1}, :newid => {:id => 1}
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     # id 22 を元に新規記事として書く。trackbackを21にむけて出す
     post :fix_article, :article => {:title => 'fixtest + tb', :id => 22, :tburl => 'http://localhost:3000/notes/trackback/5340', :body => 'this a test trackback'}, :newid => {'22' => '1'}
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
   end
 
   def test_fix_article__1
@@ -62,7 +62,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     :category =>{"name"=>"misc3"}, 
     :catname =>{"1"=>"1"},
     :newid => {"1" => '1'}
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
   end
 
   def test_add_article
@@ -83,7 +83,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     :format => 'plain',
     :category => {:name => 'test misc'},
     :author => {:name => 'araki2'}
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
   end
 
   def test_manage_article
@@ -95,30 +95,30 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
   def test_delete_article
     @request.session['person'] = 'ok'
     post :delete_article
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :delete_article, :deleteid => {'1' => '1'}
     assert_equal "<br>Delete:1", flash[:note2]
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :delete_article, :deleteid => {'40000' => '1'}
     assert_equal "<br>Not exists (no delete):40000", flash[:note2]
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :delete_article,
     :hideid => {'4' => '0'}, :deleteid => nil
     assert_equal "<br>Hyde status:4 is 0", flash[:note2]
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :delete_article, 
     :hideid => {'4' => '1'}
     assert_equal "<br>Hyde status:4 is 1", flash[:note2]
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
 
     post :delete_article, 
     :hideid => {'40000' => '1'}
     assert_equal "", flash[:note2]
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
   end
 
   def test_delete_article__issue33
@@ -131,7 +131,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
     end
     post :delete_article, :deleteid => {'59' => '1'}
     assert_equal "<br>Delete:59", flash[:note2]
-    assert_redirected_to :action => 'manage_article'
+    assert_redirected_to :controller => 'admin/article', :action => 'manage_article'
     assert_nothing_raised do 
       for i in 50..58
         Article.find(i) 
@@ -168,7 +168,7 @@ in /var/mail/yaar\r\ncfard3:~/donrails-trunk/rails$ ./script/server -b 0.0.0.0\r
   end
   def test_new_article_1
     post :new_article
-    assert_redirected_to :action => 'login_index'
+    assert_redirected_to :controller => 'admin/login', :action => 'login_index'
   end
 
 end

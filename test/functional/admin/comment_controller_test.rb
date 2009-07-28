@@ -25,22 +25,22 @@ class Admin::CommentControllerTest < ActionController::TestCase
   def test_delete_comment
     @request.session['person'] = 'ok'
     post :delete_comment
-    assert_redirected_to :action => 'manage_comment'
+    assert_redirected_to :controller => 'admin/comment', :action => 'manage_comment'
 
     post :delete_comment,
     :deleteid => {'1' => '1'}
     assert_equal "<br>Delete:1", flash[:note2]
-    assert_redirected_to :action => 'manage_comment'
+    assert_redirected_to :controller => 'admin/comment', :action => 'manage_comment'
 
     post :delete_comment, 
     :hideid => {'3' => '0'}
     assert_equal "<br>Hyde status:3 is 0", flash[:note2]
-    assert_redirected_to :action => 'manage_comment'
+    assert_redirected_to :controller => 'admin/comment', :action => 'manage_comment'
 
     post :delete_comment, 
     :hideid => {'3' => '1'}
     assert_equal "<br>Hyde status:3 is 1", flash[:note2]
-    assert_redirected_to :action => 'manage_comment'
+    assert_redirected_to :controller => 'admin/comment', :action => 'manage_comment'
   end
 
 end

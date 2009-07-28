@@ -25,10 +25,10 @@ class Admin::BanlistControllerTest < ActionController::TestCase
   def test_delete_banlist
     @request.session['person'] = 'ok'
     post :delete_banlist
-    assert_redirected_to :action => 'manage_banlist'
+    assert_redirected_to :controller => 'admin/banlist', :action => 'manage_banlist'
 
     post :delete_banlist, :deleteid => {'1' => '1'}
-    assert_redirected_to :action => 'manage_banlist'
+    assert_redirected_to :controller => 'admin/banlist', :action => 'manage_banlist'
   end
 
   def test_add_banlist
