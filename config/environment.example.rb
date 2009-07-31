@@ -5,21 +5,33 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.3' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
+if RUBY_PLATFORM =~ /java/
+  require 'rubygems'
+  gem 'activerecord-jdbcmysql-adapter'
+  RAILS_CONNECTION_ADAPTERS = %w(jdbc)
+end
+
 
 class Rails::Configuration
   attr_accessor :action_web_service
 end
 
 Rails::Initializer.run do |config|
+  config.gem "packet"
   config.gem "actionwebservice"
   config.gem "hpricot"
-  config.gem "will_paginate"
-  config.gem "libxml-ruby", :lib=>"xml/libxml"
-  config.gem "libxml-xmlrpc", :lib=>"xmlrpc/client"
+  config.gem "mislav-will_paginate", :lib=>"will_paginate"
+  if RUBY_PLATFORM =~ /java/
+    config.gem "libxml-jruby", :lib=>"xml/libxml"    
+  else
+    config.gem "libxml-ruby", :lib=>"xml/libxml"    
+    config.gem "libxml-xmlrpc", :lib=>"xmlrpc/client"
+  end
+
   # Settings in config/environments/* take precedence over those specified here
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)

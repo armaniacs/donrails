@@ -18,13 +18,9 @@ class BrowseStoryTest < ActionController::IntegrationTest
       get "/notes"
       assert_equal 200, status
     end
-
-
     get "/archives/search", :q => 'first body'
     assert_equal 200, status
 
-    get "/archives/show_search_noteslist", :q => 'first body'
-    assert_equal 200, status
 
     get "/archives/pick_trackback_a", :pickid => '1'
     assert_equal 200, status
@@ -35,8 +31,7 @@ class BrowseStoryTest < ActionController::IntegrationTest
     get "/archives/199901a.html"
     assert_equal 302, status
 
-    get_via_redirect "/archives/199901a.html"
-    assert_equal 200, status
+
 
     # http://donrails.araki.net/archives/show_category/47?page=3
     get '/archives/show_category/47?page=3'
@@ -55,11 +50,23 @@ class BrowseStoryTest < ActionController::IntegrationTest
     # GET /archives/category/misc/page/108?article_date=.html    
   end
 
+  def test_show_search_noteslist__q
+    get "/archives/show_search_noteslist", :q => 'first body'
+    assert_equal 200, status ## jruby
+  end
+
+  def test_show_archives_199901a
+    get_via_redirect "/archives/199901a.html"
+    assert_equal 200, status ## jruby
+  end
+
   def test_notes_show_category_noteslist
     get '/archives/show_category_noteslist/misc/page/1'
-    assert_equal 200, status
+    assert_equal 200, status ## jruby
+  end
+  def test_notes_show_category_noteslist__2
     get '/archives/show_category_noteslist/misc'
-    assert_equal 200, status
+    assert_equal 200, status ## jruby
   end
 
   def test_notes_show_category

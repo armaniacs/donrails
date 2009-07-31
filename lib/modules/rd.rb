@@ -13,7 +13,8 @@ require 'rd/rd2html-lib'
 
 pt = nil
 begin
-  require 'hpricot'
+  #require 'hpricot'
+  gem 'hpricot'
   pt = 'hpricot'
 rescue Exception
   begin

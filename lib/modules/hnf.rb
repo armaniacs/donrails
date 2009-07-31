@@ -12,7 +12,8 @@ require 'cgi'
 
 pt = nil
 begin
-  require 'hpricot'
+  # require 'hpricot'
+  gem 'hpricot'
   pt = 'hpricot'
 rescue Exception
   begin

@@ -1,3 +1,26 @@
+2009-07-31  ARAKI Yasuhiro  <ar@debian.org>
+
+	* (pre) release to apply JRuby1.3.1.
+	Please install
+	- mislav-will_paginate (in gems.github.com).
+	- (For JRuby) libxml-jruby
+	
+	* config/environment.rb (Rails::Configuration): Change to use mislav-will_paginate. "sudo gem sources -a http://gems.github.com && sudo gem install mislav-will_paginate".
+
+	* test/integration/browse_story_test.rb 
+	(BrowseStoryTest#test_show_search_noteslist__q)	
+	(BrowseStoryTest#test_show_archives_199901a)	
+	(BrowseStoryTest#test_notes_show_category_noteslist)	
+	(BrowseStoryTest#test_notes_show_category_noteslist__2): To be fix for Jruby.
+
+2009-07-30  ARAKI Yasuhiro  <ar@debian.org>
+
+	* lib/modules/*.rb: Change to use gem
+
+	* config/environment.example.rb (Rails::Configuration): add "packet" for config.gem.
+
+	* config/database.example.yml (development): apply for JRUBY.
+
 2009-07-28  ARAKI Yasuhiro  <ar@debian.org>
 
 	* Update to apply rails 2.3.4. Some test methods are changed.

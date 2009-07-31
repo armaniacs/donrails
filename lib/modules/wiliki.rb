@@ -12,7 +12,8 @@ require 'cgi'
 require '../delegator' if $0 == __FILE__
 pt = nil
 begin
-  require 'hpricot'
+#  require 'hpricot'
+  gem 'hpricot'
   pt = 'hpricot'
 rescue Exception
   begin

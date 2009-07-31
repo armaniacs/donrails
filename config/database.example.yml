@@ -11,26 +11,45 @@
 #
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+<% if RUBY_PLATFORM =~ /java/ %>
+development:
+   adapter: jdbcmysql
+   database: donrails-trunk_development
+   username: yaar
+   password:
+   hostname: localhost
+<% else %>
 development:
   adapter: mysql
   database: donrails-trunk_development
-  username: root
+  username: yaar
   password:
-  socket: /var/run/mysqld/mysqld.sock
-
+  socket: /opt/local/var/run/mysql5/mysqld.sock
+  encoding: utf8
+<% end %>
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
 # Do not set this db to the same as development or production.
+
+<% if RUBY_PLATFORM =~ /java/ %>
+test:
+  adapter: jdbcmysql
+  database: donrails-trunk_test
+  username: yaar
+  password:
+  hostname: localhost
+<% else %>
 test:
   adapter: mysql
   database: donrails-trunk_test
-  username: root
+  username: yaar
   password:
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /opt/local/var/run/mysql5/mysqld.sock
+<% end %>
 
 production:
   adapter: mysql
   database: donrails-trunk_production
-  username: root
+  username: yaar
   password: 
-  socket: /var/run/mysqld/mysqld.sock
+  socket: /opt/local/var/run/mysql5/mysqld.sock
