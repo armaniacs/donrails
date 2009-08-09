@@ -1,0 +1,6 @@
+[submodule "vendor/plugins/acts_as_nested_set"]
+	path = vendor/plugins/acts_as_nested_set
+	url = git://github.com/rails/acts_as_nested_set.git
+[submodule "vendor/plugins/backgroundrb"]
+	path = vendor/plugins/backgroundrb
+	url = git://github.com/gnufied/backgroundrb.git
