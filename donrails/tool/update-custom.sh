@@ -23,25 +23,30 @@
 # ~/.donrails/custom/views/layouts/custom
 # ~/.donrails/custom/views/layouts/custom/notes.rhtml
 #
-# Usage: sh ./$SCRIPTNAME {deploy|clean|collect|dist}"
+# Usage: sh ./$SCRIPTNAME {deploy|clean|collect|dist} [dir]"
 #
 # deployは ~/.donrails/custom/ 以下のファイルを donrailsのtreeに反映します。
-#
+#   dirを指定すると，新規にdeployする先のdonrailsのdirectoryを指定できます．
+# 
 # clean は donrailsのtreeにあるcustomディレクトリを削除します。
 #
 # collect は、donrailsのtree以下にある関連 fileを 
 # ~/.donrails/custom/ 以下にコピーします。
 # 手元で確認したカスタマイズ結果を集めます。
+#   既にdirectoryがあるときは，タイムスタンプをつけてdirectoryをrenameして保存します．
 #
 # distは必要なファイルの tar ballを作成します。
 # distを展開したらDONRAILS_DIRを設定し、 clean して deployします。
-DONRAILS_DIR=$HOME/playground/donrails
+DONRAILS_DIR=$HOME/playground/github/donrails
 DERIVED=default
 SCRIPTNAME=update-custom.sh
 DOTDONRAILS=$HOME/.donrails
 
+#if [ "$2" ];then echo "$2"; exit 0; fi
+
 case "$1" in
     deploy)
+	if [ "$2" ];then DONRAILS_DIR=$2; fi
 	cd $DOTDONRAILS
 	cd custom/views && cp -rvi * $DONRAILS_DIR/app/views
 	cd $DOTDONRAILS
