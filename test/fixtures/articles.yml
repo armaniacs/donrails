@@ -99,3 +99,15 @@ issue33test<%= i %>:
   author_id: 1
   enrollment_id: 50
 <% end %>
+
+<% for i in 60..69 %>
+testDupeCategory<%= i %>:
+  id: <%= i %>
+  title: testDupeCatgory<%= i %>
+  body: testDupeCatgory<%= i %>testDupeCatgory<%= i %>testDupeCatgory<%= i %>
+  article_date: 2009-10-06 00:00:00
+  article_mtime: 2009-10-06 00:00:<%= i %>
+  format: plain
+  author_id: 1
+  enrollment_id: <%= i %>
+<% end %>

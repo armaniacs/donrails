@@ -4,3 +4,9 @@ misc_1:
 misc_2:
   category_id: 1
   article_id: 2
+
+<% for i in 60..69 %>
+categoryIreko<%= i %>:
+  category_id: <%= i %>
+  article_id: <%= i %>
+<% end %>

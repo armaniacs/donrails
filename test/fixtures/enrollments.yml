@@ -35,3 +35,9 @@ issue33test:
   id: 50
   title: issue33test
   hidden: 0
+<% for i in 60..69 %>
+testDupeCategory<%= i %>:
+  id: <%= i %>
+  title: testDupeCatgory<%= i %>
+  hidden: 0
+<% end %>

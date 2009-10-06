@@ -1,3 +1,11 @@
+2009-10-06  ARAKI Yasuhiro  <ar@debian.org>
+
+	* test/functional/author_controller_test.rb (AuthorControllerTest#test_manage_article): Change to apply for modifing articles.yml.
+
+	* test/fixtures/{enrollments,categories,articles,dona_cas}.yml: Add to nested categories test.
+
+	* app/controllers/notes_controller.rb (NotesController#show_category_core): Fix to hide duplicate articles.
+
 2009-07-31  ARAKI Yasuhiro  <ar@debian.org>
 
 	* (pre) release to apply JRuby1.3.1.

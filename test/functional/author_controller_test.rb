@@ -99,7 +99,7 @@ class AuthorControllerTest < ActionController::TestCase
   def test_manage_article
     @request.session["author"] = 'ok'
     post :manage_article, nil, nil, {:author_name => 'araki'}
-    assert_match "4 sendmail", @response.body
+    assert_match "old", @response.body
 
     post :manage_article, {:nohidden => '1'}, nil, {:author_name => 'araki'}
     assert_no_match /4 sendmail/, @response.body

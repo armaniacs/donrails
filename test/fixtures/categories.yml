@@ -9,3 +9,15 @@ another:
   parent_id: 1
   description: child of misc
 
+categoryIreko:
+  id: 60
+  name: Ireko60
+  description: root of Ireko
+
+<% for i in 61..69 %>
+categoryIreko<%= i %>:
+  id: <%= i %>
+  name: Ireko<%= i %>
+  parent_id: 60
+  description: child of Ireko
+<% end %>

@@ -449,7 +449,7 @@ class NotesController < ApplicationController
         end
 
         @articles = 
-          Article.paginate_by_sql(["SELECT articles.* FROM articles 
+          Article.paginate_by_sql(["SELECT DISTINCT articles.* FROM articles 
 JOIN dona_cas 
   ON (dona_cas.article_id=articles.id AND (#{ccs_string})) 
 WHERE articles.hidden IS NULL OR articles.hidden = 0 ORDER BY articles.id DESC"],
