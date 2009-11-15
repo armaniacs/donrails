@@ -17,6 +17,7 @@ class NotesController < ApplicationController
     :recent_category_title_a, :recent_trigger_title_a, :category_select_a,
     :category_tree_list_a
   ]
+  skip_before_filter :verify_authenticity_token ,:only=>[:afterday, :search]
 
   cache_sweeper :article_sweeper, :only => [:add_comment2, :trackback]
 
