@@ -1,4 +1,4 @@
-<% if flash[:notice] %><div class="notice"> <%= flash[:notice] %></div><% end %>
+<% if flash[:notice] %><div class="notice"> <%= flash[:notice] %></div><% flash.discard %><% end %>
 <% if @ymd3 && @ymd4 %><div class="ymd34">From <%= @ymd3 %> to <%= @ymd4 %></div><% end %>
 
 <% article = don_get_object(@enrollment.articles.first, 'html') %>

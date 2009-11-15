@@ -163,7 +163,6 @@ class NotesController < ApplicationController
   def noteslist
     minTime = nil
     flash.keep if flash[:notice]
-
     @articles = Article.paginate(:page => params[:page], :order => 'article_date DESC, id DESC', :conditions => ["hidden IS NULL OR hidden = 0"], :per_page => 10)
 
     unless @articles.empty?

@@ -2,6 +2,7 @@
 <div class="notice">
   <%=h flash[:notice] %>
 </div> <!-- end notice -->
+<% flash.discard %>
 <% end %>
 
 <% if @ymd3 && @ymd4 %>
