@@ -1,3 +1,8 @@
+2010-06-27  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/controllers/notes_controller.rb (NotesController#show_nnen): Change from last_year to prev_year. (for rails3)
+	(NotesController#show_nnen): Fix to show older than 10 years.
+
 2009-10-06  ARAKI Yasuhiro  <ar@debian.org>
 
 	* test/functional/author_controller_test.rb (AuthorControllerTest#test_manage_article): Change to apply for modifing articles.yml.

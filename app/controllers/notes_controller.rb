@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-## TODO: migrate classic_pagination to will_pagenate
 
 require 'kconv'
 class NotesController < ApplicationController
@@ -316,8 +315,8 @@ class NotesController < ApplicationController
     t3 = t2
     @articles = Article.find(:all, :order => "id DESC", :conditions => ["article_date >= ? AND article_date < ? AND (articles.hidden IS NULL OR articles.hidden = 0)", t2, t2.tomorrow])
 
-    for i in 1..10
-      t2 = t2.last_year
+    for i in 1..100
+      t2 = t2.prev_year
       i += 1
       @articles += Article.find(:all, :order => "id DESC", :conditions => ["article_date >= ? AND article_date < ? AND (articles.hidden IS NULL OR articles.hidden = 0)", t2, t2.tomorrow])
     end
