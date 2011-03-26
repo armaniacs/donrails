@@ -20,7 +20,11 @@ class Comment < ActiveRecord::Base
 
   def notify_by_mail
     if defined?(don_get_config.admin_mailadd) && !don_get_config.admin_mailadd.nil? && !don_get_config.admin_mailadd.empty? then
-      CommentMailer.deliver_notify(self)
+      begin
+        CommentMailer.deliver_notify(self)
+      rescue Exception => e
+        logger.error(e)
+      end
     end
   end
 

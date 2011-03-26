@@ -1,3 +1,5 @@
+require 'actionwebservice'
+
 class BackendController < ApplicationController
   cache_sweeper :article_sweeper
 ##  session :off ## comment in 2.3.2
@@ -10,5 +12,5 @@ class BackendController < ApplicationController
   web_service(:blogger)     { BloggerService.new(self) }
   web_service(:weblogUpdates) { DonWebService.new(self) }
 
-  alias xmlrpc api
+##  alias xmlrpc api
 end

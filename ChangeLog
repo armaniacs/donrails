@@ -1,3 +1,7 @@
+2011-03-26  ARAKI Yasuhiro  <ar@debian.org>
+
+	* app/models/comment.rb (Comment#notify_by_mail): ignore exception when MTA is not ready. Just logging.
+
 2010-06-27  ARAKI Yasuhiro  <ar@debian.org>
 
 	* app/controllers/notes_controller.rb (NotesController#show_nnen): Change from last_year to prev_year. (for rails3)

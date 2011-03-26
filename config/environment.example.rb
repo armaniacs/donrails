@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -20,18 +20,18 @@ class Rails::Configuration
   attr_accessor :action_web_service
 end
 
-Rails::Initializer.run do |config|
-  config.gem "packet"
-  config.gem "actionwebservice"
-  config.gem "hpricot"
-  config.gem "mislav-will_paginate", :lib=>"will_paginate"
-  if RUBY_PLATFORM =~ /java/
-    config.gem "libxml-jruby", :lib=>"xml/libxml"    
-  else
-    config.gem "libxml-ruby", :lib=>"xml/libxml"    
-    config.gem "libxml-xmlrpc", :lib=>"xmlrpc/client"
-  end
+gem "packet"
+gem "actionwebservice"
+gem "hpricot"
+gem "mislav-will_paginate", :require_as=>"will_paginate"
+if RUBY_PLATFORM =~ /java/
+   gem "libxml-jruby", :require_as=>"xml/libxml"    
+else
+   gem "libxml-ruby", :require_as=>"xml/libxml"    
+   gem "libxml-xmlrpc", :require_as=>"xmlrpc/client"
+end
 
+Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
   
   # Skip frameworks you're not going to use (only works if using vendor/rails)
@@ -71,11 +71,10 @@ Rails::Initializer.run do |config|
   # Make Active Record use UTC-base instead of local time
   config.active_record.default_timezone = :utc
   config.action_controller.session = {
-    :session_key => '_hoetest_session',
+    :key => '_hoetest_session',
     :secret      => 'b336c91a16492d1daf3f723bb934ebcad317a85097f647e1b49181889b430c2a593d180638d87470f80448600c971a97db447caf188aa28a00d3e5b3b347ca4a'
   }
 
-  
   # See Rails::Configuration for more options
 end
 
